@@ -81,6 +81,11 @@ Verified against `comfy_extras/nodes_minimax_h3.py`, not guessed.
   `non_diegetic_music`. Internal cuts are written `At 00:0X.XXX, cut to
   [Shot N]`; the first shot carries no timestamp. Dialogue stays verbatim in its
   original language. Concrete physical detail — never "cinematic", "epic".
+- **English descriptions, verbatim lyrics.** Every title, summary and shot
+  description is written in English however the screenplay was written; H3
+  follows English shot language far more reliably. Lyrics and dialogue stay
+  verbatim in their own language. `mvkit build` warns when a description still
+  reads as German.
 - **Camera moves** are bracket commands (`[Push in]`, `[Pan left]`,
   `[Static shot]`, …), at most three simultaneously, and `[Push in]` is not
   `[Zoom in]`. There is no negative_prompt. See `templates/cameras/__GLOSSARY.txt`.
@@ -175,6 +180,11 @@ regenerate them, preserve that property; it is the point.
 
 The camera blocks come from `templates/cameras.txt` (or a song's own
 `_source/cameras.txt`), not from code. Add a `[v4]` block and it is generated.
+
+Because the action is reused byte-for-byte, it must not name a framing —
+"close-up" in the action contradicts the wide master. `mvkit build` lints for
+that too. Story staging (a focus rack, one character looming out of frame) is
+action, not framing, and stays.
 
 Where a scene is long enough it also carries an internal cut (`inner_cut_rel` in
 scenes.tsv) placing a **Shot 2 that is harvestable B-roll**, so a 10 s clip

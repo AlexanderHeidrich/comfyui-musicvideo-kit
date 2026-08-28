@@ -108,7 +108,9 @@ def main():
                 "%s\n--- THIS SCENE ---\n"
                 "duration: %s s\nlyric sung here: %s\nscreenplay: %s\n\n"
                 "Reply with ONLY a JSON object with the keys title, lyrics, shot1, "
-                "shot2. Keep the lyric verbatim in its original language."
+                "shot2. Write title, shot1 and shot2 in ENGLISH whatever language "
+                "the screenplay is in. Keep the lyric verbatim in its original "
+                "language - never translate it."
                 % (brief, style[:2000], bible[:2000],
                    ("\n--- STYLE REFERENCES ---\n%s\n" % examples[:1200]) if examples else "",
                    r["duration"], lyrics or "(instrumental)",

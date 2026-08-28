@@ -113,6 +113,27 @@ def first_sentences(text, k=2):
     return " ".join(bits[:k]).strip()
 
 
+GERMAN = set("der die das den dem des und oder nicht sich ist sind wird werden "
+             "auf mit von zu im in ein eine einen einem eines aus bei nach vor "
+             "man sie er es wie noch nur auch dann dass wir uns ihre seinen".split())
+
+
+FRAMING = re.compile(
+    r"\b(close ?-?ups?|close on|tight on|wide on|wide shot|medium shot|full shot|"
+    r"over[- ]the[- ]shoulder|over[- ]shoulder|front on|side on|top down|locked off|"
+    r"the camera|dolly|pan left|pan right|tilt up|tilt down|zoom|push in|pull out|"
+    r"bird'?s eye|worm'?s eye|dutch angle)\b", re.I)
+
+
+def non_english(text):
+    """crude: share of words that are German function words. English prose scores
+    ~0, screenplay German scores well over the threshold."""
+    words = re.findall(r"[a-zA-ZäöüÄÖÜß]+", text.lower())
+    if len(words) < 12:
+        return 0.0
+    return sum(1 for w in words if w in GERMAN) / float(len(words))
+
+
 def tc(s):
     s = float(s)
     return "%02d:%06.3f" % (int(s) // 60, s % 60)
@@ -272,8 +293,14 @@ def main():
     for r in rows:
         n = int(r["scene"]); c = content[r["scene"]]
         dst = os.path.join(song, "%02d_%s.mp3" % (n, slug(c["title"])))
-        for cand in (os.path.join(song, "scene_%02d.mp3" % n),
-                     os.path.join(song, "audio", "scene_%02d.mp3" % n)):
+        if os.path.exists(dst):
+            continue
+        cands = [os.path.join(song, "scene_%02d.mp3" % n),
+                 os.path.join(song, "audio", "scene_%02d.mp3" % n)]
+        # a renamed scene leaves its slice behind under the old slug
+        cands += sorted(os.path.join(song, f) for f in os.listdir(song)
+                        if re.match(r"^%02d_.*\.mp3$" % n, f))
+        for cand in cands:
             if os.path.exists(cand):
                 os.replace(cand, dst); renamed += 1; break
     adir = os.path.join(song, "audio")
@@ -312,6 +339,13 @@ def main():
     open(os.path.join(song, "__READ_ME.txt"), "w", encoding="utf-8",
          newline="\n").write("\n".join(readme))
 
+    framed = sorted({r["scene"] for r in rows
+                     for t in (content[r["scene"]].get("shot1"),
+                               content[r["scene"]].get("shot2"))
+                     if t and FRAMING.search(t)}, key=int)
+    foreign = [r["scene"] for r in rows
+               if non_english(" ".join(filter(None, (content[r["scene"]].get("shot1"),
+                                                     content[r["scene"]].get("shot2"))))) > 0.12]
     print("scenes      : %d" % len(rows))
     if from_screenplay:
         print("from drehbuch: %d scene(s) had no content.json entry and used the "
@@ -325,6 +359,16 @@ def main():
           % (len(batch), ", ".join("f%d-%s x%d" % b for b in batch[:4])
              + (" ..." if len(batch) > 4 else "")))
     print("dsl         : ALL_scenes.txt  (for the ComfyUI node)")
+    if foreign:
+        print("! %d scene(s) still read as German, not English shot language: %s"
+              % (len(foreign), ", ".join(foreign[:12]) + (" ..." if len(foreign) > 12 else "")))
+        print("  H3 follows English far better. Run `mvkit draft <song> --llm --force`,")
+        print("  or rewrite those entries in _source/content.json. Lyrics stay verbatim.")
+    if framed:
+        print("! %d scene(s) name a framing in the action: %s"
+              % (len(framed), ", ".join(framed[:12]) + (" ..." if len(framed) > 12 else "")))
+        print("  The action is reused by v1/v2/v3 verbatim, so a framing there")
+        print("  contradicts two of the three. Leave it to the camera block.")
     if refs and refs.get("warnings"):
         for w in refs["warnings"]:
             print("! refs: %s" % w)

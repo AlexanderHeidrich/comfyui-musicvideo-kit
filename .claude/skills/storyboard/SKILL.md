@@ -68,8 +68,18 @@ Edit only these, then re-run `./mvkit build <name>`:
 - `_source/tail.txt` - global audio and negatives.
 - `_source/content.json` - one entry per scene. `mvkit draft` seeds it from the
   screenplay; rewrite the entries into real shot language per
-  `templates/drafting.txt`. Put the REAL lyric in `lyrics`, verbatim, in its
-  original language.
+  `templates/drafting.txt`.
+  **Write every title and description in English**, whatever language the
+  screenplay and the user are in - H3 follows English shot language far more
+  reliably. The `lyrics` field is the exception: verbatim, in its original
+  language, never translated or tidied. So is any sung or spoken line quoted
+  inside a shot.
+  **Keep framing out of the action.** The camera block supplies it, and the same
+  action text is reused by v1/v2/v3 verbatim, so "close-up" in the action
+  contradicts two of the three. Staging that is part of the story - a focus
+  rack, one character looming - does belong there.
+  `mvkit build` warns about both: scenes that still read as German, and actions
+  that name a framing.
 
 For the camera work, pick a set rather than inventing one:
 `cp templates/cameras/rostrum-2d.txt templates/cameras.txt` (or drop it in the

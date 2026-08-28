@@ -212,6 +212,11 @@ three cameras - v1 wide master, v2 other angle, v3 close/detail. The ACTION text
 is byte-identical in all three; only the camera block differs. All three share
 the one `NN_...mp3`. Render two or three and cut between them inside the scene.
 
+Two consequences the build lints for: the action must not name a framing, or it
+contradicts two of the three variants; and descriptions are written in English
+whatever language the screenplay is in, because H3 follows English shot language
+far better. Lyrics and dialogue stay verbatim in their original language.
+
 Where the scene is long enough, it also carries an internal cut placing a
 **Shot 2 of harvestable B-roll**, snapped to a real ASR segment boundary so it
 never lands mid-word. `scenes.tsv` reports whether that snap succeeded.

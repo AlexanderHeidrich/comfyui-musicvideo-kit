@@ -6,22 +6,31 @@ One JSON object per scene, keyed by the scene number as a string:
 
   { "7": { "title": "...", "lyrics": "...", "shot1": "...", "shot2": "..." } }
 
-title    2-5 words, lower case, no punctuation. It becomes the filename.
-lyrics   the REAL lyric sung in this window, verbatim, original language.
-         Empty string for an instrumental scene. Never use the ASR text - it is
-         wrong on sung material and is only there for timing.
+title    2-5 words, lower case, no punctuation, ENGLISH. It becomes the filename.
+lyrics   the REAL lyric sung in this window, VERBATIM and in its original
+         language. Never translate, correct or tidy it. Empty string for an
+         instrumental scene. Never use the ASR text - it is wrong on sung
+         material and is only there for timing.
 shot1    the main shot: camera setup, then what happens, physically, in order.
 shot2    harvestable B-roll for the internal cut - an atmosphere or detail shot
          from the same location that stands on its own in the edit. Omit when
          the scene carries no internal cut.
 
 Rules
+  WRITE EVERY DESCRIPTION IN ENGLISH, whatever language the screenplay, the
+  lyrics or the user are in. H3 follows English shot language far more reliably.
+  The lyrics field is the one exception and stays verbatim in its own language,
+  as does any sung or spoken dialogue quoted inside a shot.
   Write what a camera sees. No mood words, no "cinematic", no "epic", no
   "beautiful", no camera brands, no film stocks.
   One action per sentence. Present tense.
   Keep the cast physically identical to the bible in every scene.
   Dialogue and lyrics stay in their original language, verbatim.
   If the scene came from a screenplay, its description is authoritative - do not
-  invent a different action. Translate it into physical shot language.
+  invent a different action. Translate it into English physical shot language.
+  Leave framing words out of the action. The camera block supplies the framing,
+  and the same action text is reused by every camera variant, so an action that
+  says "close-up" contradicts the wide master. Staging that is part of the story
+  - a focus rack, one character looming out of frame - does belong in it.
   Do not describe grain, tape damage, lens flare or any period artefact. Those
   are added in the grade afterwards.
