@@ -53,6 +53,48 @@ def parse_t(tok, fps):
     return sec
 
 
+# framing vocabulary as directors actually write it, German and English
+FRAMING_TERMS = [
+    (r"vogelperspektive|von oben|top ?down|draufsicht", "bird's eye, straight down"),
+    (r"drohnenflug|drohne|aerial", "aerial, travelling"),
+    (r"over.?shoulder|over the shoulder|ueber die schulter|über die schulter",
+     "over the shoulder"),
+    (r"frog.?perspektive|frog.?perspective|bodenebene|auf dem boden|grashoehe|"
+     r"grashöhe|wurmperspektive", "worm's eye, at ground level"),
+    (r"super ?closeup|super ?cut|staerkeres closeup|stärkeres closeup|"
+     r"extreme close", "extreme close-up"),
+    (r"closeup|close ?up|grossaufnahme|großaufnahme|nahaufnahme", "close-up"),
+    (r"halbtotale|medium ?shot", "medium wide"),
+    (r"totale|weitwinkel|wide ?shot", "wide"),
+    (r"frontalansicht|von vorne|frontal|front on", "front on, eye level"),
+    (r"seitenansicht|von der seite|seitlich|seitliche|profil|side on", "profile, side on"),
+    (r"von hinten|hinter dem|hinter der|from behind", "from behind"),
+    (r"standbild|freeze", "held freeze frame"),
+    (r"zoomt raus|zoom raus|zoom ?out|rausgezoomt", "zoom out"),
+    (r"zoom auf|zoom ?in|zoom", "zoom in"),
+    (r"dolly|kamerafahrt|mitfahrt|tracking", "tracking move"),
+    (r"kameradolly", "tracking move"),
+    (r"tiefenschaerfe|tiefenschärfe|fokus wechselt|langsamer fokus|rack focus",
+     "focus rack"),
+    (r"kamera bleibt|statisch|locked off|bleibt stehen", "locked off"),
+]
+
+
+def framing_of(text):
+    """-> the framing terms the screenplay actually asked for, in reading order"""
+    low = text.lower()
+    hits = []
+    for pat, label in FRAMING_TERMS:
+        m = re.search(pat, low)
+        if m:
+            hits.append((m.start(), label))
+    out = []
+    for _, label in sorted(hits):
+        if label not in out:
+            out.append(label)
+    return ", ".join(out)
+
+
 def read_drehbuch(path, fps_override=None):
     """-> (fps, [scene]) where scene = (start_s, end_s, title, lyrics, description)
 
@@ -112,7 +154,7 @@ def read_drehbuch(path, fps_override=None):
         desc = re.sub(r"\s{2,}", " ", desc).strip(" .")
         title = lyrics or desc
         title = " ".join(title.split()[:5])
-        out.append((st, en, title, lyrics, desc))
+        out.append((st, en, title, lyrics, desc, framing_of(text)))
     out.sort()
     return fps, out
 
@@ -134,6 +176,7 @@ def merge_short(scenes, min_s):
             cur["lyrics"] = " / ".join(x for x in (cur["lyrics"], sc["lyrics"]) if x)
             cur["desc"] = (cur["desc"] + " || " + sc["desc"]).strip(" |")
             cur["title"] = cur["title"] or sc["title"]
+            cur["framing"] = cur.get("framing") or sc.get("framing", "")
         else:
             if cur is not None:
                 out.append(cur)
@@ -146,6 +189,7 @@ def merge_short(scenes, min_s):
             out[-1]["en"] = max(out[-1]["en"], cur["en"])
             out[-1]["desc"] = (out[-1]["desc"] + " || " + cur["desc"]).strip(" |")
             out[-1]["lyrics"] = " / ".join(x for x in (out[-1]["lyrics"], cur["lyrics"]) if x)
+            out[-1]["framing"] = out[-1].get("framing") or cur.get("framing", "")
         else:
             out.append(cur)
     return out, notes
@@ -200,7 +244,8 @@ def main():
         print("drehbuch: %d scenes, frame numbers read at %g fps (H3 renders at %d fps)"
               % (len(parsed), fps, FPS))
         scenes = [{"st": st, "en": en, "title": ti, "lyrics": ly, "desc": de,
-                   "cut_hint": None} for st, en, ti, ly, de in parsed]
+                   "framing": fr, "cut_hint": None}
+                  for st, en, ti, ly, de, fr in parsed]
         pre = [sc for sc in scenes if sc["en"] <= 0.02]
         if pre:
             warn.append("%d scene(s) end at or before 0.0s (Vorspann, no music yet) - "
@@ -236,6 +281,7 @@ def main():
                              "drift": round(d - want_p, 3),
                              "title": (sc["title"] + tag).strip(),
                              "screenplay": sc["desc"], "lyrics_dreh": sc["lyrics"],
+                             "framing": sc.get("framing", ""),
                              "cut_hint": sc["cut_hint"] if not tag else None})
         if pads:
             warn.append("%d scene(s) were shorter than H3's %.2fs minimum - padded, so "
@@ -292,13 +338,14 @@ def main():
 
     with open(a.out, "w", encoding="utf-8") as fh:
         fh.write("scene\tstart\tend\tframes\tduration\tinner_cut_rel\tcut_on_boundary"
-                 "\tlyrics_asr\ttitle\tlyrics_screenplay\tscreenplay\n")
+                 "\tlyrics_asr\ttitle\tlyrics_screenplay\tframing\tscreenplay\n")
         for r in rows:
-            fh.write("%d\t%.3f\t%.3f\t%d\t%.4f\t%.3f\t%s\t%s\t%s\t%s\t%s\n" %
+            fh.write("%d\t%.3f\t%.3f\t%d\t%.4f\t%.3f\t%s\t%s\t%s\t%s\t%s\t%s\n" %
                      (r["scene"], r["start"], r["end"], r["frames"], r["dur"],
                       r["cut_rel"], "yes" if r["cut_snapped"] else "no", r["lyrics"],
                       r.get("title", "").replace("\t", " "),
                       r.get("lyrics_dreh", "").replace("\t", " "),
+                      r.get("framing", "").replace("\t", " "),
                       r.get("screenplay", "").replace("\t", " ")))
 
     print("scenes            : %d" % len(rows))

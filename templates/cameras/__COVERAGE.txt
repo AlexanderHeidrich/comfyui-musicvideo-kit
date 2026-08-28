@@ -1,0 +1,66 @@
+How to choose the three cameras for a scene.
+
+v1 IS THE DIRECTOR'S SHOT
+  If the screenplay says anything about framing, v1 says it too. Full stop.
+  `mvkit scenes` pulls those words out of the Drehbuch into the `framing` column
+  of scenes.tsv - "bird's eye, straight down", "over the shoulder", "worm's eye,
+  at ground level" - and `mvkit build` warns when a scene has a framing there
+  that v1 does not use. Do not improve on it, do not average it into something
+  safer. It is the one shot that was actually asked for.
+
+v2 AND V3 ARE COVERAGE
+  They exist so the scene can be cut, and so a failed generation is not a dead
+  scene. Standard practice: never repeat v1's shot size, cross the axis rather
+  than nudge it, and give at least one of them something the master cannot hold.
+
+  Pick them from what v1 is:
+
+  v1 close-up / extreme close-up
+    v2  the wide that establishes where this is happening and who else is there
+    v3  the reverse - what the subject is looking at, or the other character's
+        matching close
+
+  v1 wide / totale
+    v2  medium on whoever carries the beat, waist or chest up
+    v3  the insert: the single object or point of contact the wide cannot show
+
+  v1 over the shoulder
+    v2  the answering over-the-shoulder from the other side of the pair
+    v3  a clean single - the same character without the foreground shoulder
+
+  v1 bird's eye / top down
+    v2  eye level and wide, so the space reads as a place and not a diagram
+    v3  close on the detail the overhead view flattened away
+
+  v1 worm's eye / ground level
+    v2  the opposite - high and looking down, which inverts who has the power
+    v3  close on the point of contact with the ground
+
+  v1 profile / side on
+    v2  three-quarter front, which is where faces read best
+    v3  extreme close on one feature
+
+  v1 a moving shot
+    v2  the same action locked off, as the safety
+    v3  close on what the move was travelling toward
+
+RULES THAT APPLY TO ALL THREE
+  One dominant camera move per variant, written as an H3 bracket command.
+  [Push in] is not [Zoom in]. Do not mix pan with truck or tilt with pedestal.
+  See __GLOSSARY.txt for the vocabulary and __README.txt for H3's limits.
+
+  Do not put the framing in the action text. The action is reused byte-for-byte
+  by every variant, so a "close-up" written there contradicts two of the three.
+  The camera block is the only place framing belongs.
+
+WHERE THEY LIVE
+  Per scene, in content.json:
+
+    "5": { "title": "...", "lyrics": "...", "shot1": "...",
+           "cameras": { "v1": "[Static shot] Close on ...",
+                        "v2": "[Static shot] Wide, eye level ...",
+                        "v3": "[Push in] ..." } }
+
+  A scene with no `cameras` key falls back to templates/cameras.txt, which is
+  the generic wide/angle/detail set. That fallback is fine for a song with no
+  screenplay; it is not fine for one that has one.

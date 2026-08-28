@@ -1,3 +1,7 @@
+These are the FALLBACK sets, used by any scene that does not carry its own
+cameras. A song with a screenplay should not rely on them: v1 belongs to the
+director. See __COVERAGE.txt.
+
 Camera sets you can pick from. Each file is a drop-in replacement for
 templates/cameras.txt:
 

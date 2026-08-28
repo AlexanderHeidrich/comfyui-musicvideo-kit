@@ -12,6 +12,10 @@ lyrics   the REAL lyric sung in this window, VERBATIM and in its original
          instrumental scene. Never use the ASR text - it is wrong on sung
          material and is only there for timing.
 shot1    the main shot: camera setup, then what happens, physically, in order.
+cameras  optional {"v1": ..., "v2": ..., "v3": ...}. v1 restates the framing the
+         screenplay asked for - scenes.tsv has it in the `framing` column - and
+         v2/v3 cover it by film-theory practice. Omit the key and the scene falls
+         back to templates/cameras.txt. See templates/cameras/__COVERAGE.txt.
 shot2    harvestable B-roll for the internal cut - an atmosphere or detail shot
          from the same location that stands on its own in the edit. Omit when
          the scene carries no internal cut.

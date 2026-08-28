@@ -178,8 +178,18 @@ can be cut together inside one scene, and all three share the single
 `NN_slug.mp3`. There is no separate base file — v1 is the master. If you
 regenerate them, preserve that property; it is the point.
 
-The camera blocks come from `templates/cameras.txt` (or a song's own
-`_source/cameras.txt`), not from code. Add a `[v4]` block and it is generated.
+**v1 is the director's shot.** Whatever framing the screenplay states is what v1
+does - `mvkit scenes` extracts it into the `framing` column of scenes.tsv, and
+`mvkit build` warns when a scene has one that v1 ignores. v2 and v3 are coverage
+chosen by film-theory practice (never repeat v1's size, cross the axis, give one
+of them something the master cannot hold); `templates/cameras/__COVERAGE.txt` has
+the table.
+
+Cameras live per scene in `content.json` under `"cameras": {"v1": ..., "v2": ...,
+"v3": ...}`. A scene without that key falls back to `templates/cameras.txt` (or a
+song's own `_source/cameras.txt`), which is the generic wide/angle/detail set -
+fine for a song with no screenplay, not fine for one that has one. Add a `[v4]`
+block or a `v4` key and it is generated too.
 
 Because the action is reused byte-for-byte, it must not name a framing —
 "close-up" in the action contradicts the wide master. `mvkit build` lints for

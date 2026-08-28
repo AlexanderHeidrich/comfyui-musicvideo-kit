@@ -81,9 +81,27 @@ Edit only these, then re-run `./mvkit build <name>`:
   `mvkit build` warns about both: scenes that still read as German, and actions
   that name a framing.
 
-For the camera work, pick a set rather than inventing one:
-`cp templates/cameras/rostrum-2d.txt templates/cameras.txt` (or drop it in the
-song's `_source/cameras.txt` to keep it local to one song).
+### Cameras
+
+**v1 is the director's shot, not yours.** If the screenplay states a framing,
+v1 restates it. `scenes.tsv` carries what was asked for in its `framing` column;
+`mvkit build` warns about any scene where v1 ignores it. Write the three per
+scene in `content.json`:
+
+```json
+"cameras": {"v1": "[Static shot] Over the frog's shoulder, at the waterline ...",
+            "v2": "[Static shot] The answering angle from ahead of him ...",
+            "v3": "[Static shot] Close on his face just above the water ..."}
+```
+
+v2 and v3 are yours: coverage by film-theory practice - never repeat v1's shot
+size, cross the axis rather than nudge it, and let one of them carry what the
+master cannot. `templates/cameras/__COVERAGE.txt` has the table per v1 type, and
+`__GLOSSARY.txt` the vocabulary and H3's bracket commands.
+
+For a song with no screenplay, a whole-film set is enough:
+`cp templates/cameras/rostrum-2d.txt templates/cameras.txt` (or into the song's
+`_source/cameras.txt` to keep it local).
 
 ## 4. Hand over
 

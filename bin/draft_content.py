@@ -28,6 +28,52 @@ def read(*parts):
     return strip_comments(open(p, encoding="utf-8").read()) if os.path.isfile(p) else ""
 
 
+# v1 restates the screenplay's framing; v2/v3 are coverage, per
+# templates/cameras/__COVERAGE.txt
+COVER = {
+ "bird":   ("Wide and at eye level, so the space reads as a place rather than a diagram.",
+            "Close on the detail the overhead view flattened away."),
+ "worm":   ("High and looking down on the same action, which inverts who has the power.",
+            "Close on the point of contact with the ground."),
+ "ots":    ("The answering over-the-shoulder from the other side of the pair.",
+            "A clean single on the same character, without the foreground shoulder."),
+ "xcu":    ("The wide that establishes where this happens and who else is present.",
+            "The reverse - what the subject is looking at."),
+ "cu":     ("The wide that establishes where this happens and who else is present.",
+            "The reverse - what the subject is looking at."),
+ "wide":   ("Medium on whoever carries the beat, chest up.",
+            "The insert: the single object or point of contact the wide cannot show."),
+ "mw":     ("Wide, so the whole location reads at once.",
+            "Close on the single most specific thing in the action."),
+ "profile":("Three-quarter front, where the face reads best.",
+            "Extreme close on one feature."),
+ "front":  ("Profile, dead side on, the background compressed behind.",
+            "Extreme close on one feature."),
+ "behind": ("Front on, so the face carries the beat instead of the back.",
+            "Close on the detail the rear view hides."),
+}
+TYPES = [("bird's eye", "bird"), ("worm's eye", "worm"), ("over the shoulder", "ots"),
+         ("extreme close-up", "xcu"), ("close-up", "cu"), ("medium wide", "mw"),
+         ("wide", "wide"), ("profile", "profile"), ("front on", "front"),
+         ("from behind", "behind")]
+MOVES = [("tracking move", "[Tracking shot]"), ("zoom out", "[Zoom out]"),
+         ("zoom in", "[Zoom in]"), ("aerial", "[Tracking shot]")]
+
+
+def cameras_from_framing(framing):
+    """-> {v1, v2, v3} honouring the director's framing, or {} when none was given"""
+    if not framing.strip():
+        return {}
+    low = framing.lower()
+    kind = next((k for term, k in TYPES if term in low), None)
+    move = next((m for term, m in MOVES if term in low), "[Static shot]")
+    v2, v3 = COVER.get(kind, ("Wide, so the whole location reads at once.",
+                              "Close on the single most specific thing in the action."))
+    return {"v1": "%s %s, as the screenplay asks for." % (move, framing[0].upper() + framing[1:]),
+            "v2": "[Static shot] " + v2,
+            "v3": "[Static shot] " + v3}
+
+
 def timed_lyrics(path):
     """[mm:ss] prefixed lines -> [(seconds, text)]; unprefixed lines are ignored
     for alignment because there is no way to place them."""
@@ -101,12 +147,16 @@ def main():
                  "lyrics": lyrics,
                  "shot1": desc[0].strip(),
                  "shot2": " ".join(desc[1:]).strip()}
+        cams = cameras_from_framing(r.get("framing") or "")
+        if cams:
+            entry["cameras"] = cams
 
         if a.llm:
             prompt = (
                 "%s\n\n--- LOOK ---\n%s\n\n--- CAST AND WORLD ---\n%s\n"
                 "%s\n--- THIS SCENE ---\n"
-                "duration: %s s\nlyric sung here: %s\nscreenplay: %s\n\n"
+                "duration: %s s\nlyric sung here: %s\nscreenplay: %s\n"
+                "framing the director asked for: %s\n\n"
                 "Reply with ONLY a JSON object with the keys title, lyrics, shot1, "
                 "shot2. Write title, shot1 and shot2 in ENGLISH whatever language "
                 "the screenplay is in. Keep the lyric verbatim in its original "
@@ -114,7 +164,8 @@ def main():
                 % (brief, style[:2000], bible[:2000],
                    ("\n--- STYLE REFERENCES ---\n%s\n" % examples[:1200]) if examples else "",
                    r["duration"], lyrics or "(instrumental)",
-                   " || ".join(desc) or "(not given)"))
+                   " || ".join(desc) or "(not given)",
+                   r.get("framing") or "(none)"))
             try:
                 got = parse_json_block(ask(prompt, a.model, a.url))
                 for k in ("title", "lyrics", "shot1", "shot2"):

@@ -208,7 +208,12 @@ ComfyUI storyboard node reads. The per-scene files carry no markup at all.
 ## What is in a scene
 
 `NN_..-v1/-v2/-v3.txt` are **coverage, not alternatives**: the same action from
-three cameras - v1 wide master, v2 other angle, v3 close/detail. The ACTION text
+three cameras. **v1 is whatever the screenplay asked for** - `mvkit scenes`
+pulls the framing out of the Drehbuch and the build warns if v1 ignores it - and
+v2/v3 cover it by film-theory practice (never repeat v1's size, cross the axis,
+let one carry what the master cannot). See
+[templates/cameras/__COVERAGE.txt](templates/cameras/__COVERAGE.txt).
+Without a screenplay it falls back to a generic wide / angle / detail set. The ACTION text
 is byte-identical in all three; only the camera block differs. All three share
 the one `NN_...mp3`. Render two or three and cut between them inside the scene.
 

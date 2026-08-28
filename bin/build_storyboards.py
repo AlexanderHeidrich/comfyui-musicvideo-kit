@@ -249,6 +249,7 @@ def main():
             os.remove(os.path.join(song, f))
     shutil.rmtree(os.path.join(song, "variants"), ignore_errors=True)
 
+    per_scene_cams = 0
     dsl = ["# %s - all %d scenes in one file, in the storyboard DSL.\n"
            "# This is the ComfyUI node's batch input. The NN_*.txt files beside it\n"
            "# are the same material as finished H3 prompts, for pasting by hand.\n"
@@ -265,19 +266,27 @@ def main():
         action = action_of(c, cut)
         sl = slug(c["title"])
 
-        for tag in sorted(CAM):
-            label, cam = CAM[tag]
+        # a scene may carry its own cameras: v1 is the screenplay's framing, the
+        # rest is coverage. Anything it does not define falls back to the template.
+        own = c.get("cameras") or {}
+        tags = sorted(set(CAM) | set(own))
+        for tag in tags:
+            cam = (own.get(tag) or "").strip() or (CAM[tag][1] if tag in CAM else "")
+            if not cam:
+                continue
             open(os.path.join(song, "%02d_%s-%s.txt" % (n, sl, tag)),
                  "w", encoding="utf-8", newline="\n").write(
                 prompt_for(c, cam, action, bible, style, sound, music, rlines))
             n_var += 1
+        if own:
+            per_scene_cams += 1
 
         dsl.append("\n@SCENE %s-%s | %s\n%s"
                    % (tc(r["start"]), tc(r["end"]), c["title"], action))
         manifest.append([
             "%02d" % n, tc(r["start"]), tc(r["end"]), r["frames"], "%.4f" % dur,
             "%.3f" % cut if cut else "-", "%02d_%s.mp3" % (n, sl),
-            " ".join("%02d_%s-%s.txt" % (n, sl, t) for t in sorted(CAM)),
+            " ".join("%02d_%s-%s.txt" % (n, sl, t) for t in tags),
             c["lyrics"] or "(instrumental)"])
 
     dsl.append("\n@TAIL\n" + tail + "\n")
@@ -352,8 +361,9 @@ def main():
               "screenplay text" % from_screenplay)
     if renamed:
         print("audio pairs : %d slices renamed to match their prompt" % renamed)
-    print("prompts     : %d  (%d camera setups per scene, six sections each)"
-          % (n_var, len(CAM)))
+    print("prompts     : %d  (six sections each)" % n_var)
+    print("cameras     : %d scene(s) carry their own, %d fall back to the template"
+          % (per_scene_cams, len(rows) - per_scene_cams))
     print("manifest    : __SCENES.tsv")
     print("batch lists : __batch/  (%d groups: %s)"
           % (len(batch), ", ".join("f%d-%s x%d" % b for b in batch[:4])
@@ -364,6 +374,15 @@ def main():
               % (len(foreign), ", ".join(foreign[:12]) + (" ..." if len(foreign) > 12 else "")))
         print("  H3 follows English far better. Run `mvkit draft <song> --llm --force`,")
         print("  or rewrite those entries in _source/content.json. Lyrics stay verbatim.")
+    ignored = [r["scene"] for r in rows
+               if (r.get("framing") or "").strip()
+               and not ((content[r["scene"]].get("cameras") or {}).get("v1") or "").strip()]
+    if ignored:
+        print("! %d scene(s) have a framing in the screenplay that v1 does not use: %s"
+              % (len(ignored), ", ".join(ignored[:12])
+                 + (" ..." if len(ignored) > 12 else "")))
+        print("  v1 is meant to be the director's shot. Put it in content.json as")
+        print("  \"cameras\": {\"v1\": \"...\"} - see templates/cameras/__COVERAGE.txt.")
     if framed:
         print("! %d scene(s) name a framing in the action: %s"
               % (len(framed), ", ".join(framed[:12]) + (" ..." if len(framed) > 12 else "")))
