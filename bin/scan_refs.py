@@ -29,7 +29,8 @@ def scan(song):
     refs = os.path.join(song, "_source", "refs")
     images, videos, skipped = [], [], []
     for f in sorted(os.listdir(refs)) if os.path.isdir(refs) else []:
-        if f.startswith(".") or os.path.isdir(os.path.join(refs, f)):
+        # __*.txt are this folder's own notes, not references
+        if f.startswith((".", "__")) or os.path.isdir(os.path.join(refs, f)):
             continue
         stem, ext = os.path.splitext(f)
         m = NAME.match(stem)
