@@ -113,6 +113,25 @@ numbers — H3 still renders at 24.
 FlateDecode + ToUnicode CMaps, headings detected by font size and turned into
 separator rules). Scanned PDFs have no text layer and come back empty.
 
+## Continuity
+
+`First Frame <> Last Frame` in a screenplay marks one unbroken camera setup.
+`fuse_holds()` in make_scenes joins a run of held, touching scenes into a single
+generation when the total still fits the grid, with an internal cut at each join;
+otherwise the later parts get `chain` in the `continuity` column and must be
+rendered in order off the previous clip's last frame. `hold` alone only means the
+shot begins and ends on the same framing - it does not imply continuation, and
+the phrase list that does imply it is deliberately narrow ("Kamera bleibt
+statisch" is a locked-off camera, not a continuation).
+
+A scene can carry more than two shots: `content.json` takes `shot1`, `shot2`,
+`shot3`, ... and `scenes.tsv` an `inner_cuts` list, one timestamp per join.
+
+`mvkit shotlist` writes the reference plan from bible + style: which images are
+worth making, ranked by how many scenes each character is in, with generation
+prompts. It flags entries that derive a character from a `<Picture n>` that does
+not exist yet.
+
 ## Gotchas that will bite you
 
 **macOS TCC.** This process often cannot read pre-existing files in

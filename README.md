@@ -60,6 +60,11 @@ songs/federphibien/_source/
 
 ### 2. Drop in the screenplay and the references
 
+Not sure which references to make? `./mvkit shotlist <song>` reads the bible and
+the style and writes `_source/refs/__SHOTLIST.txt`: which images are worth
+generating for this song, ranked by how many scenes each character is actually
+in, with a ready-to-paste prompt for each built from the film's own style block.
+
 ```bash
 cp ~/Downloads/Federphibien.pdf songs/federphibien/_source/
 cp ~/art/federphibium.png       songs/federphibien/_source/refs/01_char_federphibium.png
@@ -187,6 +192,16 @@ Ask for 5.20 s and you get 5.875 s.
   and the clip are the same length by construction.
 
 ---
+
+## Continuity when there are no reference images
+
+`First Frame <> Last Frame` in the screenplay means one unbroken camera setup.
+`mvkit scenes` finds those runs and, when a run fits inside a single generation,
+fuses it into one scene with internal cuts instead of several overlapping ones -
+on Federphibien three held scenes totalling 8.96 s became one 9.42 s render.
+What cannot be fused is reported in `__READ_ME.txt` as a chain: render those in
+order and feed the previous clip's last frame in as the next one's first frame.
+`__SCENES.tsv` carries it in a `continuity` column (`hold`, `chain`).
 
 ## What a finished song folder holds
 

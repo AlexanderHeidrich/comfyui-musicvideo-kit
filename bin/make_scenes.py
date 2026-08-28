@@ -80,6 +80,17 @@ FRAMING_TERMS = [
 ]
 
 
+HOLD = re.compile(r"first\s*(?:frame)?\s*<>\s*last", re.I)
+# only phrases that actually say "same setup as the shot before" - "Kamera bleibt
+# statisch" is a locked-off camera, not a continuation, and a bare "erneut" is
+# usually the character doing something again
+CONTINUES = re.compile(r"gleiche einstellung|szene bleibt so|kamera bleibt so"
+                       r"|weiterhin gleich|gleicher ausschnitt|gleiche ansicht"
+                       r"|ansicht erneut|einstellung erneut|wieder die gleiche"
+                       r"|von der vorherigen position|fokus wechselt"
+                       r"|same setup|unchanged|continues the", re.I)
+
+
 def framing_of(text):
     """-> the framing terms the screenplay actually asked for, in reading order"""
     low = text.lower()
@@ -154,9 +165,44 @@ def read_drehbuch(path, fps_override=None):
         desc = re.sub(r"\s{2,}", " ", desc).strip(" .")
         title = lyrics or desc
         title = " ".join(title.split()[:5])
-        out.append((st, en, title, lyrics, desc, framing_of(text)))
+        out.append((st, en, title, lyrics, desc, framing_of(text),
+                    bool(HOLD.search(text)), bool(CONTINUES.search(text))))
     out.sort()
     return fps, out
+
+
+def fuse_holds(scenes, max_s):
+    """`First Frame <> Last Frame` on consecutive, touching scenes means one
+    unbroken camera setup. If the run fits inside a single generation it becomes
+    one scene with internal cuts at the joins; if it does not, each part after
+    the first has to start on the previous clip's last frame."""
+    out, notes, i = [], [], 0
+    while i < len(scenes):
+        sc = dict(scenes[i])
+        j = i + 1
+        while (sc["hold"] and j < len(scenes) and scenes[j]["hold"]
+               and abs(scenes[j]["st"] - scenes[j - 1]["en"]) < 0.05
+               and (scenes[j]["en"] - sc["st"]) <= max_s):
+            nxt = scenes[j]
+            sc["cuts"].append(round(nxt["st"] - sc["st"], 3))
+            sc["shots"].append(nxt["desc"])
+            sc["en"] = nxt["en"]
+            sc["lyrics"] = " / ".join(x for x in (sc["lyrics"], nxt["lyrics"]) if x)
+            sc["desc"] = (sc["desc"] + " || " + nxt["desc"]).strip(" |")
+            sc["framing"] = sc["framing"] or nxt["framing"]
+            j += 1
+        if j > i + 1:
+            notes.append("scenes at %.2fs..%.2fs are one held setup (%.2fs) - fused into "
+                         "one generation with %d internal cut(s)"
+                         % (scenes[i]["st"], sc["en"], sc["en"] - sc["st"], len(sc["cuts"])))
+        out.append(sc)
+        i = j
+    # what is left held and touching its predecessor has to chain off its last frame
+    for k, sc in enumerate(out):
+        # a hold marker means the shot loops, not that it continues the one before
+        sc["chain"] = bool(k and sc["cont"]
+                           and abs(sc["st"] - out[k - 1]["en"]) < 0.05)
+    return out, notes
 
 
 def merge_short(scenes, min_s):
@@ -244,8 +290,9 @@ def main():
         print("drehbuch: %d scenes, frame numbers read at %g fps (H3 renders at %d fps)"
               % (len(parsed), fps, FPS))
         scenes = [{"st": st, "en": en, "title": ti, "lyrics": ly, "desc": de,
-                   "framing": fr, "cut_hint": None}
-                  for st, en, ti, ly, de, fr in parsed]
+                   "framing": fr, "hold": ho, "cont": co, "cut_hint": None,
+                   "cuts": [], "shots": [de]}
+                  for st, en, ti, ly, de, fr, ho, co in parsed]
         pre = [sc for sc in scenes if sc["en"] <= 0.02]
         if pre:
             warn.append("%d scene(s) end at or before 0.0s (Vorspann, no music yet) - "
@@ -253,6 +300,8 @@ def main():
         scenes = [sc for sc in scenes if sc["en"] > 0.02]
         for sc in scenes:
             sc["st"] = max(0.0, sc["st"])
+        scenes, held_notes = fuse_holds(scenes, MAX_S)
+        warn.extend(held_notes)
         if a.merge_short:
             scenes, notes = merge_short(scenes, MIN_S)
             warn.extend(notes)
@@ -282,6 +331,10 @@ def main():
                              "title": (sc["title"] + tag).strip(),
                              "screenplay": sc["desc"], "lyrics_dreh": sc["lyrics"],
                              "framing": sc.get("framing", ""),
+                             "hold": sc.get("hold", False),
+                             "chain": sc.get("chain", False) and not tag,
+                             "fused_cuts": sc.get("cuts", []) if not tag else [],
+                             "shots": sc.get("shots", []) if not tag else [],
                              "cut_hint": sc["cut_hint"] if not tag else None})
         if pads:
             warn.append("%d scene(s) were shorter than H3's %.2fs minimum - padded, so "
@@ -323,9 +376,13 @@ def main():
     bounds = sorted({round(x, 3) for s_ in segs for x in (s_["start"], s_["end"])})
     for r in rows:
         r["lyrics"] = lyrics_for(segs, r["start"], r["end"]).replace("\t", " ")
+        if r.get("fused_cuts"):
+            r["cuts"] = list(r["fused_cuts"])
+            r["cut_rel"], r["cut_snapped"] = r["cuts"][0], True
+            continue
         # a scene too short to hold two shots gets no internal cut at all
         if r["dur"] < a.inner_cut + 2.5:
-            r["cut_rel"], r["cut_snapped"] = 0.0, False
+            r["cut_rel"], r["cut_snapped"], r["cuts"] = 0.0, False, []
             continue
         lo, hi = r["start"] + 3.0, r["end"] - 2.5
         # a scene built from two merged scenes cuts where the second one starts
@@ -335,17 +392,22 @@ def main():
         r["cut"] = round(min(cand, key=lambda b: abs(b - target)) if cand else target, 3)
         r["cut_rel"] = round(r["cut"] - r["start"], 3)
         r["cut_snapped"] = bool(cand)
+        r["cuts"] = [r["cut_rel"]]
 
     with open(a.out, "w", encoding="utf-8") as fh:
         fh.write("scene\tstart\tend\tframes\tduration\tinner_cut_rel\tcut_on_boundary"
-                 "\tlyrics_asr\ttitle\tlyrics_screenplay\tframing\tscreenplay\n")
+                 "\tlyrics_asr\ttitle\tlyrics_screenplay\tframing\tcontinuity"
+                 "\tinner_cuts\tscreenplay\n")
         for r in rows:
-            fh.write("%d\t%.3f\t%.3f\t%d\t%.4f\t%.3f\t%s\t%s\t%s\t%s\t%s\t%s\n" %
+            fh.write("%d\t%.3f\t%.3f\t%d\t%.4f\t%.3f\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n" %
                      (r["scene"], r["start"], r["end"], r["frames"], r["dur"],
                       r["cut_rel"], "yes" if r["cut_snapped"] else "no", r["lyrics"],
                       r.get("title", "").replace("\t", " "),
                       r.get("lyrics_dreh", "").replace("\t", " "),
                       r.get("framing", "").replace("\t", " "),
+                      ",".join(x for x in (("hold" if r.get("hold") else ""),
+                                           ("chain" if r.get("chain") else "")) if x),
+                      ",".join("%.3f" % x for x in r.get("cuts", [])),
                       r.get("screenplay", "").replace("\t", " ")))
 
     print("scenes            : %d" % len(rows))

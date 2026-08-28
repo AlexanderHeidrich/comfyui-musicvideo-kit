@@ -9,6 +9,7 @@
 #   scenes     <song> [args]   -> _source/scenes.tsv. Uses drehbuch.txt when
 #                              there is one, else --uniform 10
 #   refs       <song>          read _source/refs/ -> _source/refs.json + H3 tags
+#   shotlist   <song>          which reference images to make, and the prompts
 #   split      <song>          song -> scene_NN.mp3
 #   draft      <song> [--llm]  screenplay + lyrics -> _source/content.json
 #   build      <song>          blocks + content.json -> flat NN_*.txt
@@ -98,6 +99,9 @@ case "$CMD" in
   refs)
     D="$(song_dir "${1:-}")"
     py bin/scan_refs.py "$D" ;;
+  shotlist)
+    D="$(song_dir "${1:-}")"
+    py bin/ref_shotlist.py "$D" ;;
   draft)
     D="$(song_dir "${1:-}")"; shift || true
     py bin/draft_content.py "$D" "$@" ;;

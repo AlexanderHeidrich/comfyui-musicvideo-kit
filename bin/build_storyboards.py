@@ -146,12 +146,30 @@ def slug(t, cap=34):
     return s.strip("-")
 
 
-def action_of(c, cut):
+def shots_of(c):
+    out, i = [c.get("shot1") or ""], 2
+    while (c.get("shot%d" % i) or "").strip():
+        out.append(c["shot%d" % i]); i += 1
+    return [x.strip() for x in out]
+
+
+def action_of(c, cuts):
     """identical in every variant of a scene - that is the whole point of v1/v2/v3"""
-    out = c["shot1"].strip()
-    if c.get("shot2") and cut > 0:
-        out += "\n\nAt 00:%06.3f, cut to [Shot 2].\n%s" % (cut, c["shot2"].strip())
+    shots = shots_of(c)
+    out = shots[0]
+    for k, shot in enumerate(shots[1:]):
+        if k >= len(cuts) or cuts[k] <= 0:
+            break
+        out += "\n\nAt 00:%06.3f, cut to [Shot %d].\n%s" % (cuts[k], k + 2, shot)
     return out
+
+
+def cuts_of(r):
+    raw = (r.get("inner_cuts") or "").strip()
+    if raw:
+        return [float(x) for x in raw.split(",") if x.strip()]
+    one = float(r.get("inner_cut_rel") or 0)
+    return [one] if one > 0 else []
 
 
 def prompt_for(c, cam_block, action, bible, style, sound, music, refs):
@@ -237,11 +255,11 @@ def main():
         if not desc[0].strip():
             sys.exit("scene %s has neither a content.json entry nor screenplay text"
                      % r["scene"])
-        content[r["scene"]] = {
-            "title": r.get("title") or "scene %s" % r["scene"],
-            "lyrics": r.get("lyrics_screenplay") or "",
-            "shot1": desc[0].strip(),
-            "shot2": " ".join(desc[1:]).strip()}
+        entry = {"title": r.get("title") or "scene %s" % r["scene"],
+                 "lyrics": r.get("lyrics_screenplay") or ""}
+        for k, part in enumerate(desc, 1):
+            entry["shot%d" % k] = part.strip()
+        content[r["scene"]] = entry
         from_screenplay += 1
 
     for f in os.listdir(song):                      # clear previous generated output
@@ -256,14 +274,15 @@ def main():
            "# Point the storyboard node here and set batch count = %d.\n"
            % (name.upper(), len(rows), len(rows)),
            "@BIBLE\n" + bible, "\n@STYLE\n" + style]
-    manifest = [["scene", "start", "end", "frames", "duration", "inner_cut",
-                 "audio", "prompts", "lyrics"]]
+    manifest = [["scene", "start", "end", "frames", "duration", "inner_cuts",
+                 "continuity", "audio", "prompts", "lyrics"]]
     n_var = 0
 
     for r in rows:
         n = int(r["scene"]); c = content[r["scene"]]
-        cut, dur = float(r["inner_cut_rel"]), float(r["duration"])
-        action = action_of(c, cut)
+        cuts, dur = cuts_of(r), float(r["duration"])
+        cut = cuts[0] if cuts else 0.0
+        action = action_of(c, cuts)
         sl = slug(c["title"])
 
         # a scene may carry its own cameras: v1 is the screenplay's framing, the
@@ -285,7 +304,8 @@ def main():
                    % (tc(r["start"]), tc(r["end"]), c["title"], action))
         manifest.append([
             "%02d" % n, tc(r["start"]), tc(r["end"]), r["frames"], "%.4f" % dur,
-            "%.3f" % cut if cut else "-", "%02d_%s.mp3" % (n, sl),
+            ",".join("%.3f" % x for x in cuts) or "-",
+            r.get("continuity") or "-", "%02d_%s.mp3" % (n, sl),
             " ".join("%02d_%s-%s.txt" % (n, sl, t) for t in tags),
             c["lyrics"] or "(instrumental)"])
 
@@ -339,6 +359,25 @@ def main():
               "                    the ComfyUI storyboard node reads for a batch run",
               "", "References to load, in this order:", ""]
     readme += ["  " + l for l in rlines]
+    chained = [(r, content[r["scene"]]) for r in rows
+               if "chain" in (r.get("continuity") or "")]
+    if chained:
+        readme += ["", "Scenes that continue the shot before them:", "",
+                   "  The screenplay holds one camera setup across these. Render them in",
+                   "  order, export the LAST frame of the preceding clip, and load it as the",
+                   "  first-frame reference for the next - that is what keeps the drawing from",
+                   "  changing mid-setup while there are no character references.", ""]
+        for r, c_ in chained:
+            n = int(r["scene"]); sl = slug(c_["title"])
+            prev = [x for x in rows if int(x["scene"]) == n - 1]
+            src = ("%02d_%s" % (n - 1, slug(content[prev[0]["scene"]]["title"]))
+                   if prev else "the clip before it")
+            readme.append("  %02d_%s   <- last frame of %s" % (n, sl, src))
+        readme.append("")
+    held = [r["scene"] for r in rows if "hold" in (r.get("continuity") or "")]
+    if held:
+        readme += ["Scenes that must end on the frame they started on (the screenplay",
+                   "marks them First Frame <> Last Frame): " + ", ".join(held), ""]
     readme += ["",
                "Set length to the frame count in __SCENES.tsv - H3 only accepts lengths",
                "where frames %% 17 == 5, and it rounds up, so do not retype it by feel.",

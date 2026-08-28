@@ -103,6 +103,16 @@ For a song with no screenplay, a whole-film set is enough:
 `cp templates/cameras/rostrum-2d.txt templates/cameras.txt` (or into the song's
 `_source/cameras.txt` to keep it local).
 
+## 3b. References, when there are none yet
+
+Run `./mvkit shotlist <song>`. It ranks what to generate by how often each
+character actually appears and writes the prompts. Tell the user the core set is
+the two most-present characters plus a style board, loaded into every scene so
+their tags never move, with at most one scene-specific reference after them.
+
+Without any references, continuity rests on chaining: check `__READ_ME.txt` for
+the scenes marked `chain` and make sure the user knows to render those in order.
+
 ## 4. Hand over
 
 Report: scene count, the span of song covered, which scenes were padded or
