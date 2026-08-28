@@ -13,6 +13,7 @@
 #   draft      <song> [--llm]  screenplay + lyrics -> _source/content.json
 #   build      <song>          blocks + content.json -> flat NN_*.txt
 #   all        <song>          every step above, in order
+#   queue      <song> <wf.json>  POST one ComfyUI job per scene (API format)
 #   concat     <dir> [out]     join rendered clips
 #   llm-up / llm-down          start or stop the local drafting model
 #   doctor                     what is installed, which engine will run
@@ -122,6 +123,9 @@ case "$CMD" in
     bash "$0" --native draft "$D"
     bash "$0" --native build "$D" ;;
   new)     bash bin/new_song.sh "$@" ;;
+  queue)
+    D="$(song_dir "${1:-}")"; shift || true
+    py bin/queue_comfy.py "$D" "$@" ;;
   concat)  bash bin/concat.sh "$@" ;;
   llm-up)
     MODEL="${MVKIT_LLM_MODEL:-gemma3:4b}"

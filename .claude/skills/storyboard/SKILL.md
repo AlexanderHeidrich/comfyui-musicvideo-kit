@@ -79,7 +79,12 @@ song's `_source/cameras.txt` to keep it local to one song).
 
 Report: scene count, the span of song covered, which scenes were padded or
 split, the reference tags, and where the deliverable is. Point at
-`songs/<name>/__READ_ME.txt`.
+`songs/<name>/__READ_ME.txt`, and at `docs/comfyui-batch.md` if they ask how to
+render a whole song rather than one scene.
+
+The generated `NN_*.txt` are finished six-section H3 prompts - no `#` comments,
+no `@` directives. That markup is the kit's DSL and belongs only in
+`ALL_scenes.txt`. Do not add it back to the per-scene files.
 
 ## Rules that break renders if you get them wrong
 

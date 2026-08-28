@@ -123,9 +123,26 @@ local model:
 Edit `_source/bible.txt`, `_source/style.txt`, `_source/tail.txt`,
 `_source/content.json` - never the generated files - and re-run `build`.
 
-### 5. Render, then join
+### 5. Get it into ComfyUI
 
-One scene = one H3 render. After rendering:
+The `NN_title-vN.txt` files are **finished H3 prompts** - MiniMax's six sections,
+no markup, nothing to strip. Paste one in exactly as it is.
+
+One scene = one H3 render, so a whole song is 49 renders per camera variant.
+Core ComfyUI has no node that reads a text file and no way to load audio from a
+path, so batching needs either two node packs or the HTTP API:
+
+```bash
+./mvkit queue Federphibien workflow_api.json --variant v1 --dry-run
+```
+
+**[docs/comfyui-batch.md](docs/comfyui-batch.md)** has the whole thing: which
+nodes, how to wire them, and why the stock ones are not enough. The deliverable
+ships what both paths need - `__SCENES.tsv` (frames and pairing per scene) and
+`__batch/` (line-aligned prompt/audio lists, grouped by frame count so `length`
+is set once per group instead of once per scene).
+
+### 6. Join the clips
 
 ```bash
 ./mvkit concat ComfyUI/output/video/MV
@@ -170,6 +187,23 @@ Ask for 5.20 s and you get 5.875 s.
   and the clip are the same length by construction.
 
 ---
+
+## What a finished song folder holds
+
+```
+songs/federphibien/
+  __READ_ME.txt        what this folder is
+  __SCENES.tsv         scene, start, end, frames, duration, cut, audio, prompts, lyrics
+  NN_title-v1.txt      a paste-ready six-section H3 prompt
+  NN_title.mp3         the audio slice, shared by v1/v2/v3
+  __batch/             line-aligned lists for batching, grouped by frame count
+  ALL_scenes.txt       the same material in this kit's DSL, for mv_h3_nodes.py
+  _source/             every input; nothing here is meant to be copied out
+```
+
+The `@BIBLE` / `@STYLE` / `@SCENE` / `@TAIL` markers are **this kit's DSL, not a
+MiniMax convention** - they only appear in `ALL_scenes.txt`, which is what the
+ComfyUI storyboard node reads. The per-scene files carry no markup at all.
 
 ## What is in a scene
 

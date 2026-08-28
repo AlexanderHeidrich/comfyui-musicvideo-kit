@@ -36,11 +36,13 @@ bin/            the steps. _lib.sh resolves ffmpeg/python/whisper per platform
 templates/      everything tunable without code - see templates/__README.txt
 songs/<name>/                DELIVERABLE — flat and paired, nothing else
   __READ_ME.txt              generated; what the user reads
-  NN_title-v1.txt            scene NN, wide master
-  NN_title-v2.txt            same action, other angle
+  __SCENES.tsv               frames, timing and pairing per scene
+  NN_title-v1.txt            scene NN, wide master - a finished six-section
+  NN_title-v2.txt            H3 prompt, no markup, paste-ready
   NN_title-v3.txt            same action, close/detail
   NN_title.mp3               that exact window of the song, shared by v1-v3
-  ALL_scenes.txt             every scene in one file, for a batch run
+  __batch/                   line-aligned prompt/audio lists, grouped by frames
+  ALL_scenes.txt             every scene in the DSL, for the ComfyUI node
   _source/                   INPUTS — everything not meant to be copied
     song.mp3                 the track
     song.pdf                 the screenplay, any name (optional)
@@ -193,9 +195,17 @@ request and none that reads a text file from disk:
   `/chat/completions`); with `use_llm = false` it emits a valid six-section
   prompt from a deterministic template
 
-Everything else in the workflow is stock comfy-core.
+Everything else in the workflow is stock comfy-core - but note that core has no
+text-file loader and `LoadAudio` only sees `ComfyUI/input`, so batching a folder
+needs VideoHelperSuite + WAS Node Suite, or `bin/queue_comfy.py` over the HTTP
+API. See `docs/comfyui-batch.md`; keep it in sync if the deliverable changes.
 
 ## Storyboard DSL
+
+**This is the kit's own format, not a MiniMax convention.** It appears only in
+`ALL_scenes.txt`, which `MVStoryboardScene` reads. The per-scene `NN_*.txt` files
+are finished six-section H3 prompts with no directives and no comments, because
+they are meant to be pasted straight in. Do not reintroduce markup there.
 
 Directives sit alone at the start of a line; `#` is a comment.
 
