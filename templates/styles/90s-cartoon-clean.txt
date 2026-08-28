@@ -1,0 +1,83 @@
+# Late-90s TV cartoon, the clean graphic end of it. Reference feel: The Angry
+# Beavers / Biberbrüder, Dexter's Laboratory, Cow and Chicken - designed, bold and
+# tidy, not grubby. These show names are comments and are stripped before the
+# model sees them; what follows describes the craft instead.
+
+Hand-drawn 2D cel animation as made for television in the late 1990s: ink and
+paint on acetate cels, photographed over painted backgrounds. Confident, designed
+work - everything built from bold, readable shapes. Reproduce the CRAFT of that
+era, never the condition of an old tape.
+
+LINE
+  Clean brush-and-ink outlines of even, confident weight. The line is steady and
+  deliberate: no wobble, no overshoot, no sketchiness. It closes every shape and
+  keeps the same weight all the way round, thickening only where two forms meet
+  or a shape turns under. One line weight per character, scaled to the shot size,
+  so a close-up is not just an enlargement.
+  Self-coloured lines where it suits - a dark forest green outline on a green
+  animal, a warm brown on a brown one - with black kept for accents.
+
+SHAPE AND SILHOUETTE
+  Characters are built from a small number of bold geometric forms: rounded
+  rectangles, ovals, wedges, tapered cylinders. Big simple masses with small
+  detail, not the other way round. Angular where a form turns, generous curves
+  elsewhere.
+  The silhouette carries the character - fill any pose with solid black and it is
+  still instantly recognisable. Poses are wide, planted and readable, limbs held
+  clear of the body.
+  Faces are simple: large clean eye whites with plain round pupils, a mouth from
+  a fixed chart, few lines. No wrinkles, no pores, no rendered texture anywhere.
+
+COLOUR AND FILLS
+  Flat fills. No gradients, no soft rendering, no ambient occlusion, no gloss.
+  Palette bright, saturated and clean: grass green, sky blue, warm orange, sunny
+  yellow, clear red, cream. Strong contrast between a character and the ground
+  they stand on. Nothing dusty, nothing muddy, nothing desaturated.
+  Shadows are used sparingly - a SINGLE separate flat shape with a hard edge, one
+  step darker on the same hue, or none at all. Never a blur, never a multiply
+  wash. Highlights are the same idea inverted: one hard-edged lighter shape.
+  Each character has a fixed colour model that never drifts between shots.
+
+BACKGROUNDS
+  Painted, but tidy: simplified forms, clean edges, and only as much detail as
+  the shot needs. Strong verticals and horizontals, generous empty areas for the
+  characters to read against. Slightly softer and a step duller than the figures,
+  so the cels pop off them, but still bright and clean.
+  No grime, no rust, no chipped paint, no scattered debris. A worn thing reads as
+  worn through its SHAPE - a sagging line, a leaning post - not through texture.
+
+MOVEMENT
+  Limited animation on twos, twelve drawings a second. Pose-to-pose with strong
+  readable key poses and very few in-betweens. Held cels for long stretches.
+  Cycled blinks and walks.
+  Snappy squash and stretch on single accents, taken to a bold graphic extreme
+  and then straight back to a clean held pose. The deformation is always a clean
+  shape, never a mess.
+  Smears drawn as a shape rather than rendered as motion blur. Clean speed lines
+  where something moves fast.
+  Lipsync from a fixed mouth chart of about ten shapes, so the mouth SNAPS
+  between positions rather than morphing. Expressions come from a small reused
+  library.
+
+CAMERA
+  Rostrum and multiplane thinking: lateral pans across a long background
+  painting, truck-ins on a held cel, simple zooms, layered foreground elements
+  for depth. No 3D camera, no arcing moves, no rack-focus theatrics.
+  Composition centred and TV-safe.
+
+THE GRAPHIC PUNCH
+  Once per scene at most, on a punchline: the character snaps into a single
+  extreme, boldly simplified pose - flattened, stretched or squashed far past
+  anatomy - held dead still for a beat, then straight back to normal. The pose is
+  drawn as cleanly as everything else. This is a graphic device, not a grotesque:
+  no bulging veins, no sweat sheets, no rendered close-up of skin.
+
+RENDER CLEAN - this matters
+  Output a pristine, stable, sharp image. Do NOT add film grain, video noise,
+  VHS softness, tape dropouts, tracking lines, head-switching noise, scanlines,
+  interlace combing, chroma bleed, dot crawl, colour fringing, chromatic
+  aberration, gate weave, registration wobble, frame jitter, dust, scratches,
+  hair in the gate, vignetting, halation, bloom, letterbox bars, timecode or
+  any on-screen text. No lens effects of any kind.
+  Every one of those is being added afterwards in the grade, and baked-in
+  artefacts cannot be removed. Full frame, clean edges, steady.
