@@ -1,0 +1,18 @@
+# For hand-drawn 2D. A rostrum camera photographs flat artwork, so it can only
+# slide across a painting, truck in on a cel, or hold. No 3D moves, no orbits,
+# no parallax that a multiplane rig could not produce.
+
+[v1] wide master, held
+[Static shot] Locked off, wide, no camera move. Characters placed on a painted
+background, whole location readable, composition centred and TV-safe.
+
+[v2] lateral pan across the background
+[Pan right] A slow, even lateral move across a long background painting at
+constant speed, the way a rostrum camera slides over artwork. Foreground layer
+drifts slightly faster than the background - multiplane, not 3D. No vertical
+movement.
+
+[v3] truck-in on a held cel
+[Push in] A slow, even truck-in on the single most specific element - a face, a
+hand, a point of contact. The drawing itself does not change during the move;
+only the framing tightens. Ends locked.

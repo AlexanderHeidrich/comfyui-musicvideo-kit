@@ -1,0 +1,18 @@
+# The three camera setups written for every scene. v1/v2/v3 are COVERAGE of one
+# moment, not alternative scenes: the ACTION text is identical in all three and
+# only this block changes, so they can be cut together inside the same scene and
+# they share the one scene mp3.
+# Format: [vN] label, then the block. Add v4 and it is generated too.
+
+[v1] wide master
+Locked off, wide, no camera move. The full setting with the character placed in
+it, deep enough focus that the whole location reads at once.
+
+[v2] alternative angle, medium
+Locked off medium on a different axis - roughly ninety degrees off the master,
+lower and closer. The character fills more of the frame and the painted
+background falls soft behind. Same moment, seen from the other side of it.
+
+[v3] close / detail
+Locked off close on the single most specific thing in the action - a face, a
+hand, a point of contact. Everything else reads as soft painted colour.

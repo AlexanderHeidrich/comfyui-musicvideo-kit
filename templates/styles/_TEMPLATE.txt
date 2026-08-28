@@ -1,0 +1,30 @@
+# A look block. Copy to <song>/_source/style.txt and rewrite. Describe the CRAFT
+# that produced the look, never the condition of the medium it was watched on.
+# Keep the RENDER CLEAN section - see templates/README.txt.
+
+<one sentence naming the technique, the medium and the decade>
+
+LINE
+  <outline treatment, weight, taper, colour of the line>
+
+COLOUR AND FILLS
+  <flat or rendered, how shadows and highlights are shaped, fixed colour models>
+
+BACKGROUNDS
+  <medium, texture, how much they differ from the characters>
+
+MOVEMENT
+  <frame rate feel, held poses, in-betweens, lipsync, smears>
+
+CAMERA
+  <what moves are available to this technique and which are not>
+
+RENDER CLEAN - this matters
+  Output a pristine, stable, sharp image. Do NOT add film grain, video noise,
+  VHS softness, tape dropouts, tracking lines, head-switching noise, scanlines,
+  interlace combing, chroma bleed, dot crawl, colour fringing, chromatic
+  aberration, gate weave, registration wobble, frame jitter, dust, scratches,
+  hair in the gate, vignetting, halation, bloom, letterbox bars, timecode or
+  any on-screen text. No lens effects of any kind.
+  Every one of those is being added afterwards in the grade, and baked-in
+  artefacts cannot be removed. Full frame, clean edges, steady.

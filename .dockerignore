@@ -1,0 +1,6 @@
+.git
+.idea
+songs
+.cache
+**/__pycache__
+*.zip

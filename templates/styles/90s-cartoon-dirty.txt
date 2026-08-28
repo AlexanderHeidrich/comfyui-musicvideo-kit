@@ -1,0 +1,78 @@
+# 90s TV cartoon, the grubby end of it. Reference feel: Ren & Stimpy, Rugrats,
+# The Angry Beavers, and the naturalism of Watership Down / "Unten am Fluss".
+# These show names are comments and are stripped before the model sees them -
+# what follows describes the craft instead, which is what actually reproduces.
+
+Hand-drawn 2D cel animation as made for television in the mid 1990s: ink and
+paint on acetate cels, photographed over painted backgrounds. Cheap, fast,
+slightly grubby work by people who could draw. Reproduce the CRAFT of that era,
+never the condition of an old tape.
+
+LINE
+  Brush-and-ink outlines with real taper - the line swells and thins along its
+  length and closes every shape. The line is not uniform and not confident:
+  slight wobble, the odd overshoot at a corner, thickness varying between
+  drawings of the same character. One line weight per character, scaled to the
+  shot size, so a close-up is not just an enlargement.
+  Self-coloured lines where it suits - a dark olive outline on a green animal, a
+  deep umber on a brown one - with black kept for accents.
+
+COLOUR AND FILLS
+  Flat fills. No gradients, no soft rendering, no ambient occlusion, no gloss.
+  Shadows are a SEPARATE flat shape with a hard edge, one or two steps darker on
+  the same hue - never a blur, never a multiply wash. Highlights are the same
+  idea inverted.
+  Palette dusty and slightly off: mustard, moss, liver brown, dishwater blue,
+  a sour pink. Two or three saturated accents per shot at most. Each character
+  has a fixed colour model that never drifts between shots.
+
+BACKGROUNDS
+  Gouache or watercolour on board: visibly brushy, textured, unoutlined, edges
+  softer than the characters. Warmer and duller than the figures so the cels pop
+  off them. Real botany and real architecture - a specific fence, a specific
+  weed - rather than generic cartoon shapes.
+  The mismatch between crisp outlined characters and soft painted backgrounds IS
+  the look. Lean into it rather than harmonising it.
+
+DIRT AND DETAIL
+  Everything in the world is used. Chipped paint, rust bloom at a bolt, dried
+  mud in the tread of a tyre, a scuffed floor, seed husks and hair on the
+  ground, flies that are actually drawn. Wet things read wet, dry things read
+  dusty.
+  In close-ups the detail goes UP, not down: pores, chapped skin, a split claw,
+  crumbs at the corner of a mouth. The wide shots stay simple and graphic.
+
+MOVEMENT
+  Limited animation on twos, twelve drawings a second. Pose-to-pose with strong
+  readable key poses and very few in-betweens. Held cels for long stretches.
+  Cycled blinks and walks.
+  Rubbery squash, stretch and deformation reserved for single accents, taken
+  further than is comfortable, then straight back to a held pose.
+  Smears drawn as a shape rather than rendered as motion blur. Dry-brush speed
+  lines where something moves fast.
+  Lipsync from a fixed mouth chart of about ten shapes, so the mouth SNAPS
+  between positions rather than morphing. Expressions come from a small reused
+  library. Eyes are simple ovals with dot or pinprick pupils.
+
+CAMERA
+  Rostrum and multiplane thinking: lateral pans across a long background
+  painting, truck-ins on a held cel, simple zooms, layered foreground elements
+  for depth. No 3D camera, no arcing moves, no rack-focus theatrics.
+  Composition centred and TV-safe.
+
+THE GROSS-UP
+  Once per scene at most, on a punchline: cut to a single fully painted,
+  high-detail, properly rendered illustration - wet skin, mucus, the grain of a
+  scaly leg, a bead of water - which abandons the flat cel style entirely for
+  one or two seconds, then cut straight back. This is a deliberate 1990s device.
+  Render it CLEAN and sharp, like a painted plate, not like damaged footage.
+
+RENDER CLEAN - this matters
+  Output a pristine, stable, sharp image. Do NOT add film grain, video noise,
+  VHS softness, tape dropouts, tracking lines, head-switching noise, scanlines,
+  interlace combing, chroma bleed, dot crawl, colour fringing, chromatic
+  aberration, gate weave, registration wobble, frame jitter, dust, scratches,
+  hair in the gate, vignetting, halation, bloom, letterbox bars, timecode or
+  any on-screen text. No lens effects of any kind.
+  Every one of those is being added afterwards in the grade, and baked-in
+  artefacts cannot be removed. Full frame, clean edges, steady.

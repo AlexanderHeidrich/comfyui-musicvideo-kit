@@ -1,0 +1,149 @@
+#!/usr/bin/env bash
+# One entry point for the pipeline, native or in Docker.
+#
+#   ./mvkit <command> [args]
+#
+#   new        <name> <audio>  scaffold songs/<name>
+#   drehbuch   <song>          _source/*.pdf -> _source/drehbuch.txt
+#   transcribe <song>          audio -> _source/transcript.*
+#   scenes     <song> [args]   -> _source/scenes.tsv. Uses drehbuch.txt when
+#                              there is one, else --uniform 10
+#   refs       <song>          read _source/refs/ -> _source/refs.json + H3 tags
+#   split      <song>          song -> scene_NN.mp3
+#   draft      <song> [--llm]  screenplay + lyrics -> _source/content.json
+#   build      <song>          blocks + content.json -> flat NN_*.txt
+#   all        <song>          every step above, in order
+#   concat     <dir> [out]     join rendered clips
+#   llm-up / llm-down          start or stop the local drafting model
+#   doctor                     what is installed, which engine will run
+#
+# Engine: --native / --docker, or MVKIT_ENGINE=native|docker.
+# Default is native when ffmpeg and whisper-cli are on PATH, Docker otherwise.
+set -euo pipefail
+KIT="$(cd "$(dirname "$0")" && pwd)"
+cd "$KIT"
+. bin/_lib.sh
+
+ENGINE="${MVKIT_ENGINE:-auto}"
+UNIFORM="${UNIFORM:-10}"
+case "${1:-}" in
+  --native) ENGINE=native; shift ;;
+  --docker) ENGINE=docker; shift ;;
+esac
+CMD="${1:-help}"; [ $# -gt 0 ] && shift || true
+
+have_native() { command -v ffmpeg >/dev/null 2>&1 && \
+  { command -v "${WHISPER_BIN:-whisper-cli}" >/dev/null 2>&1 || command -v main >/dev/null 2>&1; }; }
+
+compose() {
+  if docker compose version >/dev/null 2>&1; then docker compose "$@"
+  elif command -v docker-compose >/dev/null 2>&1; then docker-compose "$@"
+  else echo "docker compose not found - install Docker Desktop"; exit 1; fi
+}
+
+if [ "$ENGINE" = auto ]; then
+  if have_native; then ENGINE=native; else ENGINE=docker; fi
+fi
+
+if [ "$ENGINE" = docker ] && [ "$CMD" != doctor ] && [ "$CMD" != help ]; then
+  MVKIT_UID="$(id -u 2>/dev/null || echo 1000)"
+  MVKIT_GID="$(id -g 2>/dev/null || echo 1000)"
+  # reuse an existing host model cache instead of downloading 1.6 GB again
+  if [ -z "${MVKIT_MODELS:-}" ]; then
+    if [ -d "$(model_dir)" ]; then MVKIT_MODELS="$(model_dir)"; else
+      MVKIT_MODELS=./.cache/whisper; mkdir -p "$MVKIT_MODELS"; fi
+  fi
+  export MVKIT_UID MVKIT_GID MVKIT_MODELS
+  compose run --rm mvkit bash ./mvkit --native "$CMD" "$@"
+  exit $?
+fi
+
+song_dir() {                       # accept a name or a path
+  local s="${1:?which song? e.g. ./mvkit $CMD federphibien}"
+  s="${s%/}"
+  case "$s" in */*) echo "$s" ;; *) echo "songs/$s" ;; esac
+}
+
+song_audio() {                     # first plausible track in _source/
+  local d="$1" f
+  for f in "$d"/_source/song.mp3 "$d"/_source/song.* "$d"/_source/*.mp3 \
+           "$d"/_source/*.wav "$d"/_source/*.m4a "$d"/_source/*.flac; do
+    case "$f" in *.tsv|*.txt|*.json) continue ;; esac
+    [ -f "$f" ] && { echo "$f"; return 0; }
+  done
+  echo "no audio in $d/_source/ - put your track there as song.mp3" >&2
+  return 1
+}
+
+py() { need_python; $PY "$@"; }
+
+case "$CMD" in
+  transcribe)
+    D="$(song_dir "${1:-}")"; A="$(song_audio "$D")"
+    bash bin/transcribe.sh "$A" "$D/_source" ;;
+  drehbuch)
+    D="$(song_dir "${1:-}")"
+    P="$(ls "$D"/_source/*.pdf 2>/dev/null | head -1 || true)"
+    [ -n "$P" ] || { echo "no pdf in $D/_source/ - put the screenplay there, or write"; \
+                     echo "_source/drehbuch.txt by hand"; exit 1; }
+    py bin/pdf_text.py "$P" "$D/_source/drehbuch.txt" ;;
+  scenes)
+    D="$(song_dir "${1:-}")"; shift || true
+    if [ $# -eq 0 ]; then
+      if [ -f "$D/_source/drehbuch.txt" ]; then set -- --drehbuch "$D/_source/drehbuch.txt"
+      else set -- --uniform "$UNIFORM"; fi
+    fi
+    py bin/make_scenes.py "$D/_source/transcript.json" "$D/_source/scenes.tsv" "$@" ;;
+  refs)
+    D="$(song_dir "${1:-}")"
+    py bin/scan_refs.py "$D" ;;
+  draft)
+    D="$(song_dir "${1:-}")"; shift || true
+    py bin/draft_content.py "$D" "$@" ;;
+  split)
+    D="$(song_dir "${1:-}")"; A="$(song_audio "$D")"
+    bash bin/split_audio.sh "$A" "$D/_source/scenes.tsv" "$D" ;;
+  build)
+    D="$(song_dir "${1:-}")"
+    py bin/build_storyboards.py "$D" ;;
+  all)
+    D="$(song_dir "${1:-}")"
+    if [ ! -f "$D/_source/drehbuch.txt" ] && ls "$D"/_source/*.pdf >/dev/null 2>&1; then
+      bash "$0" --native drehbuch "$D"
+    fi
+    if [ -f "$D/_source/transcript.json" ]; then
+      echo ">> reusing $D/_source/transcript.json (delete it to re-transcribe)"
+    else
+      bash "$0" --native transcribe "$D"
+    fi
+    bash "$0" --native scenes "$D"
+    [ -d "$D/_source/refs" ] && bash "$0" --native refs "$D"
+    bash "$0" --native split "$D"
+    bash "$0" --native draft "$D"
+    bash "$0" --native build "$D" ;;
+  new)     bash bin/new_song.sh "$@" ;;
+  concat)  bash bin/concat.sh "$@" ;;
+  llm-up)
+    MODEL="${MVKIT_LLM_MODEL:-gemma3:4b}"
+    compose --profile llm up -d llm
+    echo ">> pulling $MODEL (once, ~3 GB)"
+    compose exec -T llm ollama pull "$MODEL"
+    echo "ready: mvkit draft <song> --llm" ;;
+  llm-down) compose --profile llm down ;;
+  doctor)
+    echo "os          : $MVKIT_OS"
+    for c in ffmpeg ffprobe python3 python whisper-cli whisper main docker; do
+      printf "%-12s: %s\n" "$c" "$(command -v "$c" 2>/dev/null || echo '-')"
+    done
+    printf "%-12s: %s\n" "compose" "$(docker compose version 2>/dev/null | head -1 || echo '-')"
+    printf "%-12s: %s\n" "model dir" "$(model_dir)"
+    ls "$(model_dir)" 2>/dev/null | sed 's/^/              /' || echo "              (empty)"
+    printf "%-12s: %s\n" "engine" "$ENGINE"
+    printf "%-12s: %s\n" "llm" "${MVKIT_LLM_URL:-http://127.0.0.1:11434/v1/chat/completions}"
+    echo
+    echo "songs:"
+    for d in songs/*/; do [ -d "$d" ] && echo "  ${d%/}"; done ;;
+  help|-h|--help)
+    awk 'NR>1 && /^#/ {sub(/^# ?/, ""); print; next} NR>1 {exit}' "$0" ;;
+  *) echo "unknown command: $CMD  (try ./mvkit help)"; exit 1 ;;
+esac

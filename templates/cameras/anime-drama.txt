@@ -1,0 +1,14 @@
+# Held graphic compositions with one strong device per scene. The drama comes
+# from angle and framing, not from movement.
+
+[v1] wide, low and symmetrical
+[Static shot] Wide, low angle from near ground level, the subject centred
+against sky or ceiling with a lot of empty space above them. Held, no move.
+
+[v2] profile, dead side-on
+[Static shot] Medium close-up in flat profile, dead side-on, subject facing frame
+left with the background compressed behind them like a painted flat. Held.
+
+[v3] extreme close-up on one feature
+[Static shot] Extreme close-up on a single feature - one eye, a mouth, a hand
+tightening. Fills the frame. Nothing else is readable. Held.

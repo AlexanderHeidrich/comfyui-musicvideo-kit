@@ -1,0 +1,18 @@
+# Observational, as if someone is in the room with a camera on their shoulder.
+# Use sparingly - H3's [Shake] is coarse, so the handheld feel is carried by the
+# framing description more than by the command.
+
+[v1] wide, found framing
+[Static shot] Wide, eye level, slightly off-centre as if the operator settled
+where they could stand. Framing is a little loose, headroom uneven, the horizon
+not quite level. No move.
+
+[v2] medium, reframing
+[Pan right] Medium, eye level. The camera drifts to keep the subject in frame as
+they shift, correcting a scene late, the way a person following the action does.
+Small, unplanned adjustment only.
+
+[v3] close, over the shoulder
+[Static shot] Close, over the shoulder of the other character, the near shoulder
+soft and out of focus in the foreground and filling a third of the frame. The
+subject is sharp past it.

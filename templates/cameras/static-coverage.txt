@@ -1,0 +1,15 @@
+# Default set. Three locked-off setups on one moment - safest with H3, because
+# nothing competes with the action. Same as templates/cameras.txt ships with.
+
+[v1] wide master
+[Static shot] Locked off, wide, no camera move. The full setting with the
+character placed in it, deep focus, so the whole location reads at once.
+
+[v2] alternative angle, medium
+[Static shot] Locked off medium on a different axis - roughly ninety degrees off
+the master, lower and closer. The character fills more of the frame and the
+background falls soft behind. Same moment, seen from the other side of it.
+
+[v3] close / detail
+[Static shot] Locked off close on the single most specific thing in the action -
+a face, a hand, a point of contact. Everything else reads as soft colour.

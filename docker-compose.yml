@@ -1,0 +1,36 @@
+# ./mvkit --docker <cmd>   or   mvkit.cmd <cmd>   on Windows.
+# MVKIT_MODELS points at the whisper model cache; mvkit sets it to your existing
+# ~/.cache/whisper when there is one, so the 1.6 GB model is not downloaded twice.
+services:
+  mvkit:
+    build:
+      context: .
+      args:
+        WHISPER_CPP_REF: ${WHISPER_CPP_REF:-v1.9.3}
+    image: mvkit:local
+    pull_policy: build
+    init: true
+    user: "${MVKIT_UID:-1000}:${MVKIT_GID:-1000}"
+    working_dir: /work
+    environment:
+      WHISPER_LANG: ${WHISPER_LANG:-de}
+      WHISPER_MODEL_NAME: ${WHISPER_MODEL_NAME:-ggml-large-v3-turbo.bin}
+      MVKIT_LLM_URL: ${MVKIT_LLM_URL:-http://llm:11434/v1/chat/completions}
+      MVKIT_LLM_MODEL: ${MVKIT_LLM_MODEL:-gemma3:4b}
+    volumes:
+      - .:/work
+      - ${MVKIT_MODELS:-./.cache/whisper}:/models
+    command: ["./mvkit", "doctor"]
+
+  # offline drafting: a small local model writes content.json when no Claude is
+  # in the loop. Started on demand - `mvkit llm-up` - never with the pipeline.
+  llm:
+    image: ollama/ollama:latest
+    profiles: ["llm"]
+    volumes:
+      - llm-models:/root/.ollama
+    ports:
+      - "${MVKIT_LLM_PORT:-11434}:11434"
+
+volumes:
+  llm-models:

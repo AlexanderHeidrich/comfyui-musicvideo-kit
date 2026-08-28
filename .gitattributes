@@ -1,0 +1,8 @@
+* text=auto eol=lf
+*.cmd text eol=crlf
+*.bat text eol=crlf
+*.png binary
+*.mp3 binary
+*.mp4 binary
+*.zip binary
+*.moho binary

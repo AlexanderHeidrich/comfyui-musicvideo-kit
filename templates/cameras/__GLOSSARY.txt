@@ -1,0 +1,47 @@
+Camera vocabulary that video models actually follow. Use the term, not the mood.
+
+SHOT SIZE - how much of the subject is in frame
+  extreme wide          the subject is small in a large space, geography reads
+  wide / full           whole body, feet to head, setting still readable
+  medium wide           knees up. The workhorse for two characters
+  medium                waist up. Dialogue default
+  medium close-up       chest up. Reaction default
+  close-up              head and shoulders. One emotion, no context
+  extreme close-up      one feature: an eye, a mouth, a hand, a texture
+  insert                an object alone, no character. Cuts in anywhere
+
+ANGLE - where the camera sits
+  eye level             neutral, the subject meets the viewer
+  low angle             camera below the eyeline, subject gains authority
+  high angle            camera above, subject reads small or exposed
+  overhead / top down   straight down. Graphic, shows arrangement
+  worm's eye            on the ground looking up. Extreme low
+  bird's eye            far above, the whole location as a pattern
+  over the shoulder     behind one character, framing the other past them
+  dutch angle           horizon tilted. Use once, on purpose
+  profile               dead side-on. Flattens depth, reads as a statement
+  three-quarter         between front and profile. Most natural for faces
+
+MOVEMENT - what the camera does. One dominant move per clip
+  [Static shot]         locked off. The strongest choice more often than not
+  [Push in]             camera travels toward the subject, parallax changes
+  [Pull out]            camera travels away, revealing context
+  [Zoom in] / [Zoom out]  focal length only, no travel. A different feeling
+  [Pan left] / [Pan right]   camera pivots on its axis
+  [Truck left] / [Truck right]   whole camera slides sideways
+  [Pedestal up] / [Pedestal down]  camera rises or drops, staying level
+  [Tilt up] / [Tilt down]   camera pivots vertically
+  [Tracking shot]       camera follows a moving subject, holding framing
+  [Shake]               handheld instability. Rarely what you want
+
+LENS FEEL - describe the result, not the hardware
+  deep focus            everything sharp front to back
+  shallow focus         subject sharp, background falls to soft colour
+  rack focus            focus moves from one plane to another during the shot
+  wide lens feel        near objects loom, edges stretch, space exaggerated
+  long lens feel        background compressed and close, layers stack flat
+
+WHAT NOT TO WRITE
+  "cinematic", "epic", "beautiful", "masterpiece", "8k", "hyperrealistic",
+  camera brands, film stocks, director names, lens model numbers, and any
+  stack of three or more moves in one clip.

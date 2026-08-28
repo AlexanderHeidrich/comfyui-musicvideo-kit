@@ -1,0 +1,16 @@
+# One dominant move per variant. Use when the scene needs energy. Never stack
+# these moves - each variant carries exactly one.
+
+[v1] wide, slow reveal
+[Pull out] Starts on the subject at medium wide and travels back, opening the
+full location around them. Eye level, deep focus. The move is slow and constant
+and ends locked.
+
+[v2] medium, following
+[Tracking shot] Camera holds the character at medium in the same part of the
+frame while they move through the space. Eye level, slight shallow focus so the
+background reads as passing colour.
+
+[v3] close, pressing in
+[Push in] Starts at medium close-up and travels toward the face, ending in
+close-up. Parallax changes as it moves - this is a travelling camera, not a zoom.

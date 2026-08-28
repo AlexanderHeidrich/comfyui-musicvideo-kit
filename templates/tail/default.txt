@@ -1,0 +1,9 @@
+# Appended to every scene. Sound and global negatives.
+
+GLOBAL AUDIO
+  The provided song excerpt is the ONLY music in every scene. Do not invent, add
+  or extend any instrumentation - no score, no stings, no risers.
+  Under everything, always present and always quiet: <the location's ambience,
+  three or four specific sounds>. Never louder than the vocal.
+  NO cartoon sound effects. No boings, no slide whistles, no comedy impacts on
+  cuts.

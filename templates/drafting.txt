@@ -1,0 +1,27 @@
+# The brief for whoever writes <song>/_source/content.json. Tune this file to
+# change how every shot is worded - it is read by the Claude skill and by
+# `mvkit draft` (local LLM). Lines starting with # are stripped first.
+
+One JSON object per scene, keyed by the scene number as a string:
+
+  { "7": { "title": "...", "lyrics": "...", "shot1": "...", "shot2": "..." } }
+
+title    2-5 words, lower case, no punctuation. It becomes the filename.
+lyrics   the REAL lyric sung in this window, verbatim, original language.
+         Empty string for an instrumental scene. Never use the ASR text - it is
+         wrong on sung material and is only there for timing.
+shot1    the main shot: camera setup, then what happens, physically, in order.
+shot2    harvestable B-roll for the internal cut - an atmosphere or detail shot
+         from the same location that stands on its own in the edit. Omit when
+         the scene carries no internal cut.
+
+Rules
+  Write what a camera sees. No mood words, no "cinematic", no "epic", no
+  "beautiful", no camera brands, no film stocks.
+  One action per sentence. Present tense.
+  Keep the cast physically identical to the bible in every scene.
+  Dialogue and lyrics stay in their original language, verbatim.
+  If the scene came from a screenplay, its description is authoritative - do not
+  invent a different action. Translate it into physical shot language.
+  Do not describe grain, tape damage, lens flare or any period artefact. Those
+  are added in the grade afterwards.

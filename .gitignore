@@ -1,0 +1,12 @@
+# song folders are deliverables: local audio, generated prompts, renders
+/songs/*
+!/songs/.gitkeep
+
+.idea/
+.cache/
+*.zip
+__pycache__/
+*.pyc
+.DS_Store
+Thumbs.db
+.env

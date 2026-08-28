@@ -1,0 +1,27 @@
+# MiniMax H3's prompt sections, in the order the model expects them. This file
+# is reference for whoever writes content.json - Claude via the skill, the local
+# LLM via `mvkit draft`, or you by hand. Editing it changes what they aim for.
+
+subject_definitions
+  Every character, prop and location that appears, defined once, physically.
+  Name the reference tag that carries it (<Picture 1>, <Video 1>). Anatomy,
+  colour, proportion, material. No adjectives about mood.
+
+summary
+  One or two sentences: what happens in this clip, start to finish.
+
+retention_analysis
+  What must stay identical to the reference and to the neighbouring scenes -
+  colour model, line weight, proportions, costume, time of day, weather.
+
+detailed_description
+  The shot itself, in order. Camera setup first, then the action scene by scene.
+  Internal cuts are written `At 00:0X.XXX, cut to [Shot N]` - the first shot
+  carries no timestamp. Dialogue stays verbatim in its original language.
+  Concrete physical detail only. Never "cinematic", "epic", "beautiful".
+
+overall_soundscape
+  Diegetic sound only: what the microphone in the scene would pick up.
+
+non_diegetic_music
+  The supplied song excerpt, and nothing else. Never invent score.

@@ -1,0 +1,21 @@
+# Cast, world and rules. Constant across every scene of one song. Copy to
+# <song>/_source/bible.txt and rewrite for the new song.
+
+REFERENCE - read this first
+  <Picture 1> is <what it shows, described physically>.
+  Take from it: <anatomy, proportions, palette>.
+  Do NOT take from it: its rendering. <how the reference is drawn> is not how
+  this film is drawn - <the film's idiom>. Redraw it in that idiom.
+  Ignore completely: any lettering, caption, border, logo or watermark in the
+  reference. Never reproduce them.
+
+CAST
+  <NAME> - <physical description, tied to the reference where possible. What
+  they want. How they move. What they never do.>
+
+WORLD
+  <the location, the time of day, the weather, what is always in frame>
+
+RULES
+  <what must never happen: no anthropomorphising, no speech for character X,
+  no modern objects, no on-screen text>

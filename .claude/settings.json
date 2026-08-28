@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(./mvkit:*)",
+      "Bash(make:*)",
+      "Bash(python3 bin/:*)",
+      "Bash(bash bin/:*)",
+      "Bash(docker compose:*)"
+    ]
+  }
+}
