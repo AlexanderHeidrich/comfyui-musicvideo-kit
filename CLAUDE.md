@@ -132,6 +132,20 @@ worth making, ranked by how many scenes each character is in, with generation
 prompts. It flags entries that derive a character from a `<Picture n>` that does
 not exist yet.
 
+## Verifying the timing
+
+`mvkit verify <song>` measures rather than trusts: the grid rule, `duration ==
+frames/24`, `end == start + duration`, each slice's decoded length, and where each
+slice actually sits in the song (coarse PCM search, +/-60 ms). Run it after any
+change to make_scenes or split_audio. On Federphibien it reports worst +0.7 ms on
+length and +0.0 ms on position across 47 slices.
+
+Slices are padded with silence to their exact declared length. A scene anchored
+near the end of the song runs past it - Federphibien's last scene starts at
+166.25 s of a 167.31 s song and is padded to H3's 5.167 s minimum - and handing
+H3 an audio reference shorter than the clip it drives is worse than handing it
+silence. split_audio reports how much it padded.
+
 ## Gotchas that will bite you
 
 **macOS TCC.** This process often cannot read pre-existing files in

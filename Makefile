@@ -8,7 +8,7 @@ ENGINE  ?=
 MVKIT   := ./mvkit $(if $(ENGINE),--$(ENGINE),)
 export UNIFORM
 
-.PHONY: help doctor drehbuch transcribe scenes refs split draft draft-llm build all \
+.PHONY: help doctor drehbuch transcribe scenes refs split draft draft-llm build verify all \
         new concat check docker-build docker-shell docker-clean llm-up llm-down
 
 help:
@@ -26,6 +26,7 @@ draft-llm:  ; $(MVKIT) draft $(SONG) --llm
 scenes:      ; $(MVKIT) scenes $(SONG)
 split:      ; $(MVKIT) split $(SONG)
 build:      ; $(MVKIT) build $(SONG)
+verify:     ; $(MVKIT) verify $(SONG)
 all:        ; $(MVKIT) all $(SONG)
 
 new:

@@ -17,6 +17,7 @@
 #   queue      <song> <wf.json>  POST one ComfyUI job per scene (API format)
 #   concat     <dir> [out]     join rendered clips
 #   llm-up / llm-down          start or stop the local drafting model
+#   verify     <song>          check the grid, the seconds and the audio slices
 #   doctor                     what is installed, which engine will run
 #
 # Engine: --native / --docker, or MVKIT_ENGINE=native|docker.
@@ -138,6 +139,9 @@ case "$CMD" in
     compose exec -T llm ollama pull "$MODEL"
     echo "ready: mvkit draft <song> --llm" ;;
   llm-down) compose --profile llm down ;;
+  verify)
+    D="$(song_dir "${1:-}")"
+    py bin/verify_timing.py "$D" ;;
   doctor)
     echo "os          : $MVKIT_OS"
     for c in ffmpeg ffprobe python3 python whisper-cli whisper main docker; do

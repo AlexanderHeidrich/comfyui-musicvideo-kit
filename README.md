@@ -147,6 +147,17 @@ ships what both paths need - `__SCENES.tsv` (frames and pairing per scene) and
 `__batch/` (line-aligned prompt/audio lists, grouped by frame count so `length`
 is set once per group instead of once per scene).
 
+### 5b. Check the timing
+
+```bash
+./mvkit verify Federphibien
+```
+
+Measures the frame grid, the arithmetic and the audio: every slice's decoded
+length against what it claims, and where it actually sits in the song. Nothing
+downstream survives a wrong `scenes.tsv`, so this is worth running after any
+change.
+
 ### 6. Join the clips
 
 ```bash
