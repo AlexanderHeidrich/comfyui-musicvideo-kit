@@ -16,6 +16,26 @@ CAST
 WORLD
   <the location, the time of day, the weather, what is always in frame>
 
+SCALE - fill this in, it is not optional
+  The references are portraits: each subject fills its own frame on a plain
+  backdrop, so nothing in them says how big anything is. Without this section
+  H3 draws every character the same size. Give real measurements and the
+  relations between them.
+
+  <NAME>   <height or length in cm or m, and one everyday comparison>
+  <NAME>   <the same, plus how it relates: "three times X's height", "comes to
+           X's knee">
+
+  PLACES, to the same ruler
+    <how wide the location is, and therefore how much of the frame the subject
+    occupies in a wide shot>
+
+  HOW THIS SHOWS ON SCREEN
+    In any frame holding <A> and <B>, <B> is at least <n> times <A>'s height.
+    In any frame holding the whole <location>, <A> is a mark of a few pixels.
+    A close-up enlarges a character in the frame, never the animal: the things
+    around it grow in the same proportion.
+
 RULES
   <what must never happen: no anthropomorphising, no speech for character X,
   no modern objects, no on-screen text>

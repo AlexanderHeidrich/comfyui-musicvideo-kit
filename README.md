@@ -263,7 +263,7 @@ templates/
   sections.txt          H3's six prompt sections and what belongs in each
   drafting.txt          the brief used when content.json is written
   cameras/              camera sets to pick from - drop one over cameras.txt
-    __GLOSSARY.txt      shot sizes, angles, moves, and H3's bracket commands
+    __GLOSSARY.txt      shot sizes, angles, moves, amplitude and speed
     static-coverage.txt  moving-coverage.txt  rostrum-2d.txt
     handheld-doc.txt     anime-drama.txt
   styles/               look blocks: 90s-cartoon-dirty.txt, _TEMPLATE.txt

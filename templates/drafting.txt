@@ -36,5 +36,12 @@ Rules
   and the same action text is reused by every camera variant, so an action that
   says "close-up" contradicts the wide master. Staging that is part of the story
   - a focus rack, one character looming out of frame - does belong in it.
+  Size is not in the references - every one of them is a portrait filling its
+  own frame - so H3 will draw a frog as big as a man unless the shot says
+  otherwise. Where two characters share a frame, or where the subject should be
+  small in a big space, put the size in the action in real units or in body
+  lengths ("eight centimetres, the length of a thumb", "a speck on the water").
+  The bible's SCALE section is the reference for the numbers; do not invent new
+  ones that contradict it.
   Do not describe grain, tape damage, lens flare or any period artefact. Those
   are added in the grade afterwards.

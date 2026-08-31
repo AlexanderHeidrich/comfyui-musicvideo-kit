@@ -8,16 +8,24 @@ subject_definitions
   colour, proportion, material. No adjectives about mood.
 
 summary
-  One or two sentences: what happens in this clip, start to finish.
+  One or two sentences: what happens in this clip, start to finish. `mvkit build`
+  prepends H3's task-type prefix - [reference generation + audio reuse] - from
+  what refs.json actually carries. Do not write it by hand.
 
 retention_analysis
-  What must stay identical to the reference and to the neighbouring scenes -
-  colour model, line weight, proportions, costume, time of day, weather.
+  GENERATED, not authored. One line per reference label with H3's fixed marker:
+  fully_preserved, partially_preserved, attribute_transfer or weak_reference for
+  pictures and videos; fully_copy, partially_copy, reference or weak_reference
+  for audio. `retention_lines()` in build_storyboards.py derives them from the
+  ref kind (char / style / loc / prop / video). This is NOT the place for the
+  style - that goes before [Shot 1].
 
 detailed_description
-  The shot itself, in order. Camera setup first, then the action scene by scene.
-  Internal cuts are written `At 00:0X.XXX, cut to [Shot N]` - the first shot
-  carries no timestamp. Dialogue stays verbatim in its original language.
+  The style first, in the sentences before [Shot 1] - that is where H3 expects
+  it. Then the shot: camera setup, then the action scene by scene.
+  `[Shot 1]` opens the first shot and carries no timestamp. Later shots are
+  `[Shot N] At 00:0X.XXX, the shot cuts to:` - the label first, then the time.
+  Dialogue stays verbatim in its original language.
   Concrete physical detail only. Never "cinematic", "epic", "beautiful".
 
 overall_soundscape

@@ -37,6 +37,57 @@ MUSIC_DEFAULT = ("The supplied song excerpt is the only music. Do not add, inven
                  "extend any instrumentation - no score, no stings, no risers.")
 
 
+# H3 takes camera motion as natural English - motion type, then amplitude, then
+# speed (MiniMax's own prompt guide, section 4.3). The bracket tokens are Hailuo
+# 02's grammar and H3 ignores them, so they stay this kit's authoring shorthand
+# and are translated here.
+CAM_MOVES = {
+    "zoom in": "zooms in", "zoom out": "zooms out",
+    "push in": "pushes in", "pull out": "pulls out",
+    "pan left": "pans left", "pan right": "pans right",
+    "truck left": "trucks left", "truck right": "trucks right",
+    "tilt up": "tilts up", "tilt down": "tilts down",
+    "pedestal up": "pedestals up", "pedestal down": "pedestals down",
+    "arc shot": "arcs around the subject",
+    "tracking shot": "tracks the subject, holding the framing",
+    "static shot": "holds a static shot",
+    "shake": "shakes slightly", "shake slightly": "shakes slightly",
+    "shake strongly": "shakes strongly",
+    "roll clockwise": "rolls clockwise",
+    "roll counterclockwise": "rolls counterclockwise",
+    "pov": "stays in the subject's point of view",
+}
+CAM_HEAD = re.compile(r"^\s*\[([^\]]+)\]\s*")
+
+
+def camera_sentence(block, bad=None):
+    """[Zoom in, slow, large] Framing.  ->  Framing. The camera zooms in with
+    large amplitude at slow speed."""
+    m = CAM_HEAD.match(block)
+    if not m:
+        return block.strip()
+    moves, amp, speed = [], "", ""
+    for tok in (t.strip().lower() for t in m.group(1).split(",")):
+        if not tok:
+            continue
+        if tok in ("slow", "fast"):
+            speed = " at %s speed" % tok
+        elif tok in ("small", "large"):
+            amp = " with %s amplitude" % tok
+        elif tok in CAM_MOVES:
+            moves.append(CAM_MOVES[tok])
+        elif bad is not None:
+            bad.add(tok)
+    rest = block[m.end():].strip()
+    if not moves:
+        return rest
+    if "static" in m.group(1).lower():
+        amp = speed = ""
+    verb = moves[0] if len(moves) == 1 else "%s and %s" % (", ".join(moves[:-1]), moves[-1])
+    sentence = "The camera %s%s%s." % (verb, amp, speed)
+    return (rest + " " + sentence).strip() if rest else sentence
+
+
 def strip_comments(text):
     return "\n".join(l for l in text.splitlines()
                      if not l.lstrip().startswith("#")).strip()
@@ -83,6 +134,54 @@ def ref_lines(refs):
     out = ["%-12s %s (%s)" % (i["tag"], i["slug"], i["kind"])
            for i in refs.get("images", []) + refs.get("videos", [])]
     out.append("%-12s this window of the song" % refs.get("scene_audio_tag", "<Audio 1>"))
+    return out
+
+
+RETENTION = {
+    "char": ("partially_preserved", "the design, proportions, colour model and "
+             "every marking are preserved exactly and never drift between scenes; "
+             "only the reference's own rendering, its plain backdrop and its cast "
+             "shadow are discarded and redrawn in this film's idiom."),
+    "prop": ("partially_preserved", "the shape, material and colour of the object "
+             "are preserved; the reference's own rendering and backdrop are not."),
+    "style": ("attribute_transfer", "the palette, the line weight and the shape of "
+              "a shadow are transferred to everything drawn in this shot. The board "
+              "itself is never a thing in the scene and is never drawn."),
+    "loc": ("partially_preserved", "a background painting. Where this shot is set "
+            "in that place its architecture, layout and palette are preserved and "
+            "nothing in it is a subject; where the shot is set elsewhere it "
+            "contributes nothing."),
+    "video": ("weak_reference", "only its camera movement, cutting and rhythm are "
+              "referenced."),
+}
+
+
+def summary_prefix(refs):
+    """H3's summary opens with the task types the references actually perform."""
+    kinds = []
+    if not refs or refs.get("images") or refs.get("videos"):
+        kinds.append("reference generation")
+    if not refs or refs.get("scene_audio_tag"):
+        kinds.append("audio reuse")
+    return "[%s] " % " + ".join(kinds)
+
+
+def retention_lines(refs):
+    """one line per reference label, with H3's fixed relationship markers"""
+    if not refs:
+        return ["<Picture 1>: fully_preserved - the character reference.",
+                "<Audio 1>: partially_copy - the supplied window of the song is "
+                "reused as the audience-only score; the ambience below is added "
+                "over it."]
+    out = []
+    for i in refs.get("images", []) + refs.get("videos", []):
+        marker, why = RETENTION.get(i["kind"], ("partially_preserved", "as defined above."))
+        out.append("%s (%s, %s): %s - %s" % (i["tag"], i["slug"], i["kind"], marker, why))
+    tag = refs.get("scene_audio_tag")
+    if tag:
+        out.append("%s: partially_copy - the supplied window of the song is reused "
+                   "as the audience-only score for this clip; the diegetic ambience "
+                   "described below is added over it and nothing else is." % tag)
     return out
 
 
@@ -160,7 +259,8 @@ def action_of(c, cuts):
     for k, shot in enumerate(shots[1:]):
         if k >= len(cuts) or cuts[k] <= 0:
             break
-        out += "\n\nAt 00:%06.3f, cut to [Shot %d].\n%s" % (cuts[k], k + 2, shot)
+        out += "\n\n[Shot %d] At 00:%06.3f, the shot cuts to:\n%s" % (
+            k + 2, cuts[k], shot)
     return out
 
 
@@ -172,11 +272,13 @@ def cuts_of(r):
     return [one] if one > 0 else []
 
 
-def prompt_for(c, cam_block, action, bible, style, sound, music, refs):
-    summary = c.get("summary") or first_sentences(c["shot1"])
+def prompt_for(c, cam_block, action, bible, style, sound, music, refs, retention,
+               prefix):
+    summary = prefix + (c.get("summary") or first_sentences(c["shot1"]))
     if c.get("lyrics"):
         summary += ' The lyric sung here is "%s".' % c["lyrics"]
-    retention = style + (
+    # H3 wants the style established before [Shot 1], not in retention_analysis
+    opening = style + (
         "\n\nHold identical across every scene of this film: the colour model, the\n"
         "line weight, the proportions and the costume of every character named\n"
         "above, and the time of day and weather of the location.")
@@ -185,8 +287,9 @@ def prompt_for(c, cam_block, action, bible, style, sound, music, refs):
          "References supplied with this generation:\n" +
          "\n".join("  " + l for l in refs) + "\n\n" + bible),
         ("summary", summary),
-        ("retention_analysis", retention),
-        ("detailed_description", cam_block + "\n\n" + action),
+        ("retention_analysis", "\n".join(retention)),
+        ("detailed_description",
+         opening + "\n\n[Shot 1] " + cam_block + "\n\n" + action),
         ("overall_soundscape", sound),
         ("non_diegetic_music", music),
     ]
@@ -244,6 +347,8 @@ def main():
     CAM = read_cameras(SRC)
     refs = read_refs(song)
     rlines = ref_lines(refs)
+    retention = retention_lines(refs)
+    prefix = summary_prefix(refs)
 
     # scenes with no content.json entry fall back to the screenplay in scenes.tsv,
     # so a drehbuch run produces usable prompts with no drafting pass at all
@@ -268,6 +373,7 @@ def main():
     shutil.rmtree(os.path.join(song, "variants"), ignore_errors=True)
 
     per_scene_cams = 0
+    bad_cam = set()
     dsl = ["# %s - all %d scenes in one file, in the storyboard DSL.\n"
            "# This is the ComfyUI node's batch input. The NN_*.txt files beside it\n"
            "# are the same material as finished H3 prompts, for pasting by hand.\n"
@@ -293,9 +399,11 @@ def main():
             cam = (own.get(tag) or "").strip() or (CAM[tag][1] if tag in CAM else "")
             if not cam:
                 continue
+            cam = camera_sentence(cam, bad_cam)
             open(os.path.join(song, "%02d_%s-%s.txt" % (n, sl, tag)),
                  "w", encoding="utf-8", newline="\n").write(
-                prompt_for(c, cam, action, bible, style, sound, music, rlines))
+                prompt_for(c, cam, action, bible, style, sound, music, rlines,
+                           retention, prefix))
             n_var += 1
         if own:
             per_scene_cams += 1
@@ -427,6 +535,10 @@ def main():
               % (len(framed), ", ".join(framed[:12]) + (" ..." if len(framed) > 12 else "")))
         print("  The action is reused by v1/v2/v3 verbatim, so a framing there")
         print("  contradicts two of the three. Leave it to the camera block.")
+    if bad_cam:
+        print("! unknown camera token(s), dropped from the prompt: %s"
+              % ", ".join(sorted(bad_cam)))
+        print("  Use the vocabulary in templates/cameras/__GLOSSARY.txt.")
     if refs and refs.get("warnings"):
         for w in refs["warnings"]:
             print("! refs: %s" % w)

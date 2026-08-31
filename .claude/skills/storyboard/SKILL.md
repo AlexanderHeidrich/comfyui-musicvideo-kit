@@ -97,7 +97,10 @@ scene in `content.json`:
 v2 and v3 are yours: coverage by film-theory practice - never repeat v1's shot
 size, cross the axis rather than nudge it, and let one of them carry what the
 master cannot. `templates/cameras/__COVERAGE.txt` has the table per v1 type, and
-`__GLOSSARY.txt` the vocabulary and H3's bracket commands.
+`__GLOSSARY.txt` the vocabulary, the amplitude and speed modifiers, and the
+scale rule. The brackets are this kit's shorthand only - H3 dropped Hailuo 02's
+bracket commands and reads camera motion as a sentence, so `mvkit build`
+translates them on the way out.
 
 For a song with no screenplay, a whole-film set is enough:
 `cp templates/cameras/rostrum-2d.txt templates/cameras.txt` (or into the song's
@@ -133,8 +136,14 @@ no `@` directives. That markup is the kit's DSL and belongs only in
   renumber over what is actually connected, and a reference video's own
   soundtrack claims an `<Audio>` number before any standalone audio.
 - Six sections in order: subject_definitions, summary, retention_analysis,
-  detailed_description, overall_soundscape, non_diegetic_music. Internal cuts
-  are `At 00:0X.XXX, cut to [Shot N]`; the first shot carries no timestamp.
+  detailed_description, overall_soundscape, non_diegetic_music. `[Shot 1]`
+  opens the first shot with no timestamp; later shots are
+  `[Shot N] At 00:0X.XXX, the shot cuts to:` - label first, then the time.
+- Scale is not in the references. Every reference is a portrait filling its own
+  frame, so without a SCALE section in the bible H3 draws a frog the size of a
+  man. Give real measurements, the relation between characters, and how small
+  the subject must be in a wide. Write it into the action wherever two
+  characters share a frame.
 - Concrete physical detail. Never "cinematic", "epic", "beautiful".
 - v1/v2/v3 are coverage of one moment: the ACTION text is byte-identical across
   them and only the camera block differs. Preserve that.

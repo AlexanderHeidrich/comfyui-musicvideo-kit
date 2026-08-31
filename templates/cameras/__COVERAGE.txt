@@ -45,7 +45,8 @@ v2 AND V3 ARE COVERAGE
     v3  close on what the move was travelling toward
 
 RULES THAT APPLY TO ALL THREE
-  One dominant camera move per variant, written as an H3 bracket command.
+  One dominant camera move per variant, written in the kit's bracket shorthand.
+  The build turns it into the natural-English sentence H3 actually reads.
   [Push in] is not [Zoom in]. Do not mix pan with truck or tilt with pedestal.
   See __GLOSSARY.txt for the vocabulary and __README.txt for H3's limits.
 

@@ -14,13 +14,18 @@ on - read it before writing your own.
 What H3 actually honours (from MiniMax's own guidance, verified against the
 node's constraints):
 
-  - Camera moves are bracket commands: [Push in] [Pull out] [Pan left]
-    [Pan right] [Truck left] [Truck right] [Pedestal up] [Pedestal down]
-    [Tilt up] [Tilt down] [Zoom in] [Zoom out] [Shake] [Tracking shot]
-    [Static shot].
-  - At most three simultaneous commands, written in one bracket:
-    [Pan left,Pedestal up]. Sequential moves get their own brackets later in
-    the prompt.
+  - H3 does NOT read bracket commands. That was Hailuo 02. H3 wants the move
+    as a sentence inside the shot - motion type, then amplitude, then speed:
+    "The camera pushes in with small amplitude at slow speed."
+  - The brackets in these files are this kit's shorthand. `mvkit build`
+    translates them: [Push in] [Pull out] [Pan left] [Pan right] [Truck left]
+    [Truck right] [Pedestal up] [Pedestal down] [Tilt up] [Tilt down]
+    [Zoom in] [Zoom out] [Arc shot] [Tracking shot] [Static shot] [Shake]
+    [Roll clockwise] [Roll counterclockwise] [POV].
+  - Add amplitude and speed in the same bracket when they matter:
+    [Zoom in, slow, large]. Leave them out for medium and normal.
+  - Several moves in one bracket become one sentence: [Pan left,Pedestal up].
+    Sequential moves get their own brackets later in the prompt.
   - [Push in] and [Zoom in] are NOT the same move. Push in travels through
     space and changes parallax; zoom only changes focal length. Pick one.
   - Do not mix pan with truck, or tilt with pedestal, in one shot.

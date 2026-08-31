@@ -22,8 +22,17 @@ ANGLE - where the camera sits
   profile               dead side-on. Flattens depth, reads as a statement
   three-quarter         between front and profile. Most natural for faces
 
+AMPLITUDE AND SPEED - the other two thirds of a camera instruction
+  H3 reads a move as three things: type, amplitude, speed. Amplitude is how much
+  the composition changes, speed is how fast. Medium and normal are the default
+  and are left out. Write them into the bracket: [Zoom in, slow, large].
+    small / large       "with small amplitude" / "with large amplitude"
+    slow / fast         "at slow speed" / "at fast speed"
+
 MOVEMENT - what the camera does. One dominant move per clip
   [Static shot]         locked off. The strongest choice more often than not
+  [Arc shot]            the camera moves in an arc around the subject
+  [POV]                 the subject's own point of view
   [Push in]             camera travels toward the subject, parallax changes
   [Pull out]            camera travels away, revealing context
   [Zoom in] / [Zoom out]  focal length only, no travel. A different feeling
@@ -40,6 +49,17 @@ LENS FEEL - describe the result, not the hardware
   rack focus            focus moves from one plane to another during the shot
   wide lens feel        near objects loom, edges stretch, space exaggerated
   long lens feel        background compressed and close, layers stack flat
+
+SCALE - the thing the model has no way to guess
+  A reference image is a portrait: the subject fills its frame on a plain
+  backdrop. Nothing in it says how big the animal is, so H3 sizes everything the
+  same and a frog comes out as big as a man. Size lives in the bible's SCALE
+  section, in real units, plus the relation between characters ("she is four
+  times his height"). Restate it in any shot that holds two of them, and in any
+  wide where the subject should be a speck - "no wider than a few pixels" is a
+  useful thing to say out loud.
+  A close-up enlarges the subject in the FRAME, never the animal: the grass,
+  gravel and feathers around it grow in the same proportion.
 
 WHAT NOT TO WRITE
   "cinematic", "epic", "beautiful", "masterpiece", "8k", "hyperrealistic",

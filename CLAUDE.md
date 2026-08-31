@@ -78,17 +78,37 @@ Verified against `comfy_extras/nodes_minimax_h3.py`, not guessed.
   must be at least one image or video.
 - **Prompt shape.** The official six sections in order: `subject_definitions`,
   `summary`, `retention_analysis`, `detailed_description`, `overall_soundscape`,
-  `non_diegetic_music`. Internal cuts are written `At 00:0X.XXX, cut to
-  [Shot N]`; the first shot carries no timestamp. Dialogue stays verbatim in its
+  `non_diegetic_music`. `summary` opens with a bracketed task type
+  (`[reference generation + audio reuse]`), `retention_analysis` is one
+  generated line per reference label carrying H3's fixed markers
+  (`fully_preserved` / `partially_preserved` / `attribute_transfer` /
+  `weak_reference`, and `fully_copy` / `partially_copy` / `reference` for audio),
+  and the **style belongs before `[Shot 1]` in `detailed_description`** - not in
+  `retention_analysis`, which is a reference ledger, not a look brief. Internal cuts are written `[Shot N] At
+  00:0X.XXX, the shot cuts to:` - the label first, then the time, per MiniMax's
+  own guide. `[Shot 1]` opens the first shot and carries no timestamp. Dialogue stays verbatim in its
   original language. Concrete physical detail — never "cinematic", "epic".
 - **English descriptions, verbatim lyrics.** Every title, summary and shot
   description is written in English however the screenplay was written; H3
   follows English shot language far more reliably. Lyrics and dialogue stay
   verbatim in their own language. `mvkit build` warns when a description still
   reads as German.
-- **Camera moves** are bracket commands (`[Push in]`, `[Pan left]`,
-  `[Static shot]`, …), at most three simultaneously, and `[Push in]` is not
-  `[Zoom in]`. There is no negative_prompt. See `templates/cameras/__GLOSSARY.txt`.
+- **Camera moves are natural English, not bracket commands.** `[Push in]` and
+  friends are Hailuo 02's grammar; H3 dropped it and wants *motion type +
+  amplitude + speed* written as a sentence inside the shot - "The camera pushes
+  in with small amplitude at slow speed." Brackets stay this kit's authoring
+  shorthand in `content.json` and `cameras.txt`, and `camera_sentence()` in
+  `build_storyboards.py` translates them on the way out; anything it does not
+  recognise is dropped with a warning. `[Push in]` is still not `[Zoom in]` - a
+  push travels and changes parallax, a zoom only changes focal length, and asking
+  for a push when you meant an aerial zoom is how a plan view turns into a
+  descent through the trees. One dominant move per clip. There is no
+  negative_prompt. See `templates/cameras/__GLOSSARY.txt`.
+- **Scale is not in the references.** Every reference is a portrait filling its
+  own frame, so H3 has nothing to size characters by and will draw them all the
+  same size - a frog as big as a man. The bible needs a SCALE section with real
+  measurements and the relations between them, and every shot that holds two
+  characters restates which is bigger.
 
 ## The screenplay spine
 
