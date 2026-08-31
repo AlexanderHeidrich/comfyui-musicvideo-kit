@@ -172,8 +172,20 @@ install:
 Copy or symlink them into your own `ComfyUI/custom_nodes/` and restart. They
 appear under a **Watching Hurricanes** category.
 
-**The H3 node's class name cannot be known offline**, so the generated graphs
-carry a marked placeholder until you ask a running server:
+**The H3 node conditions a sampler.** It returns `positive` and `LATENT`, not a
+video, so a complete graph needs the rest of a local pipeline behind it - model
+loader, sampler, VAE decode, video combine. None of that can be generated without
+guessing at your model and settings, which is why wrapping your own graph (below)
+is the route that actually works, and the generated ones are the front half.
+
+Its native size is 1344x768 and `length` is a widget on it; the reference inputs
+are `ref_image_0`, `ref_image_1`, ... (0-based and dynamic - connect one and the
+next appears), with `ref_audio_0` for a standalone audio reference.
+`ref_video_audio_0` is the soundtrack *of* a reference video and is a different
+thing - it claims an `<Audio>` number before any standalone audio.
+
+**The class name cannot be known offline**, so the generated graphs carry a
+marked placeholder until you ask a running server:
 
 ```bash
 ./mvkit probe                              # what is installed, what to title what

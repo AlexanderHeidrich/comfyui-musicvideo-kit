@@ -21,7 +21,38 @@ Stdlib only.
 import argparse
 import json
 import os
+import re
 import sys
+
+
+def nat(name):
+    """sort ref_image_0 before ref_image_10, and image2 before image10"""
+    return [int(t) if t.isdigit() else t for t in re.split(r"(\d+)", name)]
+
+
+def image_slots(inputs):
+    """reference-image inputs, whatever they are called.
+
+    The real node names them ref_image_0, ref_image_1, ... (0-based, and the
+    input is dynamic - connecting one makes the next appear). Older guesses used
+    image1..image9. Match either - but only names that END in a number, or
+    `ref_image_size` gets treated as a slot and an image loader wired into a
+    combo widget.
+    """
+    return sorted((k for k in inputs
+                   if re.match(r"^(ref_)?image_?\d+$", k.lower())), key=nat)
+
+
+def audio_slot(inputs):
+    """where a STANDALONE audio reference goes.
+
+    Not ref_video_audio_*: that is the soundtrack of a reference video, and it
+    claims an <Audio> number before any standalone audio. Putting the song slice
+    there would be wrong twice over.
+    """
+    cands = [k for k in inputs
+             if re.match(r"^(ref_)?audio_?\d*$", k.lower())]
+    return sorted(cands, key=nat)[0] if cands else None
 
 H3_CLASS = "MiniMaxHailuoH3Ref2VideoAudio"
 H3_IMAGES = 9
@@ -135,12 +166,12 @@ def wrap(raw, song, a):
     ins = g[nid].setdefault("inputs", {})
     ins["prompt"] = [src, 0]
     ins["length"] = [src, 2]
-    for k, v in list(ins.items()):
-        if k.startswith("audio"):
-            ins[k] = [au, 0]
+    a_slot = audio_slot(ins)
+    if a_slot:
+        ins[a_slot] = [au, 0]
 
     # the reference sheets, into whatever image slots this node has
-    slots = sorted(k for k in ins if k.startswith("image"))
+    slots = image_slots(ins)
     refs = read_refs(song)[:len(slots) or a.h3_images]
     for i, (tag, label, _) in enumerate(refs):
         if i >= len(slots):
@@ -162,14 +193,18 @@ def wrap(raw, song, a):
               % (nid, g[nid]["class_type"],
                  ", ".join("%s=%r" % (k, v) for k, v in sorted(ins.items())
                            if not isinstance(v, list)) or "none")]
-    report.append("rewired: prompt, length, %d audio, %d of %d image slot(s)"
-                  % (sum(1 for k in ins if k.startswith("audio")),
+    report.append("rewired: prompt, length, %s, %d of %d image slot(s)"
+                  % ("audio -> %s" % a_slot if a_slot else "no audio slot found",
                      min(len(refs), len(slots)), len(slots)))
     if len(read_refs(song)) > len(slots):
         report.append("! %d reference sheets but only %d image slot(s) on that node - "
                       "%d dropped. Add image inputs in ComfyUI and re-wrap."
                       % (len(read_refs(song)), len(slots),
                          len(read_refs(song)) - len(slots)))
+    if any(t in ("CONDITIONING", "LATENT")
+           for t in (g[nid].get("_out_types") or ())):
+        report.append("that node conditions a sampler rather than returning a "
+                      "video; the rest of your chain is untouched")
     orphans = [k for k, n in g.items()
                if k not in (src, au) and not k.startswith("91")
                and n.get("class_type") in (a.audio_class, IMAGE_CLASS, "LoadImage",
@@ -189,13 +224,13 @@ def wf_scene(song, a):
     g = {}
     g["10"] = {"class_type": a.audio_class, "_meta": {"title": "AUDIO"},
                "inputs": {a.audio_field: audio_f or ""}}
-    h3_extra = {"length": frames, "audio1": ["10", 0]}
+    h3_extra = {"length": frames, "ref_audio_0": ["10", 0]}
     for n, (tag, label, path) in enumerate(refs, 1):
         nid = str(100 + n)
         # the title IS the live tag, so the graph says which image is which
         g[nid] = {"class_type": a.image_class, "_meta": {"title": label},
                   "inputs": {a.image_field: path}}
-        h3_extra["image%d" % n] = [nid, 0]
+        h3_extra["ref_image_%d" % (n - 1)] = [nid, 0]
     if prompt_f:
         with open(prompt_f, encoding="utf-8") as fh:
             h3_extra["prompt"] = fh.read()
@@ -212,12 +247,13 @@ def wf_folder(song, a):
                           "scene_index": 1, "variant": "v1"}}}
     g["10"] = {"class_type": a.audio_class, "_meta": {"title": "AUDIO"},
                "inputs": {a.audio_field: ["1", 1]}}
-    h3_extra = {"prompt": ["1", 0], "length": ["1", 2], "audio1": ["10", 0]}
+    h3_extra = {"prompt": ["1", 0], "length": ["1", 2],
+                "ref_audio_0": ["10", 0]}
     for n, (tag, label, _) in enumerate(refs, 1):
         nid = str(100 + n)
         g[nid] = {"class_type": a.image_class, "_meta": {"title": label},
                   "inputs": {a.image_field: ["1", 5 + n]}}   # ref_1 is output 6
-        h3_extra["image%d" % n] = [nid, 0]
+        h3_extra["ref_image_%d" % (n - 1)] = [nid, 0]
     g["20"] = h3_node(a, h3_extra, a.h3_class)
     g["30"] = save_node(a, "20", ["1", 15])
     return g
@@ -234,7 +270,7 @@ def wf_pipeline(song, a):
     g["10"] = {"class_type": a.audio_class, "_meta": {"title": "AUDIO"},
                "inputs": {a.audio_field: ["1", 1]}}
     g["20"] = h3_node(a, {"prompt": ["1", 0], "length": ["1", 2],
-                          "audio1": ["10", 0]}, a.h3_class)
+                          "ref_audio_0": ["10", 0]}, a.h3_class)
     g["30"] = save_node(a, "20", ["1", 5])
     g["40"] = {"class_type": "PreviewAny", "_meta": {"title": "KIT LOG"},
                "inputs": {"source": ["1", 6]}}

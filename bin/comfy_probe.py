@@ -120,6 +120,19 @@ def report(info, host):
         print("  and its wired inputs:")
         for n, t in sorted(l.items()):
             print("    %-22s %s" % (n, t))
+        outs = list(spec.get("output") or ())
+        names = list(spec.get("output_name") or ())
+        print("  what it RETURNS:")
+        for i, t in enumerate(outs):
+            print("    %-22s %s" % (names[i] if i < len(names) else "out %d" % i, t))
+        if any(t in ("CONDITIONING", "LATENT") for t in outs):
+            print()
+            print("  This node CONDITIONS A SAMPLER - it does not hand back a video.")
+            print("  A finished graph therefore needs the rest of a local pipeline")
+            print("  (model loader, sampler, VAE decode, video combine), none of")
+            print("  which can be guessed from here. Build that chain once in the UI,")
+            print("  export it, and wrap it:")
+            print("      ./mvkit workflows <song> --from your_export.json")
         print()
         # A node carries ONE title, so two roles that both live on the H3 node
         # cannot both be titled. Either title it once and point both roles at that
@@ -146,6 +159,14 @@ def report(info, host):
             if role in on_h3:
                 continue
             over = next((k for k in keys if k in l), None)
+            if not over and role == "AUDIO":
+                # the real node calls it ref_audio_0. ref_video_audio_* is the
+                # soundtrack OF a reference video and is a different thing.
+                # by TYPE, not by name: audio_vae is a VAE, and
+                # ref_video_audio_* is the soundtrack of a reference video
+                cands = [k for k, t in l.items()
+                         if t == "AUDIO" and "video" not in k.lower()]
+                over = sorted(cands)[0] if cands else None
             if over:
                 print("    %-7s -> arrives over a wire (`%s: %s`). Title the node that"
                       % (role, over, l[over]))

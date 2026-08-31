@@ -23,6 +23,21 @@ RENDERING THIS FOLDER IN COMFYUI
       __wf_3_pipeline.json  Hurricane Build Song runs ./mvkit on the host first, then
                             the same. For when you want one button.
 
+    READ THIS FIRST. The H3 node is a CONDITIONING node: it returns `positive`
+    and `LATENT`, not a video. A finished graph therefore needs the rest of a
+    local pipeline behind it - model loader, sampler, VAE decode, video combine -
+    and none of that can be generated from here without guessing at your model,
+    your sampler and your settings. So the generated graphs below are starting
+    points for the front half only. The route that actually works:
+
+      build a graph in the UI that renders ONE scene properly, export it with
+      Workflow -> Export (API), then
+
+        ./mvkit workflows {song} --from your_export.json
+
+      which keeps your whole chain and rewires only prompt, length, the audio
+      reference and the ref_image slots, plus a save prefix at the back.
+
     First, once: copy (or symlink) comfyui/custom_nodes/watching_hurricanes.py into your
     own ComfyUI/custom_nodes/ and restart. Stdlib only, nothing to install.
 
