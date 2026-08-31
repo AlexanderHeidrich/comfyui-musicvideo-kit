@@ -30,6 +30,12 @@ AUDIO_FIELD = "audio_file"
 IMAGE_CLASS = "VHS_LoadImagePath"
 IMAGE_FIELD = "path"
 SAVE_CLASS = "SaveVideo"
+# the upscale pass: 4x on an anime/line-art model, then down to the target size.
+# The 4x models are better trained than the 2x ones and the downscale takes the
+# over-sharpening back out - which matters on a flat ink-and-wash picture.
+UPSCALE_MODEL = "RealESRGAN_x4plus_anime_6B.pth"
+VIDEO_LOAD = "VHS_LoadVideoPath"
+VIDEO_COMBINE = "VHS_VideoCombine"
 NOTE = ("placeholder class name - run `mvkit probe --song <name> --emit` against a "
         "running ComfyUI to replace it with the real one")
 
@@ -236,9 +242,43 @@ def wf_pipeline(song, a):
     return g
 
 
+def wf_upscale(song, a):
+    """The pass AFTER rendering, and there is no H3 in it.
+
+    Point Hurricane Clip Folder at the folder you pruned by hand, set clip_index
+    to `increment` and the batch count to clip_count, and it walks every clip
+    that is still there, in name order. Audio rides through untouched.
+    """
+    g = {}
+    g["1"] = {"class_type": "HurricaneClipFolder", "_meta": {"title": "CLIPS IN"},
+              "inputs": {"source_dir": "", "clip_index": 1,
+                         "out_subfolder": "%s-2K" % os.path.basename(
+                             os.path.abspath(song)),
+                         "extensions": "mp4,mov,webm,mkv"}}
+    g["10"] = {"class_type": a.video_load, "_meta": {"title": "LOAD CLIP"},
+               "inputs": {"video": ["1", 0], "force_rate": 0, "force_size": "Disabled",
+                          "frame_load_cap": 0, "skip_first_frames": 0,
+                          "select_every_nth": 1}}
+    g["20"] = {"class_type": "UpscaleModelLoader", "_meta": {"title": "4x ANIME MODEL"},
+               "inputs": {"model_name": a.upscale_model}}
+    g["21"] = {"class_type": "ImageUpscaleWithModel", "_meta": {"title": "UPSCALE 4x"},
+               "inputs": {"upscale_model": ["20", 0], "image": ["10", 0]}}
+    g["22"] = {"class_type": "ImageScale", "_meta": {"title": "DOWN TO TARGET"},
+               "inputs": {"image": ["21", 0], "width": a.target_w,
+                          "height": a.target_h, "upscale_method": "lanczos",
+                          "crop": "disabled"}}
+    g["30"] = {"class_type": a.video_combine, "_meta": {"title": "CLIPS OUT"},
+               "inputs": {"images": ["22", 0], "audio": ["10", 2],
+                          "filename_prefix": ["1", 1], "frame_rate": 24,
+                          "format": "video/h264-mp4", "pix_fmt": "yuv420p",
+                          "crf": 12, "save_output": True}}
+    return g
+
+
 WORKFLOWS = (("__wf_1_scene.json", wf_scene, "one scene, every file named"),
              ("__wf_2_folder.json", wf_folder, "the folder node drives the song"),
-             ("__wf_3_pipeline.json", wf_pipeline, "run the kit, then the song"))
+             ("__wf_3_pipeline.json", wf_pipeline, "run the kit, then the song"),
+             ("__wf_5_upscale.json", wf_upscale, "upscale a folder of renders, no H3"))
 
 
 def main():
@@ -251,6 +291,11 @@ def main():
     ap.add_argument("--image-class", default=IMAGE_CLASS)
     ap.add_argument("--image-field", default=IMAGE_FIELD)
     ap.add_argument("--save-class", default=SAVE_CLASS)
+    ap.add_argument("--upscale-model", default=UPSCALE_MODEL)
+    ap.add_argument("--video-load", default=VIDEO_LOAD)
+    ap.add_argument("--video-combine", default=VIDEO_COMBINE)
+    ap.add_argument("--target-w", type=int, default=2560)
+    ap.add_argument("--target-h", type=int, default=1440)
     ap.add_argument("--confirmed", action="store_true",
                     help="the class names came from a live /object_info, not a guess")
     ap.add_argument("--from", dest="raw", metavar="RAW.json",

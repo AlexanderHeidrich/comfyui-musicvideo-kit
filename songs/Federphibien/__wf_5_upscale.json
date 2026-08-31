@@ -1,0 +1,97 @@
+{
+  "1": {
+    "class_type": "HurricaneClipFolder",
+    "_meta": {
+      "title": "CLIPS IN"
+    },
+    "inputs": {
+      "source_dir": "",
+      "clip_index": 1,
+      "out_subfolder": "Federphibien-2K",
+      "extensions": "mp4,mov,webm,mkv"
+    }
+  },
+  "10": {
+    "class_type": "VHS_LoadVideoPath",
+    "_meta": {
+      "title": "LOAD CLIP"
+    },
+    "inputs": {
+      "video": [
+        "1",
+        0
+      ],
+      "force_rate": 0,
+      "force_size": "Disabled",
+      "frame_load_cap": 0,
+      "skip_first_frames": 0,
+      "select_every_nth": 1
+    }
+  },
+  "20": {
+    "class_type": "UpscaleModelLoader",
+    "_meta": {
+      "title": "4x ANIME MODEL"
+    },
+    "inputs": {
+      "model_name": "RealESRGAN_x4plus_anime_6B.pth"
+    }
+  },
+  "21": {
+    "class_type": "ImageUpscaleWithModel",
+    "_meta": {
+      "title": "UPSCALE 4x"
+    },
+    "inputs": {
+      "upscale_model": [
+        "20",
+        0
+      ],
+      "image": [
+        "10",
+        0
+      ]
+    }
+  },
+  "22": {
+    "class_type": "ImageScale",
+    "_meta": {
+      "title": "DOWN TO TARGET"
+    },
+    "inputs": {
+      "image": [
+        "21",
+        0
+      ],
+      "width": 2560,
+      "height": 1440,
+      "upscale_method": "lanczos",
+      "crop": "disabled"
+    }
+  },
+  "30": {
+    "class_type": "VHS_VideoCombine",
+    "_meta": {
+      "title": "CLIPS OUT"
+    },
+    "inputs": {
+      "images": [
+        "22",
+        0
+      ],
+      "audio": [
+        "10",
+        2
+      ],
+      "filename_prefix": [
+        "1",
+        1
+      ],
+      "frame_rate": 24,
+      "format": "video/h264-mp4",
+      "pix_fmt": "yuv420p",
+      "crf": 12,
+      "save_output": true
+    }
+  }
+}

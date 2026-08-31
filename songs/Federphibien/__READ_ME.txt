@@ -230,6 +230,51 @@ RENDERING THIS FOLDER IN COMFYUI
   are deliberately absent from __batch/, which pairs prompts with slices line by
   line and cannot carry a clip that has no slice.
 
+  UPSCALING, AFTERWARDS - __wf_5_upscale.json
+
+    A separate graph with no H3 in it at all. It is the pass you run once the
+    renders exist and you have thrown out the takes you do not want:
+
+      Hurricane Clip Folder ─► Load Video (Path) ─► Upscale 4x ─► scale to 2560x1440
+       (source_dir)                    └─ audio ──────────────────────┐
+                                                                Video Combine
+                                                                (out_subfolder)
+
+    1. put the pruned folder in `source_dir`. It lists what is ACTUALLY there,
+       so a take you deleted is simply not in the run.
+    2. read `clip_count` off the node, set `clip_index` to `increment` and the
+       queue's batch count to exactly that number. Too high is an error rather
+       than a silent re-render of the last clip - which is what you want when it
+       runs unattended.
+    3. Run once and leave it.
+
+    Clips keep their own names: 01_the-pond-from-above-v1.mp4 comes out as
+    <out_subfolder>/01_the-pond-from-above-v1.mp4, so the pairing with the prompt
+    survives and `mvkit concat` still reads them in scene order. Audio rides
+    through untouched.
+
+    WHY A 4x MODEL AND THEN DOWN. RealESRGAN_x4plus_anime_6B is trained on line
+    art and keeps a hard ink outline where a photo model smears it. The 4x models
+    are better trained than the 2x ones, and scaling back down to the target takes
+    the over-sharpening out again. Put the .pth in ComfyUI/models/upscale_models/.
+
+    NOT a diffusion upscaler, on purpose. This picture is a black line and flat
+    washes - there is no hidden detail to reconstruct, so a generative model
+    invents texture in areas that must stay flat, and invents it differently in
+    every frame. On flat colour that shimmer is far more visible than on
+    photographic footage, and it is exactly what RENDER CLEAN exists to prevent.
+    An ESRGAN-class model is deterministic: same pixels in, same pixels out, so it
+    is temporally stable without any extra setting.
+
+    Alternative worth trying first: DaVinci Resolve Studio's Super Scale (Clip
+    Attributes, 2x) hallucinates nothing, is already in your pipeline and costs no
+    ComfyUI work at all.
+
+    TWO CONNECTIONS TO CHECK ONCE. VideoHelperSuite has renamed things between
+    versions, so verify in the UI that Load Video (Path)'s third output really is
+    AUDIO, and that `force_size` still exists on it (newer builds use
+    custom_width/custom_height instead). Everything else in the graph is stable.
+
 
 Set length to the frame count in __SCENES.tsv - H3 only accepts lengths
 where frames % 17 == 5, and it rounds up, so do not retype it by feel.
