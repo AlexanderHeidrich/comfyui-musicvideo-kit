@@ -1,7 +1,3 @@
-# song folders are deliverables: local audio, generated prompts, renders
-/songs/*
-!/songs/.gitkeep
-
 .idea/
 .cache/
 *.zip
@@ -10,3 +6,10 @@ __pycache__/
 .DS_Store
 Thumbs.db
 .env
+
+# song folders ARE versioned - refs, style and screenplay are work, not build
+# output. Rendered video is not: large, and regenerable from the prompts.
+/songs/**/renders/
+/songs/**/*.mp4
+/songs/**/*.mov
+/songs/**/*.webm

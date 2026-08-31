@@ -37,7 +37,7 @@ songs/Federphibien/
                        prompts, lyrics  - one row per scene, tab separated
   __batch/
     __README.txt       the group table: which length, how many queue runs
-    f124-v1-prompts.txt   39 absolute paths, one per line
+    f124-v1-prompts.txt   39 paths, one per line, relative to the song folder
     f124-v1-audio.txt     the same 39 scenes' mp3s, in the same order
     f158-v1-...           and so on, one pair per frame count
   ALL_scenes.txt       the same material in this kit's DSL, for mv_h3_nodes.py
@@ -109,8 +109,8 @@ Two details that trip people up:
    nesting - a list of paths, then a loader - is necessary because a prompt is
    multi-line and cannot live on one line of a list file.
 2. `Load Audio (Path)` defaults its path to `input/`. The `__batch/` lists carry
-   absolute paths, so it reads the song folder directly. Re-run
-   `mvkit build <song>` if you move the folder - the paths are regenerated.
+   paths relative to the song folder, so the deliverable survives being copied to
+   another machine - set the loader's base to wherever that folder now lives.
 
 ### Running it
 

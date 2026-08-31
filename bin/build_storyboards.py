@@ -140,13 +140,14 @@ def ref_lines(refs):
 RETENTION = {
     "char": ("partially_preserved", "the design, proportions, colour model and "
              "every marking are preserved exactly and never drift between scenes; "
-             "only the reference's own rendering, its plain backdrop and its cast "
-             "shadow are discarded and redrawn in this film's idiom."),
+             "only the sheet's plain backdrop and the cast shadow under the figure "
+             "are dropped. How the character is rendered is set by the style below."),
     "prop": ("partially_preserved", "the shape, material and colour of the object "
              "are preserved; the reference's own rendering and backdrop are not."),
-    "style": ("attribute_transfer", "the palette, the line weight and the shape of "
-              "a shadow are transferred to everything drawn in this shot. The board "
-              "itself is never a thing in the scene and is never drawn."),
+    "style": ("attribute_transfer", "the palette, the line weight and the way "
+              "shading is laid down are transferred to everything drawn in this "
+              "shot. The board itself is never a thing in the scene and is never "
+              "drawn."),
     "loc": ("partially_preserved", "a background painting. Where this shot is set "
             "in that place its architecture, layout and palette are preserved and "
             "nothing in it is a subject; where the shot is set elsewhere it "
@@ -297,9 +298,10 @@ def prompt_for(c, cam_block, action, bible, style, sound, music, refs, retention
 
 
 def write_batch_lists(song, rows, content, cams):
-    """Index files for in-graph batching: one absolute path per line, prompts and
-    audio in the same order, grouped by frame count so `length` is set once per
-    group instead of per scene."""
+    """Index files for in-graph batching: one path per line, relative to the song
+    folder so the deliverable survives being moved or copied to another machine.
+    Prompts and audio in the same order, grouped by frame count so `length` is
+    set once per group instead of per scene."""
     d = os.path.join(song, "__batch")
     shutil.rmtree(d, ignore_errors=True)
     os.makedirs(d)
@@ -308,8 +310,7 @@ def write_batch_lists(song, rows, content, cams):
         n = int(r["scene"]); sl = slug(content[r["scene"]]["title"])
         for tag in sorted(cams):
             groups.setdefault((int(r["frames"]), tag), []).append(
-                (os.path.abspath(os.path.join(song, "%02d_%s-%s.txt" % (n, sl, tag))),
-                 os.path.abspath(os.path.join(song, "%02d_%s.mp3" % (n, sl)))))
+                ("%02d_%s-%s.txt" % (n, sl, tag), "%02d_%s.mp3" % (n, sl)))
     lines = []
     for (frames, tag), items in sorted(groups.items()):
         base = "f%d-%s" % (frames, tag)
@@ -329,8 +330,9 @@ def write_batch_lists(song, rows, content, cams):
         for frames, tag, count in lines:
             fh.write("%-22s %-8d %d\n" % ("f%d-%s" % (frames, tag), frames, count))
         fh.write("\nWiring, and why core nodes are not enough: see docs/comfyui-batch.md\n"
-                 "Paths are absolute and regenerated - re-run `mvkit build` after moving\n"
-                 "the folder.\n")
+                 "Paths are relative to the song folder - the one directly above this\n"
+                 "one. Prefix them with wherever that folder lives on the machine that\n"
+                 "runs ComfyUI.\n")
     return lines
 
 
