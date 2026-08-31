@@ -194,7 +194,7 @@ subject_definitions
     never play it for laughs, never mug, never wink.
 
 summary
-  [reference generation + audio reuse] A daydream painted half transparent into the open sky above the hopping frog. The hen sits on a plain wooden chair, crocheting, the hook working steadily. The lyric sung here is "Stell dir unsre Kinder vooooor".
+  [reference generation + audio reuse] Full frame, and this clip is composited into the sky later, so it is staged as its own complete shot and not as a faded inset. The hen sits on a plain wooden chair, crocheting, the hook working steadily. The lyric sung here is "Stell dir unsre Kinder vooooor".
 
 retention_analysis
   <Picture 1> (federphibium, char): partially_preserved - the design, proportions, colour model and every marking are preserved exactly and never drift between scenes; only the sheet's plain backdrop and the cast shadow under the figure are dropped. How the character is rendered is set by the style below.
@@ -313,7 +313,7 @@ detailed_description
 
   [Shot 1] Insert on the crochet hook working in her beak. The camera holds a static shot.
 
-  A daydream painted half transparent into the open sky above the hopping frog. The hen sits on a plain wooden chair, crocheting, the hook working steadily. The view widens off her and three small Federphibien come into it, on the floor in front of the chair, playing with plush tadpole toys. He sings the line.
+  Full frame, and this clip is composited into the sky later, so it is staged as its own complete shot and not as a faded inset. The hen sits on a plain wooden chair, crocheting, the hook working steadily. The view widens off her and three small Federphibien come into it, on the floor in front of the chair, playing with plush tadpole toys. He sings the line.
 
 overall_soundscape
   Under everything, always present and always quiet: a summer farm pond. Wet

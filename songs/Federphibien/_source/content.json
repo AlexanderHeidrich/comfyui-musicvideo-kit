@@ -142,23 +142,34 @@
   "14": {
     "title": "in love with a chicken",
     "lyrics": "Bin argh verknallt in ein Huhn. / Uns’re Welten, weit auseinander. / Doch bestimmt nur für einander.",
-    "shot1": "The frog sits with his fist pressed flat against the middle of his chest, in the overwrought way of anime melodrama. His eyes are closed and he looks down as he sings the line. In the sky behind him the hen's profile appears, half transparent.",
-    "shot2": "Nothing in the staging changes. The frog opens his eyes and a single tear glitters in the corner of one of them as he looks up at the sky, where the hen's face still hangs half transparent. He sings the line.",
+    "shot1": "The frog sits with his fist pressed flat against the middle of his chest, in the overwrought way of anime melodrama. His eyes are closed and he looks down as he sings the line. The sky behind and above him is left completely empty - flat overcast, no cloud shapes, nothing in it - because something is placed there later.",
+    "shot2": "Nothing in the staging changes. The frog opens his eyes and a single tear glitters in the corner of one of them as he looks up at the empty sky. He sings the line.",
     "shot3": "The frog wipes the tear out of his eye and his expression sets, stubborn. He sings the line, then gathers himself and sets off hopping through the grass.",
     "cameras": {
       "v1": "[Static shot] Profile, dead side on, the frog to the right of frame facing left, sky behind him.",
       "v2": "[Static shot] Three-quarter front, where his face reads best.",
       "v3": "[Static shot] Extreme close on the fist held flat against his chest."
+    },
+    "composite": {
+      "role": "plate",
+      "where": "upper left of the sky, half transparent: the hen seen in profile",
+      "note": "the screenplay says oben links. No clip is generated for it - the profile on refs/03_char_das-huhn.png is the element, held as a still."
     }
   },
   "15": {
     "title": "imagine our children",
     "lyrics": "Stell dir unsre Kinder vooooor",
-    "shot1": "A daydream painted half transparent into the open sky above the hopping frog. The hen sits on a plain wooden chair, crocheting, the hook working steadily. The view widens off her and three small Federphibien come into it, on the floor in front of the chair, playing with plush tadpole toys. He sings the line.",
+    "shot1": "Full frame, and this clip is composited into the sky later, so it is staged as its own complete shot and not as a faded inset. The hen sits on a plain wooden chair, crocheting, the hook working steadily. The view widens off her and three small Federphibien come into it, on the floor in front of the chair, playing with plush tadpole toys. He sings the line.",
     "cameras": {
       "v1": "[Zoom out] Starting close on the hen and her crochet hook and widening until the three Federphibien on the floor are in frame.",
       "v2": "[Static shot] Low at floor level among the Federphibien and their plush tadpoles, the hen and the chair behind them.",
       "v3": "[Static shot] Insert on the crochet hook working in her beak."
+    },
+    "composite": {
+      "role": "inset",
+      "with": "16",
+      "where": "into the open sky in the upper half of scene 16, half transparent",
+      "note": "one of the three Zukunftsvisionen - the hen crocheting while three Federphibien play"
     }
   },
   "16": {
@@ -169,6 +180,11 @@
       "v1": "[Tracking shot] Travelling alongside him at his own height, matching his speed exactly so he holds the same spot in the lower third and the sky stays open above him.",
       "v2": "[Tracking shot] Travelling with him from slightly behind and lower, the grass tops crossing the near foreground, the sky still open above.",
       "v3": "[Tracking shot] Travelling with his legs and feet close, the grass streaming past them at the same constant rate."
+    },
+    "composite": {
+      "role": "loop",
+      "where": "the open upper half is where scenes 15, 17 and 18 are placed",
+      "note": "the screenplay's endlose Loop: butt-join the clip to itself to hold the hop for as long as the visions need"
     }
   },
   "17": {
@@ -179,6 +195,12 @@
       "v1": "[Zoom in] Pushing onto the slime-soaked feathers.",
       "v2": "[Static shot] Wide on the three Federphibien playing on the floor.",
       "v3": "[Static shot] The reverse - the hen watching them from her chair."
+    },
+    "composite": {
+      "role": "inset",
+      "with": "16",
+      "where": "into the open sky in the upper half of scene 16, half transparent",
+      "note": "one of the three Zukunftsvisionen - the slime-soaked feathers"
     }
   },
   "18": {
@@ -189,6 +211,12 @@
       "v1": "[Zoom in] Pushing onto the huge bulging eyes.",
       "v2": "[Static shot] Wide on the whole Federphibium, so the eyes read as part of an animal.",
       "v3": "[Static shot] The reverse - what the eyes are aimed at across the room."
+    },
+    "composite": {
+      "role": "inset",
+      "with": "16",
+      "where": "into the open sky in the upper half of scene 16, half transparent",
+      "note": "one of the three Zukunftsvisionen - the huge eyes"
     }
   },
   "19": {
@@ -480,6 +508,10 @@
       "v1": "[Static shot] Held on the freeze at the top of the jump, nothing moving.",
       "v2": "[Static shot] Wide on the frozen pose with the whole landscape around it.",
       "v3": "[Static shot] Close on the two of them held mid-air."
+    },
+    "composite": {
+      "role": "freeze",
+      "note": "hold the last frame as long as you like, then close the iris in Resolve - the screenplay asks for the effect there, so it is not rendered in"
     }
   }
 }

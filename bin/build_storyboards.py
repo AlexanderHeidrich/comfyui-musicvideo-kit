@@ -120,6 +120,18 @@ def read_cameras(src):
     return cams
 
 
+def wrap(text, width):
+    out, line = [], ""
+    for w in text.split():
+        if line and len(line) + 1 + len(w) > width:
+            out.append(line); line = w
+        else:
+            line = (line + " " + w).strip()
+    if line:
+        out.append(line)
+    return out
+
+
 def read_refs(song):
     path = os.path.join(song, "_source", "refs.json")
     if not os.path.isfile(path):
@@ -515,6 +527,28 @@ def main():
     if held:
         readme += ["Scenes that must end on the frame they started on (the screenplay",
                    "marks them First Frame <> Last Frame): " + ", ".join(held), ""]
+    # scenes that carry a "composite" block: what is a plate, what is laid over it,
+    # and what may be looped or held. The overlay is never rendered into the plate,
+    # because it is assembled in the edit.
+    comp = [(r["scene"], content[r["scene"]]["composite"]) for r in rows
+            if content[r["scene"]].get("composite")]
+    if comp:
+        readme += ["", "COMPOSITING - assembled in the edit, not rendered in", ""]
+        order = {"loop": 0, "plate": 1, "inset": 2, "freeze": 3}
+        for scene, cp in sorted(comp, key=lambda x: (order.get(x[1].get("role"), 9), x[0])):
+            sl = slug(content[scene]["title"])
+            head = "  %02d_%s  [%s]" % (int(scene), sl, cp.get("role", "?"))
+            if cp.get("with"):
+                head += " -> over %02d" % int(cp["with"])
+            readme.append(head)
+            for k in ("where", "note"):
+                if cp.get(k):
+                    readme += ["        " + l for l in wrap(cp[k], 66)]
+        readme += ["",
+                   "  A plate is rendered with its overlay area left empty on purpose.",
+                   "  An inset is a full-frame clip of its own - place, scale and fade it",
+                   "  in the edit. Nothing here is burned into a render.", ""]
+
     readme += ["",
                "Set length to the frame count in __SCENES.tsv - H3 only accepts lengths",
                "where frames %% 17 == 5, and it rounds up, so do not retype it by feel.",
