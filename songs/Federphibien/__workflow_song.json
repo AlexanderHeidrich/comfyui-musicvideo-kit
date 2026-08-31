@@ -1966,6 +1966,13 @@
           "widget": {
             "name": "out_subfolder"
           }
+        },
+        {
+          "name": "include",
+          "type": "COMBO",
+          "widget": {
+            "name": "include"
+          }
         }
       ],
       "outputs": [
@@ -2082,13 +2089,15 @@
         "",
         1,
         "v1",
-        ""
+        "",
+        "scenes with audio"
       ],
       "widgets_values_named": {
         "song_path": "",
         "scene_index": 1,
         "variant": "v1",
-        "out_subfolder": ""
+        "out_subfolder": "",
+        "include": "scenes with audio"
       }
     },
     {

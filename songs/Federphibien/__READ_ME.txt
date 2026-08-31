@@ -220,8 +220,12 @@ RENDERING THIS FOLDER IN COMFYUI
     1. set `song_path` to where this folder lives on the ComfyUI machine
     2. click the arrows beside `scene_index` and set its control to `increment`
     3. set the queue's **Batch count** (the number next to Run, not a widget) to
-       the scene count - it is the number of data rows in __SCENES.tsv, printed
-       at the top of this file
+       the node's `scene_count` output. That is NOT the number of rows in
+       __SCENES.tsv: `include` defaults to "scenes with audio", which leaves out
+       scene 00 and anything numbered 90+ because they have no window of the song
+       and an audio loader wired to audio_path would throw on them. Those are
+       rendered separately - set `include` to "only scenes without audio" and
+       bypass the audio loader (Ctrl+B) for that short run.
     4. press Run ONCE
 
     You see each result as it lands, not at the end. Every queued job is its own

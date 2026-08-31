@@ -451,26 +451,42 @@ class HurricaneSongFolder:
             "scene_index": ("INT", {"default": 1, "min": 1, "max": 9999}),
             "variant": (["v1", "v2", "v3"], {"default": "v1"}),
             "out_subfolder": ("STRING", {"default": "", "multiline": False}),
+            # scene 00 (the Vorspann) and 90+ (compositing elements) have no
+            # window of the song, so an audio loader wired to audio_path throws on
+            # them. They are not part of the normal batch and are excluded here by
+            # default, which makes scene_count the number you can actually run.
+            "include": (["scenes with audio", "all scenes",
+                         "only scenes without audio"],
+                        {"default": "scenes with audio"}),
         }}
 
     @classmethod
-    def IS_CHANGED(cls, song_path, scene_index, variant, out_subfolder=""):
+    def IS_CHANGED(cls, song_path, scene_index, variant, out_subfolder="",
+                   include="scenes with audio"):
         try:
             m = os.path.getmtime(os.path.join(song_path, "__SCENES.tsv"))
         except OSError:
             m = "missing"
-        return "%s:%s:%s:%s:%s" % (song_path, m, scene_index, variant, out_subfolder)
+        return "%s:%s:%s:%s:%s:%s" % (song_path, m, scene_index, variant,
+                                      out_subfolder, include)
 
-    def run(self, song_path, scene_index, variant, out_subfolder=""):
+    def run(self, song_path, scene_index, variant, out_subfolder="",
+            include="scenes with audio"):
         data = read_song_folder(song_path)
         scenes = data["scenes"]
+        if include == "scenes with audio":
+            scenes = [s for s in scenes if s["audio"]]
+        elif include == "only scenes without audio":
+            scenes = [s for s in scenes if not s["audio"]]
         if not scenes:
-            raise ValueError("__SCENES.tsv lists no scenes")
+            raise ValueError(
+                "no scenes left after `include = %s`. __SCENES.tsv lists %d in "
+                "total." % (include, len(data["scenes"])))
         # not clamped, for the same reason the clip folder is not: a batch count
         # set higher than scene_count would re-render the last scene all night
         if int(scene_index) > len(scenes):
             raise ValueError(
-                "scene_index %d but this song has %d scene(s). Set the queue's "
+                "scene_index %d but this selection has %d scene(s). Set the queue's "
                 "batch count to scene_count (%d), not higher."
                 % (int(scene_index), len(scenes), len(scenes)))
         sc = scenes[max(int(scene_index), 1) - 1]
