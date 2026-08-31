@@ -203,6 +203,164 @@ def prune_unreachable(graph):
     return {k: v for k, v in graph.items() if k in keep}, dropped
 
 
+def donor_nodes(song):
+    """UI-form definitions of our two nodes, lifted from a graph that already has
+    them. ComfyUI reconciles sockets against the registered class on load, but
+    starting from a real definition beats inventing one."""
+    p = os.path.join(song, "__workflow_song.json")
+    out = {}
+    if os.path.isfile(p):
+        try:
+            with open(p, encoding="utf-8") as fh:
+                d = json.load(fh)
+            for n in d.get("nodes", []):
+                if n.get("type") in ("HurricaneSongFolder", "VHS_LoadAudio"):
+                    out[n["type"]] = n
+        except (ValueError, KeyError):
+            pass
+    return out
+
+
+def wrap_ui(ui, song, a):
+    """Put the song folder into a UI workflow, keeping its layout and groups.
+
+    The API format has no positions and no groups, so going through it throws the
+    overview away. This edits the UI file in place instead: it removes only the
+    nodes that fed the three inputs a song folder now drives, drops the ones that
+    only fed those, and puts ours where they sat.
+    """
+    nodes = {n["id"]: n for n in ui.get("nodes", [])}
+    links = {l[0]: l for l in ui.get("links", [])}
+    h3 = next((n for n in nodes.values()
+               if n.get("type") == a.h3_class
+               or (n.get("type", "").find("MiniMax") >= 0
+                   and any(i.get("name") == "length" for i in (n.get("inputs") or [])))),
+              None)
+    if not h3:
+        sys.exit("no H3 node in that workflow (looked for %r and for a MiniMax node "
+                 "with a `length` input)" % a.h3_class)
+
+    def feeder(name):
+        for i in (h3.get("inputs") or []):
+            if i.get("name") == name and i.get("link") in links:
+                return links[i["link"]][1]
+        return None
+
+    a_slot = audio_slot({i["name"]: 1 for i in (h3.get("inputs") or [])})
+    displaced = {feeder("prompt"), feeder("length")}
+    if a_slot:
+        displaced.add(feeder(a_slot))
+    displaced.discard(None)
+
+    # whatever only ever fed a displaced node is displaced too - the duration
+    # float behind the length expression, for instance. Nothing else: a node with
+    # any other consumer, or none at all, is left where the user put it.
+    consumers = {}
+    for l in ui.get("links", []):
+        consumers.setdefault(l[1], set()).add(l[3])
+    grew = True
+    while grew:
+        grew = False
+        for i, dsts in consumers.items():
+            if i not in displaced and dsts and dsts <= displaced:
+                displaced.add(i)
+                grew = True
+
+    donors = donor_nodes(song)
+    nid = max(nodes) + 1
+    lid = max(links) + 1 if links else 1
+
+    def place(kind, pos):
+        nonlocal nid
+        d = donors.get(kind)
+        n = json.loads(json.dumps(d)) if d else {
+            "type": kind, "flags": {}, "order": 0, "mode": 0, "properties": {},
+            "inputs": [], "outputs": []}
+        n["id"] = nid
+        n["pos"] = list(pos)
+        for o in (n.get("outputs") or []):
+            o["links"] = []
+        for i in (n.get("inputs") or []):
+            i.pop("link", None)
+        nid += 1
+        return n
+
+    where = lambda i: nodes[i]["pos"] if i in nodes else [0, 0]
+    song_n = place("HurricaneSongFolder", where(feeder("prompt")))
+    song_n["title"] = "SONG - set song_path"
+    song_n["widgets_values"] = ["", 1, "v1", ""]
+    aud_n = place("VHS_LoadAudio", where(feeder(a_slot)) if a_slot else [0, 0])
+    aud_n["title"] = "AUDIO - this scene's slice"
+
+    def out_index(n, name):
+        for k, o in enumerate(n.get("outputs") or []):
+            if o.get("name") == name:
+                return k
+        return 0
+
+    def connect(src, sname, dst, dname, typ):
+        nonlocal lid
+        si = out_index(src, sname)
+        for i in (dst.get("inputs") or []):
+            if i.get("name") == dname:
+                i["link"] = lid
+                break
+        else:
+            dst.setdefault("inputs", []).append(
+                {"name": dname, "type": typ, "link": lid})
+        outs = src.setdefault("outputs", [])
+        if si < len(outs):
+            outs[si].setdefault("links", []).append(lid)
+        ui["links"].append([lid, src["id"], si, dst["id"],
+                            next((k for k, i in enumerate(dst["inputs"])
+                                  if i.get("name") == dname), 0), typ])
+        lid += 1
+
+    connect(song_n, "prompt", h3, "prompt", "STRING")
+    connect(song_n, "frames", h3, "length", "INT")
+    connect(song_n, "audio_path", aud_n, "audio_file", "STRING")
+    if a_slot:
+        connect(aud_n, "audio", h3, a_slot, "AUDIO")
+    saves = [n for n in nodes.values()
+             if OUTPUT_CLASSES.match(n.get("type", ""))
+             and any(i.get("name") == "filename_prefix" for i in (n.get("inputs") or []))]
+    for sv in saves:
+        connect(song_n, "save_prefix", sv, "filename_prefix", "STRING")
+
+    # the sheets are constant per song: leave their loaders, retitle them
+    refs = read_refs(song)
+    slots = image_slots({i["name"]: 1 for i in (h3.get("inputs") or [])})
+    retitled = 0
+    for k, slot in enumerate(slots):
+        src = feeder(slot)
+        if src in nodes and k < len(refs):
+            nodes[src]["title"] = refs[k][1]
+            retitled += 1
+
+    keep = [n for n in ui["nodes"] if n["id"] not in displaced]
+    ui["nodes"] = keep + [song_n, aud_n]
+    alive = {n["id"] for n in ui["nodes"]}
+    ui["links"] = [l for l in ui["links"] if l[1] in alive and l[3] in alive]
+    live_links = {l[0] for l in ui["links"]}
+    for n in ui["nodes"]:
+        for i in (n.get("inputs") or []):
+            if i.get("link") not in live_links:
+                i.pop("link", None)
+        for o in (n.get("outputs") or []):
+            o["links"] = [x for x in (o.get("links") or []) if x in live_links]
+    ui["last_node_id"] = max(nid, ui.get("last_node_id", 0))
+    ui["last_link_id"] = max(lid, ui.get("last_link_id", 0))
+
+    report = ["replaced %d node(s) that fed prompt/length/audio: %s"
+              % (len(displaced), ", ".join("%s %s" % (i, nodes[i].get("type"))
+                                           for i in sorted(displaced) if i in nodes)),
+              "reference sheets left alone; %d loader(s) retitled with their tag"
+              % retitled,
+              "save prefix driven on %d node(s)" % len(saves),
+              "layout and %d group(s) kept" % len(ui.get("groups") or [])]
+    return ui, report
+
+
 def find_h3_in(graph, h3_class):
     """the H3 node inside a graph the user exported themselves"""
     for nid, n in graph.items():
@@ -385,10 +543,25 @@ def main():
         with open(a.raw, encoding="utf-8") as fh:
             raw = json.load(fh)
         if "nodes" in raw and "last_node_id" in raw:
-            n_before = len(raw["nodes"])
-            raw = ui_to_api(raw)
-            print("converted   : UI workflow -> API format (%d of %d nodes; notes "
-                  "and muted ones dropped)" % (len(raw), n_before))
+            # UI format: graft into it and keep the layout, then also emit the
+            # API copy that `mvkit queue` needs
+            ui, report = wrap_ui(raw, song, a)
+            out_ui = os.path.join(song, "__workflow_song.json")
+            with open(out_ui, "w", encoding="utf-8") as fh:
+                json.dump(ui, fh, indent=2)
+            print("grafted     : %s" % out_ui)
+            for line in report:
+                print("  %s" % line)
+            api = ui_to_api(json.loads(json.dumps(ui)))
+            bad = find_abs_paths(api)
+            with open(os.path.join(song, "__workflow_song_api.json"),
+                      "w", encoding="utf-8") as fh:
+                json.dump(api, fh, indent=2)
+            print("  api copy  : __workflow_song_api.json (%d nodes)" % len(api))
+            for nid, k, v in bad:
+                print("  ! node %s.%s holds an absolute path (%s) - it came from "
+                      "your graph; check it works where ComfyUI runs" % (nid, k, v))
+            return
         out = os.path.join(song, "__workflow_song_api.json")
         g, report = wrap(raw, song, a)
         for nid, k, v in find_abs_paths(g):

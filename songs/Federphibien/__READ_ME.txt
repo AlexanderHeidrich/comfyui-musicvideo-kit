@@ -135,12 +135,18 @@ RENDERING THIS FOLDER IN COMFYUI
                               because the API format has no positions at all.
     __workflow_upscale.json   the pass afterwards. No H3 in it.
 
-    KEEP THE UI FILE. Only the UI format carries positions and groups, so a graph
-    that goes through the API format opens as a heap of unpositioned nodes with no
-    groups - that is what happened once here. `./mvkit layout <song> [file]` puts
-    it back: SONG FOLDER, MODELS, REFERENCE SHEETS, SETTINGS, H3, SAMPLER, OUTPUT,
-    left to right in the order the signal flows, images wrapped into a grid. It
-    only moves nodes and adds group boxes; links and values are untouched.
+    HAND IT THE UI FILE, NOT AN API EXPORT. Given a workflow saved from ComfyUI's
+    menu, `--from` edits it in place: your layout and your groups survive, because
+    it never goes through the API format (which has neither). It removes only the
+    nodes that fed the three inputs a song folder now drives - the prompt
+    primitive, the length expression and its duration float, the old LoadAudio -
+    puts ours where they sat, and leaves everything else alone.
+
+    Given an API export instead it still works, but the result has no positions
+    and no groups. `./mvkit layout <song> [file]` builds a layout from scratch in
+    that case: SONG FOLDER, MODELS, REFERENCE SHEETS, SETTINGS, H3, SAMPLER,
+    OUTPUT, left to right, images wrapped into a grid. Use it to rescue a graph,
+    not as the normal path.
 
     For the next song you do not need to wrap again - copy this file and change
     `song_path`. Everything else is identical between songs.

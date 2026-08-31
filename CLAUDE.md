@@ -297,10 +297,13 @@ a UNET loader, CLIP and VAE loaders, a sampler, a VAEDecode *and* a
 VAEDecodeAudio, and a CreateVideo - ComfyUI ships that chain under Browse
 Templates and guessing at it is worthless.
 
-`mvkit workflows <song> --from <your workflow.json>` wraps a graph that already
-renders and writes `__workflow_song.json`. A UI-format save is converted to API
-format on the way in (`ui_to_api`, using the widget names the UI file itself
-carries). It keeps every node and setting and rewires only `prompt`, `length`,
+`mvkit workflows <song> --from <your workflow.json>` grafts the song folder into a
+graph that already renders. Given a UI-format save it edits that format directly
+(`wrap_ui`) so the layout and groups survive - the API format has neither, and
+round-tripping through it once threw the stock template's six groups away. It also
+writes `__workflow_song_api.json` for `mvkit queue` (`ui_to_api`, using the widget
+names the UI file itself carries). `mvkit layout` builds a layout from scratch for
+a graph that has already lost one. It keeps every node and setting and rewires only `prompt`, `length`,
 `ref_audios.ref_audio_0` and the `ref_images.ref_image_*` slots - note the
 namespaced input names, and that the ref slots are DYNAMIC, so it can only fill
 as many as the user connected before exporting. It warns when sheets are dropped.
