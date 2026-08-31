@@ -11,10 +11,11 @@
   __wf_2_folder.json    Hurricane Song Folder drives the whole song from this folder.
   __wf_3_pipeline.json  Hurricane Build Song runs ./mvkit first, then the same.
 
-The H3 node's class name and how many image inputs it has cannot be known
-without a running ComfyUI, so they default to the names below and `mvkit probe`
-rewrites all three with what your server actually reports. Until then ComfyUI may
-show the H3 node as missing - that is the placeholder, not a broken graph.
+The H3 node returns `positive` and `LATENT`, not a video, so these graphs are the
+front half: they wire a song folder into it correctly but carry no sampler chain,
+because the model and settings cannot be guessed. Use `--from <your API export>`
+to keep a chain that already works. `mvkit probe --song <name> --emit` refreshes
+the surrounding class names from a running server.
 
 Stdlib only.
 """
@@ -54,7 +55,7 @@ def audio_slot(inputs):
              if re.match(r"^(ref_)?audio_?\d*$", k.lower())]
     return sorted(cands, key=nat)[0] if cands else None
 
-H3_CLASS = "MiniMaxHailuoH3Ref2VideoAudio"
+H3_CLASS = "MiniMaxH3ReferenceToVideo"   # confirmed against a running server
 H3_IMAGES = 9
 AUDIO_CLASS = "VHS_LoadAudio"
 AUDIO_FIELD = "audio_file"
@@ -66,8 +67,13 @@ SAVE_CLASS = "SaveVideo"
 UPSCALE_MODEL = "RealESRGAN_x4plus_anime_6B.pth"
 VIDEO_LOAD = "VHS_LoadVideoPath"
 VIDEO_COMBINE = "VHS_VideoCombine"
-NOTE = ("placeholder class name - run `mvkit probe --song <name> --emit` against a "
-        "running ComfyUI to replace it with the real one")
+# Not a placeholder any more - the class name is confirmed. What IS incomplete is
+# the graph: this node returns positive/LATENT, so a model loader, a sampler, a
+# VAE decode and a video output have to come from somewhere, and none of them can
+# be guessed. `--from your_export.json` keeps yours.
+NOTE = ("this node conditions a sampler - it returns positive/LATENT, not a "
+        "video. Attach your own model/sampler/VAEDecode chain, or better: "
+        "`mvkit workflows <song> --from your_api_export.json`")
 
 
 def read_refs(song):
@@ -109,18 +115,20 @@ def first_scene(song):
 def h3_node(a, extra_inputs, title):
     inputs = {"prompt": "", "length": 124}
     inputs.update(extra_inputs)
-    meta = {"title": title}
-    if not a.confirmed:
-        meta["note"] = NOTE
+    meta = {"title": title, "note": NOTE}
     return {"class_type": a.h3_class, "inputs": inputs, "_meta": meta}
 
 
-def save_node(a, src, prefix):
-    """prefix may be a literal or a link. Without it ComfyUI names every clip
-    after the node default and they all land in one heap in output/."""
+def save_node(a, prefix):
+    """Configured but NOT connected: its `video` input is left open because the
+    H3 node returns positive/LATENT, and wiring a save to a CONDITIONING output
+    would be worse than leaving it obviously unfinished. Attach the output of
+    your VAEDecode here. `filename_prefix` is already driven, which is the part
+    worth having: renders arrive grouped per song and named after their prompt.
+    """
     return {"class_type": a.save_class,
-            "inputs": {"video": [src, 0], "filename_prefix": prefix},
-            "_meta": {"title": "SAVE"}}
+            "inputs": {"filename_prefix": prefix},
+            "_meta": {"title": "SAVE - connect your VAEDecode to `video`"}}
 
 
 def find_h3_in(graph, h3_class):
@@ -187,7 +195,7 @@ def wrap(raw, song, a):
         for k in saved:
             g[k]["inputs"]["filename_prefix"] = [src, 15]
     else:
-        g[free(9200)] = save_node(a, nid, [src, 15])
+        g[free(9200)] = save_node(a, [src, 15])
 
     report = ["node %s (%s) kept its own settings: %s"
               % (nid, g[nid]["class_type"],
@@ -235,7 +243,7 @@ def wf_scene(song, a):
         with open(prompt_f, encoding="utf-8") as fh:
             h3_extra["prompt"] = fh.read()
     g["20"] = h3_node(a, h3_extra, "PROMPT")
-    g["30"] = save_node(a, "20", "%s/scene" % os.path.basename(os.path.abspath(song)))
+    g["30"] = save_node(a, "%s/scene" % os.path.basename(os.path.abspath(song)))
     return g
 
 
@@ -255,7 +263,7 @@ def wf_folder(song, a):
                   "inputs": {a.image_field: ["1", 5 + n]}}   # ref_1 is output 6
         h3_extra["ref_image_%d" % (n - 1)] = [nid, 0]
     g["20"] = h3_node(a, h3_extra, a.h3_class)
-    g["30"] = save_node(a, "20", ["1", 15])
+    g["30"] = save_node(a, ["1", 15])
     return g
 
 
@@ -271,7 +279,7 @@ def wf_pipeline(song, a):
                "inputs": {a.audio_field: ["1", 1]}}
     g["20"] = h3_node(a, {"prompt": ["1", 0], "length": ["1", 2],
                           "ref_audio_0": ["10", 0]}, a.h3_class)
-    g["30"] = save_node(a, "20", ["1", 5])
+    g["30"] = save_node(a, ["1", 5])
     g["40"] = {"class_type": "PreviewAny", "_meta": {"title": "KIT LOG"},
                "inputs": {"source": ["1", 6]}}
     return g
@@ -364,9 +372,10 @@ def main():
         with open(os.path.join(song, name), "w", encoding="utf-8") as fh:
             json.dump(fn(song, a), fh, indent=2)
     if not a.quiet:
-        print("workflows   : %s%s"
-              % (", ".join(n for n, _, _ in WORKFLOWS),
-                 "" if a.confirmed else "  (H3 class is a guess until `mvkit probe`)"))
+        print("workflows   : %s" % ", ".join(n for n, _, _ in WORKFLOWS))
+        if not a.confirmed:
+            print("              front half only - H3 conditions a sampler. Use")
+            print("              `mvkit workflows <song> --from your_export.json`")
 
 
 if __name__ == "__main__":

@@ -45,9 +45,10 @@ RENDERING THIS FOLDER IN COMFYUI
 
       ./mvkit probe --song {song} --emit
 
-    That reads /object_info off the running server and rewrites all three with
-    the class names it actually reports. Until you run it the H3 node may show as
-    missing - that is the placeholder, not a broken graph.
+    That reads /object_info off the running server and refreshes the class names
+    around the H3 node. The H3 class itself is known (MiniMaxH3ReferenceToVideo);
+    what the generated graphs cannot carry is your sampler chain, and their SAVE
+    node is left with `video` open rather than wired to a CONDITIONING output.
 
     __wf_2_folder.json is wired like this:
 

@@ -25,7 +25,7 @@
     }
   },
   "20": {
-    "class_type": "MiniMaxHailuoH3Ref2VideoAudio",
+    "class_type": "MiniMaxH3ReferenceToVideo",
     "inputs": {
       "prompt": [
         "1",
@@ -41,24 +41,20 @@
       ]
     },
     "_meta": {
-      "title": "MiniMaxHailuoH3Ref2VideoAudio",
-      "note": "placeholder class name - run `mvkit probe --song <name> --emit` against a running ComfyUI to replace it with the real one"
+      "title": "MiniMaxH3ReferenceToVideo",
+      "note": "this node conditions a sampler - it returns positive/LATENT, not a video. Attach your own model/sampler/VAEDecode chain, or better: `mvkit workflows <song> --from your_api_export.json`"
     }
   },
   "30": {
     "class_type": "SaveVideo",
     "inputs": {
-      "video": [
-        "20",
-        0
-      ],
       "filename_prefix": [
         "1",
         5
       ]
     },
     "_meta": {
-      "title": "SAVE"
+      "title": "SAVE - connect your VAEDecode to `video`"
     }
   },
   "40": {

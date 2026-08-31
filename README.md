@@ -184,8 +184,10 @@ next appears), with `ref_audio_0` for a standalone audio reference.
 `ref_video_audio_0` is the soundtrack *of* a reference video and is a different
 thing - it claims an `<Audio>` number before any standalone audio.
 
-**The class name cannot be known offline**, so the generated graphs carry a
-marked placeholder until you ask a running server:
+The class is `MiniMaxH3ReferenceToVideo`. The generated graphs use it, but they
+carry no sampler chain and their `SAVE` node is left with its `video` input open
+on purpose - wiring a save to a CONDITIONING output would be worse than leaving
+it visibly unfinished. `mvkit probe` refreshes the surrounding class names:
 
 ```bash
 ./mvkit probe                              # what is installed, what to title what

@@ -296,7 +296,10 @@ files pre-filled, each reference loader **titled with its live tag** so the grap
 says which image is `<Picture 3>`), `__wf_2_folder.json` (HurricaneSongFolder drives the
 song - the one to use) and `__wf_3_pipeline.json` (HurricaneBuildSong runs the kit
 first) and `__wf_5_upscale.json` (the upscale pass, no H3 in it).
-`bin/make_workflows.py` writes them, and `--from <your export.json>` wraps a
+The H3 node is `MiniMaxH3ReferenceToVideo` and it returns `positive`/`LATENT`,
+not a video - so a generated graph is only ever the front half and its `SAVE`
+node is deliberately left unconnected. `bin/make_workflows.py` writes them, and
+`--from <your export.json>` wraps a
 graph you already have working instead of inventing one - it keeps every
 setting on your H3 node and rewires only prompt, length, audio and the image
 slots. `bin/make_workflows.py` writes them; the H3 class name cannot be known
