@@ -1,7 +1,14 @@
 REFERENCE - read this first
   Seven images are supplied. Four are subjects, one is the look, two are places.
 
-  <Picture 1> THE FEDERPHIBIUM, the hybrid child: a sage-green frog body that sits
+  <Picture 1> is a DESIGN SHEET, not a character standing by the pond. The creature
+  on it does not exist in the world of the film. It appears only inside the chorus
+  daydreams and on the researcher's page, in the shots that say so in their own
+  words. If this shot does not name it, it is not in this shot - do not put it in
+  the water, in the grass, in the hen house or anywhere in frame. What the film is
+  about until the chorus is one ordinary frog.
+
+  THE FEDERPHIBIUM, the hybrid child: a sage-green frog body that sits
   UPRIGHT on its haunches like a meerkat, not squat like a toad, with a pale cream
   belly and soft mottled olive patches over the green. An upright red chicken comb
   on its head, a red two-lobed wattle under a small yellow-orange beak. Its FEET
@@ -13,8 +20,8 @@ REFERENCE - read this first
   fine dark rim - no iris colour, no ring.
   NOTE: the reference sheet still draws it squat with plain frog feet and small
   wing tufts at the flanks. The description above is what the film draws.
-  <Picture 2> DER FROSCH.  <Picture 3> DAS HUHN.
-  <Picture 5> DER FORSCHER, seen from behind, which is how he is always seen.
+  <Picture 2> THE FROG.  <Picture 3> THE HEN.
+  <Picture 5> THE RESEARCHER, seen from behind, which is how he is always seen.
 
   <Picture 4> is NOT a thing in the scene. It is a colour and construction board:
   the palette, the line weight, and the way the shading grades inside the line. Read the look off it and never draw it.
@@ -39,7 +46,7 @@ CAST - the reference is the child, and the parents are it taken apart
   black dot pupil and a fine dark rim around it. The pupil is the only mark in it.
   That one eye is what makes the frog and the hen look like they belong in the
   same drawing.
-  DER FROSCH - <Picture 2>. The narrator, and the only one who ever speaks. Smooth
+  THE FROG - <Picture 2>. The narrator, and the only one who ever speaks. Smooth
   grey-green skin, not warty, broken by soft mottled olive patches, a large pale
   cream belly covering most of his front, the house eyes, long clawed toes, a
   potbellied sitting build, and a wide flat mouth drawn as a single shallow curve. He is what
@@ -47,7 +54,7 @@ CAST - the reference is the child, and the parents are it taken apart
   NO wings. Permanently wet, with a
   visible sheen. He wears nothing and owns nothing. Earnest, lovesick, entirely
   without shame.
-  DAS HUHN - <Picture 3>. A warm sandy-tan farmyard hen - not dark brown - with a
+  THE HEN - <Picture 3>. A warm sandy-tan farmyard hen - not dark brown - with a
   cream breast and belly and darker tan on the back and tail, carrying exactly the
   chicken parts that <Picture 1> borrowed: the same red comb, the same dark red
   wattle, the same yellow-orange beak, the same scaly yellow legs and claws. Otherwise completely
@@ -61,12 +68,12 @@ CAST - the reference is the child, and the parents are it taken apart
   out, and she offers him her back. That turn happens ONCE and it is earned. Never
   play it early. The house eyes, exactly as the frog has them. No
   eyelashes, no blush, no anthropomorphism of any kind.
-  DIE FEDERPHIBIEN - the imagined children: <Picture 1> exactly, in numbers.
+  THE FEDERPHIBIEN - the imagined children: <Picture 1> exactly, in numbers.
   Comb, wattle, beak, an upright meerkat-sitting frog body, feathered frog arms
   ending in frog hands, scaly chicken feet. The wings
   cannot lift them and they will not swim, and they do not know it yet. They
   appear ONLY inside the chorus fantasies, never in the real pond.
-  DER FORSCHER - <Picture 5>. The only human being in the film, and the film never shows his
+  THE RESEARCHER - <Picture 5>. The only human being in the film, and the film never shows his
   face. Khaki trousers, a plain shirt with the sleeves turned back, a straw hat.
   A green hardbound notebook and a pencil, and an SLR on a black strap round his
   neck - for almost the whole film only the black band across his back and shoulder
@@ -81,6 +88,15 @@ CAST - the reference is the child, and the parents are it taken apart
   camera and never readable. Never a reaction shot, never a word. He does not interact with the animals and they never notice
   him. He moves quickly exactly once, when he jumps up and grabs the chair to
   stop it going over.
+  He is ALREADY THERE from the very first frame of the film, sitting at the far
+  edge of the pond. This is only so that nobody wonders where he came from when the
+  song reaches him: he is a plant, not a presence. A wide shot holding the pond bank
+  MAY carry him somewhere at the edge of frame, and the least is enough - a khaki
+  shape under a straw hat, or just his shadow and the shadow of the chair falling
+  across the mud. He is never the subject, never lit for and never looked at, and
+  plenty of setups simply do not include him. What is not optional: whenever he is
+  in frame at all, he is seen FROM BEHIND. Never his face, at any size, however
+  small he is. Indoors and in close-ups he is not in frame.
 
 WORLD
   A murky farm pond at the bottom edge of a chicken yard. High summer, humid,
@@ -100,17 +116,17 @@ SCALE - these are real animals and they are not the same size
   comes from this list and from nowhere else. Never size a character by how much
   of its reference image it fills.
 
-  DER FROSCH      a common European pond frog. 8 cm from nose to rump, about
+  THE FROG      a common European pond frog. 8 cm from nose to rump, about
                   10 cm sitting up. The length of a man's thumb. He fits inside
                   a cupped human hand with room to spare.
-  DIE FEDERPHIBIEN  the same frog body sitting upright like a meerkat, about
+  THE FEDERPHIBIEN  the same frog body sitting upright like a meerkat, about
                   15 cm to the top of the comb. Still a small animal.
-  DAS HUHN        an ordinary farmyard hen. 45 cm to the top of the comb,
+  THE HEN        an ordinary farmyard hen. 45 cm to the top of the comb,
                   50 cm beak to tail. Four to five times the frog's height.
                   Standing beside her he reaches her hock - the backward joint
                   above her foot - and no higher. To bring her beak to him she
                   must fold her neck right down to the ground.
-  DER FORSCHER    an adult man, 180 cm standing, his eye about 120 cm up when
+  THE RESEARCHER    an adult man, 180 cm standing, his eye about 120 cm up when
                   he is sitting on the folding chair. Eighteen times the frog,
                   four times the hen. The hen comes to just below his knee. The
                   frog would sit on his palm.

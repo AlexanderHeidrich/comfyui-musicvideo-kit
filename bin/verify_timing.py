@@ -52,8 +52,14 @@ def main():
             man[c[0]] = dict(zip(head, c))
 
     problems = []
+    silent = 0
     for r in rows:
         sc, f, d = r["scene"], int(r["frames"]), float(r["duration"])
+        if r["start"].strip() in ("", "-"):           # a clip with no window of the song
+            silent += 1
+            if f % 17 != 5 or not 124 <= f <= 362:
+                problems.append("scene %s: %d frames is off H3's grid" % (sc, f))
+            continue
         st, en = float(r["start"]), float(r["end"])
         if f % 17 != 5:
             problems.append("scene %s: %d frames, but H3 needs frames %% 17 == 5" % (sc, f))
@@ -83,6 +89,8 @@ def main():
             m = man.get("%02d" % int(r["scene"]))
             if not m:
                 problems.append("scene %s: not in __SCENES.tsv" % r["scene"]); continue
+            if m["audio"].strip() in ("", "-"):       # a clip with no window of the song
+                continue
             p = os.path.join(song_dir, m["audio"])
             if not os.path.isfile(p):
                 problems.append("scene %s: %s missing" % (r["scene"], m["audio"])); continue

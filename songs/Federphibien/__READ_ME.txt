@@ -1,4 +1,4 @@
-FEDERPHIBIEN - 47 scenes over 171.4 s of song, 269.0 s of clip material (scenes overlap - trim in the edit)
+FEDERPHIBIEN - 48 scenes over 171.4 s of song, 274.2 s of clip material (scenes overlap - trim in the edit)
 ==========================================================================
 
 Every scene is one MiniMax H3 render. Files are paired by prefix:

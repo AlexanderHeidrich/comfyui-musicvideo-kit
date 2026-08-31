@@ -1,48 +1,49 @@
-scene	start	end	frames	duration	inner_cuts	continuity	audio	prompts	lyrics
-01	00:00.000	00:06.583	158	6.5833	-	-	01_the-pond-from-above.mp3	01_the-pond-from-above-v1.txt 01_the-pond-from-above-v2.txt 01_the-pond-from-above-v3.txt	(instrumental)
-02	00:06.458	00:13.042	158	6.5833	-	-	02_swimming-toward-the-farm.mp3	02_swimming-toward-the-farm-v1.txt 02_swimming-toward-the-farm-v2.txt 02_swimming-toward-the-farm-v3.txt	(instrumental)
-03	00:12.375	00:17.542	124	5.1667	-	-	03_hauling-out-of-the-water.mp3	03_hauling-out-of-the-water-v1.txt 03_hauling-out-of-the-water-v2.txt 03_hauling-out-of-the-water-v3.txt	(instrumental)
-04	00:15.500	00:20.667	124	5.1667	-	-	04_rolling-onto-his-back.mp3	04_rolling-onto-his-back-v1.txt 04_rolling-onto-his-back-v2.txt 04_rolling-onto-his-back-v3.txt	(instrumental)
-05	00:18.583	00:23.750	124	5.1667	-	-	05_sitting-sad-by-the-pond.mp3	05_sitting-sad-by-the-pond-v1.txt 05_sitting-sad-by-the-pond-v2.txt 05_sitting-sad-by-the-pond-v3.txt	Ich sitze traurig am Rand vom Teich
-06	00:21.208	00:26.375	124	5.1667	-	-	06_wet-skin-in-sunlight.mp3	06_wet-skin-in-sunlight-v1.txt 06_wet-skin-in-sunlight-v2.txt 06_wet-skin-in-sunlight-v3.txt	Meine Haut ist glibschig und trotzdem weich
-07	00:23.792	00:30.375	158	6.5833	-	-	07_licking-his-own-eye.mp3	07_licking-his-own-eye-v1.txt 07_licking-his-own-eye-v2.txt 07_licking-his-own-eye-v3.txt	Die Fliegen schwirren um mein Gesicht, ich könnt' sie fressen aber Hunger hab ich nicht
-08	00:29.792	00:34.958	124	5.1667	-	-	08_the-hen-house-in-the-distance.mp3	08_the-hen-house-in-the-distance-v1.txt 08_the-hen-house-in-the-distance-v2.txt 08_the-hen-house-in-the-distance-v3.txt	(instrumental)
-09	00:33.000	00:38.167	124	5.1667	-	-	09_the-hen-pecking-grain.mp3	09_the-hen-pecking-grain-v1.txt 09_the-hen-pecking-grain-v2.txt 09_the-hen-pecking-grain-v3.txt	Sie sagt meine Augen sind zu groß
-10	00:36.458	00:41.625	124	5.1667	-	-	10_the-hen-in-his-eyes.mp3	10_the-hen-in-his-eyes-v1.txt 10_the-hen-in-his-eyes-v2.txt 10_the-hen-in-his-eyes-v3.txt	[viel zu groß]
-11	00:38.542	00:43.708	124	5.1667	-	hold	11_the-hen-turns-away.mp3	11_the-hen-turns-away-v1.txt 11_the-hen-turns-away-v2.txt 11_the-hen-turns-away-v3.txt	Sie hasst Amphibien, was ist da los
-12	00:42.917	00:48.083	124	5.1667	-	chain	12_back-to-the-frog.mp3	12_back-to-the-frog-v1.txt 12_back-to-the-frog-v2.txt 12_back-to-the-frog-v3.txt	(instrumental)
-13	00:44.167	00:49.333	124	5.1667	-	-	13_i-am-a-frog.mp3	13_i-am-a-frog-v1.txt 13_i-am-a-frog-v2.txt 13_i-am-a-frog-v3.txt	Ich bin ein Frosch! Was soll ich tun?
-14	00:46.750	00:56.167	226	9.4167	2.833,5.958	hold	14_in-love-with-a-chicken.mp3	14_in-love-with-a-chicken-v1.txt 14_in-love-with-a-chicken-v2.txt 14_in-love-with-a-chicken-v3.txt	Bin argh verknallt in ein Huhn. / Uns’re Welten, weit auseinander. / Doch bestimmt nur für einander.
-15	00:55.708	01:01.583	141	5.8750	-	-	15_imagine-our-children.mp3	15_imagine-our-children-v1.txt 15_imagine-our-children-v2.txt 15_imagine-our-children-v3.txt	Stell dir unsre Kinder vooooor
-16	00:55.708	01:07.958	294	12.2500	4.552	-	16_hopping-through-the-grass.mp3	16_hopping-through-the-grass-v1.txt 16_hopping-through-the-grass-v2.txt 16_hopping-through-the-grass-v3.txt	(instrumental)
-17	01:01.458	01:06.625	124	5.1667	-	-	17_slimy-feathers.mp3	17_slimy-feathers-v1.txt 17_slimy-feathers-v2.txt 17_slimy-feathers-v3.txt	Schleimige Federn …
-18	01:03.542	01:08.708	124	5.1667	-	-	18_great-big-eyes.mp3	18_great-big-eyes-v1.txt 18_great-big-eyes-v2.txt 18_great-big-eyes-v3.txt	... große Auuuugen [so große Augen!]
-19	01:07.500	01:12.667	124	5.1667	-	-	19_dead-in-the-water.mp3	19_dead-in-the-water-v1.txt 19_dead-in-the-water-v2.txt 19_dead-in-the-water-v3.txt	die nicht zum fliegen oder schwimmen taugen
-20	01:10.417	01:16.292	141	5.8750	-	-	20_the-researcher-s-notebook.mp3	20_the-researcher-s-notebook-v1.txt 20_the-researcher-s-notebook-v2.txt 20_the-researcher-s-notebook-v3.txt	Federphibien soll man sie nennen. Nachkömmlinge von Frosch und Hennen
-21	01:16.250	01:21.417	124	5.1667	-	-	21_skidding-onto-the-gravel.mp3	21_skidding-onto-the-gravel-v1.txt 21_skidding-onto-the-gravel-v2.txt 21_skidding-onto-the-gravel-v3.txt	(instrumental)
-22	01:18.625	01:23.792	124	5.1667	-	-	22_up-the-chicken-ladder.mp3	22_up-the-chicken-ladder-v1.txt 22_up-the-chicken-ladder-v2.txt 22_up-the-chicken-ladder-v3.txt	(instrumental)
-23	01:21.667	01:26.833	124	5.1667	-	-	23_into-the-down.mp3	23_into-the-down-v1.txt 23_into-the-down-v2.txt 23_into-the-down-v3.txt	Ich deck mich zu mit ihren Daunen
-24	01:24.167	01:29.333	124	5.1667	-	hold	24_the-hen-shouts-him-down.mp3	24_the-hen-shouts-him-down-v1.txt 24_the-hen-shouts-him-down-v2.txt 24_the-hen-shouts-him-down-v3.txt	Ich halt sie aus, ihre verrückten Launen
-25	01:27.083	01:32.250	124	5.1667	-	-	25_she-turns-her-head.mp3	25_she-turns-her-head-v1.txt 25_she-turns-her-head-v2.txt 25_she-turns-her-head-v3.txt	Sie dreht den Kopf …
-26	01:28.333	01:33.500	124	5.1667	-	-	26_reaching-behind-him.mp3	26_reaching-behind-him-v1.txt 26_reaching-behind-him-v2.txt 26_reaching-behind-him-v3.txt	... sie schaut mich an. Ich halt’s nicht aus.
-27	01:31.042	01:36.208	124	5.1667	-	-	27_the-ring.mp3	27_the-ring-v1.txt 27_the-ring-v2.txt 27_the-ring-v3.txt	Nimm mich zum Mann
-28	01:33.333	01:38.500	124	5.1667	-	-	28_she-swallows-it.mp3	28_she-swallows-it-v1.txt 28_she-swallows-it-v2.txt 28_she-swallows-it-v3.txt	(instrumental)
-29	01:34.583	01:39.750	124	5.1667	-	chain	29_she-walks-straight-past.mp3	29_she-walks-straight-past-v1.txt 29_she-walks-straight-past-v2.txt 29_she-walks-straight-past-v3.txt	(instrumental)
-30	01:35.833	01:41.000	124	5.1667	-	-	30_her-walk.mp3	30_her-walk-v1.txt 30_her-walk-v2.txt 30_her-walk-v3.txt	Ihr Gang erinnert an Urzeit-Echsen
-31	01:40.000	01:45.167	124	5.1667	-	hold,chain	31_cartoon-hearts.mp3	31_cartoon-hearts-v1.txt 31_cartoon-hearts-v2.txt 31_cartoon-hearts-v3.txt	(instrumental)
-32	01:42.083	01:47.250	124	5.1667	-	-	32_throwing-the-grain.mp3	32_throwing-the-grain-v1.txt 32_throwing-the-grain-v2.txt 32_throwing-the-grain-v3.txt	Das macht mich rollig, ich will sie sexen
-33	01:45.000	01:50.167	124	5.1667	-	-	33_grain-on-his-back.mp3	33_grain-on-his-back-v1.txt 33_grain-on-his-back-v2.txt 33_grain-on-his-back-v3.txt	Ich leg mir Körner auf den Rücken
-34	01:50.000	01:55.167	124	5.1667	-	-	34_she-stoops-down.mp3	34_she-stoops-down-v1.txt 34_she-stoops-down-v2.txt 34_she-stoops-down-v3.txt	Sie kommt näher, muss sich bücken.
-35	01:52.917	01:58.083	124	5.1667	-	hold,chain	35_she-pecks-him.mp3	35_she-pecks-him-v1.txt 35_she-pecks-him-v2.txt 35_she-pecks-him-v3.txt	Sie pickt zärtlich, ich quak leise
-36	01:55.417	02:00.583	124	5.1667	-	-	36_their-eyes-meet.mp3	36_their-eyes-meet-v1.txt 36_their-eyes-meet-v2.txt 36_their-eyes-meet-v3.txt	Jede Berührung schickt mich auf eine Reise
-37	01:58.958	02:04.833	141	5.8750	-	-	37_the-hen-understands.mp3	37_the-hen-understands-v1.txt 37_the-hen-understands-v2.txt 37_the-hen-understands-v3.txt	Frosch und Huhn wie ungewöhnlich.
-38	02:04.583	02:09.750	124	5.1667	-	-	38_onto-her-back.mp3	38_onto-her-back-v1.txt 38_onto-her-back-v2.txt 38_onto-her-back-v3.txt	Vogel und Amphibium
-39	02:07.292	02:12.458	124	5.1667	-	-	39_running-for-the-door.mp3	39_running-for-the-door-v1.txt 39_running-for-the-door-v2.txt 39_running-for-the-door-v3.txt	die finden si…
-40	02:08.958	02:14.125	124	5.1667	-	-	40_out-of-the-hen-house.mp3	40_out-of-the-hen-house-v1.txt 40_out-of-the-hen-house-v2.txt 40_out-of-the-hen-house-v3.txt	siiiiiihiiiisch
-41	02:10.417	02:16.292	141	5.8750	-	-	41_imagine-our-children-again.mp3	41_imagine-our-children-again-v1.txt 41_imagine-our-children-again-v2.txt 41_imagine-our-children-again-v3.txt	Stell dir uns’re Kinder vooooor
-42	02:15.625	02:22.208	158	6.5833	-	-	42_stroking-her-feathers.mp3	42_stroking-her-feathers-v1.txt 42_stroking-her-feathers-v2.txt 42_stroking-her-feathers-v3.txt	Schleimige Federn große Augen
-43	02:21.667	02:26.833	124	5.1667	-	-	43_the-researcher-stands-up.mp3	43_the-researcher-stands-up-v1.txt 43_the-researcher-stands-up-v2.txt 43_the-researcher-stands-up-v3.txt	Die nicht zum fliegen oder schwimmen taugen
-44	02:24.792	02:29.958	124	5.1667	-	-	44_photographing-them.mp3	44_photographing-them-v1.txt 44_photographing-them-v2.txt 44_photographing-them-v3.txt	Federphibien soll man sie nennen
-45	02:28.125	02:39.667	277	11.5417	5.500	-	45_running-on.mp3	45_running-on-v1.txt 45_running-on-v2.txt 45_running-on-v3.txt	Nachkömmlinge von Frosch und Hennen
-46	02:39.083	02:44.250	124	5.1667	-	-	46_into-the-sunset.mp3	46_into-the-sunset-v1.txt 46_into-the-sunset-v2.txt 46_into-the-sunset-v3.txt	(instrumental)
-47	02:46.250	02:51.417	124	5.1667	-	hold	47_the-final-freeze.mp3	47_the-final-freeze-v1.txt 47_the-final-freeze-v2.txt 47_the-final-freeze-v3.txt	(instrumental)
+scene	song_start	song_end	tl_frame	frames	duration	inner_cuts	continuity	audio	prompts	lyrics
+00	-	-	0	124	5.1667	-	-	-	00_the-pond-before-the-music-v1.txt 00_the-pond-before-the-music-v2.txt 00_the-pond-before-the-music-v3.txt	(instrumental)
+01	00:00.000	00:06.583	124	158	6.5833	-	-	01_the-pond-from-above.mp3	01_the-pond-from-above-v1.txt 01_the-pond-from-above-v2.txt 01_the-pond-from-above-v3.txt	(instrumental)
+02	00:06.458	00:13.042	279	158	6.5833	-	-	02_swimming-toward-the-farm.mp3	02_swimming-toward-the-farm-v1.txt 02_swimming-toward-the-farm-v2.txt 02_swimming-toward-the-farm-v3.txt	(instrumental)
+03	00:12.375	00:17.542	421	124	5.1667	-	-	03_hauling-out-of-the-water.mp3	03_hauling-out-of-the-water-v1.txt 03_hauling-out-of-the-water-v2.txt 03_hauling-out-of-the-water-v3.txt	(instrumental)
+04	00:15.500	00:20.667	496	124	5.1667	-	-	04_rolling-onto-his-back.mp3	04_rolling-onto-his-back-v1.txt 04_rolling-onto-his-back-v2.txt 04_rolling-onto-his-back-v3.txt	(instrumental)
+05	00:18.583	00:23.750	570	124	5.1667	-	-	05_sitting-sad-by-the-pond.mp3	05_sitting-sad-by-the-pond-v1.txt 05_sitting-sad-by-the-pond-v2.txt 05_sitting-sad-by-the-pond-v3.txt	Ich sitze traurig am Rand vom Teich
+06	00:21.208	00:26.375	633	124	5.1667	-	-	06_wet-skin-in-sunlight.mp3	06_wet-skin-in-sunlight-v1.txt 06_wet-skin-in-sunlight-v2.txt 06_wet-skin-in-sunlight-v3.txt	Meine Haut ist glibschig und trotzdem weich
+07	00:23.792	00:30.375	695	158	6.5833	-	-	07_licking-his-own-eye.mp3	07_licking-his-own-eye-v1.txt 07_licking-his-own-eye-v2.txt 07_licking-his-own-eye-v3.txt	Die Fliegen schwirren um mein Gesicht, ich könnt' sie fressen aber Hunger hab ich nicht
+08	00:29.792	00:34.958	839	124	5.1667	-	-	08_the-hen-house-in-the-distance.mp3	08_the-hen-house-in-the-distance-v1.txt 08_the-hen-house-in-the-distance-v2.txt 08_the-hen-house-in-the-distance-v3.txt	(instrumental)
+09	00:33.000	00:38.167	916	124	5.1667	-	-	09_the-hen-pecking-grain.mp3	09_the-hen-pecking-grain-v1.txt 09_the-hen-pecking-grain-v2.txt 09_the-hen-pecking-grain-v3.txt	Sie sagt meine Augen sind zu groß
+10	00:36.458	00:41.625	999	124	5.1667	-	-	10_the-hen-in-his-eyes.mp3	10_the-hen-in-his-eyes-v1.txt 10_the-hen-in-his-eyes-v2.txt 10_the-hen-in-his-eyes-v3.txt	[viel zu groß]
+11	00:38.542	00:43.708	1049	124	5.1667	-	hold	11_the-hen-turns-away.mp3	11_the-hen-turns-away-v1.txt 11_the-hen-turns-away-v2.txt 11_the-hen-turns-away-v3.txt	Sie hasst Amphibien, was ist da los
+12	00:42.917	00:48.083	1154	124	5.1667	-	chain	12_back-to-the-frog.mp3	12_back-to-the-frog-v1.txt 12_back-to-the-frog-v2.txt 12_back-to-the-frog-v3.txt	(instrumental)
+13	00:44.167	00:49.333	1184	124	5.1667	-	-	13_i-am-a-frog.mp3	13_i-am-a-frog-v1.txt 13_i-am-a-frog-v2.txt 13_i-am-a-frog-v3.txt	Ich bin ein Frosch! Was soll ich tun?
+14	00:46.750	00:56.167	1246	226	9.4167	2.833,5.958	hold	14_in-love-with-a-chicken.mp3	14_in-love-with-a-chicken-v1.txt 14_in-love-with-a-chicken-v2.txt 14_in-love-with-a-chicken-v3.txt	Bin argh verknallt in ein Huhn. / Uns’re Welten, weit auseinander. / Doch bestimmt nur für einander.
+15	00:55.708	01:01.583	1461	141	5.8750	-	-	15_imagine-our-children.mp3	15_imagine-our-children-v1.txt 15_imagine-our-children-v2.txt 15_imagine-our-children-v3.txt	Stell dir unsre Kinder vooooor
+16	00:55.708	01:07.958	1461	294	12.2500	4.552	-	16_hopping-through-the-grass.mp3	16_hopping-through-the-grass-v1.txt 16_hopping-through-the-grass-v2.txt 16_hopping-through-the-grass-v3.txt	(instrumental)
+17	01:01.458	01:06.625	1599	124	5.1667	-	-	17_slimy-feathers.mp3	17_slimy-feathers-v1.txt 17_slimy-feathers-v2.txt 17_slimy-feathers-v3.txt	Schleimige Federn …
+18	01:03.542	01:08.708	1649	124	5.1667	-	-	18_great-big-eyes.mp3	18_great-big-eyes-v1.txt 18_great-big-eyes-v2.txt 18_great-big-eyes-v3.txt	... große Auuuugen [so große Augen!]
+19	01:07.500	01:12.667	1744	124	5.1667	-	-	19_dead-in-the-water.mp3	19_dead-in-the-water-v1.txt 19_dead-in-the-water-v2.txt 19_dead-in-the-water-v3.txt	die nicht zum fliegen oder schwimmen taugen
+20	01:10.417	01:16.292	1814	141	5.8750	-	-	20_the-researcher-s-notebook.mp3	20_the-researcher-s-notebook-v1.txt 20_the-researcher-s-notebook-v2.txt 20_the-researcher-s-notebook-v3.txt	Federphibien soll man sie nennen. Nachkömmlinge von Frosch und Hennen
+21	01:16.250	01:21.417	1954	124	5.1667	-	-	21_skidding-onto-the-gravel.mp3	21_skidding-onto-the-gravel-v1.txt 21_skidding-onto-the-gravel-v2.txt 21_skidding-onto-the-gravel-v3.txt	(instrumental)
+22	01:18.625	01:23.792	2011	124	5.1667	-	-	22_up-the-chicken-ladder.mp3	22_up-the-chicken-ladder-v1.txt 22_up-the-chicken-ladder-v2.txt 22_up-the-chicken-ladder-v3.txt	(instrumental)
+23	01:21.667	01:26.833	2084	124	5.1667	-	-	23_into-the-down.mp3	23_into-the-down-v1.txt 23_into-the-down-v2.txt 23_into-the-down-v3.txt	Ich deck mich zu mit ihren Daunen
+24	01:24.167	01:29.333	2144	124	5.1667	-	hold	24_the-hen-shouts-him-down.mp3	24_the-hen-shouts-him-down-v1.txt 24_the-hen-shouts-him-down-v2.txt 24_the-hen-shouts-him-down-v3.txt	Ich halt sie aus, ihre verrückten Launen
+25	01:27.083	01:32.250	2214	124	5.1667	-	-	25_she-turns-her-head.mp3	25_she-turns-her-head-v1.txt 25_she-turns-her-head-v2.txt 25_she-turns-her-head-v3.txt	Sie dreht den Kopf …
+26	01:28.333	01:33.500	2244	124	5.1667	-	-	26_reaching-behind-him.mp3	26_reaching-behind-him-v1.txt 26_reaching-behind-him-v2.txt 26_reaching-behind-him-v3.txt	... sie schaut mich an. Ich halt’s nicht aus.
+27	01:31.042	01:36.208	2309	124	5.1667	-	-	27_the-ring.mp3	27_the-ring-v1.txt 27_the-ring-v2.txt 27_the-ring-v3.txt	Nimm mich zum Mann
+28	01:33.333	01:38.500	2364	124	5.1667	-	-	28_she-swallows-it.mp3	28_she-swallows-it-v1.txt 28_she-swallows-it-v2.txt 28_she-swallows-it-v3.txt	(instrumental)
+29	01:34.583	01:39.750	2394	124	5.1667	-	chain	29_she-walks-straight-past.mp3	29_she-walks-straight-past-v1.txt 29_she-walks-straight-past-v2.txt 29_she-walks-straight-past-v3.txt	(instrumental)
+30	01:35.833	01:41.000	2424	124	5.1667	-	-	30_her-walk.mp3	30_her-walk-v1.txt 30_her-walk-v2.txt 30_her-walk-v3.txt	Ihr Gang erinnert an Urzeit-Echsen
+31	01:40.000	01:45.167	2524	124	5.1667	-	hold,chain	31_cartoon-hearts.mp3	31_cartoon-hearts-v1.txt 31_cartoon-hearts-v2.txt 31_cartoon-hearts-v3.txt	(instrumental)
+32	01:42.083	01:47.250	2574	124	5.1667	-	-	32_throwing-the-grain.mp3	32_throwing-the-grain-v1.txt 32_throwing-the-grain-v2.txt 32_throwing-the-grain-v3.txt	Das macht mich rollig, ich will sie sexen
+33	01:45.000	01:50.167	2644	124	5.1667	-	-	33_grain-on-his-back.mp3	33_grain-on-his-back-v1.txt 33_grain-on-his-back-v2.txt 33_grain-on-his-back-v3.txt	Ich leg mir Körner auf den Rücken
+34	01:50.000	01:55.167	2764	124	5.1667	-	-	34_she-stoops-down.mp3	34_she-stoops-down-v1.txt 34_she-stoops-down-v2.txt 34_she-stoops-down-v3.txt	Sie kommt näher, muss sich bücken.
+35	01:52.917	01:58.083	2834	124	5.1667	-	hold,chain	35_she-pecks-him.mp3	35_she-pecks-him-v1.txt 35_she-pecks-him-v2.txt 35_she-pecks-him-v3.txt	Sie pickt zärtlich, ich quak leise
+36	01:55.417	02:00.583	2894	124	5.1667	-	-	36_their-eyes-meet.mp3	36_their-eyes-meet-v1.txt 36_their-eyes-meet-v2.txt 36_their-eyes-meet-v3.txt	Jede Berührung schickt mich auf eine Reise
+37	01:58.958	02:04.833	2979	141	5.8750	-	-	37_the-hen-understands.mp3	37_the-hen-understands-v1.txt 37_the-hen-understands-v2.txt 37_the-hen-understands-v3.txt	Frosch und Huhn wie ungewöhnlich.
+38	02:04.583	02:09.750	3114	124	5.1667	-	-	38_onto-her-back.mp3	38_onto-her-back-v1.txt 38_onto-her-back-v2.txt 38_onto-her-back-v3.txt	Vogel und Amphibium
+39	02:07.292	02:12.458	3179	124	5.1667	-	-	39_running-for-the-door.mp3	39_running-for-the-door-v1.txt 39_running-for-the-door-v2.txt 39_running-for-the-door-v3.txt	die finden si…
+40	02:08.958	02:14.125	3219	124	5.1667	-	-	40_out-of-the-hen-house.mp3	40_out-of-the-hen-house-v1.txt 40_out-of-the-hen-house-v2.txt 40_out-of-the-hen-house-v3.txt	siiiiiihiiiisch
+41	02:10.417	02:16.292	3254	141	5.8750	-	-	41_imagine-our-children-again.mp3	41_imagine-our-children-again-v1.txt 41_imagine-our-children-again-v2.txt 41_imagine-our-children-again-v3.txt	Stell dir uns’re Kinder vooooor
+42	02:15.625	02:22.208	3379	158	6.5833	-	-	42_stroking-her-feathers.mp3	42_stroking-her-feathers-v1.txt 42_stroking-her-feathers-v2.txt 42_stroking-her-feathers-v3.txt	Schleimige Federn große Augen
+43	02:21.667	02:26.833	3524	124	5.1667	-	-	43_the-researcher-stands-up.mp3	43_the-researcher-stands-up-v1.txt 43_the-researcher-stands-up-v2.txt 43_the-researcher-stands-up-v3.txt	Die nicht zum fliegen oder schwimmen taugen
+44	02:24.792	02:29.958	3599	124	5.1667	-	-	44_photographing-them.mp3	44_photographing-them-v1.txt 44_photographing-them-v2.txt 44_photographing-them-v3.txt	Federphibien soll man sie nennen
+45	02:28.125	02:39.667	3679	277	11.5417	5.500	-	45_running-on.mp3	45_running-on-v1.txt 45_running-on-v2.txt 45_running-on-v3.txt	Nachkömmlinge von Frosch und Hennen
+46	02:39.083	02:44.250	3942	124	5.1667	-	-	46_into-the-sunset.mp3	46_into-the-sunset-v1.txt 46_into-the-sunset-v2.txt 46_into-the-sunset-v3.txt	(instrumental)
+47	02:46.250	02:51.417	4114	124	5.1667	-	hold	47_the-final-freeze.mp3	47_the-final-freeze-v1.txt 47_the-final-freeze-v2.txt 47_the-final-freeze-v3.txt	(instrumental)

@@ -1,8 +1,18 @@
 {
+  "0": {
+    "title": "the pond before the music",
+    "lyrics": "",
+    "shot1": "Title card, before the song begins. The pond lies still under flat overcast light. A weathered enamel sign hangs from a leaning post at the near edge of frame and sways gently, its lettering worn away to nothing. Dragonflies criss-cross low over the water. Every few seconds a gust runs through the reeds and lays them over, then lets them stand again. Beyond the water a farm building and its barn sit far off, pale and soft with distance. At the far edge of the pond, small and easy to miss, a man in a straw hat already sits on a folding chair with his back to us, bent over a notebook. He does not move and nothing else happens.",
+    "cameras": {
+      "v1": "[Tracking shot] Close on the water, a slow and even lateral dolly left to right across the pond, the sign passing through the near foreground.",
+      "v2": "[Static shot] Locked off on the reeds as a gust lays them over, the farm buildings pale behind.",
+      "v3": "[Static shot] Insert on the dragonflies criss-crossing the open water."
+    }
+  },
   "1": {
     "title": "the pond from above",
     "lyrics": "",
-    "shot1": "The farm lies still around its pond. The house, the barn, the chicken coop and the fenced yard sit in about forty metres of ground, and at the bottom corner of it is one farm pond roughly ten metres across, its green water skinned with duckweed. In the water there is at first only a small dark shape, no bigger against the property than a seed. It resolves into a common pond frog - eight centimetres from nose to rump, the length of a man's thumb, a hundred of his own body lengths from the far bank. He kicks both back legs out and together in a slow swimming stroke and jerks forward on each push, gliding to a stop between kicks, the way a frog actually moves through water. His head stays above the surface and leaves a small spreading wake. He covers half the distance to the bank. Nothing else on the farm moves.",
+    "shot1": "The farm lies still around its pond. The house, the barn, the chicken coop and the fenced yard sit in about forty metres of ground, and at the bottom corner of it is one farm pond roughly ten metres across, its green water skinned with duckweed. In the water there is at first only a small dark shape, no bigger against the property than a seed. It resolves into a common pond frog - eight centimetres from nose to rump, the length of a man's thumb, a hundred of his own body lengths from the far bank. He kicks both back legs out and together in a slow swimming stroke and jerks forward on each push, gliding to a stop between kicks, the way a frog actually moves through water. His head stays above the surface and leaves a small spreading wake. He covers half the distance to the bank. Nothing else on the farm moves. At the bottom corner of the pond, no bigger than a seed himself, the crown of a straw hat and the shoulders under it sit motionless on a folding chair, seen from straight above and from behind, with the long shadow of the chair beside them.",
     "cameras": {
       "v1": "[Zoom in, slow, large] A straight-down aerial plan view from high above the farm, the altitude of a low-flying aircraft. At the start the whole property is inside the frame - house, barn, chicken coop, the fenced yard, the fence line and the fields around them - and the pond is one small dark oval near the bottom of it, with the frog a single dark speck on the water no wider than a few pixels. The camera stays at that height and does not descend through the air; only the framing tightens, straight down throughout, until the pond alone fills the frame and the speck has become a readable frog seen from above, about a twentieth of the frame wide. The angle never tilts, no horizon and no sky ever enter the frame, and the farm buildings stay flat roof-plans below the camera the whole way in.",
       "v2": "[Static shot] Wide at eye level from the bank, the whole yard and the coop behind the water, so the place reads as a place and not a diagram. The frog is a small green mark out on the pond, no taller in frame than a blade of the grass in the foreground.",
@@ -22,7 +32,7 @@
   "3": {
     "title": "hauling out of the water",
     "lyrics": "",
-    "shot1": "The frog plants his arms on the bank and heaves himself out of the pond, slack and heavy with water. He flops onto his belly in the grass and stays there, face down, not moving.",
+    "shot1": "The frog plants his arms on the bank and heaves himself out of the pond, slack and heavy with water. He flops onto his belly in the grass and stays there, face down, not moving. Far off at the other end of the bank, at the very edge of frame, a seated back under a straw hat and the shadow of a folding chair on the mud. He is turned away and takes no notice.",
     "cameras": {
       "v1": "[Static shot] Profile, at ground level in the gap between bank and water.",
       "v2": "[Static shot] Three-quarter front and low, so the effort reads on his face.",
@@ -72,7 +82,7 @@
   "8": {
     "title": "the hen house in the distance",
     "lyrics": "",
-    "shot1": "The frog rolls back onto his belly and props his chin tiredly on his hands. His gaze goes out past the pond to a hen house standing in front of the cow barn, far off and soft with distance.",
+    "shot1": "The frog rolls back onto his belly and props his chin tiredly on his hands. His gaze goes out past the pond to a hen house standing in front of the cow barn, far off and soft with distance. At the edge of the frame the same seated back under the straw hat is still there by the water, turned away. Neither of them has ever noticed the other.",
     "cameras": {
       "v1": "[Static shot] Profile at grass height, the hen house small past him in the distance.",
       "v2": "[Static shot] Over his shoulder, past his head, so the hen house is the subject.",

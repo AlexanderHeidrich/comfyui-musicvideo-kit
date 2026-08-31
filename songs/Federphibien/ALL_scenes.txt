@@ -1,13 +1,20 @@
-# FEDERPHIBIEN - all 47 scenes in one file, in the storyboard DSL.
+# FEDERPHIBIEN - all 48 scenes in one file, in the storyboard DSL.
 # This is the ComfyUI node's batch input. The NN_*.txt files beside it
 # are the same material as finished H3 prompts, for pasting by hand.
-# Point the storyboard node here and set batch count = 47.
+# Point the storyboard node here and set batch count = 48.
 
 @BIBLE
 REFERENCE - read this first
   Seven images are supplied. Four are subjects, one is the look, two are places.
 
-  <Picture 1> THE FEDERPHIBIUM, the hybrid child: a sage-green frog body that sits
+  <Picture 1> is a DESIGN SHEET, not a character standing by the pond. The creature
+  on it does not exist in the world of the film. It appears only inside the chorus
+  daydreams and on the researcher's page, in the shots that say so in their own
+  words. If this shot does not name it, it is not in this shot - do not put it in
+  the water, in the grass, in the hen house or anywhere in frame. What the film is
+  about until the chorus is one ordinary frog.
+
+  THE FEDERPHIBIUM, the hybrid child: a sage-green frog body that sits
   UPRIGHT on its haunches like a meerkat, not squat like a toad, with a pale cream
   belly and soft mottled olive patches over the green. An upright red chicken comb
   on its head, a red two-lobed wattle under a small yellow-orange beak. Its FEET
@@ -19,8 +26,8 @@ REFERENCE - read this first
   fine dark rim - no iris colour, no ring.
   NOTE: the reference sheet still draws it squat with plain frog feet and small
   wing tufts at the flanks. The description above is what the film draws.
-  <Picture 2> DER FROSCH.  <Picture 3> DAS HUHN.
-  <Picture 5> DER FORSCHER, seen from behind, which is how he is always seen.
+  <Picture 2> THE FROG.  <Picture 3> THE HEN.
+  <Picture 5> THE RESEARCHER, seen from behind, which is how he is always seen.
 
   <Picture 4> is NOT a thing in the scene. It is a colour and construction board:
   the palette, the line weight, and the way the shading grades inside the line. Read the look off it and never draw it.
@@ -45,7 +52,7 @@ CAST - the reference is the child, and the parents are it taken apart
   black dot pupil and a fine dark rim around it. The pupil is the only mark in it.
   That one eye is what makes the frog and the hen look like they belong in the
   same drawing.
-  DER FROSCH - <Picture 2>. The narrator, and the only one who ever speaks. Smooth
+  THE FROG - <Picture 2>. The narrator, and the only one who ever speaks. Smooth
   grey-green skin, not warty, broken by soft mottled olive patches, a large pale
   cream belly covering most of his front, the house eyes, long clawed toes, a
   potbellied sitting build, and a wide flat mouth drawn as a single shallow curve. He is what
@@ -53,7 +60,7 @@ CAST - the reference is the child, and the parents are it taken apart
   NO wings. Permanently wet, with a
   visible sheen. He wears nothing and owns nothing. Earnest, lovesick, entirely
   without shame.
-  DAS HUHN - <Picture 3>. A warm sandy-tan farmyard hen - not dark brown - with a
+  THE HEN - <Picture 3>. A warm sandy-tan farmyard hen - not dark brown - with a
   cream breast and belly and darker tan on the back and tail, carrying exactly the
   chicken parts that <Picture 1> borrowed: the same red comb, the same dark red
   wattle, the same yellow-orange beak, the same scaly yellow legs and claws. Otherwise completely
@@ -67,12 +74,12 @@ CAST - the reference is the child, and the parents are it taken apart
   out, and she offers him her back. That turn happens ONCE and it is earned. Never
   play it early. The house eyes, exactly as the frog has them. No
   eyelashes, no blush, no anthropomorphism of any kind.
-  DIE FEDERPHIBIEN - the imagined children: <Picture 1> exactly, in numbers.
+  THE FEDERPHIBIEN - the imagined children: <Picture 1> exactly, in numbers.
   Comb, wattle, beak, an upright meerkat-sitting frog body, feathered frog arms
   ending in frog hands, scaly chicken feet. The wings
   cannot lift them and they will not swim, and they do not know it yet. They
   appear ONLY inside the chorus fantasies, never in the real pond.
-  DER FORSCHER - <Picture 5>. The only human being in the film, and the film never shows his
+  THE RESEARCHER - <Picture 5>. The only human being in the film, and the film never shows his
   face. Khaki trousers, a plain shirt with the sleeves turned back, a straw hat.
   A green hardbound notebook and a pencil, and an SLR on a black strap round his
   neck - for almost the whole film only the black band across his back and shoulder
@@ -87,6 +94,15 @@ CAST - the reference is the child, and the parents are it taken apart
   camera and never readable. Never a reaction shot, never a word. He does not interact with the animals and they never notice
   him. He moves quickly exactly once, when he jumps up and grabs the chair to
   stop it going over.
+  He is ALREADY THERE from the very first frame of the film, sitting at the far
+  edge of the pond. This is only so that nobody wonders where he came from when the
+  song reaches him: he is a plant, not a presence. A wide shot holding the pond bank
+  MAY carry him somewhere at the edge of frame, and the least is enough - a khaki
+  shape under a straw hat, or just his shadow and the shadow of the chair falling
+  across the mud. He is never the subject, never lit for and never looked at, and
+  plenty of setups simply do not include him. What is not optional: whenever he is
+  in frame at all, he is seen FROM BEHIND. Never his face, at any size, however
+  small he is. Indoors and in close-ups he is not in frame.
 
 WORLD
   A murky farm pond at the bottom edge of a chicken yard. High summer, humid,
@@ -106,17 +122,17 @@ SCALE - these are real animals and they are not the same size
   comes from this list and from nowhere else. Never size a character by how much
   of its reference image it fills.
 
-  DER FROSCH      a common European pond frog. 8 cm from nose to rump, about
+  THE FROG      a common European pond frog. 8 cm from nose to rump, about
                   10 cm sitting up. The length of a man's thumb. He fits inside
                   a cupped human hand with room to spare.
-  DIE FEDERPHIBIEN  the same frog body sitting upright like a meerkat, about
+  THE FEDERPHIBIEN  the same frog body sitting upright like a meerkat, about
                   15 cm to the top of the comb. Still a small animal.
-  DAS HUHN        an ordinary farmyard hen. 45 cm to the top of the comb,
+  THE HEN        an ordinary farmyard hen. 45 cm to the top of the comb,
                   50 cm beak to tail. Four to five times the frog's height.
                   Standing beside her he reaches her hock - the backward joint
                   above her foot - and no higher. To bring her beak to him she
                   must fold her neck right down to the ground.
-  DER FORSCHER    an adult man, 180 cm standing, his eye about 120 cm up when
+  THE RESEARCHER    an adult man, 180 cm standing, his eye about 120 cm up when
                   he is sitting on the folding chair. Eighteen times the frog,
                   four times the hen. The hen comes to just below his knee. The
                   frog would sit on his palm.
@@ -275,14 +291,17 @@ RENDER CLEAN - this matters
   Every one of those is being added afterwards in the grade, and baked-in
   artefacts cannot be removed. Full frame, clean edges, steady.
 
+@SCENE 00:00.000-00:05.167 | the pond before the music   # no audio - render this one on its own
+Title card, before the song begins. The pond lies still under flat overcast light. A weathered enamel sign hangs from a leaning post at the near edge of frame and sways gently, its lettering worn away to nothing. Dragonflies criss-cross low over the water. Every few seconds a gust runs through the reeds and lays them over, then lets them stand again. Beyond the water a farm building and its barn sit far off, pale and soft with distance. At the far edge of the pond, small and easy to miss, a man in a straw hat already sits on a folding chair with his back to us, bent over a notebook. He does not move and nothing else happens.
+
 @SCENE 00:00.000-00:06.583 | the pond from above
-The farm lies still around its pond. The house, the barn, the chicken coop and the fenced yard sit in about forty metres of ground, and at the bottom corner of it is one farm pond roughly ten metres across, its green water skinned with duckweed. In the water there is at first only a small dark shape, no bigger against the property than a seed. It resolves into a common pond frog - eight centimetres from nose to rump, the length of a man's thumb, a hundred of his own body lengths from the far bank. He kicks both back legs out and together in a slow swimming stroke and jerks forward on each push, gliding to a stop between kicks, the way a frog actually moves through water. His head stays above the surface and leaves a small spreading wake. He covers half the distance to the bank. Nothing else on the farm moves.
+The farm lies still around its pond. The house, the barn, the chicken coop and the fenced yard sit in about forty metres of ground, and at the bottom corner of it is one farm pond roughly ten metres across, its green water skinned with duckweed. In the water there is at first only a small dark shape, no bigger against the property than a seed. It resolves into a common pond frog - eight centimetres from nose to rump, the length of a man's thumb, a hundred of his own body lengths from the far bank. He kicks both back legs out and together in a slow swimming stroke and jerks forward on each push, gliding to a stop between kicks, the way a frog actually moves through water. His head stays above the surface and leaves a small spreading wake. He covers half the distance to the bank. Nothing else on the farm moves. At the bottom corner of the pond, no bigger than a seed himself, the crown of a straw hat and the shoulders under it sit motionless on a folding chair, seen from straight above and from behind, with the long shadow of the chair beside them.
 
 @SCENE 00:06.458-00:13.042 | swimming toward the farm
 The frog makes slow, jerky swimming strokes across the open water. Flies circle around him and he ignores them completely, holding his course toward the farm buildings that stand blurred with distance ahead of him. He reaches the bank.
 
 @SCENE 00:12.375-00:17.542 | hauling out of the water
-The frog plants his arms on the bank and heaves himself out of the pond, slack and heavy with water. He flops onto his belly in the grass and stays there, face down, not moving.
+The frog plants his arms on the bank and heaves himself out of the pond, slack and heavy with water. He flops onto his belly in the grass and stays there, face down, not moving. Far off at the other end of the bank, at the very edge of frame, a seated back under a straw hat and the shadow of a folding chair on the mud. He is turned away and takes no notice.
 
 @SCENE 00:15.500-00:20.667 | rolling onto his back
 The frog lies face down in the grass. Nothing about him moves except his back, rising and falling as he pants and breathes out, exhausted. Then one effortful swing and he rolls onto his back, and lies there looking straight up at the sky.
@@ -297,7 +316,7 @@ The frog lies stretched out in the grass, his skin catching the sunlight and shi
 Flies circle the frog's face. He unrolls his tongue slowly, not to catch anything, but to wipe it across his own eyeball like a gecko. Then another tired, heavy exhale. He sings the line.
 
 @SCENE 00:29.792-00:34.958 | the hen house in the distance
-The frog rolls back onto his belly and props his chin tiredly on his hands. His gaze goes out past the pond to a hen house standing in front of the cow barn, far off and soft with distance.
+The frog rolls back onto his belly and props his chin tiredly on his hands. His gaze goes out past the pond to a hen house standing in front of the cow barn, far off and soft with distance. At the edge of the frame the same seated back under the straw hat is still there by the water, turned away. Neither of them has ever noticed the other.
 
 @SCENE 00:33.000-00:38.167 | the hen pecking grain
 A sandy-tan hen walks slowly and proudly about the yard, pecking grain out of the dirt, taking no notice of anything else. The frog sings the line.

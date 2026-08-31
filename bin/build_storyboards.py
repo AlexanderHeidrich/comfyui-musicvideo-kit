@@ -133,7 +133,10 @@ def ref_lines(refs):
                 "<Audio 1>    this window of the song"]
     out = ["%-12s %s (%s)" % (i["tag"], i["slug"], i["kind"])
            for i in refs.get("images", []) + refs.get("videos", [])]
-    out.append("%-12s this window of the song" % refs.get("scene_audio_tag", "<Audio 1>"))
+    tag = refs.get("scene_audio_tag", "<Audio 1>") if "scene_audio_tag" in refs \
+        else "<Audio 1>"
+    if tag:
+        out.append("%-12s this window of the song" % tag)
     return out
 
 
@@ -305,9 +308,12 @@ def write_batch_lists(song, rows, content, cams):
     d = os.path.join(song, "__batch")
     shutil.rmtree(d, ignore_errors=True)
     os.makedirs(d)
-    groups = {}
+    groups, silent = {}, []
     for r in rows:
         n = int(r["scene"]); sl = slug(content[r["scene"]]["title"])
+        if str(r.get("start", "")).strip() in ("", "-"):
+            silent.append("%02d_%s" % (n, sl))   # no audio, so it cannot be paired
+            continue
         for tag in sorted(cams):
             groups.setdefault((int(r["frames"]), tag), []).append(
                 ("%02d_%s-%s.txt" % (n, sl, tag), "%02d_%s.mp3" % (n, sl)))
@@ -329,11 +335,18 @@ def write_batch_lists(song, rows, content, cams):
         fh.write("%-22s %-8s %s\n" % ("group", "length", "queue batch count"))
         for frames, tag, count in lines:
             fh.write("%-22s %-8d %d\n" % ("f%d-%s" % (frames, tag), frames, count))
+        if silent:
+            fh.write("\nNOT in these lists, because they have no audio to pair with:\n"
+                     "  %s\nRender them on their own.\n" % ", ".join(silent))
         fh.write("\nWiring, and why core nodes are not enough: see docs/comfyui-batch.md\n"
                  "Paths are relative to the song folder - the one directly above this\n"
                  "one. Prefix them with wherever that folder lives on the machine that\n"
                  "runs ComfyUI.\n")
     return lines
+
+
+SILENT_MUSIC = ("There is NO music in this clip. The song has not started yet. Leave\n"
+                "the track empty and let the location sound above carry it alone.")
 
 
 def main():
@@ -351,6 +364,8 @@ def main():
     rlines = ref_lines(refs)
     retention = retention_lines(refs)
     prefix = summary_prefix(refs)
+    mute = dict(refs or {}, scene_audio_tag=None)
+    rlines_q, retention_q, prefix_q = ref_lines(mute), retention_lines(mute), summary_prefix(mute)
 
     # scenes with no content.json entry fall back to the screenplay in scenes.tsv,
     # so a drehbuch run produces usable prompts with no drafting pass at all
@@ -382,12 +397,15 @@ def main():
            "# Point the storyboard node here and set batch count = %d.\n"
            % (name.upper(), len(rows), len(rows)),
            "@BIBLE\n" + bible, "\n@STYLE\n" + style]
-    manifest = [["scene", "start", "end", "frames", "duration", "inner_cuts",
-                 "continuity", "audio", "prompts", "lyrics"]]
+    manifest = [["scene", "song_start", "song_end", "tl_frame", "frames", "duration",
+                 "inner_cuts", "continuity", "audio", "prompts", "lyrics"]]
     n_var = 0
 
     for r in rows:
         n = int(r["scene"]); c = content[r["scene"]]
+        silent = str(r.get("start", "")).strip() in ("", "-")
+        RL, RT, PF = (rlines_q, retention_q, prefix_q) if silent \
+            else (rlines, retention, prefix)
         cuts, dur = cuts_of(r), float(r["duration"])
         cut = cuts[0] if cuts else 0.0
         action = action_of(c, cuts)
@@ -404,18 +422,24 @@ def main():
             cam = camera_sentence(cam, bad_cam)
             open(os.path.join(song, "%02d_%s-%s.txt" % (n, sl, tag)),
                  "w", encoding="utf-8", newline="\n").write(
-                prompt_for(c, cam, action, bible, style, sound, music, rlines,
-                           retention, prefix))
+                prompt_for(c, cam, action, bible, style, sound,
+                           SILENT_MUSIC if silent else music, RL, RT, PF))
             n_var += 1
         if own:
             per_scene_cams += 1
 
-        dsl.append("\n@SCENE %s-%s | %s\n%s"
-                   % (tc(r["start"]), tc(r["end"]), c["title"], action))
+        dsl.append("\n@SCENE %s-%s | %s%s\n%s"
+                   % (tc(0.0) if silent else tc(r["start"]),
+                      tc(dur) if silent else tc(r["end"]), c["title"],
+                      "   # no audio - render this one on its own" if silent else "",
+                      action))
         manifest.append([
-            "%02d" % n, tc(r["start"]), tc(r["end"]), r["frames"], "%.4f" % dur,
+            "%02d" % n, "-" if silent else tc(r["start"]),
+            "-" if silent else tc(r["end"]), r.get("tl_frame", "-"),
+            r["frames"], "%.4f" % dur,
             ",".join("%.3f" % x for x in cuts) or "-",
-            r.get("continuity") or "-", "%02d_%s.mp3" % (n, sl),
+            r.get("continuity") or "-",
+            "-" if silent else "%02d_%s.mp3" % (n, sl),
             " ".join("%02d_%s-%s.txt" % (n, sl, t) for t in tags),
             c["lyrics"] or "(instrumental)"])
 
@@ -449,7 +473,8 @@ def main():
     batch = write_batch_lists(song, rows, content, CAM)
 
     total = sum(float(r["duration"]) for r in rows)
-    span = max(float(r["end"]) for r in rows) - min(float(r["start"]) for r in rows)
+    sung = [r for r in rows if str(r.get("start", "")).strip() not in ("", "-")]
+    span = max(float(r["end"]) for r in sung) - min(float(r["start"]) for r in sung)
     readme = ["%s - %d scenes over %.1f s of song, %.1f s of clip material%s"
               % (name.upper(), len(rows), span, total,
                  " (scenes overlap - trim in the edit)" if total > span + 1 else ""),

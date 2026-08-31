@@ -7,7 +7,6 @@ subject_definitions
     <Picture 5>  der forscher (char)
     <Picture 6>  pond (loc)
     <Picture 7>  henhouse interior (loc)
-    <Audio 1>    this window of the song
 
   REFERENCE - read this first
     Seven images are supplied. Four are subjects, one is the look, two are places.
@@ -196,7 +195,7 @@ subject_definitions
     never play it for laughs, never mug, never wink.
 
 summary
-  [reference generation + audio reuse] The frog lies stretched out in the grass, his skin catching the sunlight and shining wet from head to foot, green and speckled, the pale belly soft. He sings the line. The lyric sung here is "Meine Haut ist glibschig und trotzdem weich".
+  [reference generation] Title card, before the song begins. The pond lies still under flat overcast light.
 
 retention_analysis
   <Picture 1> (federphibium, char): partially_preserved - the design, proportions, colour model and every marking are preserved exactly and never drift between scenes; only the sheet's plain backdrop and the cast shadow under the figure are dropped. How the character is rendered is set by the style below.
@@ -206,7 +205,6 @@ retention_analysis
   <Picture 5> (der forscher, char): partially_preserved - the design, proportions, colour model and every marking are preserved exactly and never drift between scenes; only the sheet's plain backdrop and the cast shadow under the figure are dropped. How the character is rendered is set by the style below.
   <Picture 6> (pond, loc): partially_preserved - a background painting. Where this shot is set in that place its architecture, layout and palette are preserved and nothing in it is a subject; where the shot is set elsewhere it contributes nothing.
   <Picture 7> (henhouse interior, loc): partially_preserved - a background painting. Where this shot is set in that place its architecture, layout and palette are preserved and nothing in it is a subject; where the shot is set elsewhere it contributes nothing.
-  <Audio 1>: partially_copy - the supplied window of the song is reused as the audience-only score for this clip; the diegetic ambience described below is added over it and nothing else is.
 
 detailed_description
   Hand-drawn 2D animation as made for television: black ink drawings over softly
@@ -313,9 +311,9 @@ detailed_description
   line weight, the proportions and the costume of every character named
   above, and the time of day and weather of the location.
 
-  [Shot 1] High and looking down on the same pose, which makes him small. The camera holds a static shot.
+  [Shot 1] Locked off on the reeds as a gust lays them over, the farm buildings pale behind. The camera holds a static shot.
 
-  The frog lies stretched out in the grass, his skin catching the sunlight and shining wet from head to foot, green and speckled, the pale belly soft. He sings the line.
+  Title card, before the song begins. The pond lies still under flat overcast light. A weathered enamel sign hangs from a leaning post at the near edge of frame and sways gently, its lettering worn away to nothing. Dragonflies criss-cross low over the water. Every few seconds a gust runs through the reeds and lays them over, then lets them stand again. Beyond the water a farm building and its barn sit far off, pale and soft with distance. At the far edge of the pond, small and easy to miss, a man in a straw hat already sits on a folding chair with his back to us, bent over a notebook. He does not move and nothing else happens.
 
 overall_soundscape
   Under everything, always present and always quiet: a summer farm pond. Wet
@@ -328,5 +326,5 @@ overall_soundscape
     The film never uses sound to tell you something is funny.
 
 non_diegetic_music
-  The provided song excerpt is the ONLY music. Do not invent, add or extend any
-    instrumentation - no score, no stings, no risers.
+  There is NO music in this clip. The song has not started yet. Leave
+  the track empty and let the location sound above carry it alone.

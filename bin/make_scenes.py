@@ -293,10 +293,22 @@ def main():
                    "framing": fr, "hold": ho, "cont": co, "cut_hint": None,
                    "cuts": [], "shots": [de]}
                   for st, en, ti, ly, de, fr, ho, co in parsed]
+        # blocks that end before the music starts are the Vorspann: kept as scene 0,
+        # a clip with no window of the song behind it
         pre = [sc for sc in scenes if sc["en"] <= 0.02]
+        preroll = []
         if pre:
-            warn.append("%d scene(s) end at or before 0.0s (Vorspann, no music yet) - "
-                        "dropped, render those separately" % len(pre))
+            nf, d = snap_up(max(sum(sc["en"] - sc["st"] for sc in pre), MIN_S))
+            preroll = [{"scene": 0, "start": None, "end": None, "frames": nf,
+                        "dur": round(d, 4), "drift": 0.0,
+                        "title": pre[0]["title"] or "vorspann",
+                        "screenplay": " || ".join(sc["desc"] for sc in pre),
+                        "lyrics_dreh": "", "framing": pre[0].get("framing", ""),
+                        "hold": False, "chain": False, "fused_cuts": [],
+                        "shots": [], "cut_hint": None, "lyrics": "",
+                        "cut_rel": 0.0, "cut_snapped": False, "cuts": []}]
+            warn.append("%d scene(s) end before the music starts - kept as scene 0, "
+                        "%.3fs with no audio reference" % (len(pre), d))
         scenes = [sc for sc in scenes if sc["en"] > 0.02]
         for sc in scenes:
             sc["st"] = max(0.0, sc["st"])
@@ -342,6 +354,7 @@ def main():
         if splits:
             warn.append("%d scene(s) were longer than H3's %.2fs maximum - split into "
                         "consecutive parts" % (splits, MAX_S))
+        rows = preroll + rows
         if rows and rows[-1]["end"] > dur + 0.5:
             warn.append("the last scene ends %.2fs past the song (%.2fs); its tail is silent"
                         % (rows[-1]["end"] - dur, dur))
@@ -375,6 +388,8 @@ def main():
     # lands mid-word. Falls back to the raw target when no boundary is close.
     bounds = sorted({round(x, 3) for s_ in segs for x in (s_["start"], s_["end"])})
     for r in rows:
+        if r["start"] is None:                        # the Vorspann has no audio
+            continue
         r["lyrics"] = lyrics_for(segs, r["start"], r["end"]).replace("\t", " ")
         if r.get("fused_cuts"):
             r["cuts"] = list(r["fused_cuts"])
@@ -394,13 +409,23 @@ def main():
         r["cut_snapped"] = bool(cand)
         r["cuts"] = [r["cut_rel"]]
 
+    # tl_frame is the frame the clip sits on in the edit; start/end stay the window
+    # of the song each clip takes its audio from, so prepending the Vorspann moves
+    # the picture without moving the sound
+    offset = sum(r["frames"] for r in rows if r["start"] is None)
+    for r in rows:
+        r["tl"] = 0 if r["start"] is None else int(round(r["start"] * FPS)) + offset
+
     with open(a.out, "w", encoding="utf-8") as fh:
-        fh.write("scene\tstart\tend\tframes\tduration\tinner_cut_rel\tcut_on_boundary"
-                 "\tlyrics_asr\ttitle\tlyrics_screenplay\tframing\tcontinuity"
-                 "\tinner_cuts\tscreenplay\n")
+        fh.write("scene\tstart\tend\tframes\tduration\ttl_frame\tinner_cut_rel"
+                 "\tcut_on_boundary\tlyrics_asr\ttitle\tlyrics_screenplay\tframing"
+                 "\tcontinuity\tinner_cuts\tscreenplay\n")
         for r in rows:
-            fh.write("%d\t%.3f\t%.3f\t%d\t%.4f\t%.3f\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n" %
-                     (r["scene"], r["start"], r["end"], r["frames"], r["dur"],
+            fh.write("%d\t%s\t%s\t%d\t%.4f\t%d\t%.3f\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n" %
+                     (r["scene"],
+                      "-" if r["start"] is None else "%.3f" % r["start"],
+                      "-" if r["end"] is None else "%.3f" % r["end"],
+                      r["frames"], r["dur"], r["tl"],
                       r["cut_rel"], "yes" if r["cut_snapped"] else "no", r["lyrics"],
                       r.get("title", "").replace("\t", " "),
                       r.get("lyrics_dreh", "").replace("\t", " "),
@@ -410,15 +435,17 @@ def main():
                       ",".join("%.3f" % x for x in r.get("cuts", [])),
                       r.get("screenplay", "").replace("\t", " ")))
 
-    print("scenes            : %d" % len(rows))
+    music = [r for r in rows if r["start"] is not None]
+    print("scenes            : %d%s"
+          % (len(rows), " (incl. scene 0, no audio)" if len(music) != len(rows) else ""))
     print("covers           : %.3f -> %.3f s  (song %.3f s, %+.3f)"
-          % (rows[0]["start"], rows[-1]["end"], dur, rows[-1]["end"] - dur))
+          % (music[0]["start"], music[-1]["end"], dur, music[-1]["end"] - dur))
     print("durations        : %.3f .. %.3f s  (all on the 17k+5 grid: %s)"
           % (min(r["dur"] for r in rows), max(r["dur"] for r in rows),
              all(r["frames"] % 17 == 5 for r in rows)))
     if a.drehbuch:
         print("longest tail     : +%.3f s of clip past its scene, trim in the edit"
-              % max(r["drift"] for r in rows))
+              % max(r["drift"] for r in music))
         print("anchoring        : every scene starts on its screenplay frame, so clips"
               " overlap slightly instead of drifting")
     else:
@@ -434,8 +461,11 @@ def main():
     print()
     print("scene  start    end     frames  dur      cut@   on-bnd")
     for r in rows:
-        print("%3d  %7.3f %7.3f   %4d   %6.3f  %6.3f  %-5s  %s"
-              % (r["scene"], r["start"], r["end"], r["frames"], r["dur"],
+        print("%3d  %7s %7s   %4d   %6.3f  %6.3f  %-5s  %s"
+              % (r["scene"],
+                 "-" if r["start"] is None else "%7.3f" % r["start"],
+                 "-" if r["end"] is None else "%7.3f" % r["end"],
+                 r["frames"], r["dur"],
                  r["cut_rel"], "yes" if r["cut_snapped"] else ("-" if r["cut_rel"]==0 else "NO"),
                  ((r.get("lyrics_dreh") or r.get("title") or r["lyrics"])[:44]
                   or "(instrumental)")))

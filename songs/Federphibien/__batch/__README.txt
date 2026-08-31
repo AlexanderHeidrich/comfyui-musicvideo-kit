@@ -23,6 +23,10 @@ f294-v1                294      1
 f294-v2                294      1
 f294-v3                294      1
 
+NOT in these lists, because they have no audio to pair with:
+  00_the-pond-before-the-music
+Render them on their own.
+
 Wiring, and why core nodes are not enough: see docs/comfyui-batch.md
 Paths are relative to the song folder - the one directly above this
 one. Prefix them with wherever that folder lives on the machine that
