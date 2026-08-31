@@ -366,7 +366,7 @@
       ],
       "filename_prefix": [
         "153",
-        15
+        4
       ],
       "format": "auto",
       "format.codec": "auto",
@@ -430,7 +430,9 @@
       "audio_file": [
         "153",
         1
-      ]
+      ],
+      "seek_seconds": 0.0,
+      "duration": 0.0
     },
     "_meta": {
       "title": "AUDIO - this scene's slice"

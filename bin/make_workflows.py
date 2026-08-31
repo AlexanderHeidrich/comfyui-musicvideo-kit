@@ -70,6 +70,13 @@ SAVE_CLASS = "SaveVideo"
 # One 4x line-art model, and whatever it produces is what gets written. No
 # rescaling in the graph: hitting 4K exactly is the edit's job.
 UPSCALE_MODEL = "RealESRGAN_x4plus_anime_6B.pth"
+# HurricaneSongFolder's outputs, in order. Referenced by name everywhere so
+# trimming the node does not silently rewire a graph to the wrong socket.
+SONG_OUTPUTS = ("prompt", "audio_path", "frames", "scene_count", "save_prefix")
+
+
+def song_out(name):
+    return SONG_OUTPUTS.index(name)
 VIDEO_LOAD = "VHS_LoadVideoPath"
 VIDEO_COMBINE = "VHS_VideoCombine"
 # Not a placeholder any more - the class name is confirmed. What IS incomplete is
@@ -203,22 +210,41 @@ def prune_unreachable(graph):
     return {k: v for k, v in graph.items() if k in keep}, dropped
 
 
-def donor_nodes(song):
-    """UI-form definitions of our two nodes, lifted from a graph that already has
-    them. ComfyUI reconciles sockets against the registered class on load, but
-    starting from a real definition beats inventing one."""
-    p = os.path.join(song, "__workflow_song.json")
-    out = {}
-    if os.path.isfile(p):
-        try:
-            with open(p, encoding="utf-8") as fh:
-                d = json.load(fh)
-            for n in d.get("nodes", []):
-                if n.get("type") in ("HurricaneSongFolder", "VHS_LoadAudio"):
-                    out[n["type"]] = n
-        except (ValueError, KeyError):
-            pass
-    return out
+# UI-form socket definitions for the two nodes we insert. Written out rather than
+# lifted from some other graph, because a donor file can be missing or stale and a
+# node with `outputs: []` produces links that point at sockets that do not exist.
+SONG_NODE_DEF = {
+    "type": "HurricaneSongFolder", "flags": {}, "order": 0, "mode": 0,
+    "properties": {"Node name for S&R": "HurricaneSongFolder"},
+    "size": [300, 150],
+    "inputs": [
+        {"name": "song_path", "type": "STRING", "widget": {"name": "song_path"}},
+        {"name": "scene_index", "type": "INT", "widget": {"name": "scene_index"}},
+        {"name": "variant", "type": "COMBO", "widget": {"name": "variant"}},
+        {"name": "out_subfolder", "type": "STRING",
+         "widget": {"name": "out_subfolder"}},
+    ],
+    "outputs": [{"name": n, "localized_name": n, "type": t, "links": []}
+                for n, t in (("prompt", "STRING"), ("audio_path", "STRING"),
+                             ("frames", "INT"), ("scene_count", "INT"),
+                             ("save_prefix", "STRING"))],
+    "widgets_values": ["", 1, "v1", ""],
+}
+
+AUDIO_NODE_DEF = {
+    "type": "VHS_LoadAudio", "flags": {}, "order": 0, "mode": 0,
+    "properties": {"Node name for S&R": "VHS_LoadAudio"}, "size": [280, 80],
+    "inputs": [
+        {"name": "audio_file", "type": "STRING", "widget": {"name": "audio_file"}},
+        {"name": "seek_seconds", "type": "FLOAT", "widget": {"name": "seek_seconds"}},
+        {"name": "duration", "type": "FLOAT", "widget": {"name": "duration"}},
+    ],
+    "outputs": [{"name": "audio", "localized_name": "audio", "type": "AUDIO",
+                 "links": []},
+                {"name": "duration", "localized_name": "duration", "type": "FLOAT",
+                 "links": []}],
+    "widgets_values": ["", 0.0, 0.0],
+}
 
 
 def wrap_ui(ui, song, a):
@@ -266,16 +292,14 @@ def wrap_ui(ui, song, a):
                 displaced.add(i)
                 grew = True
 
-    donors = donor_nodes(song)
     nid = max(nodes) + 1
     lid = max(links) + 1 if links else 1
 
+    DEFS = {"HurricaneSongFolder": SONG_NODE_DEF, "VHS_LoadAudio": AUDIO_NODE_DEF}
+
     def place(kind, pos):
         nonlocal nid
-        d = donors.get(kind)
-        n = json.loads(json.dumps(d)) if d else {
-            "type": kind, "flags": {}, "order": 0, "mode": 0, "properties": {},
-            "inputs": [], "outputs": []}
+        n = json.loads(json.dumps(DEFS[kind]))
         n["id"] = nid
         n["pos"] = list(pos)
         for o in (n.get("outputs") or []):
@@ -288,7 +312,6 @@ def wrap_ui(ui, song, a):
     where = lambda i: nodes[i]["pos"] if i in nodes else [0, 0]
     song_n = place("HurricaneSongFolder", where(feeder("prompt")))
     song_n["title"] = "SONG - set song_path"
-    song_n["widgets_values"] = ["", 1, "v1", ""]
     aud_n = place("VHS_LoadAudio", where(feeder(a_slot)) if a_slot else [0, 0])
     aud_n["title"] = "AUDIO - this scene's slice"
 
@@ -296,7 +319,8 @@ def wrap_ui(ui, song, a):
         for k, o in enumerate(n.get("outputs") or []):
             if o.get("name") == name:
                 return k
-        return 0
+        sys.exit("node %s has no output named %r - the socket definition and the "
+                 "node have drifted apart" % (n.get("type"), name))
 
     def connect(src, sname, dst, dname, typ):
         nonlocal lid
@@ -401,11 +425,11 @@ def wrap(raw, song, a):
                          "variant": "v1", "out_subfolder": ""}}
     au = free(9001)
     g[au] = {"class_type": a.audio_class, "_meta": {"title": "AUDIO"},
-             "inputs": {a.audio_field: [src, 1]}}
+             "inputs": {a.audio_field: [src, song_out("audio_path")]}}
 
     ins = g[nid].setdefault("inputs", {})
-    ins["prompt"] = [src, 0]
-    ins["length"] = [src, 2]
+    ins["prompt"] = [src, song_out("prompt")]
+    ins["length"] = [src, song_out("frames")]
     a_slot = audio_slot(ins)
     if a_slot:
         ins[a_slot] = [au, 0]
@@ -429,9 +453,9 @@ def wrap(raw, song, a):
     saved = [k for k, n in g.items() if "filename_prefix" in n.get("inputs", {})]
     if saved:
         for k in saved:
-            g[k]["inputs"]["filename_prefix"] = [src, 15]
+            g[k]["inputs"]["filename_prefix"] = [src, song_out("save_prefix")]
     else:
-        g[free(9200)] = save_node(a, [src, 15])
+        g[free(9200)] = save_node(a, [src, song_out("save_prefix")])
 
     report = ["node %s (%s) kept its own settings: %s"
               % (nid, g[nid]["class_type"],
@@ -501,14 +525,22 @@ def wf_upscale(song, a):
     return g
 
 
-WORKFLOWS = (("__workflow_upscale.json", wf_upscale,
-              "upscale a folder of renders, no H3 in it"),)
+# named after the song, so a folder of them stays legible in ComfyUI's workflow
+# list: Federphibien.json renders, Federphibien-4x.json upscales
+def wf_names(song):
+    name = os.path.basename(os.path.abspath(song))
+    return {"song": "%s.json" % name, "upscale": "%s-4x.json" % name}
+
+
+WORKFLOWS = ((None, wf_upscale, "upscale a folder of renders, no H3 in it"),)
 
 # graphs generated before the H3 node's real shape was known. They wired a song
 # folder correctly but carried no sampler chain, so they could never run - the
 # render workflow now comes from wrapping one that already works.
 LEGACY = ("__wf_1_scene.json", "__wf_2_folder.json", "__wf_3_pipeline.json",
-          "__wf_5_upscale.json", "__wf_4_wrapped.json", "__workflow_api.json")
+          "__wf_5_upscale.json", "__wf_4_wrapped.json", "__workflow_api.json",
+          "__workflow_song.json", "__workflow_song_api.json",
+          "__workflow_upscale.json")
 
 
 def main():
@@ -546,7 +578,7 @@ def main():
             # UI format: graft into it and keep the layout, then also emit the
             # API copy that `mvkit queue` needs
             ui, report = wrap_ui(raw, song, a)
-            out_ui = os.path.join(song, "__workflow_song.json")
+            out_ui = os.path.join(song, wf_names(song)["song"])
             with open(out_ui, "w", encoding="utf-8") as fh:
                 json.dump(ui, fh, indent=2)
             print("grafted     : %s" % out_ui)
@@ -554,15 +586,16 @@ def main():
                 print("  %s" % line)
             api = ui_to_api(json.loads(json.dumps(ui)))
             bad = find_abs_paths(api)
-            with open(os.path.join(song, "__workflow_song_api.json"),
+            with open(os.path.join(song, wf_names(song)["song"][:-5] + "-api.json"),
                       "w", encoding="utf-8") as fh:
                 json.dump(api, fh, indent=2)
-            print("  api copy  : __workflow_song_api.json (%d nodes)" % len(api))
+            print("  api copy  : %s-api.json (%d nodes)"
+                  % (wf_names(song)["song"][:-5], len(api)))
             for nid, k, v in bad:
                 print("  ! node %s.%s holds an absolute path (%s) - it came from "
                       "your graph; check it works where ComfyUI runs" % (nid, k, v))
             return
-        out = os.path.join(song, "__workflow_song_api.json")
+        out = os.path.join(song, wf_names(song)["song"][:-5] + "-api.json")
         g, report = wrap(raw, song, a)
         for nid, k, v in find_abs_paths(g):
             report.append("! node %s.%s still holds an absolute path (%s) - it came "
@@ -575,7 +608,9 @@ def main():
             print("  %s" % line)
         return
 
+    names = wf_names(song)
     for name, fn, what in WORKFLOWS:
+        name = names["upscale"]
         g = fn(song, a)
         bad = find_abs_paths(g)
         if bad:
@@ -585,8 +620,8 @@ def main():
         with open(os.path.join(song, name), "w", encoding="utf-8") as fh:
             json.dump(g, fh, indent=2)
     if not a.quiet:
-        print("workflows   : %s" % ", ".join(n for n, _, _ in WORKFLOWS))
-        if not os.path.isfile(os.path.join(song, "__workflow_song.json")):
+        print("workflows   : %s" % names["upscale"])
+        if not os.path.isfile(os.path.join(song, names["song"])):
             print("              no render graph yet - wrap yours:")
             print("              ./mvkit workflows %s --from <your workflow.json>"
                   % os.path.basename(os.path.abspath(song)))

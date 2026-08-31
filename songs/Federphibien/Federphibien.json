@@ -1921,22 +1921,19 @@
       }
     },
     {
-      "id": 153,
       "type": "HurricaneSongFolder",
-      "pos": [
-        -1490,
-        6520
-      ],
-      "size": [
-        270,
-        430
-      ],
       "flags": {},
-      "order": 15,
+      "order": 0,
       "mode": 0,
+      "properties": {
+        "Node name for S&R": "HurricaneSongFolder"
+      },
+      "size": [
+        300,
+        150
+      ],
       "inputs": [
         {
-          "localized_name": "song_path",
           "name": "song_path",
           "type": "STRING",
           "widget": {
@@ -1944,7 +1941,6 @@
           }
         },
         {
-          "localized_name": "scene_index",
           "name": "scene_index",
           "type": "INT",
           "widget": {
@@ -1952,7 +1948,6 @@
           }
         },
         {
-          "localized_name": "variant",
           "name": "variant",
           "type": "COMBO",
           "widget": {
@@ -1960,209 +1955,129 @@
           }
         },
         {
-          "localized_name": "out_subfolder",
           "name": "out_subfolder",
           "type": "STRING",
           "widget": {
             "name": "out_subfolder"
           }
-        },
-        {
-          "name": "include",
-          "type": "COMBO",
-          "widget": {
-            "name": "include"
-          }
         }
       ],
       "outputs": [
         {
-          "localized_name": "prompt",
           "name": "prompt",
+          "localized_name": "prompt",
           "type": "STRING",
           "links": [
             298
           ]
         },
         {
-          "localized_name": "audio_path",
           "name": "audio_path",
+          "localized_name": "audio_path",
           "type": "STRING",
           "links": [
             300
           ]
         },
         {
-          "localized_name": "frames",
           "name": "frames",
+          "localized_name": "frames",
           "type": "INT",
           "links": [
             299
           ]
         },
         {
-          "localized_name": "title",
-          "name": "title",
-          "type": "STRING",
-          "links": []
-        },
-        {
-          "localized_name": "scene_count",
           "name": "scene_count",
+          "localized_name": "scene_count",
           "type": "INT",
           "links": []
         },
         {
-          "localized_name": "inventory",
-          "name": "inventory",
-          "type": "STRING",
-          "links": []
-        },
-        {
-          "localized_name": "ref_1",
-          "name": "ref_1",
-          "type": "STRING",
-          "links": []
-        },
-        {
-          "localized_name": "ref_2",
-          "name": "ref_2",
-          "type": "STRING",
-          "links": []
-        },
-        {
-          "localized_name": "ref_3",
-          "name": "ref_3",
-          "type": "STRING",
-          "links": []
-        },
-        {
-          "localized_name": "ref_4",
-          "name": "ref_4",
-          "type": "STRING",
-          "links": []
-        },
-        {
-          "localized_name": "ref_5",
-          "name": "ref_5",
-          "type": "STRING",
-          "links": []
-        },
-        {
-          "localized_name": "ref_6",
-          "name": "ref_6",
-          "type": "STRING",
-          "links": []
-        },
-        {
-          "localized_name": "ref_7",
-          "name": "ref_7",
-          "type": "STRING",
-          "links": []
-        },
-        {
-          "localized_name": "ref_8",
-          "name": "ref_8",
-          "type": "STRING",
-          "links": []
-        },
-        {
-          "localized_name": "ref_9",
-          "name": "ref_9",
-          "type": "STRING",
-          "links": []
-        },
-        {
-          "localized_name": "save_prefix",
           "name": "save_prefix",
+          "localized_name": "save_prefix",
           "type": "STRING",
           "links": [
             302
           ]
         }
       ],
-      "title": "SONG - set song_path",
-      "properties": {
-        "Node name for S&R": "HurricaneSongFolder"
-      },
       "widgets_values": [
         "",
         1,
         "v1",
-        "",
-        "scenes with audio"
+        ""
       ],
-      "widgets_values_named": {
-        "song_path": "",
-        "scene_index": 1,
-        "variant": "v1",
-        "out_subfolder": "",
-        "include": "scenes with audio"
-      }
+      "id": 153,
+      "pos": [
+        -1490,
+        6520
+      ],
+      "title": "SONG - set song_path"
     },
     {
-      "id": 154,
       "type": "VHS_LoadAudio",
-      "pos": [
-        215.71421323163054,
-        5958.541285948659
-      ],
-      "size": [
-        274.2232421875,
-        78
-      ],
       "flags": {},
-      "order": 17,
+      "order": 0,
       "mode": 0,
+      "properties": {
+        "Node name for S&R": "VHS_LoadAudio"
+      },
+      "size": [
+        280,
+        80
+      ],
       "inputs": [
         {
-          "localized_name": "seek_seconds",
-          "name": "seek_seconds",
-          "shape": 7,
-          "type": "FLOAT"
-        },
-        {
-          "localized_name": "duration",
-          "name": "duration",
-          "shape": 7,
-          "type": "FLOAT"
-        },
-        {
-          "localized_name": "audio_file",
           "name": "audio_file",
           "type": "STRING",
           "widget": {
             "name": "audio_file"
           },
           "link": 300
+        },
+        {
+          "name": "seek_seconds",
+          "type": "FLOAT",
+          "widget": {
+            "name": "seek_seconds"
+          }
+        },
+        {
+          "name": "duration",
+          "type": "FLOAT",
+          "widget": {
+            "name": "duration"
+          }
         }
       ],
       "outputs": [
         {
-          "localized_name": "audio",
           "name": "audio",
+          "localized_name": "audio",
           "type": "AUDIO",
           "links": [
             301
           ]
         },
         {
-          "localized_name": "duration",
           "name": "duration",
+          "localized_name": "duration",
           "type": "FLOAT",
           "links": []
         }
       ],
-      "title": "AUDIO - this scene's slice",
-      "properties": {
-        "Node name for S&R": "VHS_LoadAudio"
-      },
       "widgets_values": [
-        "input/"
+        "",
+        0.0,
+        0.0
       ],
-      "widgets_values_named": {
-        "audio_file": "input/"
-      }
+      "id": 154,
+      "pos": [
+        215.71421323163054,
+        5958.541285948659
+      ],
+      "title": "AUDIO - this scene's slice"
     }
   ],
   "links": [
@@ -2467,7 +2382,7 @@
       153,
       1,
       154,
-      2,
+      0,
       "STRING"
     ],
     [
@@ -2481,7 +2396,7 @@
     [
       302,
       153,
-      15,
+      4,
       92,
       1,
       "STRING"

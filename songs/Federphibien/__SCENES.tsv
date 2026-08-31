@@ -1,5 +1,5 @@
 scene	song_start	song_end	tl_frame	frames	duration	inner_cuts	continuity	audio	prompts	lyrics
-00	-	-	0	124	5.1667	-	-	-	00_the-pond-before-the-music-v1.txt 00_the-pond-before-the-music-v2.txt 00_the-pond-before-the-music-v3.txt	(instrumental)
+00	-	-	0	124	5.1667	-	-	00_the-pond-before-the-music.mp3	00_the-pond-before-the-music-v1.txt 00_the-pond-before-the-music-v2.txt 00_the-pond-before-the-music-v3.txt	(instrumental)
 01	00:00.000	00:06.583	124	158	6.5833	-	-	01_the-pond-from-above.mp3	01_the-pond-from-above-v1.txt 01_the-pond-from-above-v2.txt 01_the-pond-from-above-v3.txt	(instrumental)
 02	00:06.458	00:13.042	279	158	6.5833	-	-	02_swimming-toward-the-farm.mp3	02_swimming-toward-the-farm-v1.txt 02_swimming-toward-the-farm-v2.txt 02_swimming-toward-the-farm-v3.txt	(instrumental)
 03	00:12.375	00:17.542	421	124	5.1667	-	-	03_hauling-out-of-the-water.mp3	03_hauling-out-of-the-water-v1.txt 03_hauling-out-of-the-water-v2.txt 03_hauling-out-of-the-water-v3.txt	(instrumental)
@@ -47,4 +47,4 @@ scene	song_start	song_end	tl_frame	frames	duration	inner_cuts	continuity	audio	p
 45	02:28.125	02:39.667	3679	277	11.5417	7.955	-	45_running-on.mp3	45_running-on-v1.txt 45_running-on-v2.txt 45_running-on-v3.txt	Nachkömmlinge von Frosch und Hennen
 46	02:39.083	02:44.250	3942	124	5.1667	-	-	46_into-the-sunset.mp3	46_into-the-sunset-v1.txt 46_into-the-sunset-v2.txt 46_into-the-sunset-v3.txt	(instrumental)
 47	02:46.250	02:51.417	4114	124	5.1667	-	hold	47_the-final-freeze.mp3	47_the-final-freeze-v1.txt 47_the-final-freeze-v2.txt 47_the-final-freeze-v3.txt	(instrumental)
-90	-	-	-	226	9.4167	-	-	-	90_hen-profile-element-v1.txt 90_hen-profile-element-v2.txt 90_hen-profile-element-v3.txt	(instrumental)
+90	-	-	-	226	9.4167	-	-	90_hen-profile-element.mp3	90_hen-profile-element-v1.txt 90_hen-profile-element-v2.txt 90_hen-profile-element-v3.txt	(instrumental)

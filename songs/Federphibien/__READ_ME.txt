@@ -127,63 +127,51 @@ RENDERING THIS FOLDER IN COMFYUI
 
   THE WORKFLOWS IN THIS FOLDER
 
-    __workflow_song.json      the render. YOUR H3 graph with this folder wired
-                              in, laid out in labelled groups. UI format - this
-                              is the one you open.
-    __workflow_song_api.json  the same graph in API format, for `mvkit queue`.
-                              Written only when you wrap; it has no layout,
-                              because the API format has no positions at all.
-    __workflow_upscale.json   the pass afterwards. No H3 in it.
+    Federphibien.json        the render. YOUR H3 graph with this folder wired in, your
+                       layout and groups kept. UI format - open this one.
+    Federphibien-api.json    the same in API format, for `mvkit queue`. No layout,
+                       because that format has no positions at all.
+    Federphibien-4x.json     the upscale pass afterwards. No H3 in it.
 
-    HAND IT THE UI FILE, NOT AN API EXPORT. Given a workflow saved from ComfyUI's
-    menu, `--from` edits it in place: your layout and your groups survive, because
-    it never goes through the API format (which has neither). It removes only the
-    nodes that fed the three inputs a song folder now drives - the prompt
-    primitive, the length expression and its duration float, the old LoadAudio -
-    puts ours where they sat, and leaves everything else alone.
-
-    Given an API export instead it still works, but the result has no positions
-    and no groups. `./mvkit layout <song> [file]` builds a layout from scratch in
-    that case: SONG FOLDER, MODELS, REFERENCE SHEETS, SETTINGS, H3, SAMPLER,
-    OUTPUT, left to right, images wrapped into a grid. Use it to rescue a graph,
-    not as the normal path.
-
-    For the next song you do not need to wrap again - copy this file and change
-    `song_path`. Everything else is identical between songs.
-
-    Nothing here tries to invent a render graph. The H3 node returns `positive`
-    and `LATENT` - it conditions a sampler and hands back no video - so a
-    complete graph needs a model loader, CLIP and VAE loaders, a sampler, two
-    VAE decodes and a CreateVideo behind it. None of that can be guessed, and
-    ComfyUI already ships the whole thing under Workflow -> Browse Templates.
-
-    So: get the official ref2va template rendering ONE scene, save it, and
+    Nothing here invents a render graph. The H3 node returns `positive` and
+    `LATENT` - it conditions a sampler and hands back no video - so a working
+    graph needs a UNET loader, CLIP and VAE loaders, a sampler, a VAEDecode AND a
+    VAEDecodeAudio, and a CreateVideo behind it. ComfyUI ships that whole chain
+    under Workflow -> Browse Templates. Get it rendering ONE scene, save it, then
 
       ./mvkit workflows Federphibien --from <that file>
 
-    Either format works - a workflow saved from the menu is converted to API
-    format on the way in. What it does:
+    and it grafts this folder in: your loaders, sampler, scheduler, LoRA switches,
+    resolution and Save node all stay, and only four things get rewired -
+    `prompt`, `length`, `ref_audios.ref_audio_0` and your Save node's
+    `filename_prefix`. The reference sheets are left completely alone, because
+    they are identical in every scene of the song; their loaders only get retitled
+    with their live tag, e.g. "<Picture 3> das huhn (char)".
 
-      - keeps every node and setting you had: loaders, sampler, scheduler,
-        LoRA switches, resolution, the audio decode path, your Save node
-      - rewires only `prompt` and `length` to this folder's scene
-      - puts this scene's slice on `ref_audios.ref_audio_0`
-      - fills `ref_images.ref_image_0..n` from _source/refs/, each loader
-        TITLED with its live tag, e.g. "<Picture 3> das huhn (char)"
-      - drives your Save node's `filename_prefix` from save_prefix
-      - prints what it rewired, and warns if your node has fewer ref_image
-        slots than the song has sheets
+    ONE NODE, FOUR OUTPUTS. Hurricane Song Folder hands out only what changes from
+    scene to scene:
 
-    CONNECT AS MANY ref_image SLOTS AS YOU HAVE SHEETS FIRST. They are dynamic:
-    one appears as you fill the last. Wrap seven sheets into a node with one slot
-    and six are dropped - it says so, but it cannot invent inputs.
+      prompt        the finished six-section prompt for this scene
+      audio_path    this scene's slice, for a Load Audio (Path)
+      frames        the frame count, straight onto H3's `length`
+      scene_count   what to set the queue's batch count to
+      save_prefix   "<song>/NN_slug-vN", so renders arrive named and grouped
 
     NO ABSOLUTE PATHS ARE WRITTEN. ComfyUI usually runs somewhere else than this
-    kit - another machine, another OS - so `song_path` is left EMPTY and the node
-    is titled to say so. Set it once to where this folder lives on the ComfyUI
-    machine. The build refuses to write a graph containing an absolute path.
+    kit, so `song_path` is left EMPTY and the node is titled to say so. Set it once
+    to where this folder lives on the ComfyUI machine. The build refuses to write a
+    graph containing an absolute path.
 
-    WHICH WEIGHTS GO WHERE
+    EVERY SCENE HAS AUDIO, including the ones with no window of the song. The
+    Vorspann and the compositing elements get a slice of SILENCE of exactly the
+    right length, because an empty audio path is what an audio loader chokes on -
+    it took down the first job of a batch run. So the batch is simply every scene:
+    no special cases, no bypassing.
+
+    For the next song you need not wrap again - copy this file and change
+    `song_path`.
+
+  WHICH WEIGHTS GO WHERE
 
     There is nothing to tune here - each slot has exactly one right answer:
 

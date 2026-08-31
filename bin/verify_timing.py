@@ -96,6 +96,14 @@ def main():
                 problems.append("scene %s: %s missing" % (r["scene"], m["audio"])); continue
             sl = decode(p)
             dl = (len(sl) / float(SR) - float(r["duration"])) * 1000.0
+            if r["start"].strip() in ("", "-"):
+                # a slice of silence: its length still has to be exact, but there
+                # is no position in the song to compare it against
+                worst_len = max(worst_len, abs(dl))
+                if abs(dl) > 2.0:
+                    problems.append("scene %s: silent slice is %+0.1f ms off its "
+                                    "declared length" % (sc, dl))
+                continue
             off = offset_ms(song, sl, float(r["start"]))
             worst_len = max(worst_len, abs(dl))
             if abs(dl) > TOL_MS:

@@ -25,9 +25,21 @@ n=0
 while IFS=$'\t' read -r scene start end frames dur drift rest; do
   [ "$scene" = "scene" ] && continue
   [ -z "${scene:-}" ] && continue
-  # a scene with no window of the song (the Vorspann) gets no slice
-  [ "$start" = "-" ] && continue
   f=$(printf "%s/scene_%02d.mp3" "$OUT" "$scene")
+  # A scene with no window of the song - the Vorspann, the compositing elements -
+  # gets a slice of SILENCE of exactly the right length, not no slice at all. An
+  # empty audio path is what an audio loader chokes on, and it took down the first
+  # job of a batch run; silence matches what those prompts already say ("there is
+  # no music in this clip") and keeps every scene renderable by the same graph.
+  if [ "$start" = "-" ]; then
+    "$FFMPEG" -nostdin -v error -y -f lavfi -i anullsrc=r=44100:cl=stereo \
+      -t "$dur" -c:a libmp3lame -q:a 9 "$f"
+    got=$("$FFPROBE" -v error -show_entries format=duration -of csv=p=0 "$f")
+    printf "  scene %02d  %8s +%7.4f  ->  %-22s got %.4f s  (silence - no window of the song)\n" \
+      "$scene" "-" "$dur" "$(basename "$f")" "${got:-0}"
+    n=$((n+1))
+    continue
+  fi
   # apad + an output -t so the slice is ALWAYS exactly `dur` long. A scene that
   # runs past the end of the song would otherwise hand H3 an audio reference
   # shorter than the clip it is meant to drive.

@@ -136,8 +136,8 @@ case "$CMD" in
   new)     bash bin/new_song.sh "$@" ;;
   layout)
     D="$(song_dir "${1:-}")"; shift || true
-    IN="${1:-$D/__workflow_song.json}"
-    py bin/layout_workflow.py "$IN" -o "$D/__workflow_song.json" ;;
+    IN="${1:-$D/$(basename "$D").json}"
+    py bin/layout_workflow.py "$IN" -o "$D/$(basename "$D").json" ;;
   workflows)
     D="$(song_dir "${1:-}")"; shift || true
     py bin/make_workflows.py "$D" "$@" ;;

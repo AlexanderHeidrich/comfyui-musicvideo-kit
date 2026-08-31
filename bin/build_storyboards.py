@@ -466,8 +466,7 @@ def main():
             "-" if silent else tc(r["end"]), r.get("tl_frame", "-"),
             r["frames"], "%.4f" % dur,
             ",".join("%.3f" % x for x in cuts) or "-",
-            r.get("continuity") or "-",
-            "-" if silent else "%02d_%s.mp3" % (n, sl),
+            r.get("continuity") or "-", "%02d_%s.mp3" % (n, sl),
             " ".join("%02d_%s-%s.txt" % (n, sl, t) for t in tags),
             c["lyrics"] or "(instrumental)"])
 
@@ -478,6 +477,30 @@ def main():
               newline="\n") as fh:
         for row in manifest:
             fh.write("\t".join(row) + "\n")
+
+    # An element scene exists only in content.json, so split_audio never sees it
+    # and it would be the one row of the manifest with no audio - which is exactly
+    # what takes down the first job of a batch run. Give it silence too.
+    import subprocess
+    silenced = 0
+    for r in rows:
+        if str(r.get("start", "")).strip() not in ("", "-"):
+            continue
+        n = int(r["scene"])
+        dst = os.path.join(song, "scene_%02d.mp3" % n)
+        final = os.path.join(song, "%02d_%s.mp3"
+                             % (n, slug(content[r["scene"]]["title"])))
+        if os.path.isfile(final) or os.path.isfile(dst):
+            continue
+        try:
+            subprocess.run(["ffmpeg", "-nostdin", "-v", "error", "-y",
+                            "-f", "lavfi", "-i", "anullsrc=r=44100:cl=stereo",
+                            "-t", "%.4f" % (int(r["frames"]) / float(FPS)),
+                            "-c:a", "libmp3lame", "-q:a", "9", dst], check=True)
+            silenced += 1
+        except (OSError, subprocess.CalledProcessError):
+            print("! could not write a silent slice for scene %02d (no ffmpeg?) - "
+                  "an audio loader will refuse that scene" % n)
 
     # name each audio slice after its prompt file so the pair sits together
     renamed = 0
@@ -604,7 +627,10 @@ def main():
         print("! workflows not written (%s)" % e)   # cost you the deliverable
 
     if elements:
-        print("elements    : %d clip(s) with no audio, for compositing only" % elements)
+        print("elements    : %d clip(s) with no window of the song" % elements)
+    if silenced:
+        print("silence     : %d slice(s) written for scenes with no window of the song"
+              % silenced)
     if renamed:
         print("audio pairs : %d slices renamed to match their prompt" % renamed)
     print("prompts     : %d  (six sections each)" % n_var)
