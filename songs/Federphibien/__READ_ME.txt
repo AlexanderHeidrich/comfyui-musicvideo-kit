@@ -240,6 +240,9 @@ RENDERING THIS FOLDER IN COMFYUI
                                                                 Video Combine
                                                                 (out_subfolder)
 
+    0. copy comfyui/custom_nodes/watching_hurricanes_upscale.py into
+       ComfyUI/custom_nodes/ - it is a separate file from the storyboard
+       nodes and needs neither the other nor any dependency.
     1. put the pruned folder in `source_dir`. It lists what is ACTUALLY there,
        so a take you deleted is simply not in the run.
     2. read `clip_count` off the node, set `clip_index` to `increment` and the
@@ -253,27 +256,20 @@ RENDERING THIS FOLDER IN COMFYUI
     survives and `mvkit concat` still reads them in scene order. Audio rides
     through untouched.
 
-    THE MODEL'S FACTOR IS YOUR OUTPUT SIZE. There is no scaling node after it on
-    purpose - what the model produces is what gets written. So the factor has to
-    be the one you actually want:
+    ONE 4x MODEL, NO RESCALING. The graph writes exactly what the model
+    produces - there is no scaling node after it. So the output is 4x the render:
+    4x off 540p is 3840x2160, off 720p it is 5120x2880, off 1080p it is 8K. Only
+    the 540p case lands on 4K on the nose; correct the rest in DaVinci, which
+    scales better than a second model pass would anyway.
 
-      source     2x model        4x model
-      1080p      3840x2160  4K   7680x4320   8K
-      720p       2560x1440       5120x2880
-      540p       1920x1080       3840x2160  4K
+    The model is RealESRGAN_x4plus_anime_6B - trained on line art, keeps a hard
+    ink outline where a photo model smears it. Put the .pth in
+    ComfyUI/models/upscale_models/. Alternatives if it is too soft or too sharp:
+    4x-AnimeSharp (sharper), DigitalFrames 2.0 (trained on cel/film toons - not
+    the 2.1_Aggressive variant).
 
-    For 4K that means: a 540p render wants the 4x model, a 1080p render wants a
-    2x one. Check what H3 actually gives you before committing a night of GPU
-    time - `mvkit probe` prints the H3 node's `resolution` field.
-
-    4x line-art models: RealESRGAN_x4plus_anime_6B (the conservative one, keeps a
-    hard ink outline), 4x-AnimeSharp (sharper, may be too much here),
-    DigitalFrames 2.0 (trained on cel/film toons - not the 2.1_Aggressive
-    variant). 2x: Adore, a realtime 1080p anime upscaler.
-    Put the .pth in ComfyUI/models/upscale_models/ and name it in the loader.
-
-    Mind the size at 4K and above: 8K frames will eat VRAM and disk. crf 12 on
-    the combine keeps quality high, which also means large files.
+    Mind the size: 8K frames eat VRAM and disk, and crf 12 on the combine keeps
+    quality high, which also means large files.
 
     NOT a diffusion upscaler, on purpose. This picture is a black line and flat
     washes - there is no hidden detail to reconstruct, so a generative model

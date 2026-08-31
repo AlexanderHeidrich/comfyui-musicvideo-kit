@@ -30,10 +30,8 @@ AUDIO_FIELD = "audio_file"
 IMAGE_CLASS = "VHS_LoadImagePath"
 IMAGE_FIELD = "path"
 SAVE_CLASS = "SaveVideo"
-# The upscale pass runs ONE model and writes what comes out - no rescaling after
-# it, so the model's factor has to be the factor you want. 4x off a 540p render
-# lands on 3840x2160 exactly; off 1080p it lands on 7680x4320, and a 2x model is
-# the one that gives you 4K. Pick with --upscale-model.
+# One 4x line-art model, and whatever it produces is what gets written. No
+# rescaling in the graph: hitting 4K exactly is the edit's job.
 UPSCALE_MODEL = "RealESRGAN_x4plus_anime_6B.pth"
 VIDEO_LOAD = "VHS_LoadVideoPath"
 VIDEO_COMBINE = "VHS_VideoCombine"
@@ -250,9 +248,12 @@ def wf_upscale(song, a):
     to `increment` and the batch count to clip_count, and it walks every clip
     that is still there, in name order. Audio rides through untouched.
 
-    There is deliberately no scaling node after the model: the output is exactly
-    what the model produces, so its factor is the only thing that decides the
-    resolution.
+    One 4x model, no scaling node after it: the output is exactly what the model
+    produces. Whether that lands on 4K depends on what the renders came out at,
+    and correcting it is a job for the edit.
+
+    HurricaneClipFolder lives in watching_hurricanes_upscale.py, a separate file
+    from the storyboard nodes.
     """
     g = {}
     g["1"] = {"class_type": "HurricaneClipFolder", "_meta": {"title": "CLIPS IN"},
@@ -265,7 +266,7 @@ def wf_upscale(song, a):
                           "frame_load_cap": 0, "skip_first_frames": 0,
                           "select_every_nth": 1}}
     g["20"] = {"class_type": "UpscaleModelLoader",
-               "_meta": {"title": "ANIME MODEL - its factor is your output size"},
+               "_meta": {"title": "4x ANIME MODEL"},
                "inputs": {"model_name": a.upscale_model}}
     # nothing after the model: whatever it produces is what gets written
     g["21"] = {"class_type": "ImageUpscaleWithModel", "_meta": {"title": "UPSCALE"},

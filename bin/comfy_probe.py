@@ -168,11 +168,16 @@ def report(info, host):
         if not got:
             print("  %-14s   install one of: %s" % ("", ", ".join(names)))
     print()
-    print("Ours, from comfyui/custom_nodes/watching_hurricanes.py:")
-    for cls in ("HurricaneSongFolder", "HurricaneBuildSong",
-                "HurricaneStoryboardScene", "HurricaneReferenceInventory",
-                "HurricanePromptBuilder"):
-        print("  %-28s %s" % (cls, "yes" if cls in info else "not loaded"))
+    print("Ours, from comfyui/custom_nodes/:")
+    for f, classes in (("watching_hurricanes.py",
+                        ("HurricaneSongFolder", "HurricaneBuildSong",
+                         "HurricaneStoryboardScene", "HurricaneReferenceInventory",
+                         "HurricanePromptBuilder")),
+                       ("watching_hurricanes_upscale.py",
+                        ("HurricaneClipFolder",))):
+        print("  %s" % f)
+        for cls in classes:
+            print("    %-28s %s" % (cls, "yes" if cls in info else "not loaded"))
     if "HurricaneSongFolder" not in info:
         print("  HurricaneSongFolder is the one that matters: it turns a song")
         print("  folder into a batch. Copy comfyui/custom_nodes/watching_hurricanes.py")

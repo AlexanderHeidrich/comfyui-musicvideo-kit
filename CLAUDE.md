@@ -270,15 +270,19 @@ request and none that reads a text file from disk:
 - `HurricaneBuildSong` — shells out to `./mvkit` on the host, then behaves like
   `HurricaneSongFolder`. ffmpeg and whisper stay outside ComfyUI. A convenience, not
   the path to recommend: preparing a song is slow interactive work.
-- `HurricaneClipFolder` — the upscale pass, no H3 in it. Walks a folder of
-  rendered clips in name order, so takes you deleted are simply not in the run.
-  Refuses an index past the end rather than silently re-rendering the last clip
-  all night. `__wf_5_upscale.json` wires it to a line-art model
-  (`RealESRGAN_x4plus_anime_6B` by default) and writes whatever comes out — there
-  is **no scaling node after the model**, so the model's factor IS the output
-  size: 4x off 540p is 4K, 4x off 1080p is 8K, and 1080p→4K wants a 2x model.
-  A diffusion upscaler is the wrong tool here: it invents texture in flat fills
-  and invents it differently per frame.
+
+A second, independent file `comfyui/custom_nodes/watching_hurricanes_upscale.py`
+holds the pass afterwards — deliberately separate, sharing no code and with no H3
+in it:
+
+- `HurricaneClipFolder` — walks a folder of rendered clips in name order, so
+  takes you deleted are simply not in the run. Refuses an index past the end
+  rather than silently re-rendering the last clip all night.
+  `__wf_5_upscale.json` wires it to one 4x line-art model
+  (`RealESRGAN_x4plus_anime_6B`) and writes whatever comes out — **no scaling
+  node after the model**, so the output is 4x the render and hitting 4K exactly
+  is the edit's job. A diffusion upscaler is the wrong tool here: it invents
+  texture in flat fills, and invents it differently per frame.
 - `HurricaneStoryboardScene` — parses the DSL, picks scene N, outputs timing and frames
 - `HurricaneReferenceInventory` — computes the live `<Picture n>`/`<Video n>`/`<Audio n>`
   tags from actual connections, mirroring H3's ordering

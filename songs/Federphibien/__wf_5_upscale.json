@@ -31,7 +31,7 @@
   "20": {
     "class_type": "UpscaleModelLoader",
     "_meta": {
-      "title": "ANIME MODEL - its factor is your output size"
+      "title": "4x ANIME MODEL"
     },
     "inputs": {
       "model_name": "RealESRGAN_x4plus_anime_6B.pth"
