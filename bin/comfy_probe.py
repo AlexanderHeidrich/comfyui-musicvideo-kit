@@ -168,14 +168,15 @@ def report(info, host):
         if not got:
             print("  %-14s   install one of: %s" % ("", ", ".join(names)))
     print()
-    print("Ours, from comfyui/custom_nodes/mv_h3_nodes.py:")
-    for cls in ("MVSongFolder", "MVStoryboardScene", "MVReferenceInventory",
-                "MVPromptBuilder"):
-        print("  %-22s %s" % (cls, "yes" if cls in info else "not loaded"))
-    if "MVSongFolder" not in info:
-        print("  MVSongFolder is the one that matters: it turns a song folder into")
-        print("  a batch. Copy comfyui/custom_nodes/mv_h3_nodes.py into your")
-        print("  ComfyUI/custom_nodes/ and restart.")
+    print("Ours, from comfyui/custom_nodes/watching_hurricanes.py:")
+    for cls in ("HurricaneSongFolder", "HurricaneBuildSong",
+                "HurricaneStoryboardScene", "HurricaneReferenceInventory",
+                "HurricanePromptBuilder"):
+        print("  %-28s %s" % (cls, "yes" if cls in info else "not loaded"))
+    if "HurricaneSongFolder" not in info:
+        print("  HurricaneSongFolder is the one that matters: it turns a song")
+        print("  folder into a batch. Copy comfyui/custom_nodes/watching_hurricanes.py")
+        print("  into your ComfyUI/custom_nodes/ and restart.")
 
 
 def emit(info, path, song):

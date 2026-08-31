@@ -3,14 +3,14 @@
 Copy this file into ComfyUI/custom_nodes/ and restart ComfyUI. Stdlib only -
 no torch, no numpy, nothing to install.
 
-  MVSongFolder         point it at songs/<name> and it batches the whole song:
+  HurricaneSongFolder         point it at songs/<name> and it batches the whole song:
                        prompt, slice, frame count and reference sheets per scene
-  MVBuildSong          runs ./mvkit on the host first, then the same thing
-  MVStoryboardScene    reads ALL_scenes.txt, picks one scene, hands out its
+  HurricaneBuildSong          runs ./mvkit on the host first, then the same thing
+  HurricaneStoryboardScene    reads ALL_scenes.txt, picks one scene, hands out its
                        blocks and its timing
-  MVReferenceInventory works out the live <Picture n>/<Video n>/<Audio n> tags
+  HurricaneReferenceInventory works out the live <Picture n>/<Video n>/<Audio n> tags
                        from what is actually connected
-  MVPromptBuilder      assembles the six sections; optionally via a local LLM
+  HurricanePromptBuilder      assembles the six sections; optionally via a local LLM
 
 Everything above the ComfyUI section is plain python and can be imported and
 tested without ComfyUI present.
@@ -21,6 +21,8 @@ import os
 import re
 import urllib.error
 import urllib.request
+
+CATEGORY = "Watching Hurricanes"
 
 FPS = 24
 GRID = [f for f in range(124, 363) if f % 17 == 5]
@@ -267,14 +269,14 @@ def llm_rewrite(host, model, prompt, system, timeout=120):
 # ComfyUI nodes
 # --------------------------------------------------------------------------
 
-class MVStoryboardScene:
+class HurricaneStoryboardScene:
     """Reads ALL_scenes.txt and hands out one scene: its blocks and its timing.
 
     Set scene_index to `increment` and the queue's batch count to the number of
     scenes to walk the whole song. `frames` is already on H3's grid.
     """
 
-    CATEGORY = "MusicVideoKit"
+    CATEGORY = CATEGORY
     FUNCTION = "run"
     RETURN_TYPES = ("STRING", "STRING", "STRING", "STRING", "STRING",
                     "INT", "FLOAT", "FLOAT", "FLOAT", "INT")
@@ -308,7 +310,7 @@ class MVStoryboardScene:
                 float(sc["end"]), float(sc["duration"]), len(parsed["scenes"]))
 
 
-class MVReferenceInventory:
+class HurricaneReferenceInventory:
     """The live <Picture n>/<Video n>/<Audio n> tags for what is connected.
 
     H3 renumbers over the slots it actually receives, so a gap shifts every tag
@@ -316,7 +318,7 @@ class MVReferenceInventory:
     which is the point: read the tags off this node instead of hardcoding them.
     """
 
-    CATEGORY = "MusicVideoKit"
+    CATEGORY = CATEGORY
     FUNCTION = "run"
     RETURN_TYPES = ("STRING", "INT")
     RETURN_NAMES = ("inventory", "media_count")
@@ -354,7 +356,7 @@ class MVReferenceInventory:
         return (inventory_text(tags), len(tags))
 
 
-class MVPromptBuilder:
+class HurricanePromptBuilder:
     """Assembles the six sections H3 expects, in order.
 
     With use_llm off it is a deterministic template and always produces a valid
@@ -363,7 +365,7 @@ class MVPromptBuilder:
     instead, so a dead LLM never empties the queue.
     """
 
-    CATEGORY = "MusicVideoKit"
+    CATEGORY = CATEGORY
     FUNCTION = "run"
     RETURN_TYPES = ("STRING", "STRING")
     RETURN_NAMES = ("prompt", "note")
@@ -416,7 +418,7 @@ class MVPromptBuilder:
         return (got, "llm: %s" % llm_model)
 
 
-class MVSongFolder:
+class HurricaneSongFolder:
     """Point this at a song folder and it batches the whole song.
 
     Set scene_index to `increment` and the queue's batch count to scene_count,
@@ -430,7 +432,7 @@ class MVSongFolder:
     that take a path. Empty strings mean that slot is simply not used.
     """
 
-    CATEGORY = "MusicVideoKit"
+    CATEGORY = CATEGORY
     FUNCTION = "run"
     RETURN_TYPES = ("STRING", "STRING", "INT", "STRING", "INT", "STRING",
                     "STRING", "STRING", "STRING", "STRING", "STRING", "STRING",
@@ -475,8 +477,8 @@ class MVSongFolder:
                 data["inventory"]) + tuple(paths)
 
 
-class MVBuildSong:
-    """Runs the kit's own pipeline on the host, then behaves like MVSongFolder.
+class HurricaneBuildSong:
+    """Runs the kit's own pipeline on the host, then behaves like HurricaneSongFolder.
 
     This is the "hand it a pdf and an mp3" route. It shells out to ./mvkit, so
     ffmpeg and whisper stay outside ComfyUI where they belong - nothing here
@@ -485,10 +487,10 @@ class MVBuildSong:
     It is a convenience, not the recommended path. Preparing a song is slow,
     interactive work (the screenplay wants reading, the style wants deciding) and
     doing it inside a render queue hides that. Run `mvkit all` in a terminal and
-    point MVSongFolder at the result unless you specifically want one button.
+    point HurricaneSongFolder at the result unless you specifically want one button.
     """
 
-    CATEGORY = "MusicVideoKit"
+    CATEGORY = CATEGORY
     FUNCTION = "run"
     RETURN_TYPES = ("STRING", "STRING", "INT", "STRING", "INT", "STRING")
     RETURN_NAMES = ("prompt", "audio_path", "frames", "title", "scene_count", "log")
@@ -529,22 +531,31 @@ class MVBuildSong:
             if r.returncode != 0:
                 raise RuntimeError("mvkit %s failed:\n%s" % (step, r.stderr[-2000:]))
         song = os.path.join(kit, "songs", song_name)
-        out = MVSongFolder().run(song, scene_index, variant)
+        out = HurricaneSongFolder().run(song, scene_index, variant)
         return (out[0], out[1], out[2], out[3], out[4], "\n".join(log))
 
 
 NODE_CLASS_MAPPINGS = {
-    "MVSongFolder": MVSongFolder,
-    "MVBuildSong": MVBuildSong,
-    "MVStoryboardScene": MVStoryboardScene,
-    "MVReferenceInventory": MVReferenceInventory,
-    "MVPromptBuilder": MVPromptBuilder,
+    "HurricaneSongFolder": HurricaneSongFolder,
+    "HurricaneBuildSong": HurricaneBuildSong,
+    "HurricaneStoryboardScene": HurricaneStoryboardScene,
+    "HurricaneReferenceInventory": HurricaneReferenceInventory,
+    "HurricanePromptBuilder": HurricanePromptBuilder,
 }
 
 NODE_DISPLAY_NAME_MAPPINGS = {
-    "MVSongFolder": "MV Song Folder (batch a whole song)",
-    "MVBuildSong": "MV Build Song (run the kit, then batch)",
-    "MVStoryboardScene": "MV Storyboard Scene",
-    "MVReferenceInventory": "MV Reference Inventory",
-    "MVPromptBuilder": "MV Prompt Builder",
+    "HurricaneSongFolder": "Hurricane Song Folder",
+    "HurricaneBuildSong": "Hurricane Build Song",
+    "HurricaneStoryboardScene": "Hurricane Storyboard Scene",
+    "HurricaneReferenceInventory": "Hurricane Reference Inventory",
+    "HurricanePromptBuilder": "Hurricane Prompt Builder",
 }
+
+# the nodes were called MV* before the rename. Keep the old class names working so
+# a workflow saved against them still loads.
+for _old, _new in (("MVSongFolder", "HurricaneSongFolder"),
+                   ("MVBuildSong", "HurricaneBuildSong"),
+                   ("MVStoryboardScene", "HurricaneStoryboardScene"),
+                   ("MVReferenceInventory", "HurricaneReferenceInventory"),
+                   ("MVPromptBuilder", "HurricanePromptBuilder")):
+    NODE_CLASS_MAPPINGS[_old] = NODE_CLASS_MAPPINGS[_new]

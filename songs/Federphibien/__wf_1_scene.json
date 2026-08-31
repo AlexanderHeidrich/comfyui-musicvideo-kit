@@ -110,8 +110,7 @@
       ]
     },
     "_meta": {
-      "title": "PROMPT",
-      "note": "placeholder class name - run `mvkit probe --song <name> --emit` against a running ComfyUI to replace it with the real one"
+      "title": "PROMPT"
     }
   },
   "30": {

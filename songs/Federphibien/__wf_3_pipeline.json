@@ -1,6 +1,6 @@
 {
   "1": {
-    "class_type": "MVBuildSong",
+    "class_type": "HurricaneBuildSong",
     "_meta": {
       "title": "BUILD"
     },
@@ -41,8 +41,7 @@
       ]
     },
     "_meta": {
-      "title": "MiniMaxHailuoH3Ref2VideoAudio",
-      "note": "placeholder class name - run `mvkit probe --song <name> --emit` against a running ComfyUI to replace it with the real one"
+      "title": "MiniMaxHailuoH3Ref2VideoAudio"
     }
   },
   "30": {

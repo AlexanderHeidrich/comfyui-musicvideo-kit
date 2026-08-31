@@ -257,31 +257,31 @@ join when two screenplay scenes were merged; `cut_on_boundary` says which.
 
 ## Render side (ComfyUI)
 
-Ships `comfyui/custom_nodes/mv_h3_nodes.py` — copy or symlink it into your own
+Ships `comfyui/custom_nodes/watching_hurricanes.py` — copy or symlink it into your own
 `ComfyUI/custom_nodes/`. One stdlib-only file providing four nodes, because core ComfyUI has no node that performs an HTTP
 request and none that reads a text file from disk:
 
-- `MVSongFolder` — the one that matters: point it at `songs/<name>` and it
+- `HurricaneSongFolder` — the one that matters: point it at `songs/<name>` and it
   batches the whole song, reading `__SCENES.tsv` for the pairing and
   `_source/refs.json` for the sheets. Outputs the finished prompt, the slice's
   path, the frame count and `ref_1..ref_9`. Paths are STRINGs on purpose:
   building an IMAGE or AUDIO needs torch, and the file has no dependencies.
   Set `scene_index` to `increment`, batch count to `scene_count`, run once.
-- `MVBuildSong` — shells out to `./mvkit` on the host, then behaves like
-  `MVSongFolder`. ffmpeg and whisper stay outside ComfyUI. A convenience, not
+- `HurricaneBuildSong` — shells out to `./mvkit` on the host, then behaves like
+  `HurricaneSongFolder`. ffmpeg and whisper stay outside ComfyUI. A convenience, not
   the path to recommend: preparing a song is slow interactive work.
-- `MVStoryboardScene` — parses the DSL, picks scene N, outputs timing and frames
-- `MVReferenceInventory` — computes the live `<Picture n>`/`<Video n>`/`<Audio n>`
+- `HurricaneStoryboardScene` — parses the DSL, picks scene N, outputs timing and frames
+- `HurricaneReferenceInventory` — computes the live `<Picture n>`/`<Video n>`/`<Audio n>`
   tags from actual connections, mirroring H3's ordering
-- `MVPromptBuilder` — optional LM Studio pass (OpenAI-compatible
+- `HurricanePromptBuilder` — optional LM Studio pass (OpenAI-compatible
   `/chat/completions`); with `use_llm = false` it emits a valid six-section
   prompt from a deterministic template
 
 `mvkit build` writes three starting API-format graphs into every song folder, so
 they always match the scenes beside them: `__wf_1_scene.json` (one scene, all
 files pre-filled, each reference loader **titled with its live tag** so the graph
-says which image is `<Picture 3>`), `__wf_2_folder.json` (MVSongFolder drives the
-song - the one to use) and `__wf_3_pipeline.json` (MVBuildSong runs the kit
+says which image is `<Picture 3>`), `__wf_2_folder.json` (HurricaneSongFolder drives the
+song - the one to use) and `__wf_3_pipeline.json` (HurricaneBuildSong runs the kit
 first). `bin/make_workflows.py` writes them; the H3 class name cannot be known
 offline, so it is a marked placeholder until `mvkit probe --song <name> --emit`
 reads `/object_info` off a running server and rewrites all three with the real
@@ -297,7 +297,7 @@ API. See `docs/comfyui-batch.md`; keep it in sync if the deliverable changes.
 ## Storyboard DSL
 
 **This is the kit's own format, not a MiniMax convention.** It appears only in
-`ALL_scenes.txt`, which `MVStoryboardScene` reads. The per-scene `NN_*.txt` files
+`ALL_scenes.txt`, which `HurricaneStoryboardScene` reads. The per-scene `NN_*.txt` files
 are finished six-section H3 prompts with no directives and no comments, because
 they are meant to be pasted straight in. Do not reintroduce markup there.
 

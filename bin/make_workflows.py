@@ -8,8 +8,8 @@
                         titled with its live tag, so you can see which image is
                         <Picture 3> without opening refs.json. Driven from
                         outside with `mvkit queue`.
-  __wf_2_folder.json    MV Song Folder drives the whole song from this folder.
-  __wf_3_pipeline.json  MV Build Song runs ./mvkit first, then the same.
+  __wf_2_folder.json    Hurricane Song Folder drives the whole song from this folder.
+  __wf_3_pipeline.json  Hurricane Build Song runs ./mvkit first, then the same.
 
 The H3 node's class name and how many image inputs it has cannot be known
 without a running ComfyUI, so they default to the names below and `mvkit probe`
@@ -107,9 +107,9 @@ def wf_scene(song, a):
 
 
 def wf_folder(song, a):
-    """MV Song Folder drives the lot"""
+    """Hurricane Song Folder drives the lot"""
     refs = read_refs(song)[:a.h3_images]
-    g = {"1": {"class_type": "MVSongFolder", "_meta": {"title": "SONG"},
+    g = {"1": {"class_type": "HurricaneSongFolder", "_meta": {"title": "SONG"},
                "inputs": {"song_path": os.path.abspath(song),
                           "scene_index": 1, "variant": "v1"}}}
     g["10"] = {"class_type": a.audio_class, "_meta": {"title": "AUDIO"},
@@ -126,9 +126,9 @@ def wf_folder(song, a):
 
 
 def wf_pipeline(song, a):
-    """MV Build Song: run the kit on the host first"""
+    """Hurricane Build Song: run the kit on the host first"""
     kit = os.path.abspath(os.path.join(song, "..", ".."))
-    g = {"1": {"class_type": "MVBuildSong", "_meta": {"title": "BUILD"},
+    g = {"1": {"class_type": "HurricaneBuildSong", "_meta": {"title": "BUILD"},
                "inputs": {"kit_path": kit,
                           "song_name": os.path.basename(os.path.abspath(song)),
                           "scene_index": 1, "variant": "v1",

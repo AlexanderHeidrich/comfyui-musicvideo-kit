@@ -18,12 +18,12 @@ RENDERING THIS FOLDER IN COMFYUI
                             "<Picture 3> das huhn (char)", so the graph itself
                             says which image is which. Good for getting the H3
                             node right the first time.
-      __wf_2_folder.json    the one you want. MV Song Folder reads this folder
+      __wf_2_folder.json    the one you want. Hurricane Song Folder reads this folder
                             and drives everything.
-      __wf_3_pipeline.json  MV Build Song runs ./mvkit on the host first, then
+      __wf_3_pipeline.json  Hurricane Build Song runs ./mvkit on the host first, then
                             the same. For when you want one button.
 
-    First, once: copy (or symlink) comfyui/custom_nodes/mv_h3_nodes.py into your
+    First, once: copy (or symlink) comfyui/custom_nodes/watching_hurricanes.py into your
     own ComfyUI/custom_nodes/ and restart. Stdlib only, nothing to install.
 
     Then, because the H3 node's class name cannot be known without asking:
@@ -36,7 +36,7 @@ RENDERING THIS FOLDER IN COMFYUI
 
     __wf_2_folder.json is wired like this:
 
-      MV Song Folder ──► prompt      ──► H3 ref2vid ──► Save Video
+      Hurricane Song Folder ──► prompt      ──► H3 ref2vid ──► Save Video
        (song_path)   ──► frames      ──►
                      ──► audio_path  ──► Load Audio (Path) ──►
                      ──► ref_1..ref_n ─► image loaders, titled by tag ──►
