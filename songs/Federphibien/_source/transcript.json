@@ -1,0 +1,2097 @@
+{
+ "source": "song.mp3",
+ "duration": 167.314,
+ "language": "de",
+ "model": "ggml-large-v3-turbo.bin",
+ "segment_count": 34,
+ "word_count": 379,
+ "coverage_pct": 100.0,
+ "uncovered": [],
+ "segments": [
+  {
+   "start": 0.0,
+   "end": 20.7,
+   "text": "Ich bin traurig vom Rand vom Teich"
+  },
+  {
+   "start": 19.2,
+   "end": 23.58,
+   "text": "Ich bin ruhig vom Rand vom Teich, meine Haut ist glipschig und trotzdem weich"
+  },
+  {
+   "start": 23.58,
+   "end": 29.68,
+   "text": "Die Fliegen schwirren um mein Gesicht, ich könnte sie fressen, aber Hunger hab ich nicht"
+  },
+  {
+   "start": 30.0,
+   "end": 36.94,
+   "text": "Sie sagt, meine Augen sind zu groß"
+  },
+  {
+   "start": 36.94,
+   "end": 42.32,
+   "text": "Sie erst am bliebieren, was ist da los?"
+  },
+  {
+   "start": 44.1,
+   "end": 46.76,
+   "text": "Ich bin ein Frott, was soll ich tun?"
+  },
+  {
+   "start": 46.76,
+   "end": 50.5,
+   "text": "Bin nackt, verknallt in ein Huhn, nur zu retten"
+  },
+  {
+   "start": 50.5,
+   "end": 55.24,
+   "text": "Weit auseinander, doch bestimmt nur füreinander"
+  },
+  {
+   "start": 55.24,
+   "end": 60.26,
+   "text": "Stell dir unsere Kinder vor"
+  },
+  {
+   "start": 60.26,
+   "end": 66.06,
+   "text": "Kleinige Fäder, große Augen"
+  },
+  {
+   "start": 66.06,
+   "end": 70.68,
+   "text": "Liebling zum Fliegen oder Schwimmen tausend"
+  },
+  {
+   "start": 70.68,
+   "end": 73.32,
+   "text": "Fäder, wie man sie nennt"
+  },
+  {
+   "start": 73.32,
+   "end": 76.38,
+   "text": "Nachkümmlinge von Rausch und Herde"
+  },
+  {
+   "start": 76.38,
+   "end": 78.46,
+   "text": "Hey!"
+  },
+  {
+   "start": 80.46,
+   "end": 81.34,
+   "text": "Hey!"
+  },
+  {
+   "start": 81.58,
+   "end": 84.04,
+   "text": "Ich denk' mich zu mit ihren Daunen"
+  },
+  {
+   "start": 84.04,
+   "end": 86.92,
+   "text": "Ich halt sie aus, ihre verrückten Launen"
+  },
+  {
+   "start": 86.92,
+   "end": 89.54,
+   "text": "Sie dreht den Kopf, sie schaut mich an"
+  },
+  {
+   "start": 89.54,
+   "end": 92.72,
+   "text": "Ich halt's nicht aus, nimm mich zum Mann"
+  },
+  {
+   "start": 92.72,
+   "end": 99.1,
+   "text": "Mir kann einer dann frühe Echsen"
+  },
+  {
+   "start": 99.1,
+   "end": 105.04,
+   "text": "Das macht mich rollig, ich will sie sechsen"
+  },
+  {
+   "start": 105.04,
+   "end": 109.24,
+   "text": "Ich dreht die Körner auf mein Rücken"
+  },
+  {
+   "start": 109.24,
+   "end": 112.24,
+   "text": "Sie kommt mehr, muss ich drücken"
+  },
+  {
+   "start": 112.24,
+   "end": 115.08,
+   "text": "Sie liegt fertig, ich fack leise"
+  },
+  {
+   "start": 115.08,
+   "end": 117.92,
+   "text": "Jede Berührung schickt mich auf eine Reise"
+  },
+  {
+   "start": 117.92,
+   "end": 123.42,
+   "text": "Hörst du trug, die ungewöhnlich"
+  },
+  {
+   "start": 123.42,
+   "end": 128.06,
+   "text": "Hoge und ab, wie wir auf den Quillen"
+  },
+  {
+   "start": 128.06,
+   "end": 135.54,
+   "text": "Denn sieh' ich stell dir unsere Kinder vor"
+  },
+  {
+   "start": 135.54,
+   "end": 140.6,
+   "text": "Bei einigen Fehlern, großen Augen"
+  },
+  {
+   "start": 140.6,
+   "end": 145.1,
+   "text": "Liebling zum Fliegen oder Schwimmen tausend"
+  },
+  {
+   "start": 145.1,
+   "end": 147.88,
+   "text": "Fäder, wie man sie nennt"
+  },
+  {
+   "start": 147.88,
+   "end": 151.1,
+   "text": "Nachkümmlinge von Rausch und Herde"
+  },
+  {
+   "start": 151.1,
+   "end": 166.98,
+   "text": "Hörst du trug, die ungewöhnlich ist, ihre Erste und Herde"
+  },
+  {
+   "start": 166.98,
+   "end": 196.96,
+   "text": "Vertraue und glaube, es hilft, es heilt die göttliche Kraft!"
+  }
+ ],
+ "words": [
+  {
+   "start": 0.63,
+   "end": 4.51,
+   "text": "Ich"
+  },
+  {
+   "start": 4.51,
+   "end": 9.02,
+   "text": "bin"
+  },
+  {
+   "start": 9.02,
+   "end": 13.53,
+   "text": "tra"
+  },
+  {
+   "start": 13.53,
+   "end": 16.52,
+   "text": "ur"
+  },
+  {
+   "start": 16.52,
+   "end": 19.54,
+   "text": "ig"
+  },
+  {
+   "start": 19.23,
+   "end": 19.37,
+   "text": "Ich"
+  },
+  {
+   "start": 19.37,
+   "end": 19.54,
+   "text": "bin"
+  },
+  {
+   "start": 19.54,
+   "end": 19.71,
+   "text": "ruh"
+  },
+  {
+   "start": 19.54,
+   "end": 19.77,
+   "text": "vom"
+  },
+  {
+   "start": 19.71,
+   "end": 19.82,
+   "text": "ig"
+  },
+  {
+   "start": 19.77,
+   "end": 20.07,
+   "text": "Rand"
+  },
+  {
+   "start": 19.82,
+   "end": 19.99,
+   "text": "vom"
+  },
+  {
+   "start": 19.99,
+   "end": 20.22,
+   "text": "Rand"
+  },
+  {
+   "start": 20.07,
+   "end": 20.3,
+   "text": "vom"
+  },
+  {
+   "start": 20.3,
+   "end": 20.45,
+   "text": "Te"
+  },
+  {
+   "start": 20.45,
+   "end": 20.7,
+   "text": "ich"
+  },
+  {
+   "start": 20.7,
+   "end": 20.84,
+   "text": ","
+  },
+  {
+   "start": 20.84,
+   "end": 21.2,
+   "text": "meine"
+  },
+  {
+   "start": 21.2,
+   "end": 21.48,
+   "text": "Haut"
+  },
+  {
+   "start": 21.48,
+   "end": 21.69,
+   "text": "ist"
+  },
+  {
+   "start": 21.69,
+   "end": 21.83,
+   "text": "gl"
+  },
+  {
+   "start": 21.83,
+   "end": 22.03,
+   "text": "ips"
+  },
+  {
+   "start": 22.03,
+   "end": 22.18,
+   "text": "ch"
+  },
+  {
+   "start": 22.18,
+   "end": 22.36,
+   "text": "ig"
+  },
+  {
+   "start": 22.36,
+   "end": 22.58,
+   "text": "und"
+  },
+  {
+   "start": 22.58,
+   "end": 23.18,
+   "text": "trotzdem"
+  },
+  {
+   "start": 23.18,
+   "end": 23.33,
+   "text": "we"
+  },
+  {
+   "start": 23.33,
+   "end": 23.58,
+   "text": "ich"
+  },
+  {
+   "start": 23.58,
+   "end": 23.83,
+   "text": "Die"
+  },
+  {
+   "start": 23.83,
+   "end": 23.99,
+   "text": "Fl"
+  },
+  {
+   "start": 23.99,
+   "end": 24.41,
+   "text": "iegen"
+  },
+  {
+   "start": 24.41,
+   "end": 24.74,
+   "text": "schw"
+  },
+  {
+   "start": 24.74,
+   "end": 24.9,
+   "text": "ir"
+  },
+  {
+   "start": 24.9,
+   "end": 25.15,
+   "text": "ren"
+  },
+  {
+   "start": 25.15,
+   "end": 25.31,
+   "text": "um"
+  },
+  {
+   "start": 25.31,
+   "end": 25.64,
+   "text": "mein"
+  },
+  {
+   "start": 25.64,
+   "end": 26.28,
+   "text": "Gesicht"
+  },
+  {
+   "start": 26.28,
+   "end": 26.39,
+   "text": ","
+  },
+  {
+   "start": 26.39,
+   "end": 26.56,
+   "text": "ich"
+  },
+  {
+   "start": 26.56,
+   "end": 26.9,
+   "text": "könnte"
+  },
+  {
+   "start": 26.9,
+   "end": 27.07,
+   "text": "sie"
+  },
+  {
+   "start": 27.07,
+   "end": 27.12,
+   "text": "f"
+  },
+  {
+   "start": 27.12,
+   "end": 27.35,
+   "text": "ress"
+  },
+  {
+   "start": 27.35,
+   "end": 27.5,
+   "text": "en"
+  },
+  {
+   "start": 27.5,
+   "end": 27.68,
+   "text": ","
+  },
+  {
+   "start": 27.68,
+   "end": 28.05,
+   "text": "aber"
+  },
+  {
+   "start": 28.05,
+   "end": 28.61,
+   "text": "Hunger"
+  },
+  {
+   "start": 28.61,
+   "end": 28.89,
+   "text": "hab"
+  },
+  {
+   "start": 28.89,
+   "end": 29.17,
+   "text": "ich"
+  },
+  {
+   "start": 29.17,
+   "end": 29.68,
+   "text": "nicht"
+  },
+  {
+   "start": 30.62,
+   "end": 30.81,
+   "text": "Sie"
+  },
+  {
+   "start": 30.81,
+   "end": 31.66,
+   "text": "sagt"
+  },
+  {
+   "start": 31.66,
+   "end": 32.13,
+   "text": ","
+  },
+  {
+   "start": 32.13,
+   "end": 33.32,
+   "text": "meine"
+  },
+  {
+   "start": 33.32,
+   "end": 34.51,
+   "text": "Augen"
+  },
+  {
+   "start": 34.51,
+   "end": 35.46,
+   "text": "sind"
+  },
+  {
+   "start": 35.46,
+   "end": 35.93,
+   "text": "zu"
+  },
+  {
+   "start": 35.93,
+   "end": 36.94,
+   "text": "groß"
+  },
+  {
+   "start": 36.94,
+   "end": 37.57,
+   "text": "Sie"
+  },
+  {
+   "start": 37.57,
+   "end": 38.11,
+   "text": "erst"
+  },
+  {
+   "start": 38.11,
+   "end": 38.44,
+   "text": "am"
+  },
+  {
+   "start": 38.44,
+   "end": 38.77,
+   "text": "bl"
+  },
+  {
+   "start": 38.77,
+   "end": 39.1,
+   "text": "ie"
+  },
+  {
+   "start": 39.1,
+   "end": 39.26,
+   "text": "b"
+  },
+  {
+   "start": 39.26,
+   "end": 40.09,
+   "text": "ieren"
+  },
+  {
+   "start": 40.09,
+   "end": 40.42,
+   "text": ","
+  },
+  {
+   "start": 40.42,
+   "end": 40.92,
+   "text": "was"
+  },
+  {
+   "start": 40.92,
+   "end": 41.42,
+   "text": "ist"
+  },
+  {
+   "start": 41.42,
+   "end": 41.75,
+   "text": "da"
+  },
+  {
+   "start": 41.75,
+   "end": 42.32,
+   "text": "los"
+  },
+  {
+   "start": 42.32,
+   "end": 42.32,
+   "text": "?"
+  },
+  {
+   "start": 44.1,
+   "end": 44.1,
+   "text": "Ich"
+  },
+  {
+   "start": 44.1,
+   "end": 44.1,
+   "text": "bin"
+  },
+  {
+   "start": 44.1,
+   "end": 44.1,
+   "text": "ein"
+  },
+  {
+   "start": 44.1,
+   "end": 44.13,
+   "text": "Fr"
+  },
+  {
+   "start": 44.13,
+   "end": 44.23,
+   "text": "ott"
+  },
+  {
+   "start": 44.23,
+   "end": 44.72,
+   "text": ","
+  },
+  {
+   "start": 44.72,
+   "end": 44.91,
+   "text": "was"
+  },
+  {
+   "start": 44.91,
+   "end": 45.46,
+   "text": "soll"
+  },
+  {
+   "start": 45.46,
+   "end": 45.87,
+   "text": "ich"
+  },
+  {
+   "start": 45.87,
+   "end": 46.28,
+   "text": "tun"
+  },
+  {
+   "start": 46.28,
+   "end": 46.76,
+   "text": "?"
+  },
+  {
+   "start": 46.76,
+   "end": 47.04,
+   "text": "Bin"
+  },
+  {
+   "start": 47.04,
+   "end": 47.38,
+   "text": "n"
+  },
+  {
+   "start": 47.38,
+   "end": 47.41,
+   "text": "ack"
+  },
+  {
+   "start": 47.41,
+   "end": 47.57,
+   "text": "t"
+  },
+  {
+   "start": 47.57,
+   "end": 47.75,
+   "text": ","
+  },
+  {
+   "start": 47.75,
+   "end": 47.97,
+   "text": "ver"
+  },
+  {
+   "start": 47.97,
+   "end": 48.16,
+   "text": "kn"
+  },
+  {
+   "start": 48.16,
+   "end": 48.44,
+   "text": "all"
+  },
+  {
+   "start": 48.44,
+   "end": 48.53,
+   "text": "t"
+  },
+  {
+   "start": 48.53,
+   "end": 48.72,
+   "text": "in"
+  },
+  {
+   "start": 48.72,
+   "end": 49.0,
+   "text": "ein"
+  },
+  {
+   "start": 49.0,
+   "end": 49.28,
+   "text": "Huh"
+  },
+  {
+   "start": 49.28,
+   "end": 49.46,
+   "text": "n"
+  },
+  {
+   "start": 49.46,
+   "end": 49.61,
+   "text": ","
+  },
+  {
+   "start": 49.61,
+   "end": 49.85,
+   "text": "nur"
+  },
+  {
+   "start": 49.85,
+   "end": 50.01,
+   "text": "zu"
+  },
+  {
+   "start": 50.01,
+   "end": 50.25,
+   "text": "ret"
+  },
+  {
+   "start": 50.25,
+   "end": 50.5,
+   "text": "ten"
+  },
+  {
+   "start": 50.5,
+   "end": 50.72,
+   "text": "We"
+  },
+  {
+   "start": 50.72,
+   "end": 51.05,
+   "text": "it"
+  },
+  {
+   "start": 51.05,
+   "end": 51.12,
+   "text": "a"
+  },
+  {
+   "start": 51.12,
+   "end": 51.38,
+   "text": "use"
+  },
+  {
+   "start": 51.38,
+   "end": 52.15,
+   "text": "inander"
+  },
+  {
+   "start": 52.15,
+   "end": 52.37,
+   "text": ","
+  },
+  {
+   "start": 52.37,
+   "end": 52.81,
+   "text": "doch"
+  },
+  {
+   "start": 52.81,
+   "end": 53.69,
+   "text": "bestimmt"
+  },
+  {
+   "start": 53.69,
+   "end": 54.02,
+   "text": "nur"
+  },
+  {
+   "start": 54.02,
+   "end": 54.13,
+   "text": "f"
+  },
+  {
+   "start": 54.13,
+   "end": 54.46,
+   "text": "üre"
+  },
+  {
+   "start": 54.46,
+   "end": 55.24,
+   "text": "inander"
+  },
+  {
+   "start": 55.86,
+   "end": 56.33,
+   "text": "Stell"
+  },
+  {
+   "start": 56.33,
+   "end": 56.98,
+   "text": "dir"
+  },
+  {
+   "start": 56.98,
+   "end": 58.28,
+   "text": "unsere"
+  },
+  {
+   "start": 58.28,
+   "end": 59.58,
+   "text": "Kinder"
+  },
+  {
+   "start": 59.58,
+   "end": 60.26,
+   "text": "vor"
+  },
+  {
+   "start": 60.26,
+   "end": 61.42,
+   "text": "Klein"
+  },
+  {
+   "start": 61.42,
+   "end": 62.11,
+   "text": "ige"
+  },
+  {
+   "start": 62.11,
+   "end": 62.34,
+   "text": "F"
+  },
+  {
+   "start": 62.34,
+   "end": 62.57,
+   "text": "ä"
+  },
+  {
+   "start": 62.57,
+   "end": 63.26,
+   "text": "der"
+  },
+  {
+   "start": 63.26,
+   "end": 63.72,
+   "text": ","
+  },
+  {
+   "start": 63.72,
+   "end": 64.88,
+   "text": "große"
+  },
+  {
+   "start": 64.88,
+   "end": 66.06,
+   "text": "Augen"
+  },
+  {
+   "start": 66.06,
+   "end": 66.68,
+   "text": "Lie"
+  },
+  {
+   "start": 66.68,
+   "end": 67.05,
+   "text": "bling"
+  },
+  {
+   "start": 67.05,
+   "end": 67.38,
+   "text": "zum"
+  },
+  {
+   "start": 67.38,
+   "end": 67.62,
+   "text": "Fl"
+  },
+  {
+   "start": 67.62,
+   "end": 68.22,
+   "text": "iegen"
+  },
+  {
+   "start": 68.22,
+   "end": 68.7,
+   "text": "oder"
+  },
+  {
+   "start": 68.7,
+   "end": 69.18,
+   "text": "Schw"
+  },
+  {
+   "start": 69.18,
+   "end": 69.78,
+   "text": "immen"
+  },
+  {
+   "start": 69.78,
+   "end": 70.02,
+   "text": "ta"
+  },
+  {
+   "start": 70.02,
+   "end": 70.28,
+   "text": "us"
+  },
+  {
+   "start": 70.28,
+   "end": 70.68,
+   "text": "end"
+  },
+  {
+   "start": 70.68,
+   "end": 70.8,
+   "text": "F"
+  },
+  {
+   "start": 70.8,
+   "end": 71.29,
+   "text": "ä"
+  },
+  {
+   "start": 71.29,
+   "end": 71.3,
+   "text": "der"
+  },
+  {
+   "start": 71.3,
+   "end": 71.54,
+   "text": ","
+  },
+  {
+   "start": 71.54,
+   "end": 71.91,
+   "text": "wie"
+  },
+  {
+   "start": 71.91,
+   "end": 72.28,
+   "text": "man"
+  },
+  {
+   "start": 72.28,
+   "end": 72.65,
+   "text": "sie"
+  },
+  {
+   "start": 72.65,
+   "end": 73.02,
+   "text": "nen"
+  },
+  {
+   "start": 73.02,
+   "end": 73.32,
+   "text": "nt"
+  },
+  {
+   "start": 73.32,
+   "end": 73.72,
+   "text": "Nach"
+  },
+  {
+   "start": 73.72,
+   "end": 73.92,
+   "text": "k"
+  },
+  {
+   "start": 73.92,
+   "end": 73.94,
+   "text": "ü"
+  },
+  {
+   "start": 73.94,
+   "end": 74.13,
+   "text": "mm"
+  },
+  {
+   "start": 74.13,
+   "end": 74.52,
+   "text": "ling"
+  },
+  {
+   "start": 74.52,
+   "end": 74.62,
+   "text": "e"
+  },
+  {
+   "start": 74.62,
+   "end": 74.92,
+   "text": "von"
+  },
+  {
+   "start": 74.92,
+   "end": 75.12,
+   "text": "Ra"
+  },
+  {
+   "start": 75.12,
+   "end": 75.52,
+   "text": "usch"
+  },
+  {
+   "start": 75.52,
+   "end": 75.82,
+   "text": "und"
+  },
+  {
+   "start": 75.82,
+   "end": 76.12,
+   "text": "Her"
+  },
+  {
+   "start": 76.12,
+   "end": 76.38,
+   "text": "de"
+  },
+  {
+   "start": 76.38,
+   "end": 78.46,
+   "text": "Hey"
+  },
+  {
+   "start": 78.46,
+   "end": 78.46,
+   "text": "!"
+  },
+  {
+   "start": 80.46,
+   "end": 81.08,
+   "text": "Hey"
+  },
+  {
+   "start": 81.08,
+   "end": 81.34,
+   "text": "!"
+  },
+  {
+   "start": 81.58,
+   "end": 81.62,
+   "text": "Ich"
+  },
+  {
+   "start": 81.62,
+   "end": 82.0,
+   "text": "denk"
+  },
+  {
+   "start": 82.0,
+   "end": 82.2,
+   "text": "'"
+  },
+  {
+   "start": 82.2,
+   "end": 82.47,
+   "text": "mich"
+  },
+  {
+   "start": 82.47,
+   "end": 82.66,
+   "text": "zu"
+  },
+  {
+   "start": 82.66,
+   "end": 82.94,
+   "text": "mit"
+  },
+  {
+   "start": 82.94,
+   "end": 83.42,
+   "text": "ihren"
+  },
+  {
+   "start": 83.42,
+   "end": 83.61,
+   "text": "Da"
+  },
+  {
+   "start": 83.61,
+   "end": 83.8,
+   "text": "un"
+  },
+  {
+   "start": 83.8,
+   "end": 84.04,
+   "text": "en"
+  },
+  {
+   "start": 84.07,
+   "end": 84.66,
+   "text": "Ich"
+  },
+  {
+   "start": 84.66,
+   "end": 84.69,
+   "text": "halt"
+  },
+  {
+   "start": 84.69,
+   "end": 85.03,
+   "text": "sie"
+  },
+  {
+   "start": 85.03,
+   "end": 85.26,
+   "text": "aus"
+  },
+  {
+   "start": 85.26,
+   "end": 85.41,
+   "text": ","
+  },
+  {
+   "start": 85.41,
+   "end": 85.71,
+   "text": "ihre"
+  },
+  {
+   "start": 85.71,
+   "end": 86.01,
+   "text": "verr"
+  },
+  {
+   "start": 86.01,
+   "end": 86.23,
+   "text": "ück"
+  },
+  {
+   "start": 86.23,
+   "end": 86.45,
+   "text": "ten"
+  },
+  {
+   "start": 86.45,
+   "end": 86.6,
+   "text": "La"
+  },
+  {
+   "start": 86.6,
+   "end": 86.75,
+   "text": "un"
+  },
+  {
+   "start": 86.75,
+   "end": 86.92,
+   "text": "en"
+  },
+  {
+   "start": 86.92,
+   "end": 87.46,
+   "text": "Sie"
+  },
+  {
+   "start": 87.46,
+   "end": 87.54,
+   "text": "dre"
+  },
+  {
+   "start": 87.54,
+   "end": 87.73,
+   "text": "ht"
+  },
+  {
+   "start": 87.73,
+   "end": 87.91,
+   "text": "den"
+  },
+  {
+   "start": 87.91,
+   "end": 88.28,
+   "text": "Kopf"
+  },
+  {
+   "start": 88.28,
+   "end": 88.42,
+   "text": ","
+  },
+  {
+   "start": 88.42,
+   "end": 88.64,
+   "text": "sie"
+  },
+  {
+   "start": 88.64,
+   "end": 89.08,
+   "text": "schaut"
+  },
+  {
+   "start": 89.08,
+   "end": 89.37,
+   "text": "mich"
+  },
+  {
+   "start": 89.37,
+   "end": 89.54,
+   "text": "an"
+  },
+  {
+   "start": 89.54,
+   "end": 90.16,
+   "text": "Ich"
+  },
+  {
+   "start": 90.16,
+   "end": 90.35,
+   "text": "halt"
+  },
+  {
+   "start": 90.35,
+   "end": 90.53,
+   "text": "'s"
+  },
+  {
+   "start": 90.53,
+   "end": 90.97,
+   "text": "nicht"
+  },
+  {
+   "start": 90.97,
+   "end": 91.3,
+   "text": "aus"
+  },
+  {
+   "start": 91.3,
+   "end": 91.46,
+   "text": ","
+  },
+  {
+   "start": 91.46,
+   "end": 91.54,
+   "text": "n"
+  },
+  {
+   "start": 91.54,
+   "end": 91.78,
+   "text": "imm"
+  },
+  {
+   "start": 91.78,
+   "end": 92.11,
+   "text": "mich"
+  },
+  {
+   "start": 92.11,
+   "end": 92.36,
+   "text": "zum"
+  },
+  {
+   "start": 92.36,
+   "end": 92.72,
+   "text": "Mann"
+  },
+  {
+   "start": 92.72,
+   "end": 93.53,
+   "text": "Mir"
+  },
+  {
+   "start": 93.53,
+   "end": 94.36,
+   "text": "kann"
+  },
+  {
+   "start": 94.36,
+   "end": 95.54,
+   "text": "einer"
+  },
+  {
+   "start": 95.54,
+   "end": 96.48,
+   "text": "dann"
+  },
+  {
+   "start": 96.48,
+   "end": 96.95,
+   "text": "fr"
+  },
+  {
+   "start": 96.95,
+   "end": 97.18,
+   "text": "ü"
+  },
+  {
+   "start": 97.18,
+   "end": 97.65,
+   "text": "he"
+  },
+  {
+   "start": 97.65,
+   "end": 97.88,
+   "text": "E"
+  },
+  {
+   "start": 97.88,
+   "end": 98.35,
+   "text": "ch"
+  },
+  {
+   "start": 98.35,
+   "end": 99.1,
+   "text": "sen"
+  },
+  {
+   "start": 99.1,
+   "end": 99.91,
+   "text": "Das"
+  },
+  {
+   "start": 99.91,
+   "end": 101.04,
+   "text": "macht"
+  },
+  {
+   "start": 101.04,
+   "end": 102.01,
+   "text": "mich"
+  },
+  {
+   "start": 102.01,
+   "end": 102.98,
+   "text": "roll"
+  },
+  {
+   "start": 102.98,
+   "end": 103.48,
+   "text": "ig"
+  },
+  {
+   "start": 103.48,
+   "end": 103.64,
+   "text": ","
+  },
+  {
+   "start": 103.64,
+   "end": 103.87,
+   "text": "ich"
+  },
+  {
+   "start": 103.87,
+   "end": 104.25,
+   "text": "will"
+  },
+  {
+   "start": 104.25,
+   "end": 104.44,
+   "text": "sie"
+  },
+  {
+   "start": 104.44,
+   "end": 104.6,
+   "text": "se"
+  },
+  {
+   "start": 104.6,
+   "end": 104.76,
+   "text": "ch"
+  },
+  {
+   "start": 104.76,
+   "end": 105.04,
+   "text": "sen"
+  },
+  {
+   "start": 105.04,
+   "end": 105.66,
+   "text": "Ich"
+  },
+  {
+   "start": 105.66,
+   "end": 105.88,
+   "text": "dre"
+  },
+  {
+   "start": 105.88,
+   "end": 106.15,
+   "text": "ht"
+  },
+  {
+   "start": 106.15,
+   "end": 106.57,
+   "text": "die"
+  },
+  {
+   "start": 106.57,
+   "end": 106.71,
+   "text": "K"
+  },
+  {
+   "start": 106.71,
+   "end": 106.98,
+   "text": "ör"
+  },
+  {
+   "start": 106.98,
+   "end": 107.39,
+   "text": "ner"
+  },
+  {
+   "start": 107.39,
+   "end": 107.81,
+   "text": "auf"
+  },
+  {
+   "start": 107.81,
+   "end": 108.37,
+   "text": "mein"
+  },
+  {
+   "start": 108.37,
+   "end": 108.51,
+   "text": "R"
+  },
+  {
+   "start": 108.51,
+   "end": 109.24,
+   "text": "ücken"
+  },
+  {
+   "start": 109.27,
+   "end": 109.86,
+   "text": "Sie"
+  },
+  {
+   "start": 109.86,
+   "end": 110.09,
+   "text": "kommt"
+  },
+  {
+   "start": 110.09,
+   "end": 110.51,
+   "text": "mehr"
+  },
+  {
+   "start": 110.51,
+   "end": 110.72,
+   "text": ","
+  },
+  {
+   "start": 110.72,
+   "end": 111.14,
+   "text": "muss"
+  },
+  {
+   "start": 111.14,
+   "end": 111.46,
+   "text": "ich"
+  },
+  {
+   "start": 111.46,
+   "end": 111.67,
+   "text": "dr"
+  },
+  {
+   "start": 111.67,
+   "end": 112.24,
+   "text": "ücken"
+  },
+  {
+   "start": 112.24,
+   "end": 112.86,
+   "text": "Sie"
+  },
+  {
+   "start": 112.86,
+   "end": 113.05,
+   "text": "liegt"
+  },
+  {
+   "start": 113.05,
+   "end": 113.64,
+   "text": "fertig"
+  },
+  {
+   "start": 113.64,
+   "end": 113.84,
+   "text": ","
+  },
+  {
+   "start": 113.84,
+   "end": 114.14,
+   "text": "ich"
+  },
+  {
+   "start": 114.14,
+   "end": 114.24,
+   "text": "f"
+  },
+  {
+   "start": 114.24,
+   "end": 114.54,
+   "text": "ack"
+  },
+  {
+   "start": 114.54,
+   "end": 114.74,
+   "text": "le"
+  },
+  {
+   "start": 114.74,
+   "end": 115.08,
+   "text": "ise"
+  },
+  {
+   "start": 115.08,
+   "end": 115.15,
+   "text": "J"
+  },
+  {
+   "start": 115.15,
+   "end": 115.61,
+   "text": "ede"
+  },
+  {
+   "start": 115.61,
+   "end": 115.7,
+   "text": "Ber"
+  },
+  {
+   "start": 115.7,
+   "end": 115.89,
+   "text": "ühr"
+  },
+  {
+   "start": 115.89,
+   "end": 116.07,
+   "text": "ung"
+  },
+  {
+   "start": 116.07,
+   "end": 116.3,
+   "text": "sch"
+  },
+  {
+   "start": 116.3,
+   "end": 116.61,
+   "text": "ickt"
+  },
+  {
+   "start": 116.61,
+   "end": 116.92,
+   "text": "mich"
+  },
+  {
+   "start": 116.92,
+   "end": 117.15,
+   "text": "auf"
+  },
+  {
+   "start": 117.15,
+   "end": 117.46,
+   "text": "eine"
+  },
+  {
+   "start": 117.46,
+   "end": 117.61,
+   "text": "Re"
+  },
+  {
+   "start": 117.61,
+   "end": 117.92,
+   "text": "ise"
+  },
+  {
+   "start": 117.95,
+   "end": 118.54,
+   "text": "H"
+  },
+  {
+   "start": 118.54,
+   "end": 118.73,
+   "text": "ör"
+  },
+  {
+   "start": 118.73,
+   "end": 119.27,
+   "text": "st"
+  },
+  {
+   "start": 119.27,
+   "end": 119.81,
+   "text": "du"
+  },
+  {
+   "start": 119.81,
+   "end": 120.35,
+   "text": "tr"
+  },
+  {
+   "start": 120.35,
+   "end": 120.92,
+   "text": "ug"
+  },
+  {
+   "start": 120.92,
+   "end": 121.21,
+   "text": ","
+  },
+  {
+   "start": 121.21,
+   "end": 121.65,
+   "text": "die"
+  },
+  {
+   "start": 121.65,
+   "end": 121.94,
+   "text": "un"
+  },
+  {
+   "start": 121.94,
+   "end": 122.38,
+   "text": "gew"
+  },
+  {
+   "start": 122.38,
+   "end": 122.52,
+   "text": "ö"
+  },
+  {
+   "start": 122.52,
+   "end": 123.42,
+   "text": "hnlich"
+  },
+  {
+   "start": 123.42,
+   "end": 124.05,
+   "text": "Ho"
+  },
+  {
+   "start": 124.05,
+   "end": 124.56,
+   "text": "ge"
+  },
+  {
+   "start": 124.56,
+   "end": 125.42,
+   "text": "und"
+  },
+  {
+   "start": 125.42,
+   "end": 126.02,
+   "text": "ab"
+  },
+  {
+   "start": 126.02,
+   "end": 126.21,
+   "text": ","
+  },
+  {
+   "start": 126.21,
+   "end": 126.5,
+   "text": "wie"
+  },
+  {
+   "start": 126.5,
+   "end": 126.79,
+   "text": "wir"
+  },
+  {
+   "start": 126.79,
+   "end": 127.08,
+   "text": "auf"
+  },
+  {
+   "start": 127.08,
+   "end": 127.37,
+   "text": "den"
+  },
+  {
+   "start": 127.37,
+   "end": 127.56,
+   "text": "Qu"
+  },
+  {
+   "start": 127.56,
+   "end": 127.85,
+   "text": "ill"
+  },
+  {
+   "start": 127.85,
+   "end": 128.06,
+   "text": "en"
+  },
+  {
+   "start": 128.06,
+   "end": 128.93,
+   "text": "Denn"
+  },
+  {
+   "start": 128.93,
+   "end": 129.6,
+   "text": "sie"
+  },
+  {
+   "start": 129.6,
+   "end": 130.6,
+   "text": "h"
+  },
+  {
+   "start": 130.6,
+   "end": 130.78,
+   "text": "'"
+  },
+  {
+   "start": 130.78,
+   "end": 131.32,
+   "text": "ich"
+  },
+  {
+   "start": 131.32,
+   "end": 132.23,
+   "text": "stell"
+  },
+  {
+   "start": 132.23,
+   "end": 132.77,
+   "text": "dir"
+  },
+  {
+   "start": 132.77,
+   "end": 133.86,
+   "text": "unsere"
+  },
+  {
+   "start": 133.86,
+   "end": 134.95,
+   "text": "Kinder"
+  },
+  {
+   "start": 134.95,
+   "end": 135.54,
+   "text": "vor"
+  },
+  {
+   "start": 135.57,
+   "end": 136.16,
+   "text": "Bei"
+  },
+  {
+   "start": 136.16,
+   "end": 136.35,
+   "text": "ein"
+  },
+  {
+   "start": 136.35,
+   "end": 136.7,
+   "text": "igen"
+  },
+  {
+   "start": 136.7,
+   "end": 136.93,
+   "text": "Fe"
+  },
+  {
+   "start": 136.93,
+   "end": 137.16,
+   "text": "hl"
+  },
+  {
+   "start": 137.16,
+   "end": 137.54,
+   "text": "ern"
+  },
+  {
+   "start": 137.54,
+   "end": 138.01,
+   "text": ","
+  },
+  {
+   "start": 138.01,
+   "end": 139.42,
+   "text": "großen"
+  },
+  {
+   "start": 139.42,
+   "end": 140.6,
+   "text": "Augen"
+  },
+  {
+   "start": 140.6,
+   "end": 141.22,
+   "text": "Lie"
+  },
+  {
+   "start": 141.22,
+   "end": 141.59,
+   "text": "bling"
+  },
+  {
+   "start": 141.59,
+   "end": 141.89,
+   "text": "zum"
+  },
+  {
+   "start": 141.89,
+   "end": 142.12,
+   "text": "Fl"
+  },
+  {
+   "start": 142.12,
+   "end": 142.71,
+   "text": "iegen"
+  },
+  {
+   "start": 142.71,
+   "end": 143.18,
+   "text": "oder"
+  },
+  {
+   "start": 143.18,
+   "end": 143.65,
+   "text": "Schw"
+  },
+  {
+   "start": 143.65,
+   "end": 144.24,
+   "text": "immen"
+  },
+  {
+   "start": 144.24,
+   "end": 144.47,
+   "text": "ta"
+  },
+  {
+   "start": 144.47,
+   "end": 144.7,
+   "text": "us"
+  },
+  {
+   "start": 144.7,
+   "end": 145.1,
+   "text": "end"
+  },
+  {
+   "start": 145.1,
+   "end": 145.23,
+   "text": "F"
+  },
+  {
+   "start": 145.23,
+   "end": 145.72,
+   "text": "ä"
+  },
+  {
+   "start": 145.72,
+   "end": 145.75,
+   "text": "der"
+  },
+  {
+   "start": 145.75,
+   "end": 146.09,
+   "text": ","
+  },
+  {
+   "start": 146.09,
+   "end": 146.4,
+   "text": "wie"
+  },
+  {
+   "start": 146.4,
+   "end": 146.79,
+   "text": "man"
+  },
+  {
+   "start": 146.79,
+   "end": 147.18,
+   "text": "sie"
+  },
+  {
+   "start": 147.18,
+   "end": 147.57,
+   "text": "nen"
+  },
+  {
+   "start": 147.57,
+   "end": 147.88,
+   "text": "nt"
+  },
+  {
+   "start": 147.88,
+   "end": 148.4,
+   "text": "Nach"
+  },
+  {
+   "start": 148.4,
+   "end": 148.5,
+   "text": "k"
+  },
+  {
+   "start": 148.5,
+   "end": 148.5,
+   "text": "ü"
+  },
+  {
+   "start": 148.5,
+   "end": 148.71,
+   "text": "mm"
+  },
+  {
+   "start": 148.71,
+   "end": 149.13,
+   "text": "ling"
+  },
+  {
+   "start": 149.13,
+   "end": 149.23,
+   "text": "e"
+  },
+  {
+   "start": 149.23,
+   "end": 149.55,
+   "text": "von"
+  },
+  {
+   "start": 149.55,
+   "end": 149.76,
+   "text": "Ra"
+  },
+  {
+   "start": 149.76,
+   "end": 150.18,
+   "text": "usch"
+  },
+  {
+   "start": 150.18,
+   "end": 150.5,
+   "text": "und"
+  },
+  {
+   "start": 150.5,
+   "end": 150.82,
+   "text": "Her"
+  },
+  {
+   "start": 150.82,
+   "end": 151.1,
+   "text": "de"
+  },
+  {
+   "start": 151.13,
+   "end": 151.72,
+   "text": "H"
+  },
+  {
+   "start": 151.72,
+   "end": 152.23,
+   "text": "ör"
+  },
+  {
+   "start": 152.23,
+   "end": 152.98,
+   "text": "st"
+  },
+  {
+   "start": 152.98,
+   "end": 153.73,
+   "text": "du"
+  },
+  {
+   "start": 153.73,
+   "end": 154.48,
+   "text": "tr"
+  },
+  {
+   "start": 154.48,
+   "end": 155.23,
+   "text": "ug"
+  },
+  {
+   "start": 155.23,
+   "end": 155.98,
+   "text": ","
+  },
+  {
+   "start": 155.98,
+   "end": 157.11,
+   "text": "die"
+  },
+  {
+   "start": 157.11,
+   "end": 157.87,
+   "text": "un"
+  },
+  {
+   "start": 157.87,
+   "end": 158.99,
+   "text": "gew"
+  },
+  {
+   "start": 158.99,
+   "end": 159.36,
+   "text": "ö"
+  },
+  {
+   "start": 159.36,
+   "end": 161.62,
+   "text": "hnlich"
+  },
+  {
+   "start": 161.62,
+   "end": 162.75,
+   "text": "ist"
+  },
+  {
+   "start": 162.75,
+   "end": 163.5,
+   "text": ","
+  },
+  {
+   "start": 163.5,
+   "end": 165.01,
+   "text": "ihre"
+  },
+  {
+   "start": 165.01,
+   "end": 165.76,
+   "text": "Er"
+  },
+  {
+   "start": 165.76,
+   "end": 166.98,
+   "text": "ste"
+  },
+  {
+   "start": 166.98,
+   "end": 166.98,
+   "text": "und"
+  },
+  {
+   "start": 166.98,
+   "end": 166.98,
+   "text": "Her"
+  },
+  {
+   "start": 166.98,
+   "end": 166.98,
+   "text": "de"
+  },
+  {
+   "start": 167.61,
+   "end": 169.16,
+   "text": "Vert"
+  },
+  {
+   "start": 169.16,
+   "end": 170.24,
+   "text": "ra"
+  },
+  {
+   "start": 170.24,
+   "end": 171.32,
+   "text": "ue"
+  },
+  {
+   "start": 171.32,
+   "end": 172.96,
+   "text": "und"
+  },
+  {
+   "start": 172.96,
+   "end": 176.22,
+   "text": "glaube"
+  },
+  {
+   "start": 176.22,
+   "end": 177.3,
+   "text": ","
+  },
+  {
+   "start": 177.3,
+   "end": 178.39,
+   "text": "es"
+  },
+  {
+   "start": 178.39,
+   "end": 181.11,
+   "text": "hilft"
+  },
+  {
+   "start": 181.11,
+   "end": 182.19,
+   "text": ","
+  },
+  {
+   "start": 182.19,
+   "end": 183.28,
+   "text": "es"
+  },
+  {
+   "start": 183.28,
+   "end": 184.36,
+   "text": "he"
+  },
+  {
+   "start": 184.36,
+   "end": 186.0,
+   "text": "ilt"
+  },
+  {
+   "start": 186.0,
+   "end": 187.63,
+   "text": "die"
+  },
+  {
+   "start": 187.63,
+   "end": 188.72,
+   "text": "gö"
+  },
+  {
+   "start": 188.72,
+   "end": 189.8,
+   "text": "tt"
+  },
+  {
+   "start": 189.8,
+   "end": 192.52,
+   "text": "liche"
+  },
+  {
+   "start": 192.52,
+   "end": 195.24,
+   "text": "Kraft"
+  },
+  {
+   "start": 195.24,
+   "end": 196.96,
+   "text": "!"
+  }
+ ],
+ "silences": [
+  {
+   "start": 0.0,
+   "end": 0.627
+  },
+  {
+   "start": 164.325,
+   "end": 164.783
+  },
+  {
+   "start": 165.031,
+   "end": 166.275
+  },
+  {
+   "start": 166.619,
+   "end": 167.314
+  }
+ ]
+}

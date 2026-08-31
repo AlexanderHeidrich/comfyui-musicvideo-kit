@@ -1,0 +1,13 @@
+# Free notes on the look, distilled into style.txt. Not pasted into the prompt.
+
+PICKED, and then corrected. The first take was the flat-cel grubby one -
+Ren & Stimpy / Biber Brueder, brush line with tooth, hard-edged shadow shapes.
+The reference images that were actually generated and approved are NOT that:
+they are the European ink-and-watercolour school - a fine umber nib line with
+transparent washes graded inside it, paper tooth showing through, desaturated
+sage and straw, low contrast, scenery outlined in the same medium as the
+characters. Two frame grabs set it: the pond seen past foreground reeds, and the
+close pass over lily pads.
+style.txt was rewritten to match the images on 2026-08-31. If the two ever
+disagree again, the images win - they are what H3 is actually handed.
+The tidy late-90s take survives as templates/styles/90s-cartoon-clean.txt.

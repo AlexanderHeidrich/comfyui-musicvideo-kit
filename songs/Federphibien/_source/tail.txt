@@ -1,0 +1,13 @@
+[overall_soundscape]
+  Under everything, always present and always quiet: a summer farm pond. Wet
+  plops, crickets, the low mutter of hens somewhere off frame, corrugated tin
+  ticking in the heat, and one distant tractor that never arrives. Never louder
+  than the vocal.
+  NO cartoon sound effects. No boings, no slide whistles, no rubber-band twangs,
+  no comedy impacts on cuts. The frog's quakes and the hen's clucks are the only
+  animal sounds, and both are recorded-real rather than performed.
+  The film never uses sound to tell you something is funny.
+
+[non_diegetic_music]
+  The provided song excerpt is the ONLY music. Do not invent, add or extend any
+  instrumentation - no score, no stings, no risers.

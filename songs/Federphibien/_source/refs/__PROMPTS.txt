@@ -1,0 +1,119 @@
+FEDERPHIBIEN - MIDJOURNEY PROMPTS FOR THE REFERENCE IMAGES
+==========================================================================
+
+This folder is the rougher variant - THIS IS THE ONE YOU PICKED.
+
+Save each result into this folder under the filename in its heading, then run:
+  ./mvkit refs <this song> && ./mvkit build <this song>
+
+Generate them IN THIS ORDER. The frog and the hen are the Federphibium taken
+apart, so make that one first and keep it on screen for the other two - that is
+what makes the three look related.
+
+THE LOOK, in one paragraph. One frame grab sets it: a pond surface seen from
+just above, lily pads drawn with a bold clean BLACK outline, a flat green base
+inside each softly airbrushed darker toward the rim, one hard white glint on
+every pad, floating on pale near-white green water that is almost empty, with
+the ripples drawn as thin concentric rings. That is the target: black ink over
+flat-plus-airbrush paint, high-key and calm - not loose watercolour, not flat
+hard-edged cel shadow shapes either. Palette dusty and cool around that fresh
+green: sage, olive, dusty liver brown, straw, cream, a lilac-grey overcast sky,
+red only on a comb. Depth by haze - the far hedge paler and flatter, near
+foliage a near-black silhouette. Paper tooth stays faint, under the paint.
+
+Add your own --v flag; the version changes too often to hard-code here.
+
+--------------------------------------------------------------------------
+01_char_federphibium.png
+  the title creature - GENERATE THIS FIRST
+character sheet, hand-drawn 2D cartoon in the manner of a European television animation special, single
+creature full body sitting squat facing viewer, hybrid of frog and chicken, fat
+potbellied sage green toad body with soft darker speckling and a large pale cream
+belly, bright red chicken comb on the head, small red wattle under the chin, short
+yellow-orange beak, big heavy-lidded eyes set high and wide, frog legs with long
+toes and small yellow claws, two tiny useless white feathered wings tucked at the
+flanks, clean bold black hand-drawn ink outline with slight wobble closing every shape, interiors a flat base colour softly airbrushed darker toward the rim, one hard white glint on the damp skin, desaturated overcast palette of sage olive dusty liver brown straw and cream, faint paper tooth, high-key pale values, plain pale grey backdrop
+--style raw --ar 4:5 --no text, letters, labels, watermark, signature, border, frame, 3d render, photorealistic, vector art, hard-edged cel shadow shapes, blotchy watercolour blooms, sketchy broken searching outline, brown or coloured outline, heavy paper grain, sterile vector edges, bright saturated primaries, neon, muddy dark values
+
+--------------------------------------------------------------------------
+02_char_der-frosch.png
+  in 42 of the 47 scenes - the important one
+character sheet, hand-drawn 2D cartoon in the manner of a European television animation special, single
+cartoon pond frog full body sitting squat facing viewer, potbellied sage green body
+with soft darker speckling and a large pale cream belly, big heavy-lidded eyes set
+high and wide, wide frog mouth, long toes with small yellow claws, permanently damp
+skin, no comb no wattle no beak no feathers, earnest lovesick expression, clean bold black hand-drawn ink outline with slight wobble closing every shape, interiors a flat base colour softly airbrushed darker toward the rim, one hard white glint on the wet skin, desaturated overcast palette of sage olive dusty liver brown straw and cream, faint paper tooth, high-key pale values, plain pale grey backdrop
+--style raw --ar 4:5 --no text, letters, labels, watermark, signature, border, frame, 3d render, photorealistic, vector art, hard-edged cel shadow shapes, blotchy watercolour blooms, sketchy broken searching outline, brown or coloured outline, heavy paper grain, sterile vector edges, bright saturated primaries, neon, muddy dark values, chicken parts, comb, wattle, beak
+
+--------------------------------------------------------------------------
+03_char_das-huhn.png
+  in 34 of the 47 scenes
+character sheet, hand-drawn 2D cartoon in the manner of a European television animation special, single plain
+rust-brown farmyard hen full body standing in profile and again facing viewer,
+bright red comb and wattle, yellow-orange beak, scaly yellow legs with claws, small
+beady black eyes, completely ordinary and slightly haughty, no humanisation no
+eyelashes no blush, clean bold black hand-drawn ink outline with slight wobble closing every shape, interiors a flat base colour softly airbrushed darker toward the rim along the feathers, desaturated overcast palette of rust brown straw cream and dull red, faint paper tooth, high-key pale values, plain pale grey backdrop
+--style raw --ar 4:5 --no text, letters, labels, watermark, signature, border, frame, 3d render, photorealistic, vector art, hard-edged cel shadow shapes, blotchy watercolour blooms, sketchy broken searching outline, brown or coloured outline, heavy paper grain, sterile vector edges, bright saturated primaries, neon, muddy dark values, cute, eyelashes, big lashes
+
+--------------------------------------------------------------------------
+04_style_board.png
+  loaded in every scene - holds the look
+colour and construction board for a hand-drawn 2D animated television special, grid layout on plain pale grey,
+row of ten muted swatches in sage green olive dusty liver brown straw cream and
+cool lilac-grey, three ink strokes showing a clean bold black hand-drawn line with a
+slight wobble, one patch of flat colour airbrushed smoothly light to dark, one rounded shape shown twice side by side, once as a flat base colour airbrushed darker at the rim with one hard white glint
+and once as an unshaded outline, one
+strip showing near and far treatment of the same hedge, the far one paler and
+hazier, no characters
+--style raw --ar 3:2 --no text, letters, labels, watermark, signature, border, frame, 3d render, photorealistic, vector art, hard-edged cel shadow shapes, blotchy watercolour blooms, sketchy broken searching outline, brown or coloured outline, heavy paper grain, sterile vector edges, bright saturated primaries, neon, muddy dark values, numbers, captions
+
+--------------------------------------------------------------------------
+05_char_der-forscher.png
+  4 scenes, always seen from behind
+character sheet, hand-drawn 2D cartoon in the manner of a European television animation special, middle-aged
+field naturalist seen from behind, full body, face not visible, khaki trousers,
+plain shirt with rolled sleeves, straw hat, black camera strap around the neck,
+hardbound notebook and pencil in hand, unhurried and absorbed, clean bold black hand-drawn ink outline with slight wobble closing every shape, interiors a flat base colour softly airbrushed darker toward the rim, desaturated palette of khaki straw and cream, faint paper tooth, high-key pale values, plain pale grey backdrop
+--style raw --ar 4:5 --no text, letters, labels, watermark, signature, border, frame, 3d render, photorealistic, vector art, hard-edged cel shadow shapes, blotchy watercolour blooms, sketchy broken searching outline, brown or coloured outline, heavy paper grain, sterile vector edges, bright saturated primaries, neon, muddy dark values, face, front view
+
+--------------------------------------------------------------------------
+06_loc_pond.png
+  optional - the pond scenes
+background painting for a hand-drawn 2D animated television special, no characters, murky pale green farm pond
+in the near foreground at the bottom edge of a chicken yard, duckweed and a scatter
+of outlined lily pads on the water each with a bold black outline, a flat green centre airbrushed darker at the rim and one hard white glint, thin hand-drawn concentric ripple rings on pale near-white green water, dry mud bank cracked into plates
+behind it, leaning chicken-wire fence with a worn gap under it, corrugated tin coop
+with a ridged roof beyond the fence, tall cattails and reeds standing into frame at
+both edges as a foreground layer, distant hedge pale and hazy, flat lilac-grey
+overcast sky, clean black hand-drawn outline on the scenery, thinner than a character line, flat base colours softly airbrushed darker toward the rim, faint paper tooth, high-key pale values, a step duller than a foreground character
+--style raw --ar 16:9 --no text, letters, labels, watermark, signature, border, frame, 3d render, photorealistic, vector art, hard-edged cel shadow shapes, blotchy watercolour blooms, sketchy broken searching outline, brown or coloured outline, heavy paper grain, sterile vector edges, bright saturated primaries, neon, muddy dark values, characters, animals
+
+--------------------------------------------------------------------------
+07_loc_henhouse-interior.png
+  optional - scenes 23 to 38
+background painting for a hand-drawn 2D animated television special, no characters, interior of a corrugated
+tin chicken coop, heap of white and grey down and loose feathers on the floor, rough
+wooden walls and a nesting shelf, one bare bulb on a sagging cable, doorway at one
+end with pale flat daylight beyond, dust and floating down in the air, clean black hand-drawn outline on the scenery, thinner than a character line, flat base colours softly airbrushed darker toward the rim, faint paper tooth, high-key pale values, desaturated straw brown and cool grey palette, a step duller than a foreground character
+--style raw --ar 16:9 --no text, letters, labels, watermark, signature, border, frame, 3d render, photorealistic, vector art, hard-edged cel shadow shapes, blotchy watercolour blooms, sketchy broken searching outline, brown or coloured outline, heavy paper grain, sterile vector edges, bright saturated primaries, neon, muddy dark values, characters, animals
+
+--------------------------------------------------------------------------
+LOADING THEM IN COMFYUI
+--------------------------------------------------------------------------
+
+Seven images plus the scene mp3 is eight of H3's twelve media inputs, so they all
+fit. Fill the picture slots IN THIS ORDER and never leave an earlier one empty -
+H3 numbers <Picture n> over the slots actually connected, so a gap shifts every
+tag after it and the prompts stop matching:
+
+  slot 1  01_char_federphibium     always
+  slot 2  02_char_der-frosch       always
+  slot 3  03_char_das-huhn         always
+  slot 4  04_style_board           always
+  slot 5  05_char_der-forscher     only scenes 19, 20, 43, 44
+  slot 6  06_loc_pond              only the pond scenes
+  slot 7  07_loc_henhouse-interior only scenes 23 to 38
+
+Slots 1-4 are the constant core. Leaving 5-7 out does not move their tags.
+Simplest workable setup: load all seven everywhere and accept the extra
+references; then nothing can shift at all.

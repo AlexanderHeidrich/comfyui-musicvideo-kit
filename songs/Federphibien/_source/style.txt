@@ -1,0 +1,108 @@
+# Hand-painted 2D TV animation. The look is set by one frame the user picked:
+# a pond surface, bold black outlines on the lily pads, soft airbrushed
+# shading inside them, a hard white glint on each, over pale near-white green
+# water. European ink-and-cel school - Wind in the Willows / Der Wind in den
+# Weiden, Watership Down / "Unten am Fluss". NOT Ren & Stimpy: that was the
+# earlier take. NOT loose watercolour either: the line is black and clean.
+# These show names are comments and are stripped before the model sees them -
+# what follows describes the craft instead, which is what actually reproduces.
+
+Hand-drawn 2D animation as made for television: black ink drawings over softly
+airbrushed paint on paper, shot on a rostrum. Cheap, fast, slightly grubby
+work by people who could draw. Reproduce the CRAFT of that method, never the
+condition of an old tape.
+
+WHERE THE REFERENCES AND THIS TEXT DISAGREE
+  The supplied reference images are looser and more washed than the finished
+  film. Take the PALETTE, the light and the atmosphere from them. Take the LINE
+  and the FINISH from the description below - it wins. The result sits between
+  the two, and that is deliberate.
+
+LINE
+  A clean BLACK ink outline, drawn by hand and confident. It is fairly bold and
+  close to even along its length, with only a gentle swell - not a sketchy,
+  broken, searching line and not a fat tapering brush stroke. It closes every
+  shape and it is the darkest value in the frame.
+  Slight wobble and the odd overshoot at a corner are welcome; hesitation is
+  not. One line weight per character, scaled to the shot size, so a close-up is
+  not just an enlargement. Scenery carries the same black line a shade thinner
+  than a character.
+  Interior detail is drawn with the same line and used sparingly: the vein of a
+  leaf, a crease, a plank edge - a few decisive strokes, never a hatched mass.
+
+COLOUR AND FINISH
+  Inside the line, a clean flat base colour that is then shaded SOFTLY: an
+  airbrushed gradient that darkens toward the rim of a form and where one form
+  overlaps another. No separate hard-edged cel shadow shape, and equally no
+  blotchy watercolour bloom - the transition is smooth and controlled.
+  Every rounded wet surface carries a hard little WHITE specular highlight,
+  clean-edged and glassy, sitting off-centre. The lily pads have it, the frog's
+  back and eyes have it, wet mud has it. This gloss is part of the look.
+  Values stay HIGH-KEY: water and sky are pale, almost bleached, and the black
+  line supplies the only real dark. Nothing in the frame goes to a muddy
+  mid-grey.
+  Palette fresh but not loud: a clear leaf green over a pale green-white water,
+  sage and olive on the land, dusty liver brown, straw, cream, a lilac-grey
+  overcast sky. Red appears on a comb and a wattle and almost nowhere else.
+  Each character has a fixed colour model that never drifts between shots.
+  The paper the film is painted on is faintly present under the colour - a
+  whisper of tooth, not a texture that competes with the drawing.
+
+BACKGROUNDS
+  Painted in the same medium as the characters, not a different one: the same
+  black line, the same flat-plus-airbrush shading, on the same paper. The
+  scenery line is thinner and the scenery a step duller and paler, so the
+  figures read forward without a change of material.
+  Depth is atmospheric: the far hedge is paler, flatter and greyer with almost
+  no line left in it, and near foliage cutting into the frame is a near-black
+  silhouette with no interior detail at all.
+  Water is a large, calm, almost flat pale wash - the emptiness of it is the
+  point - with ripples drawn as thin concentric ink rings and floating leaves
+  scattered across it, each one outlined and highlighted.
+  Real botany and real architecture - a specific fence, a specific weed -
+  rather than generic cartoon shapes.
+
+DIRT AND DETAIL
+  Everything in the world is used. Chipped paint, rust bloom at a bolt, dried
+  mud in the tread of a tyre, a scuffed floor, seed husks and hair on the
+  ground, flies that are actually drawn. Wet things read wet, dry things read
+  dusty.
+  In close-ups the detail goes UP, not down: pores, chapped skin, a split claw,
+  crumbs at the corner of a mouth. The wide shots stay simple and graphic.
+
+MOVEMENT
+  Limited animation on twos, twelve drawings a second. Pose-to-pose with strong
+  readable key poses and very few in-betweens. Held cels for long stretches.
+  Cycled blinks and walks.
+  Rubbery squash, stretch and deformation reserved for single accents, taken
+  further than is comfortable, then straight back to a held pose.
+  Smears drawn as a shape rather than rendered as motion blur. Dry-brush speed
+  lines where something moves fast.
+  Lipsync from a fixed mouth chart of about ten shapes, so the mouth SNAPS
+  between positions rather than morphing. Expressions come from a small reused
+  library. Eyes are simple ovals with dot or pinprick pupils.
+
+CAMERA
+  Rostrum and multiplane thinking: lateral pans across a long background
+  painting, truck-ins on a held drawing, simple zooms, layered foreground
+  elements for depth. No 3D camera, no arcing moves, no rack-focus theatrics.
+  Composition centred and TV-safe.
+
+THE GROSS-UP
+  Once per scene at most, on a punchline: cut to a single fully painted,
+  high-detail, properly rendered illustration - wet skin, mucus, the grain of a
+  scaly leg, a bead of water - which leaves the flat-and-airbrush finish entirely for one
+  or two seconds, then cut straight back. This is a deliberate 1990s device.
+  Render it CLEAN and sharp, like a painted plate, not like damaged footage.
+
+RENDER CLEAN - this matters
+  Output a pristine, stable, sharp image. Do NOT add film grain, video noise,
+  VHS softness, tape dropouts, tracking lines, head-switching noise, scanlines,
+  interlace combing, chroma bleed, dot crawl, colour fringing, chromatic
+  aberration, gate weave, registration wobble, frame jitter, dust, scratches,
+  hair in the gate, vignetting, halation, bloom, letterbox bars, timecode or
+  any on-screen text. No lens effects of any kind.
+  The faint paper tooth under the paint is the CRAFT of the medium and belongs
+  in the image; it is not grain and is not an artefact. Keep it faint.
+  Every one of those is being added afterwards in the grade, and baked-in
+  artefacts cannot be removed. Full frame, clean edges, steady.

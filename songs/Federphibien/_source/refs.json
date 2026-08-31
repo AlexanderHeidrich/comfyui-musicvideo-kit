@@ -1,0 +1,57 @@
+{
+ "images": [
+  {
+   "file": "_source/refs/01_char_federphibium.png",
+   "kind": "char",
+   "slug": "federphibium",
+   "order": 1,
+   "tag": "<Picture 1>"
+  },
+  {
+   "file": "_source/refs/02_char_der-frosch.png",
+   "kind": "char",
+   "slug": "der frosch",
+   "order": 2,
+   "tag": "<Picture 2>"
+  },
+  {
+   "file": "_source/refs/03_char_das-huhn.png",
+   "kind": "char",
+   "slug": "das huhn",
+   "order": 3,
+   "tag": "<Picture 3>"
+  },
+  {
+   "file": "_source/refs/04_style_board.png",
+   "kind": "style",
+   "slug": "board",
+   "order": 4,
+   "tag": "<Picture 4>"
+  },
+  {
+   "file": "_source/refs/05_char_der-forscher.png",
+   "kind": "char",
+   "slug": "der forscher",
+   "order": 5,
+   "tag": "<Picture 5>"
+  },
+  {
+   "file": "_source/refs/06_loc_pond.png",
+   "kind": "loc",
+   "slug": "pond",
+   "order": 6,
+   "tag": "<Picture 6>"
+  },
+  {
+   "file": "_source/refs/07_loc_henhouse-interior.png",
+   "kind": "loc",
+   "slug": "henhouse interior",
+   "order": 7,
+   "tag": "<Picture 7>"
+  }
+ ],
+ "videos": [],
+ "scene_audio_tag": "<Audio 1>",
+ "media_total": 8,
+ "warnings": []
+}

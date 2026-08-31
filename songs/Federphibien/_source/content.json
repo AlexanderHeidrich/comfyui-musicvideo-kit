@@ -1,0 +1,477 @@
+{
+  "1": {
+    "title": "the pond from above",
+    "lyrics": "",
+    "shot1": "The farm lies still around its pond. The house, the barn, the chicken coop and the fenced yard sit in about forty metres of ground, and at the bottom corner of it is one farm pond roughly ten metres across, its green water skinned with duckweed. In the water there is at first only a small dark shape, no bigger against the property than a seed. It resolves into a common pond frog - eight centimetres from nose to rump, the length of a man's thumb, a hundred of his own body lengths from the far bank. He kicks both back legs out and together in a slow swimming stroke and jerks forward on each push, gliding to a stop between kicks, the way a frog actually moves through water. His head stays above the surface and leaves a small spreading wake. He covers half the distance to the bank. Nothing else on the farm moves.",
+    "cameras": {
+      "v1": "[Zoom in, slow, large] A straight-down aerial plan view from high above the farm, the altitude of a low-flying aircraft. At the start the whole property is inside the frame - house, barn, chicken coop, the fenced yard, the fence line and the fields around them - and the pond is one small dark oval near the bottom of it, with the frog a single dark speck on the water no wider than a few pixels. The camera stays at that height and does not descend through the air; only the framing tightens, straight down throughout, until the pond alone fills the frame and the speck has become a readable frog seen from above, about a twentieth of the frame wide. The angle never tilts, no horizon and no sky ever enter the frame, and the farm buildings stay flat roof-plans below the camera the whole way in.",
+      "v2": "[Static shot] Wide at eye level from the bank, the whole yard and the coop behind the water, so the place reads as a place and not a diagram. The frog is a small green mark out on the pond, no taller in frame than a blade of the grass in the foreground.",
+      "v3": "[Static shot] Close on the water surface, tight enough that the duckweed leaves read as separate discs and the frog's 8 cm body crosses about half the frame."
+    }
+  },
+  "2": {
+    "title": "swimming toward the farm",
+    "lyrics": "",
+    "shot1": "The frog makes slow, jerky swimming strokes across the open water. Flies circle around him and he ignores them completely, holding his course toward the farm buildings that stand blurred with distance ahead of him. He reaches the bank.",
+    "cameras": {
+      "v1": "[Static shot] Over the frog's shoulder, right down at the waterline, the farm ahead of him.",
+      "v2": "[Static shot] The answering angle from ahead of him at the same water level, the pond behind.",
+      "v3": "[Static shot] Close on his face just above the water, flies crossing it."
+    }
+  },
+  "3": {
+    "title": "hauling out of the water",
+    "lyrics": "",
+    "shot1": "The frog plants his arms on the bank and heaves himself out of the pond, slack and heavy with water. He flops onto his belly in the grass and stays there, face down, not moving.",
+    "cameras": {
+      "v1": "[Static shot] Profile, at ground level in the gap between bank and water.",
+      "v2": "[Static shot] Three-quarter front and low, so the effort reads on his face.",
+      "v3": "[Static shot] Extreme close on his hands gripping the muddy bank."
+    }
+  },
+  "4": {
+    "title": "rolling onto his back",
+    "lyrics": "",
+    "shot1": "The frog lies face down in the grass. Nothing about him moves except his back, rising and falling as he pants and breathes out, exhausted. Then one effortful swing and he rolls onto his back, and lies there looking straight up at the sky.",
+    "cameras": {
+      "v1": "[Static shot] Straight down on the whole frog in the grass, close, held.",
+      "v2": "[Static shot] Wide at eye level, the frog small in the grass with the pond behind.",
+      "v3": "[Static shot] Close on his back alone, rising and falling."
+    }
+  },
+  "5": {
+    "title": "sitting sad by the pond",
+    "lyrics": "Ich sitze traurig am Rand vom Teich",
+    "shot1": "The frog's eyes are glassy and unfocused, clouds drifting faintly reflected across them. He sings the line.",
+    "cameras": {
+      "v1": "[Static shot] Close on the frog's face.",
+      "v2": "[Static shot] Wide from across the water, the frog small at the near bank.",
+      "v3": "[Static shot] The reverse - the sky and moving clouds he is staring into."
+    }
+  },
+  "6": {
+    "title": "wet skin in sunlight",
+    "lyrics": "Meine Haut ist glibschig und trotzdem weich",
+    "shot1": "The frog lies stretched out in the grass, his skin catching the sunlight and shining wet from head to foot, green and speckled, the pale belly soft. He sings the line.",
+    "cameras": {
+      "v1": "[Tracking shot] At grass height, travelling slowly along him from head to foot.",
+      "v2": "[Static shot] High and looking down on the same pose, which makes him small.",
+      "v3": "[Static shot] Extreme close on one patch of wet skin as the light moves over it."
+    }
+  },
+  "7": {
+    "title": "licking his own eye",
+    "lyrics": "Die Fliegen schwirren um mein Gesicht, ich könnt' sie fressen aber Hunger hab ich nicht",
+    "shot1": "Flies circle the frog's face. He unrolls his tongue slowly, not to catch anything, but to wipe it across his own eyeball like a gecko. Then another tired, heavy exhale. He sings the line.",
+    "cameras": {
+      "v1": "[Static shot] Extreme close on the frog's face, flies crossing the frame.",
+      "v2": "[Static shot] Wide, the frog small in the grass, the flies invisible at this size.",
+      "v3": "[Static shot] Close on the flies themselves turning in the air above him."
+    }
+  },
+  "8": {
+    "title": "the hen house in the distance",
+    "lyrics": "",
+    "shot1": "The frog rolls back onto his belly and props his chin tiredly on his hands. His gaze goes out past the pond to a hen house standing in front of the cow barn, far off and soft with distance.",
+    "cameras": {
+      "v1": "[Static shot] Profile at grass height, the hen house small past him in the distance.",
+      "v2": "[Static shot] Over his shoulder, past his head, so the hen house is the subject.",
+      "v3": "[Static shot] Close on his eyes, fixed on something far off."
+    }
+  },
+  "9": {
+    "title": "the hen pecking grain",
+    "lyrics": "Sie sagt meine Augen sind zu groß",
+    "shot1": "A plain brown hen walks slowly and proudly about the yard, pecking grain out of the dirt, taking no notice of anything else. The frog sings the line.",
+    "cameras": {
+      "v1": "[Static shot] Wide, the hen centred in the yard with room around her.",
+      "v2": "[Static shot] Medium on the hen, chest up, walking through frame.",
+      "v3": "[Static shot] Insert on her beak taking grain out of the dirt."
+    }
+  },
+  "10": {
+    "title": "the hen in his eyes",
+    "lyrics": "[viel zu groß]",
+    "shot1": "The hen is reflected small and sharp in the frog's eyes, which stare after her with open longing.",
+    "cameras": {
+      "v1": "[Static shot] Extreme close on the frog's eyes, filling the frame.",
+      "v2": "[Static shot] Wide, both of them in one frame with the distance between them.",
+      "v3": "[Static shot] The reverse - the hen as he is seeing her, small and far off."
+    }
+  },
+  "11": {
+    "title": "the hen turns away",
+    "lyrics": "Sie hasst Amphibien, was ist da los",
+    "shot1": "The hen works over a patch of dirt with her beak, then lifts her head and looks off toward the pond. She turns away with complete indifference and walks off in a hen's stiff strut, leaving the patch of ground empty behind her.",
+    "cameras": {
+      "v1": "[Static shot] From behind the hen at ground level, locked off; she walks out of frame and the empty ground stays.",
+      "v2": "[Static shot] Front on the hen, so her indifference is readable on her face.",
+      "v3": "[Static shot] Close on her scaly feet working the dirt."
+    }
+  },
+  "12": {
+    "title": "back to the frog",
+    "lyrics": "",
+    "shot1": "The frog is still lying on the ground by the pond, looking straight ahead at nothing.",
+    "cameras": {
+      "v1": "[Static shot] The same locked frame as before, focus travelling back across to the pond.",
+      "v2": "[Static shot] Wide on the pond and the frog lying at its edge.",
+      "v3": "[Static shot] Close on the frog's face, looking at nothing."
+    }
+  },
+  "13": {
+    "title": "i am a frog",
+    "lyrics": "Ich bin ein Frosch! Was soll ich tun?",
+    "shot1": "The frog sings the line and hammers one fist down into the grassy ground, desperate and furious.",
+    "cameras": {
+      "v1": "[Static shot] Close, front on, eye level.",
+      "v2": "[Static shot] Wide, the frog alone by the pond with the whole yard around him.",
+      "v3": "[Static shot] Insert on the fist coming down into the grass."
+    }
+  },
+  "14": {
+    "title": "in love with a chicken",
+    "lyrics": "Bin argh verknallt in ein Huhn. / Uns’re Welten, weit auseinander. / Doch bestimmt nur für einander.",
+    "shot1": "The frog sits with his fist held against his heart, flat to his chest, in the overwrought way of anime melodrama. His eyes are closed and he looks down as he sings the line. In the sky behind him the hen's profile appears, half transparent.",
+    "shot2": "Nothing in the staging changes. The frog opens his eyes and a single tear glitters in the corner of one of them as he looks up at the sky, where the hen's face still hangs half transparent. He sings the line.",
+    "shot3": "The frog wipes the tear out of his eye and his expression sets, stubborn. He sings the line, then gathers himself and sets off hopping through the grass.",
+    "cameras": {
+      "v1": "[Static shot] Profile, dead side on, the frog to the right of frame facing left, sky behind him.",
+      "v2": "[Static shot] Three-quarter front, where his face reads best.",
+      "v3": "[Static shot] Extreme close on the fist held flat against his chest."
+    }
+  },
+  "15": {
+    "title": "hopping through the grass",
+    "lyrics": "",
+    "shot1": "The frog hops steadily along and the grass streams past him. He covers very little actual ground, so the painted background slides by slowly behind him. The sky above him is open and empty.",
+    "shot2": "In the empty sky above the hopping frog a half transparent daydream fades up: the hen and the frog together, drawn in the same flat cel style but paler, as if painted on glass.",
+    "cameras": {
+      "v1": "[Tracking shot] Travelling alongside the hopping frog at his own height, the frog in the lower third and the sky left open above him.",
+      "v2": "[Static shot] Locked wide, the frog hopping through frame and out of it.",
+      "v3": "[Static shot] Close on his legs and the grass streaming past them."
+    }
+  },
+  "16": {
+    "title": "hopping through the grass",
+    "lyrics": "",
+    "shot1": "The frog hops steadily along and the grass streams past him. He covers very little actual ground, so the painted background slides by slowly behind him. The sky above him is open and empty.",
+    "shot2": "In the empty sky above the hopping frog a half transparent daydream fades up: the hen and the frog together, drawn in the same flat cel style but paler, as if painted on glass.",
+    "cameras": {
+      "v1": "[Tracking shot] Travelling alongside the hopping frog at his own height, the frog in the lower third and the sky left open above him.",
+      "v2": "[Static shot] Locked wide, the frog hopping through frame and out of it.",
+      "v3": "[Static shot] Close on his legs and the grass streaming past them."
+    }
+  },
+  "17": {
+    "title": "slimy feathers",
+    "lyrics": "Schleimige Federn …",
+    "shot1": "The feathers of a small Federphibium are wet and beaded with mucus, each feather stuck to the next where the slime has soaked it. The frog sings the line.",
+    "cameras": {
+      "v1": "[Zoom in] Pushing onto the slime-soaked feathers.",
+      "v2": "[Static shot] Wide on the three Federphibien playing on the floor.",
+      "v3": "[Static shot] The reverse - the hen watching them from her chair."
+    }
+  },
+  "18": {
+    "title": "great big eyes",
+    "lyrics": "... große Auuuugen [so große Augen!]",
+    "shot1": "A Federphibium's huge bulging eyes, orange ringed and set wide, blink slowly and heavily. Then a tongue wipes across both of them. The frog sings the line.",
+    "cameras": {
+      "v1": "[Zoom in] Pushing onto the huge bulging eyes.",
+      "v2": "[Static shot] Wide on the whole Federphibium, so the eyes read as part of an animal.",
+      "v3": "[Static shot] The reverse - what the eyes are aimed at across the room."
+    }
+  },
+  "19": {
+    "title": "dead in the water",
+    "lyrics": "die nicht zum fliegen oder schwimmen taugen",
+    "shot1": "Dead Federphibien float in the pond with their backs upward. At the water's edge a man sits on a chair with his back turned, sharpening out of blur as he is approached.",
+    "cameras": {
+      "v1": "[Tracking shot] Low aerial travelling along the pond, side on, ending behind the seated man.",
+      "v2": "[Static shot] Locked wide on the pond with the floating bodies in it.",
+      "v3": "[Static shot] Close on one Federphibium floating back upward."
+    }
+  },
+  "20": {
+    "title": "the researcher's notebook",
+    "lyrics": "Federphibien soll man sie nennen. Nachkömmlinge von Frosch und Hennen",
+    "shot1": "The man's hand smooths down a page of his notebook. On the page is a drawing of a hen and a frog in the manner of a nineteenth century scientific plate, fine pencil work with labelled parts, and beside it the handwritten note \"Huhn + Frosch = Federphibium\".",
+    "cameras": {
+      "v1": "[Static shot] Close on the notebook page and the hand smoothing it.",
+      "v2": "[Static shot] Wide on the researcher at the pond, seen from behind.",
+      "v3": "[Static shot] Extreme close on the handwritten note under the drawing."
+    }
+  },
+  "21": {
+    "title": "skidding onto the gravel",
+    "lyrics": "",
+    "shot1": "The frog hops off the grass onto sand and gravel and skids to a stop. He turns to one side. Behind him the hen house now stands square on, soft with distance.",
+    "cameras": {
+      "v1": "[Static shot] Worm's eye at gravel level as he skids to a stop.",
+      "v2": "[Static shot] High and looking down, which makes the yard large and him small.",
+      "v3": "[Static shot] Close on the gravel spraying out under him."
+    }
+  },
+  "22": {
+    "title": "up the chicken ladder",
+    "lyrics": "",
+    "shot1": "The frog runs up the hen house ladder and disappears through the hole at the top.",
+    "cameras": {
+      "v1": "[Static shot] Profile, side on, the ladder and the hole both in frame.",
+      "v2": "[Static shot] Three-quarter front from below the ladder.",
+      "v3": "[Static shot] Close on his hands taking the rungs."
+    }
+  },
+  "23": {
+    "title": "into the down",
+    "lyrics": "Ich deck mich zu mit ihren Daunen",
+    "shot1": "Inside the hen house the frog hops and lands in a heap of down and feathers, which puffs up around him. The hen stands in his way and draws herself up, enormous from where he sits. He sings the line.",
+    "cameras": {
+      "v1": "[Static shot] From behind the frog at ground level, the hen towering in front of him.",
+      "v2": "[Static shot] High and looking down on both, which flips who is large.",
+      "v3": "[Static shot] Close on the frog's face tipped up at her."
+    }
+  },
+  "24": {
+    "title": "the hen shouts him down",
+    "lyrics": "Ich halt sie aus, ihre verrückten Launen",
+    "shot1": "The hen draws breath and shrieks at the frog. He sits in the feather heap with his back to her and feathers blow away from him in the blast. One loose feather sails up and covers everything. He sings the line.",
+    "cameras": {
+      "v1": "[Static shot] From behind him in the feather heap, feathers blowing away past camera, one covering the lens at the end.",
+      "v2": "[Static shot] Front on the hen as she draws breath and shrieks.",
+      "v3": "[Static shot] Close on feathers lifting out of the heap."
+    }
+  },
+  "25": {
+    "title": "she turns her head",
+    "lyrics": "Sie dreht den Kopf …",
+    "shot1": "The hen towers over the frog, who is still sitting in the feathers; only the lower part of her body is anywhere near him. She lowers her head down to his level and turns it, so one eye can fix on him directly. He sings the line.",
+    "cameras": {
+      "v1": "[Static shot] Close from behind the frog at ground level; only the lower part of the hen's body is in frame until her head comes down into it.",
+      "v2": "[Static shot] High and looking down on the pair, the size difference plain.",
+      "v3": "[Static shot] Extreme close on the hen's eye as it fixes on him."
+    }
+  },
+  "26": {
+    "title": "reaching behind him",
+    "lyrics": "... sie schaut mich an. Ich halt’s nicht aus.",
+    "shot1": "Drawn in broad comic style, the frog startles and stiffens with surprise. One frog arm goes back behind him and rummages, as if digging something out of a pocket that is not there. He sings the line.",
+    "cameras": {
+      "v1": "[Static shot] From behind the frog, staged broad and flat like a comic panel.",
+      "v2": "[Static shot] Front on his face, startled and stiff.",
+      "v3": "[Static shot] Close on the arm rummaging behind his back."
+    }
+  },
+  "27": {
+    "title": "the ring",
+    "lyrics": "Nimm mich zum Mann",
+    "shot1": "The frog's hands hold a small box folded from water lily leaves and open it. Inside, a polished gold ring stands up out of the leaves and catches the light. The hen house wall is soft behind him. He sings the line.",
+    "cameras": {
+      "v1": "[Static shot] Close, side on, the hen house wall soft behind the hands and the box.",
+      "v2": "[Static shot] Three-quarter front, both the box and his face in frame.",
+      "v3": "[Static shot] Extreme close on the ring standing up out of the leaves."
+    }
+  },
+  "28": {
+    "title": "she swallows it",
+    "lyrics": "",
+    "shot1": "The hen pecks the ring up off the leaves. Her head goes back up and she swallows it, with no reaction at all.",
+    "cameras": {
+      "v1": "[Static shot] On the hen as she pecks the ring up and swallows it.",
+      "v2": "[Static shot] Wide with the frog in frame too, watching it happen.",
+      "v3": "[Static shot] Extreme close on her throat as it goes down."
+    }
+  },
+  "29": {
+    "title": "she walks straight past",
+    "lyrics": "",
+    "shot1": "The hen simply walks past the frog in the feather heap, her feet passing close by him. The frog stays frozen, still staring at the empty air in front of him.",
+    "cameras": {
+      "v1": "[Static shot] Side on, the hen's feet huge and out of focus in the foreground as they pass him.",
+      "v2": "[Static shot] Three-quarter front on the frog, alone in the feathers.",
+      "v3": "[Static shot] Extreme close on his frozen, unmoving face."
+    }
+  },
+  "30": {
+    "title": "her walk",
+    "lyrics": "Ihr Gang erinnert an Urzeit-Echsen",
+    "shot1": "The frog turns around. Behind him the hen is walking toward the doorway, her rear rocking slightly left and right. As he turns, the focus travels off him and onto her, and the depth of field shifts with it. He sings the line.",
+    "cameras": {
+      "v1": "[Static shot] Front on the frog, the focus travelling off him and onto the hen behind as he turns.",
+      "v2": "[Static shot] Profile, side on, both of them in the same frame.",
+      "v3": "[Static shot] Close on the hen's rear rocking as she walks."
+    }
+  },
+  "31": {
+    "title": "cartoon hearts",
+    "lyrics": "",
+    "shot1": "The focus travels slowly back off the hen and onto the frog. Cartoon hearts rise up above his head, drawn as flat hard-edged shapes.",
+    "cameras": {
+      "v1": "[Static shot] The same frame held, focus travelling back onto the frog.",
+      "v2": "[Static shot] Profile, side on, the hearts rising off the top of frame.",
+      "v3": "[Static shot] Extreme close on his eyes."
+    }
+  },
+  "32": {
+    "title": "throwing the grain",
+    "lyrics": "Das macht mich rollig, ich will sie sexen",
+    "shot1": "The frog looks down and finds grain scattered on the ground in front of him. He gathers it up, throws it up over himself, and the grains fall back down toward him. He sings the line.",
+    "cameras": {
+      "v1": "[Static shot] Over the frog's shoulder, large in frame, the grain on the ground below him.",
+      "v2": "[Static shot] Medium wide as he throws the grain up over himself.",
+      "v3": "[Static shot] Close on the grain falling back down."
+    }
+  },
+  "33": {
+    "title": "grain on his back",
+    "lyrics": "Ich leg mir Körner auf den Rücken",
+    "shot1": "The grains land on the frog's wet skin and stick to it. Behind him the hen is walking to the door, and at the exact moment the grain lands she stops dead and turns her head. The focus snaps to her as she does. He sings the line.",
+    "cameras": {
+      "v1": "[Static shot] Extreme close on the grain landing on wet skin, the focus snapping past him to the hen.",
+      "v2": "[Static shot] Wide with both of them, the door behind her.",
+      "v3": "[Static shot] The reverse - the hen's head turning back toward him."
+    }
+  },
+  "34": {
+    "title": "she stoops down",
+    "lyrics": "Sie kommt näher, muss sich bücken.",
+    "shot1": "The frog sits in front of the feather heap with his head bowed and grain on his head, neck and back. The hen comes to him and lowers her head down, inspecting the grain. He sings the line.",
+    "cameras": {
+      "v1": "[Static shot] Side on and pulled back, the frog in front of the feather heap and the hen coming in.",
+      "v2": "[Static shot] Three-quarter front, the bowed head and the grain both readable.",
+      "v3": "[Static shot] Extreme close on the grain on his neck."
+    }
+  },
+  "35": {
+    "title": "she pecks him",
+    "lyrics": "Sie pickt zärtlich, ich quak leise",
+    "shot1": "The hen starts to peck, once only, gently. At the touch the frog croaks and begins to sweat, single beads standing out on his skin. He sings the line.",
+    "cameras": {
+      "v1": "[Static shot] The identical setup to the shot before, held.",
+      "v2": "[Static shot] Close on the point of contact where the beak meets his skin.",
+      "v3": "[Static shot] The reverse - the hen's eye as she pecks."
+    }
+  },
+  "36": {
+    "title": "their eyes meet",
+    "lyrics": "Jede Berührung schickt mich auf eine Reise",
+    "shot1": "The hen pecks again. The background falls away into flat black and everything slows until only the hen and the frog are left. As she comes down to peck once more the frog looks up, and their eyes meet. He sings the line.",
+    "cameras": {
+      "v1": "[Static shot] Holding both of them as the background falls away to flat black.",
+      "v2": "[Static shot] Close on the frog looking up.",
+      "v3": "[Static shot] Close on the hen's beak coming down."
+    }
+  },
+  "37": {
+    "title": "the hen understands",
+    "lyrics": "Frosch und Huhn wie ungewöhnlich.",
+    "shot1": "The looks passing between the hen and the frog get more intent. Then it lands with the hen: her pupils suddenly contract to pinpricks.",
+    "cameras": {
+      "v1": "[Push in] Close on the hen, pressing in as her pupils contract.",
+      "v2": "[Static shot] Wide with both of them in the black.",
+      "v3": "[Static shot] The reverse - close on the frog holding her look."
+    }
+  },
+  "38": {
+    "title": "onto her back",
+    "lyrics": "Vogel und Amphibium",
+    "shot1": "The hen turns around and gestures at her own back with her beak. The frog hops up onto it and settles between her wings.",
+    "cameras": {
+      "v1": "[Static shot] Wide, both animals fully in frame.",
+      "v2": "[Static shot] Medium on the hen, chest up, as she gestures at her back.",
+      "v3": "[Static shot] Insert on the frog settling between her wings."
+    }
+  },
+  "39": {
+    "title": "running for the door",
+    "lyrics": "die finden si…",
+    "shot1": "The hen runs for the doorway with the frog on her back.",
+    "cameras": {
+      "v1": "[Zoom in] From behind as she runs for the doorway, pressing in as she goes.",
+      "v2": "[Static shot] Front on, the pair running straight at camera.",
+      "v3": "[Static shot] Close on the frog's hands gripping her feathers."
+    }
+  },
+  "40": {
+    "title": "out of the hen house",
+    "lyrics": "siiiiiihiiiisch",
+    "shot1": "Outside the hen house, slow motion takes hold as the hen leaps out of the doorway with the frog on her back. Hearts circle the pair of them, drawn as flat shapes. At the end the two land on the ground and she runs on, the frog still on her back.",
+    "cameras": {
+      "v1": "[Static shot] Wide and side on as the leap carries them out of the doorway in slow motion.",
+      "v2": "[Static shot] Medium on the pair at the top of the leap.",
+      "v3": "[Static shot] Insert on the hearts turning around them."
+    }
+  },
+  "41": {
+    "title": "imagine our children again",
+    "lyrics": "Stell dir uns’re Kinder vooooor",
+    "shot1": "The hen keeps running with the frog on her back. The two of them look at each other, besotted, while the background tears past behind them in dust. He sings the line.",
+    "cameras": {
+      "v1": "[Static shot] Close and front on, the hen's upper body with the frog visible on her back.",
+      "v2": "[Static shot] Wide of the two running across open ground.",
+      "v3": "[Static shot] Close on the ground and dust tearing past beneath them."
+    }
+  },
+  "42": {
+    "title": "stroking her feathers",
+    "lyrics": "Schleimige Federn große Augen",
+    "shot1": "The frog strokes the hen's plumage tenderly and leaves a faint trail of slime across it. He closes his eyes and leans against her neck. He sings the line.",
+    "cameras": {
+      "v1": "[Static shot] Close on the frog stroking her plumage.",
+      "v2": "[Static shot] Wide, both of them still running, the gesture small in frame.",
+      "v3": "[Static shot] Extreme close on the slime trail left across the feathers."
+    }
+  },
+  "43": {
+    "title": "the researcher stands up",
+    "lyrics": "Die nicht zum fliegen oder schwimmen taugen",
+    "shot1": "The researcher sits at the pond, drawing, his back turned. The hen and frog run on and blur away as the focus travels to him. He jumps up and grabs at the chair to steady it.",
+    "cameras": {
+      "v1": "[Zoom out] Widening off the running pair and back onto the researcher, seen from behind.",
+      "v2": "[Static shot] Front on the researcher as he jumps up.",
+      "v3": "[Static shot] Close on his hand grabbing the chair."
+    }
+  },
+  "44": {
+    "title": "photographing them",
+    "lyrics": "Federphibien soll man sie nennen",
+    "shot1": "The researcher, still with his back turned, raises the SLR hanging at his chest and starts shooting, hurried and clumsy, his eye pressed to the viewfinder.",
+    "cameras": {
+      "v1": "[Static shot] From behind the researcher as he shoots.",
+      "v2": "[Static shot] Front on, his face pressed to the viewfinder.",
+      "v3": "[Static shot] Close on the SLR and his eye at the eyepiece."
+    }
+  },
+  "45": {
+    "title": "running on",
+    "lyrics": "Nachkömmlinge von Frosch und Hennen",
+    "shot1": "The hen runs on with the frog on her back, out across open ground, taking a hop over a puddle without breaking stride.",
+    "shot2": "The frog, riding on the hen's back, snatches a fly out of the air with his tongue, an offhand and unhurried catch, and swallows it while she keeps running.",
+    "cameras": {
+      "v1": "[Tracking shot] Travelling with the pair across open ground, holding them in the same part of frame.",
+      "v2": "[Static shot] Locked wide, letting them run through frame and out of it.",
+      "v3": "[Static shot] Close on the frog riding on her back."
+    }
+  },
+  "46": {
+    "title": "into the sunset",
+    "lyrics": "",
+    "shot1": "The two of them run up a shallow hill toward the setting sun until only their silhouettes are left against the sky.",
+    "cameras": {
+      "v1": "[Static shot] From behind as the two run up the hill into the low sun.",
+      "v2": "[Static shot] Front on, the pair reduced to silhouettes coming toward camera.",
+      "v3": "[Static shot] Close on the two silhouetted outlines against the sky."
+    }
+  },
+  "47": {
+    "title": "the final freeze",
+    "lyrics": "",
+    "shot1": "The hen jumps, the frog lifts off her back, and the image holds on that pose as a freeze frame, the way an old cartoon ends. Nothing moves.",
+    "cameras": {
+      "v1": "[Static shot] Held on the freeze at the top of the jump, nothing moving.",
+      "v2": "[Static shot] Wide on the frozen pose with the whole landscape around it.",
+      "v3": "[Static shot] Close on the two of them held mid-air."
+    }
+  }
+}
