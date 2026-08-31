@@ -82,7 +82,7 @@
   "9": {
     "title": "the hen pecking grain",
     "lyrics": "Sie sagt meine Augen sind zu groß",
-    "shot1": "A plain brown hen walks slowly and proudly about the yard, pecking grain out of the dirt, taking no notice of anything else. The frog sings the line.",
+    "shot1": "A sandy-tan hen walks slowly and proudly about the yard, pecking grain out of the dirt, taking no notice of anything else. The frog sings the line.",
     "cameras": {
       "v1": "[Static shot] Wide, the hen centred in the yard with room around her.",
       "v2": "[Static shot] Medium on the hen, chest up, walking through frame.",
@@ -132,7 +132,7 @@
   "14": {
     "title": "in love with a chicken",
     "lyrics": "Bin argh verknallt in ein Huhn. / Uns’re Welten, weit auseinander. / Doch bestimmt nur für einander.",
-    "shot1": "The frog sits with his fist held against his heart, flat to his chest, in the overwrought way of anime melodrama. His eyes are closed and he looks down as he sings the line. In the sky behind him the hen's profile appears, half transparent.",
+    "shot1": "The frog sits with his fist pressed flat against the middle of his chest, in the overwrought way of anime melodrama. His eyes are closed and he looks down as he sings the line. In the sky behind him the hen's profile appears, half transparent.",
     "shot2": "Nothing in the staging changes. The frog opens his eyes and a single tear glitters in the corner of one of them as he looks up at the sky, where the hen's face still hangs half transparent. He sings the line.",
     "shot3": "The frog wipes the tear out of his eye and his expression sets, stubborn. He sings the line, then gathers himself and sets off hopping through the grass.",
     "cameras": {
@@ -142,21 +142,20 @@
     }
   },
   "15": {
-    "title": "hopping through the grass",
-    "lyrics": "",
-    "shot1": "The frog hops steadily along and the grass streams past him. He covers very little actual ground, so the painted background slides by slowly behind him. The sky above him is open and empty.",
-    "shot2": "In the empty sky above the hopping frog a half transparent daydream fades up: the hen and the frog together, drawn in the same flat cel style but paler, as if painted on glass.",
+    "title": "imagine our children",
+    "lyrics": "Stell dir unsre Kinder vooooor",
+    "shot1": "A daydream painted half transparent into the open sky above the hopping frog. The hen sits on a plain wooden chair, crocheting, the hook working steadily. The view widens off her and three small Federphibien come into it, on the floor in front of the chair, playing with plush tadpole toys. He sings the line.",
     "cameras": {
-      "v1": "[Tracking shot] Travelling alongside the hopping frog at his own height, the frog in the lower third and the sky left open above him.",
-      "v2": "[Static shot] Locked wide, the frog hopping through frame and out of it.",
-      "v3": "[Static shot] Close on his legs and the grass streaming past them."
+      "v1": "[Zoom out] Starting close on the hen and her crochet hook and widening until the three Federphibien on the floor are in frame.",
+      "v2": "[Static shot] Low at floor level among the Federphibien and their plush tadpoles, the hen and the chair behind them.",
+      "v3": "[Static shot] Insert on the crochet hook working in her beak."
     }
   },
   "16": {
     "title": "hopping through the grass",
     "lyrics": "",
     "shot1": "The frog hops steadily along and the grass streams past him. He covers very little actual ground, so the painted background slides by slowly behind him. The sky above him is open and empty.",
-    "shot2": "In the empty sky above the hopping frog a half transparent daydream fades up: the hen and the frog together, drawn in the same flat cel style but paler, as if painted on glass.",
+    "shot2": "The grass keeps streaming past and the frog keeps hopping. The upper half of the frame stays open sky with nothing in it.",
     "cameras": {
       "v1": "[Tracking shot] Travelling alongside the hopping frog at his own height, the frog in the lower third and the sky left open above him.",
       "v2": "[Static shot] Locked wide, the frog hopping through frame and out of it.",
@@ -176,7 +175,7 @@
   "18": {
     "title": "great big eyes",
     "lyrics": "... große Auuuugen [so große Augen!]",
-    "shot1": "A Federphibium's huge bulging eyes, orange ringed and set wide, blink slowly and heavily. Then a tongue wipes across both of them. The frog sings the line.",
+    "shot1": "A Federphibium's huge bulging white eyes, each with its small black dot pupil, set wide, blink slowly and heavily. Then a tongue wipes across both of them. The frog sings the line.",
     "cameras": {
       "v1": "[Zoom in] Pushing onto the huge bulging eyes.",
       "v2": "[Static shot] Wide on the whole Federphibium, so the eyes read as part of an animal.",
@@ -306,7 +305,7 @@
   "31": {
     "title": "cartoon hearts",
     "lyrics": "",
-    "shot1": "The focus travels slowly back off the hen and onto the frog. Cartoon hearts rise up above his head, drawn as flat hard-edged shapes.",
+    "shot1": "The focus travels slowly back off the hen and onto the frog. This is the one shot in the film that uses a floating symbol: a few flat, hard-edged cartoon hearts rise up above his head, held a moment and gone. They appear nowhere else.",
     "cameras": {
       "v1": "[Static shot] The same frame held, focus travelling back onto the frog.",
       "v2": "[Static shot] Profile, side on, the hearts rising off the top of frame.",
@@ -396,11 +395,11 @@
   "40": {
     "title": "out of the hen house",
     "lyrics": "siiiiiihiiiisch",
-    "shot1": "Outside the hen house, slow motion takes hold as the hen leaps out of the doorway with the frog on her back. Hearts circle the pair of them, drawn as flat shapes. At the end the two land on the ground and she runs on, the frog still on her back.",
+    "shot1": "Outside the hen house, slow motion takes hold as the hen leaps out of the doorway with the frog on her back. At the end the two land on the ground and she runs on, the frog still on her back.",
     "cameras": {
       "v1": "[Static shot] Wide and side on as the leap carries them out of the doorway in slow motion.",
       "v2": "[Static shot] Medium on the pair at the top of the leap.",
-      "v3": "[Static shot] Insert on the hearts turning around them."
+      "v3": "[Static shot] Insert on the frog's hands gripping her feathers as the leap carries them."
     }
   },
   "41": {

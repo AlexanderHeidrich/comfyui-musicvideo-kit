@@ -27,32 +27,35 @@ Add your own --v flag; the version changes too often to hard-code here.
 01_char_federphibium.png
   the title creature - GENERATE THIS FIRST
 character sheet, hand-drawn 2D cartoon in the manner of a European television animation special, single
-creature full body sitting squat facing viewer, hybrid of frog and chicken, fat
-potbellied sage green toad body with soft darker speckling and a large pale cream
-belly, bright red chicken comb on the head, small red wattle under the chin, short
-yellow-orange beak, big heavy-lidded eyes set high and wide, frog legs with long
-toes and small yellow claws, two tiny useless white feathered wings tucked at the
-flanks, clean bold black hand-drawn ink outline with slight wobble closing every shape, interiors a flat base colour softly airbrushed darker toward the rim, one hard white glint on the damp skin, desaturated overcast palette of sage olive dusty liver brown straw and cream, faint paper tooth, high-key pale values, plain pale grey backdrop
+creature full body sitting UPRIGHT on its haunches like a meerkat facing viewer,
+hybrid of frog and chicken, potbellied sage green frog body with soft darker
+speckling and a large pale cream belly, bright red chicken comb on the head, small
+red wattle under the chin, short yellow-orange beak, large round white eyes each
+with a small black dot pupil set high and wide, scaly yellow chicken feet with
+three splayed claws, frog arms lined underneath with cream-white feathers that
+spread like a flying squirrel's membrane and end in proper frog hands with long
+fingers, clean bold black hand-drawn ink outline with slight wobble closing every shape, interiors a flat base colour softly airbrushed darker toward the rim, one hard white glint on the damp skin, desaturated overcast palette of sage olive dusty liver brown straw and cream, faint paper tooth, high-key pale values, plain pale grey backdrop
 --style raw --ar 4:5 --no text, letters, labels, watermark, signature, border, frame, 3d render, photorealistic, vector art, hard-edged cel shadow shapes, blotchy watercolour blooms, sketchy broken searching outline, brown or coloured outline, heavy paper grain, sterile vector edges, bright saturated primaries, neon, muddy dark values
 
 --------------------------------------------------------------------------
 02_char_der-frosch.png
   in 42 of the 47 scenes - the important one
 character sheet, hand-drawn 2D cartoon in the manner of a European television animation special, single
-cartoon pond frog full body sitting squat facing viewer, potbellied sage green body
-with soft darker speckling and a large pale cream belly, big heavy-lidded eyes set
-high and wide, wide frog mouth, long toes with small yellow claws, permanently damp
+cartoon pond frog full body sitting squat facing viewer, potbellied grey-green body
+with soft mottled olive patches and a large pale cream belly, large round white eyes
+each with a small black dot pupil set high and wide, wide flat mouth drawn as one
+shallow curve, smooth skin not warty, long toes with small yellow claws, permanently damp
 skin, no comb no wattle no beak no feathers, earnest lovesick expression, clean bold black hand-drawn ink outline with slight wobble closing every shape, interiors a flat base colour softly airbrushed darker toward the rim, one hard white glint on the wet skin, desaturated overcast palette of sage olive dusty liver brown straw and cream, faint paper tooth, high-key pale values, plain pale grey backdrop
 --style raw --ar 4:5 --no text, letters, labels, watermark, signature, border, frame, 3d render, photorealistic, vector art, hard-edged cel shadow shapes, blotchy watercolour blooms, sketchy broken searching outline, brown or coloured outline, heavy paper grain, sterile vector edges, bright saturated primaries, neon, muddy dark values, chicken parts, comb, wattle, beak
 
 --------------------------------------------------------------------------
 03_char_das-huhn.png
   in 34 of the 47 scenes
-character sheet, hand-drawn 2D cartoon in the manner of a European television animation special, single plain
-rust-brown farmyard hen full body standing in profile and again facing viewer,
-bright red comb and wattle, yellow-orange beak, scaly yellow legs with claws, small
-beady black eyes, completely ordinary and slightly haughty, no humanisation no
-eyelashes no blush, clean bold black hand-drawn ink outline with slight wobble closing every shape, interiors a flat base colour softly airbrushed darker toward the rim along the feathers, desaturated overcast palette of rust brown straw cream and dull red, faint paper tooth, high-key pale values, plain pale grey backdrop
+character sheet, hand-drawn 2D cartoon in the manner of a European television animation special, single warm
+sandy-tan farmyard hen full body standing in profile and again facing viewer,
+bright red comb and dark red wattle, yellow-orange beak, cream breast and belly, scaly yellow legs with claws, large
+round white eyes each with a small black dot pupil, completely ordinary and slightly haughty, no humanisation no
+eyelashes no blush, clean bold black hand-drawn ink outline with slight wobble closing every shape, interiors a flat base colour softly airbrushed darker toward the rim along the feathers, desaturated overcast palette of sandy tan straw cream and dull red, faint paper tooth, high-key pale values, plain pale grey backdrop
 --style raw --ar 4:5 --no text, letters, labels, watermark, signature, border, frame, 3d render, photorealistic, vector art, hard-edged cel shadow shapes, blotchy watercolour blooms, sketchy broken searching outline, brown or coloured outline, heavy paper grain, sterile vector edges, bright saturated primaries, neon, muddy dark values, cute, eyelashes, big lashes
 
 --------------------------------------------------------------------------
