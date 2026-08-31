@@ -164,12 +164,11 @@
   "16": {
     "title": "hopping through the grass",
     "lyrics": "",
-    "shot1": "The frog hops steadily along and the grass streams past him. He covers very little actual ground, so the painted background slides by slowly behind him. The sky above him is open and empty.",
-    "shot2": "The grass keeps streaming past and the frog keeps hopping. The upper half of the frame stays open sky with nothing in it.",
+    "shot1": "The frog hops along on a steady repeating cycle, the same push and land over and over at an even rhythm, and he fills about a third of the frame. He is only crossing two metres of ground in the whole song, so the painted background drifts past behind him slowly and at a perfectly constant rate. This is built to LOOP: it ends on exactly the pose and the background position it started on, so the clip can be butt-joined to itself and run as long as it needs to. Nothing in the grass or the background is distinctive enough to give the repeat away - no landmark, no single recognisable weed, no change of light. He never leaves the frame and nothing enters it. Above him the upper half stays open sky with nothing in it at all.",
     "cameras": {
-      "v1": "[Tracking shot] Travelling alongside the hopping frog at his own height, the frog in the lower third and the sky left open above him.",
-      "v2": "[Static shot] Locked wide, the frog hopping through frame and out of it.",
-      "v3": "[Static shot] Close on his legs and the grass streaming past them."
+      "v1": "[Tracking shot] Travelling alongside him at his own height, matching his speed exactly so he holds the same spot in the lower third and the sky stays open above him.",
+      "v2": "[Tracking shot] Travelling with him from slightly behind and lower, the grass tops crossing the near foreground, the sky still open above.",
+      "v3": "[Tracking shot] Travelling with his legs and feet close, the grass streaming past them at the same constant rate."
     }
   },
   "17": {
@@ -438,18 +437,18 @@
     "shot1": "The researcher sits at the pond, drawing, his back turned. The hen and frog run on and blur away as the focus travels to him. He jumps up and grabs at the chair to steady it.",
     "cameras": {
       "v1": "[Zoom out] Widening off the running pair and back onto the researcher, seen from behind.",
-      "v2": "[Static shot] Front on the researcher as he jumps up.",
-      "v3": "[Static shot] Close on his hand grabbing the chair."
+      "v2": "[Static shot] Low from behind him, the chair tipping and his back filling one side of frame.",
+      "v3": "[Static shot] Close from behind on his hand catching the chair, the pond beyond."
     }
   },
   "44": {
     "title": "photographing them",
     "lyrics": "Federphibien soll man sie nennen",
-    "shot1": "The researcher, still with his back turned, raises the SLR hanging at his chest and starts shooting, hurried and clumsy, his eye pressed to the viewfinder.",
+    "shot1": "The researcher, still with his back turned, lifts the old camera hanging at his front and starts shooting, hurried and clumsy, bent over the finder.",
     "cameras": {
       "v1": "[Static shot] From behind the researcher as he shoots.",
-      "v2": "[Static shot] Front on, his face pressed to the viewfinder.",
-      "v3": "[Static shot] Close on the SLR and his eye at the eyepiece."
+      "v2": "[Static shot] Over his shoulder from behind, the camera held up and the running pair small beyond it.",
+      "v3": "[Static shot] Close from behind on his hands working the old camera, the black strap taut across his back."
     }
   },
   "45": {

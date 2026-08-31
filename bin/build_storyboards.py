@@ -456,14 +456,16 @@ def main():
     for r in rows:
         n = int(r["scene"]); c = content[r["scene"]]
         dst = os.path.join(song, "%02d_%s.mp3" % (n, slug(c["title"])))
-        if os.path.exists(dst):
-            continue
-        cands = [os.path.join(song, "scene_%02d.mp3" % n),
+        # a fresh slice from split_audio always wins: re-cutting the song must
+        # replace what is paired with the prompts, not be ignored because a
+        # slice under that name happens to be lying there already
+        fresh = [os.path.join(song, "scene_%02d.mp3" % n),
                  os.path.join(song, "audio", "scene_%02d.mp3" % n)]
-        # a renamed scene leaves its slice behind under the old slug
-        cands += sorted(os.path.join(song, f) for f in os.listdir(song)
-                        if re.match(r"^%02d_.*\.mp3$" % n, f))
-        for cand in cands:
+        # otherwise a renamed scene leaves its slice behind under the old slug
+        stale = sorted(os.path.join(song, f) for f in os.listdir(song)
+                       if re.match(r"^%02d_.*\.mp3$" % n, f)
+                       and os.path.join(song, f) != dst)
+        for cand in fresh + ([] if os.path.exists(dst) else stale):
             if os.path.exists(cand):
                 os.replace(cand, dst); renamed += 1; break
     adir = os.path.join(song, "audio")

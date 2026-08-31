@@ -128,6 +128,19 @@ for line in open(os.path.join(work,"sil.log"),encoding="utf-8",errors="ignore"):
     a=re.search(r"silence_start:\s*([\d.]+)",line); b=re.search(r"silence_end:\s*([\d.]+)",line)
     if a: cur=float(a.group(1))
     if b and cur is not None: sil.append({"start":round(cur,3),"end":round(float(b.group(1)),3)}); cur=None
+if cur is not None: sil.append({"start":round(cur,3),"end":round(dur,3)})   # silence to EOF
+
+# whisper fills trailing silence with a hallucinated line repeated to the end of
+# the file. Nothing after the last real audio can be a transcript of anything.
+audio_end=dur
+if sil and sil[-1]["end"]>=dur-0.30 and sil[-1]["start"]<dur-0.30:
+    audio_end=sil[-1]["start"]
+cut=[s for s in segments if s["start"]>=audio_end-0.25 or s["start"]>dur]
+if cut:
+    segments=[s for s in segments if s not in cut]
+    words=[w for w in words if w["start"]<audio_end-0.25 and w["start"]<=dur]
+    print("trailing silence: dropped %d segment(s) after %.2fs (hallucinated)"
+          %(len(cut),audio_end))
 
 covered=0.0; holes=[]; c=0.0
 for s in segments:

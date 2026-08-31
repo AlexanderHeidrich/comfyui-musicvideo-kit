@@ -25,6 +25,8 @@ n=0
 while IFS=$'\t' read -r scene start end frames dur drift rest; do
   [ "$scene" = "scene" ] && continue
   [ -z "${scene:-}" ] && continue
+  # a scene with no window of the song (the Vorspann) gets no slice
+  [ "$start" = "-" ] && continue
   f=$(printf "%s/scene_%02d.mp3" "$OUT" "$scene")
   # apad + an output -t so the slice is ALWAYS exactly `dur` long. A scene that
   # runs past the end of the song would otherwise hand H3 an audio reference

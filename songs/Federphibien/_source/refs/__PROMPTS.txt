@@ -27,14 +27,12 @@ Add your own --v flag; the version changes too often to hard-code here.
 01_char_federphibium.png
   the title creature - GENERATE THIS FIRST
 character sheet, hand-drawn 2D cartoon in the manner of a European television animation special, single
-creature full body sitting UPRIGHT on its haunches like a meerkat facing viewer,
-hybrid of frog and chicken, potbellied sage green frog body with soft darker
-speckling and a large pale cream belly, bright red chicken comb on the head, small
-red wattle under the chin, short yellow-orange beak, large round white eyes each
-with a small black dot pupil set high and wide, scaly yellow chicken feet with
-three splayed claws, frog arms lined underneath with cream-white feathers that
-spread like a flying squirrel's membrane and end in proper frog hands with long
-fingers, clean bold black hand-drawn ink outline with slight wobble closing every shape, interiors a flat base colour softly airbrushed darker toward the rim, one hard white glint on the damp skin, desaturated overcast palette of sage olive dusty liver brown straw and cream, faint paper tooth, high-key pale values, plain pale grey backdrop
+creature full body sitting squat on the ground facing viewer, hybrid of frog and
+chicken, fat potbellied sage green frog body with soft mottled olive patches and a
+large pale cream belly, bright red chicken comb on the head, small red two-lobed
+wattle under a short yellow-orange beak, large round white eyes each with a small
+black dot pupil set high and wide, frog legs and frog feet with long toes ending in
+small yellow claws, two small useless tufts of cream-white feathers at the flanks, clean bold black hand-drawn ink outline with slight wobble closing every shape, interiors a flat base colour softly airbrushed darker toward the rim, one hard white glint on the damp skin, desaturated overcast palette of sage olive dusty liver brown straw and cream, faint paper tooth, high-key pale values, plain pale grey backdrop
 --style raw --ar 4:5 --no text, letters, labels, watermark, signature, border, frame, 3d render, photorealistic, vector art, hard-edged cel shadow shapes, blotchy watercolour blooms, sketchy broken searching outline, brown or coloured outline, heavy paper grain, sterile vector edges, bright saturated primaries, neon, muddy dark values
 
 --------------------------------------------------------------------------
@@ -77,7 +75,7 @@ character sheet, hand-drawn 2D cartoon in the manner of a European television an
 field naturalist seen from behind, full body, face not visible, khaki trousers,
 plain shirt with rolled sleeves, straw hat, black camera strap around the neck,
 hardbound notebook and pencil in hand, unhurried and absorbed, clean bold black hand-drawn ink outline with slight wobble closing every shape, interiors a flat base colour softly airbrushed darker toward the rim, desaturated palette of khaki straw and cream, faint paper tooth, high-key pale values, plain pale grey backdrop
---style raw --ar 4:5 --no text, letters, labels, watermark, signature, border, frame, 3d render, photorealistic, vector art, hard-edged cel shadow shapes, blotchy watercolour blooms, sketchy broken searching outline, brown or coloured outline, heavy paper grain, sterile vector edges, bright saturated primaries, neon, muddy dark values, face, front view, shoulder bag, satchel, messenger bag, backpack
+--style raw --ar 4:5 --no text, letters, labels, watermark, signature, border, frame, 3d render, photorealistic, vector art, hard-edged cel shadow shapes, blotchy watercolour blooms, sketchy broken searching outline, brown or coloured outline, heavy paper grain, sterile vector edges, bright saturated primaries, neon, muddy dark values, face, front view, modern camera, dslr, slr
 
 --------------------------------------------------------------------------
 06_loc_pond.png

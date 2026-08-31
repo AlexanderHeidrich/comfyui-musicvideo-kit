@@ -14,18 +14,15 @@ REFERENCE - read this first
   the water, in the grass, in the hen house or anywhere in frame. What the film is
   about until the chorus is one ordinary frog.
 
-  THE FEDERPHIBIUM, the hybrid child: a sage-green frog body that sits
-  UPRIGHT on its haunches like a meerkat, not squat like a toad, with a pale cream
-  belly and soft mottled olive patches over the green. An upright red chicken comb
-  on its head, a red two-lobed wattle under a small yellow-orange beak. Its FEET
-  are a chicken's - scaly yellow with three splayed claws - while its ARMS stay
-  frog arms, lined along their underside with cream-white feathers that spread like
-  a flying squirrel's membrane and end, absurdly, in proper frog hands with long
-  fingers. The feathers are trim, not wings, and they lift nothing. Its eyes are
-  large white spheres set high and wide, each with a small black dot pupil and a
-  fine dark rim - no iris colour, no ring.
-  NOTE: the reference sheet still draws it squat with plain frog feet and small
-  wing tufts at the flanks. The description above is what the film draws.
+  THE FEDERPHIBIUM, the hybrid child: a fat, potbellied sage-green frog body
+  sitting SQUAT on the ground the way a toad sits, with a large pale cream belly and
+  soft mottled olive patches over the green. An upright red chicken comb on its
+  head, a red two-lobed wattle under a small yellow-orange beak. Frog legs and frog
+  feet, long toes ending in small yellow claws, and two small useless tufts of
+  cream-white feathers at the flanks where wings would be - trim, not wings, and
+  they lift nothing. Its eyes are large white spheres set high and wide, each with a
+  small black dot pupil and a fine dark rim - no iris colour, no ring.
+  Take the build straight off the sheet. It is the spec, not an approximation.
   <Picture 2> THE FROG.  <Picture 3> THE HEN.
   <Picture 5> THE RESEARCHER, seen from behind, which is how he is always seen.
 
@@ -75,18 +72,19 @@ CAST - the reference is the child, and the parents are it taken apart
   play it early. The house eyes, exactly as the frog has them. No
   eyelashes, no blush, no anthropomorphism of any kind.
   THE FEDERPHIBIEN - the imagined children: <Picture 1> exactly, in numbers.
-  Comb, wattle, beak, an upright meerkat-sitting frog body, feathered frog arms
-  ending in frog hands, scaly chicken feet. The wings
+  Comb, wattle, beak, a squat potbellied frog body, frog feet with small claws,
+  small feather tufts at the flanks. The wings
   cannot lift them and they will not swim, and they do not know it yet. They
   appear ONLY inside the chorus fantasies, never in the real pond.
   THE RESEARCHER - <Picture 5>. The only human being in the film, and the film never shows his
   face. Khaki trousers, a plain shirt with the sleeves turned back, a straw hat.
-  A green hardbound notebook and a pencil, and an SLR on a black strap round his
-  neck - for almost the whole film only the black band across his back and shoulder
-  is visible, the body and lens of the camera only at the edge of the close shots
-  of the notebook, and properly just once, at the very end, when he finally uses
-  it. (The reference sheet gives him a shoulder bag instead; the band round the
-  neck is what the film draws.) Middle aged, unhurried, completely absorbed. He sits on a folding
+  A green hardbound notebook and a pencil, and an old 1920s camera - a squarish
+  black leather-covered folding plate camera - hanging at his front from a broad
+  black strap worn across one shoulder. It reads as a dark block and it is easy to
+  mistake for a bag; it is not a bag. For almost the whole film only the broad black
+  strap across his back and shoulder is really visible, the body and lens only at
+  the edge of the close shots of the notebook, and properly just once, at the very
+  end, when he finally uses it. Middle aged, unhurried, completely absorbed. He sits on a folding
   chair at the edge of the pond and draws what he sees, in the fine pencil manner
   of a nineteenth century scientific plate, the parts labelled in a small hand.
   Always seen from behind or over his shoulder, at most a rear three-quarter where
@@ -125,8 +123,8 @@ SCALE - these are real animals and they are not the same size
   THE FROG      a common European pond frog. 8 cm from nose to rump, about
                   10 cm sitting up. The length of a man's thumb. He fits inside
                   a cupped human hand with room to spare.
-  THE FEDERPHIBIEN  the same frog body sitting upright like a meerkat, about
-                  15 cm to the top of the comb. Still a small animal.
+  THE FEDERPHIBIEN  the same squat frog body with a comb on top, about
+                  12 cm to the top of the comb. Still a small animal.
   THE HEN        an ordinary farmyard hen. 45 cm to the top of the comb,
                   50 cm beak to tail. Four to five times the frog's height.
                   Standing beside her he reaches her hock - the backward joint
@@ -346,10 +344,7 @@ The frog wipes the tear out of his eye and his expression sets, stubborn. He sin
 A daydream painted half transparent into the open sky above the hopping frog. The hen sits on a plain wooden chair, crocheting, the hook working steadily. The view widens off her and three small Federphibien come into it, on the floor in front of the chair, playing with plush tadpole toys. He sings the line.
 
 @SCENE 00:55.708-01:07.958 | hopping through the grass
-The frog hops steadily along and the grass streams past him. He covers very little actual ground, so the painted background slides by slowly behind him. The sky above him is open and empty.
-
-[Shot 2] At 00:04.552, the shot cuts to:
-The grass keeps streaming past and the frog keeps hopping. The upper half of the frame stays open sky with nothing in it.
+The frog hops along on a steady repeating cycle, the same push and land over and over at an even rhythm, and he fills about a third of the frame. He is only crossing two metres of ground in the whole song, so the painted background drifts past behind him slowly and at a perfectly constant rate. This is built to LOOP: it ends on exactly the pose and the background position it started on, so the clip can be butt-joined to itself and run as long as it needs to. Nothing in the grass or the background is distinctive enough to give the repeat away - no landmark, no single recognisable weed, no change of light. He never leaves the frame and nothing enters it. Above him the upper half stays open sky with nothing in it at all.
 
 @SCENE 01:01.458-01:06.625 | slimy feathers
 The feathers of a small Federphibium are wet and beaded with mucus, each feather stuck to the next where the slime has soaked it. The frog sings the line.
@@ -433,7 +428,7 @@ The frog strokes the hen's plumage tenderly and leaves a faint trail of slime ac
 The researcher sits at the pond, drawing, his back turned. The hen and frog run on and blur away as the focus travels to him. He jumps up and grabs at the chair to steady it.
 
 @SCENE 02:24.792-02:29.958 | photographing them
-The researcher, still with his back turned, raises the SLR hanging at his chest and starts shooting, hurried and clumsy, his eye pressed to the viewfinder.
+The researcher, still with his back turned, lifts the old camera hanging at his front and starts shooting, hurried and clumsy, bent over the finder.
 
 @SCENE 02:28.125-02:39.667 | running on
 The hen runs on with the frog on her back, out across open ground, taking a hop over a puddle without breaking stride.
