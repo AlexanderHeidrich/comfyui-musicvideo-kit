@@ -136,10 +136,27 @@ RENDERING THIS FOLDER IN COMFYUI
     survives and `mvkit concat` still reads them in scene order. Audio rides
     through untouched.
 
-    WHY A 4x MODEL AND THEN DOWN. RealESRGAN_x4plus_anime_6B is trained on line
-    art and keeps a hard ink outline where a photo model smears it. The 4x models
-    are better trained than the 2x ones, and scaling back down to the target takes
-    the over-sharpening out again. Put the .pth in ComfyUI/models/upscale_models/.
+    THE MODEL'S FACTOR IS YOUR OUTPUT SIZE. There is no scaling node after it on
+    purpose - what the model produces is what gets written. So the factor has to
+    be the one you actually want:
+
+      source     2x model        4x model
+      1080p      3840x2160  4K   7680x4320   8K
+      720p       2560x1440       5120x2880
+      540p       1920x1080       3840x2160  4K
+
+    For 4K that means: a 540p render wants the 4x model, a 1080p render wants a
+    2x one. Check what H3 actually gives you before committing a night of GPU
+    time - `mvkit probe` prints the H3 node's `resolution` field.
+
+    4x line-art models: RealESRGAN_x4plus_anime_6B (the conservative one, keeps a
+    hard ink outline), 4x-AnimeSharp (sharper, may be too much here),
+    DigitalFrames 2.0 (trained on cel/film toons - not the 2.1_Aggressive
+    variant). 2x: Adore, a realtime 1080p anime upscaler.
+    Put the .pth in ComfyUI/models/upscale_models/ and name it in the loader.
+
+    Mind the size at 4K and above: 8K frames will eat VRAM and disk. crf 12 on
+    the combine keeps quality high, which also means large files.
 
     NOT a diffusion upscaler, on purpose. This picture is a black line and flat
     washes - there is no hidden detail to reconstruct, so a generative model

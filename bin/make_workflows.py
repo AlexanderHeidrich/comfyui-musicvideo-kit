@@ -30,9 +30,10 @@ AUDIO_FIELD = "audio_file"
 IMAGE_CLASS = "VHS_LoadImagePath"
 IMAGE_FIELD = "path"
 SAVE_CLASS = "SaveVideo"
-# the upscale pass: 4x on an anime/line-art model, then down to the target size.
-# The 4x models are better trained than the 2x ones and the downscale takes the
-# over-sharpening back out - which matters on a flat ink-and-wash picture.
+# The upscale pass runs ONE model and writes what comes out - no rescaling after
+# it, so the model's factor has to be the factor you want. 4x off a 540p render
+# lands on 3840x2160 exactly; off 1080p it lands on 7680x4320, and a 2x model is
+# the one that gives you 4K. Pick with --upscale-model.
 UPSCALE_MODEL = "RealESRGAN_x4plus_anime_6B.pth"
 VIDEO_LOAD = "VHS_LoadVideoPath"
 VIDEO_COMBINE = "VHS_VideoCombine"
@@ -248,6 +249,10 @@ def wf_upscale(song, a):
     Point Hurricane Clip Folder at the folder you pruned by hand, set clip_index
     to `increment` and the batch count to clip_count, and it walks every clip
     that is still there, in name order. Audio rides through untouched.
+
+    There is deliberately no scaling node after the model: the output is exactly
+    what the model produces, so its factor is the only thing that decides the
+    resolution.
     """
     g = {}
     g["1"] = {"class_type": "HurricaneClipFolder", "_meta": {"title": "CLIPS IN"},
@@ -259,16 +264,14 @@ def wf_upscale(song, a):
                "inputs": {"video": ["1", 0], "force_rate": 0, "force_size": "Disabled",
                           "frame_load_cap": 0, "skip_first_frames": 0,
                           "select_every_nth": 1}}
-    g["20"] = {"class_type": "UpscaleModelLoader", "_meta": {"title": "4x ANIME MODEL"},
+    g["20"] = {"class_type": "UpscaleModelLoader",
+               "_meta": {"title": "ANIME MODEL - its factor is your output size"},
                "inputs": {"model_name": a.upscale_model}}
-    g["21"] = {"class_type": "ImageUpscaleWithModel", "_meta": {"title": "UPSCALE 4x"},
+    # nothing after the model: whatever it produces is what gets written
+    g["21"] = {"class_type": "ImageUpscaleWithModel", "_meta": {"title": "UPSCALE"},
                "inputs": {"upscale_model": ["20", 0], "image": ["10", 0]}}
-    g["22"] = {"class_type": "ImageScale", "_meta": {"title": "DOWN TO TARGET"},
-               "inputs": {"image": ["21", 0], "width": a.target_w,
-                          "height": a.target_h, "upscale_method": "lanczos",
-                          "crop": "disabled"}}
     g["30"] = {"class_type": a.video_combine, "_meta": {"title": "CLIPS OUT"},
-               "inputs": {"images": ["22", 0], "audio": ["10", 2],
+               "inputs": {"images": ["21", 0], "audio": ["10", 2],
                           "filename_prefix": ["1", 1], "frame_rate": 24,
                           "format": "video/h264-mp4", "pix_fmt": "yuv420p",
                           "crf": 12, "save_output": True}}
@@ -294,8 +297,7 @@ def main():
     ap.add_argument("--upscale-model", default=UPSCALE_MODEL)
     ap.add_argument("--video-load", default=VIDEO_LOAD)
     ap.add_argument("--video-combine", default=VIDEO_COMBINE)
-    ap.add_argument("--target-w", type=int, default=2560)
-    ap.add_argument("--target-h", type=int, default=1440)
+
     ap.add_argument("--confirmed", action="store_true",
                     help="the class names came from a live /object_info, not a guess")
     ap.add_argument("--from", dest="raw", metavar="RAW.json",

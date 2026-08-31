@@ -31,7 +31,7 @@
   "20": {
     "class_type": "UpscaleModelLoader",
     "_meta": {
-      "title": "4x ANIME MODEL"
+      "title": "ANIME MODEL - its factor is your output size"
     },
     "inputs": {
       "model_name": "RealESRGAN_x4plus_anime_6B.pth"
@@ -40,7 +40,7 @@
   "21": {
     "class_type": "ImageUpscaleWithModel",
     "_meta": {
-      "title": "UPSCALE 4x"
+      "title": "UPSCALE"
     },
     "inputs": {
       "upscale_model": [
@@ -53,22 +53,6 @@
       ]
     }
   },
-  "22": {
-    "class_type": "ImageScale",
-    "_meta": {
-      "title": "DOWN TO TARGET"
-    },
-    "inputs": {
-      "image": [
-        "21",
-        0
-      ],
-      "width": 2560,
-      "height": 1440,
-      "upscale_method": "lanczos",
-      "crop": "disabled"
-    }
-  },
   "30": {
     "class_type": "VHS_VideoCombine",
     "_meta": {
@@ -76,7 +60,7 @@
     },
     "inputs": {
       "images": [
-        "22",
+        "21",
         0
       ],
       "audio": [
