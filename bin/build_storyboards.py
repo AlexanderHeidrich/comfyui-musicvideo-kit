@@ -357,6 +357,8 @@ def write_batch_lists(song, rows, content, cams):
     return lines
 
 
+FPS = 24            # H3 renders at 24 fps regardless of the screenplay's own rate
+
 SILENT_MUSIC = ("There is NO music in this clip. The song has not started yet. Leave\n"
                 "the track empty and let the location sound above carry it alone.")
 
@@ -367,6 +369,8 @@ def main():
     SRC = os.path.join(song, "_source")
     R = lambda p: strip_comments(open(os.path.join(SRC, p), encoding="utf-8").read())
     bible, style, tail = R("bible.txt"), R("style.txt"), R("tail.txt")
+    synopsis = R("synopsis.txt").strip() if os.path.isfile(
+        os.path.join(SRC, "synopsis.txt")) else ""
     sound, music = split_tail(tail)
     content = json.load(open(os.path.join(SRC, "content.json"), encoding="utf-8"))
     rows = list(csv.DictReader(open(os.path.join(SRC, "scenes.tsv"), encoding="utf-8"),
@@ -395,6 +399,18 @@ def main():
             entry["shot%d" % k] = part.strip()
         content[r["scene"]] = entry
         from_screenplay += 1
+
+    elements = 0
+    for k in sorted((k for k in content if k not in {r["scene"] for r in rows}),
+                    key=lambda x: int(x)):
+        fr = content[k].get("frames")
+        if not fr:
+            continue
+        rows.append({"scene": k, "start": "-", "end": "-", "frames": str(int(fr)),
+                     "duration": "%.4f" % (int(fr) / float(FPS)), "tl_frame": "-",
+                     "inner_cut_rel": "0.000", "inner_cuts": "", "continuity": "",
+                     "framing": "", "screenplay": ""})
+        elements += 1
 
     for f in os.listdir(song):                      # clear previous generated output
         if re.match(r"^\d\d_.*-v\d\.txt$", f) or f in ("ALL_scenes.txt", "__SCENES.tsv"):
@@ -492,7 +508,12 @@ def main():
     readme = ["%s - %d scenes over %.1f s of song, %.1f s of clip material%s"
               % (name.upper(), len(rows), span, total,
                  " (scenes overlap - trim in the edit)" if total > span + 1 else ""),
-              "=" * 74, "",
+              "=" * 74, ""]
+    if synopsis:
+        readme += ["WHAT HAPPENS", ""] + ["  " + l if l.strip() else ""
+                                          for l in synopsis.splitlines()] + \
+                  ["", "-" * 74, ""]
+    readme += [
               "Every scene is one MiniMax H3 render. Files are paired by prefix:", "",
               "  NN_title.mp3      the exact window of the song for that scene",
               "  NN_title-v1.txt   wide master        }  same action, three cameras -",
@@ -534,7 +555,7 @@ def main():
             if content[r["scene"]].get("composite")]
     if comp:
         readme += ["", "COMPOSITING - assembled in the edit, not rendered in", ""]
-        order = {"loop": 0, "plate": 1, "inset": 2, "freeze": 3}
+        order = {"loop": 0, "plate": 1, "inset": 2, "element": 3, "freeze": 4}
         for scene, cp in sorted(comp, key=lambda x: (order.get(x[1].get("role"), 9), x[0])):
             sl = slug(content[scene]["title"])
             head = "  %02d_%s  [%s]" % (int(scene), sl, cp.get("role", "?"))
@@ -546,12 +567,18 @@ def main():
                     readme += ["        " + l for l in wrap(cp[k], 66)]
         readme += ["",
                    "  A plate is rendered with its overlay area left empty on purpose.",
-                   "  An inset is a full-frame clip of its own - place, scale and fade it",
-                   "  in the edit. Nothing here is burned into a render.", ""]
+                   "  An inset or element is a full-frame clip of its own - place, scale",
+                   "  and fade it in the edit. An element has no audio and no place on the",
+                   "  timeline; it exists only to be laid over something.",
+                   "  Nothing here is burned into a render.", ""]
+
+    howto = config(SRC, "comfyui.txt")
+    if howto:
+        readme += [""] + howto.replace("{song}", name).rstrip().splitlines() + [""]
 
     readme += ["",
                "Set length to the frame count in __SCENES.tsv - H3 only accepts lengths",
-               "where frames %% 17 == 5, and it rounds up, so do not retype it by feel.",
+               "where frames % 17 == 5, and it rounds up, so do not retype it by feel.",
                "",
                "Do not edit these files - they are regenerated. Edit _source/ and re-run",
                "`mvkit build %s`." % name, ""]
@@ -569,6 +596,8 @@ def main():
     if from_screenplay:
         print("from drehbuch: %d scene(s) had no content.json entry and used the "
               "screenplay text" % from_screenplay)
+    if elements:
+        print("elements    : %d clip(s) with no audio, for compositing only" % elements)
     if renamed:
         print("audio pairs : %d slices renamed to match their prompt" % renamed)
     print("prompts     : %d  (six sections each)" % n_var)
@@ -602,6 +631,18 @@ def main():
         print("! unknown camera token(s), dropped from the prompt: %s"
               % ", ".join(sorted(bad_cam)))
         print("  Use the vocabulary in templates/cameras/__GLOSSARY.txt.")
+    # synopsis.txt is written by an agent reading the screenplay, not derived from
+    # it by this script. So the script cannot keep it true - it can only say when
+    # it has gone stale and needs re-reading.
+    sp, dp = os.path.join(SRC, "synopsis.txt"), os.path.join(SRC, "drehbuch.txt")
+    if os.path.isfile(sp) and os.path.isfile(dp) \
+            and os.path.getmtime(dp) > os.path.getmtime(sp) + 1:
+        print("! synopsis.txt is older than drehbuch.txt")
+        print("  It is written, not generated. Re-read the screenplay and rewrite it;")
+        print("  do not assume the summary still matches.")
+    elif not os.path.isfile(sp) and os.path.isfile(dp):
+        print("! no _source/synopsis.txt - the deliverable has no plain-language summary")
+
     if refs and refs.get("warnings"):
         for w in refs["warnings"]:
             print("! refs: %s" % w)

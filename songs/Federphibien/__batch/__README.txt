@@ -24,7 +24,7 @@ f294-v2                294      1
 f294-v3                294      1
 
 NOT in these lists, because they have no audio to pair with:
-  00_the-pond-before-the-music
+  00_the-pond-before-the-music, 90_hen-profile-element
 Render them on their own.
 
 Wiring, and why core nodes are not enough: see docs/comfyui-batch.md

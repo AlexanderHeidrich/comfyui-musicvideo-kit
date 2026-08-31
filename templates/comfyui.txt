@@ -1,0 +1,43 @@
+# Baked into every song's __READ_ME.txt by `mvkit build`. {song} becomes the name.
+# A song can override it with its own _source/comfyui.txt.
+
+RENDERING THE WHOLE FOLDER IN ONE RUN
+
+  The fast path does not batch inside the graph at all - it posts one job per
+  scene over ComfyUI's HTTP API, reading this folder directly. Every scene keeps
+  its own frame count that way, which in-graph batching cannot do: H3 only
+  accepts lengths where frames % 17 == 5, so one `length` per queue run means
+  one run per frame count.
+
+  Once:
+    1. copy mv_h3_nodes.py into ComfyUI/custom_nodes/ and restart ComfyUI
+    2. build a graph for ONE scene and get it rendering
+    3. rename three nodes by double-clicking their title bars:
+         PROMPT   the text node feeding the H3 prompt
+         AUDIO    the node that loads an audio file by path
+         LENGTH   the int feeding `length`
+    4. Workflow -> Export (API). Not the normal save - the API format is a flat
+       map of node ids, and the normal save is rejected with a message saying so.
+
+  Then, every time:
+    ./mvkit queue {song} wf_api.json --dry-run
+    ./mvkit queue {song} wf_api.json
+
+  The dry run prints which node each title matched and lists every scene with
+  its frame count and audio file. Read it before the real run: a title that
+  matched nothing is reported, not guessed at.
+
+  Useful flags:
+    --variant v2        render the coverage instead of the masters (default v1)
+    --scenes 1-10,15    a subset, by scene number
+    COMFY_HOST=...      another machine (default http://127.0.0.1:8188)
+
+  Scene 00 and any 90+ scene have no audio - they are the Vorspann and the
+  compositing elements. The API path queues them with the audio input left
+  alone. They are deliberately absent from __batch/, which pairs prompts with
+  slices line by line and so cannot carry a clip that has no slice.
+
+  If you would rather batch inside the graph, __batch/ holds prompt and audio
+  lists grouped by frame count, one pair per group, line-for-line aligned. That
+  needs VideoHelperSuite and WAS Node Suite, and one queue run per group with
+  `length` typed from __batch/__README.txt. See docs/comfyui-batch.md.

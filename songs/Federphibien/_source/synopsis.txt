@@ -1,0 +1,43 @@
+# Plain-language summary of the screenplay, for whoever opens the folder.
+# It is NOT part of any prompt and never reaches the model - it exists so a new
+# person can read a few paragraphs instead of 270 lines of Drehbuch.
+#
+# WRITTEN, NOT GENERATED. An agent read the whole screenplay and wrote this; no
+# code derives it, because a script that summarised prose would only be able to
+# reword it, not check whether the reading is right. `mvkit build` therefore does
+# not touch this file - it only warns when drehbuch.txt is newer, which means the
+# summary needs reading again. If you change the screenplay, have it rewritten.
+
+A frog loves a hen. That is the whole plot, and it is played completely straight.
+
+Before the music, the pond sits still: a worn sign swaying, dragonflies, reeds
+moving in the wind. A man in a straw hat is already sitting at the far edge with
+his back turned, drawing. Nobody points him out.
+
+The song starts high above the farm and comes down to one frog swimming across
+the pond. He hauls himself out, flops on his belly, rolls onto his back and
+begins to complain: he is sad, his skin is slimy, the flies could be lunch but he
+is not hungry. Across the yard a hen pecks grain, entirely unbothered. She lifts
+her head, judges the pond, and walks off. He is a frog, in love with a chicken,
+and their worlds do not touch - but he decides they are meant for each other
+anyway, and sets off hopping.
+
+While he hops he imagines the children. Federphibien: frog bodies with combs,
+slimy feathers, huge eyes, no good for flying and no good for swimming. The
+daydream curdles - the same creatures float dead in the pond - and the man at the
+water's edge turns out to be writing it all down: a scientific plate of a hen and
+a frog, and the note "Huhn + Frosch = Federphibium".
+
+Then he actually tries. He skids onto the gravel, runs up the chicken ladder and
+lands in a heap of down. The hen shrieks him down. He offers a gold ring in a box
+folded from lily leaves; she swallows it and walks straight past. So he throws
+grain over himself instead, and it sticks to his wet skin. That works. She stops,
+comes back, stoops, and pecks him once - gently. Their eyes meet, something lands
+with her, and she turns and offers him her back.
+
+They run out of the hen house together. The man at the pond jumps up, grabs his
+old camera and photographs them, still without ever showing his face. They run
+into the sunset, the hen jumps, the frog lifts off her back, and the film freezes
+on that pose.
+
+Nothing in it is winked at. The sincerity is the joke.

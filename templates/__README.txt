@@ -14,3 +14,8 @@ and re-run `mvkit build <song>`.
 A song may override any of cameras.txt / sections.txt / drafting.txt by putting
 its own copy in <song>/_source/. Lines starting with # are comments and are
 stripped before the text reaches the model.
+
+comfyui.txt     How to render a finished song folder through ComfyUI in one run.
+                Baked into every song's __READ_ME.txt by `mvkit build`; {song} is
+                replaced with the song's name. A song may override it with its
+                own _source/comfyui.txt.

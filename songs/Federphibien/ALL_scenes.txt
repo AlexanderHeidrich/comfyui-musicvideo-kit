@@ -1,7 +1,7 @@
-# FEDERPHIBIEN - all 48 scenes in one file, in the storyboard DSL.
+# FEDERPHIBIEN - all 49 scenes in one file, in the storyboard DSL.
 # This is the ComfyUI node's batch input. The NN_*.txt files beside it
 # are the same material as finished H3 prompts, for pasting by hand.
-# Point the storyboard node here and set batch count = 48.
+# Point the storyboard node here and set batch count = 49.
 
 @BIBLE
 REFERENCE - read this first
@@ -441,6 +441,9 @@ The two of them run up a shallow hill toward the setting sun until only their si
 
 @SCENE 02:46.250-02:51.417 | the final freeze
 The hen jumps, the frog lifts off her back, and the image holds on that pose as a freeze frame, the way an old cartoon ends. Nothing moves.
+
+@SCENE 00:00.000-00:09.417 | hen profile element   # no audio - render this one on its own
+An element clip, made only to be laid into the sky of another shot. The hen's head and neck alone, turned to one side so the comb, the wattle and the beak all read against nothing. She holds still, grand and unbothered, and blinks slowly twice. Nothing else is in frame: no body below the neck, no ground, no horizon, no props - only a plain, even field of flat overcast sky-grey behind her, edge to edge, the same grey the sky is painted in everywhere else. The field stays perfectly even so the clip can be blended into a sky without a seam showing.
 
 @TAIL
 [overall_soundscape]

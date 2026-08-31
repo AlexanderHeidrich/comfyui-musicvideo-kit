@@ -153,7 +153,7 @@
     "composite": {
       "role": "plate",
       "where": "upper left of the sky, half transparent: the hen seen in profile",
-      "note": "the screenplay says oben links. No clip is generated for it - the profile on refs/03_char_das-huhn.png is the element, held as a still."
+      "note": "the screenplay says oben links. The element is generated: 90_hen-profile-element, same 226 frames as this plate."
     }
   },
   "15": {
@@ -512,6 +512,23 @@
     "composite": {
       "role": "freeze",
       "note": "hold the last frame as long as you like, then close the iris in Resolve - the screenplay asks for the effect there, so it is not rendered in"
+    }
+  },
+  "90": {
+    "title": "hen profile element",
+    "lyrics": "",
+    "frames": 226,
+    "shot1": "An element clip, made only to be laid into the sky of another shot. The hen's head and neck alone, turned to one side so the comb, the wattle and the beak all read against nothing. She holds still, grand and unbothered, and blinks slowly twice. Nothing else is in frame: no body below the neck, no ground, no horizon, no props - only a plain, even field of flat overcast sky-grey behind her, edge to edge, the same grey the sky is painted in everywhere else. The field stays perfectly even so the clip can be blended into a sky without a seam showing.",
+    "cameras": {
+      "v1": "[Static shot] Locked off, side on, her head and neck filling the middle of the frame with clear space around them.",
+      "v2": "[Static shot] Locked off, side on and larger, the head alone.",
+      "v3": "[Static shot] Locked off, three-quarter rear, the comb and the back of the neck against the flat field."
+    },
+    "composite": {
+      "role": "element",
+      "with": "14",
+      "where": "upper left of the empty sky in scene 14, half transparent",
+      "note": "no audio and no place on the timeline - hold or loop it to taste. Blend mode over the plate's flat sky; her grey field is meant to disappear."
     }
   }
 }

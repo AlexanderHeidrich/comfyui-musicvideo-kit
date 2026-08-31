@@ -36,9 +36,11 @@ def find_node(graph, title, keys):
              % (title, node.get("class_type"), "/".join(keys), ins))
 
 
-def parse_range(spec, n):
+def parse_range(spec, present):
+    """no spec means every scene the manifest actually lists - scene numbers are
+    not 1..n: 00 is the Vorspann and 90+ are compositing elements"""
     if not spec:
-        return set(range(1, n + 1))
+        return set(present)
     out = set()
     for part in spec.split(","):
         part = part.strip()
@@ -83,7 +85,7 @@ def main():
 
     rows = list(csv.DictReader(open(os.path.join(song, "__SCENES.tsv"),
                                    encoding="utf-8"), delimiter="\t"))
-    wanted = parse_range(a.scenes, len(rows))
+    wanted = parse_range(a.scenes, [int(r["scene"]) for r in rows])
     queued = 0
     for r in rows:
         n = int(r["scene"])
@@ -94,7 +96,8 @@ def main():
             print("! scene %02d has no %s variant" % (n, a.variant)); continue
         text = open(os.path.join(song, pf[0]), encoding="utf-8").read()
         graph[p_id]["inputs"][p_key] = text
-        if au_id:
+        mute = (r.get("audio") or "-").strip() in ("", "-")
+        if au_id and not mute:
             graph[au_id]["inputs"][au_key] = os.path.abspath(
                 os.path.join(song, r["audio"]))
         if ln_id:
@@ -102,7 +105,7 @@ def main():
 
         if a.dry_run:
             print("  scene %02d  %-4s frames  %-34s %d chars of prompt"
-                  % (n, r["frames"], r["audio"], len(text)))
+                  % (n, r["frames"], "(no audio)" if mute else r["audio"], len(text)))
             queued += 1
             continue
         body = json.dumps({"prompt": graph}).encode()
