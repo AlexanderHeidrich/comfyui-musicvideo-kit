@@ -199,11 +199,14 @@ def read_song_folder(song):
     if os.path.isfile(rj):
         with open(rj, encoding="utf-8") as fh:
             data = json.load(fh)
-        rdir = os.path.join(song, "_source", "refs")
         for item in data.get("images", []):
+            # `file` is already relative to the song folder, so joining the refs
+            # dir onto it again produced _source/refs/_source/refs/...
+            rel = item.get("file", "")
             refs.append({"tag": item.get("tag", ""), "slug": item.get("slug", ""),
                          "kind": item.get("kind", ""),
-                         "path": os.path.join(rdir, item.get("file", ""))})
+                         "path": os.path.join(song, rel),
+                         "name": os.path.basename(rel)})
         inventory = "\n".join("%-12s %s (%s)" % (i["tag"], i["slug"], i["kind"])
                               for i in refs)
         tag = data.get("scene_audio_tag")

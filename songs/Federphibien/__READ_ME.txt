@@ -125,97 +125,44 @@ RENDERING THIS FOLDER IN COMFYUI
   arrives here is already paired: one prompt and one slice per scene, with the
   frame count each scene must be rendered at.
 
-  THREE STARTING WORKFLOWS ARE IN THIS FOLDER
+  TWO WORKFLOWS IN THIS FOLDER
 
-    `mvkit build` writes them every time, so they always match the scenes beside
-    them. All three are API-format graphs - open them with Workflow -> Open.
+    __workflow_song.json     the render. YOUR H3 graph with this folder wired in.
+    __workflow_upscale.json  the pass afterwards. No H3 in it.
 
-      __wf_1_scene.json     one scene, everything explicit and pre-filled. Every
-                            reference loader is TITLED with its live tag, e.g.
-                            "<Picture 3> das huhn (char)", so the graph itself
-                            says which image is which. Good for getting the H3
-                            node right the first time.
-      __wf_2_folder.json    the one you want. Hurricane Song Folder reads this folder
-                            and drives everything.
-      __wf_3_pipeline.json  Hurricane Build Song runs ./mvkit on the host first, then
-                            the same. For when you want one button.
+    Nothing here tries to invent a render graph. The H3 node returns `positive`
+    and `LATENT` - it conditions a sampler and hands back no video - so a
+    complete graph needs a model loader, CLIP and VAE loaders, a sampler, two
+    VAE decodes and a CreateVideo behind it. None of that can be guessed, and
+    ComfyUI already ships the whole thing under Workflow -> Browse Templates.
 
-    READ THIS FIRST. The H3 node is a CONDITIONING node: it returns `positive`
-    and `LATENT`, not a video. A finished graph therefore needs the rest of a
-    local pipeline behind it - model loader, sampler, VAE decode, video combine -
-    and none of that can be generated from here without guessing at your model,
-    your sampler and your settings. So the generated graphs below are starting
-    points for the front half only. The route that actually works:
+    So: get the official ref2va template rendering ONE scene, save it, and
 
-      build a graph in the UI that renders ONE scene properly, export it with
-      Workflow -> Export (API), then
+      ./mvkit workflows Federphibien --from <that file>
 
-        ./mvkit workflows Federphibien --from your_export.json
+    Either format works - a workflow saved from the menu is converted to API
+    format on the way in. What it does:
 
-      which keeps your whole chain and rewires only prompt, length, the audio
-      reference and the ref_image slots, plus a save prefix at the back.
+      - keeps every node and setting you had: loaders, sampler, scheduler,
+        LoRA switches, resolution, the audio decode path, your Save node
+      - rewires only `prompt` and `length` to this folder's scene
+      - puts this scene's slice on `ref_audios.ref_audio_0`
+      - fills `ref_images.ref_image_0..n` from _source/refs/, each loader
+        TITLED with its live tag, e.g. "<Picture 3> das huhn (char)"
+      - drives your Save node's `filename_prefix` from save_prefix
+      - prints what it rewired, and warns if your node has fewer ref_image
+        slots than the song has sheets
 
-    First, once: copy (or symlink) comfyui/custom_nodes/watching_hurricanes.py into your
-    own ComfyUI/custom_nodes/ and restart. Stdlib only, nothing to install.
+    CONNECT AS MANY ref_image SLOTS AS YOU HAVE SHEETS FIRST. They are dynamic:
+    one appears as you fill the last. Wrap seven sheets into a node with one slot
+    and six are dropped - it says so, but it cannot invent inputs.
 
-    Then, because the H3 node's class name cannot be known without asking:
+    NO ABSOLUTE PATHS ARE WRITTEN. ComfyUI usually runs somewhere else than this
+    kit - another machine, another OS - so `song_path` is left EMPTY and the node
+    is titled to say so. Set it once to where this folder lives on the ComfyUI
+    machine. The build refuses to write a graph containing an absolute path.
 
-      ./mvkit probe --song Federphibien --emit
-
-    That reads /object_info off the running server and refreshes the class names
-    around the H3 node. The H3 class itself is known (MiniMaxH3ReferenceToVideo);
-    what the generated graphs cannot carry is your sampler chain, and their SAVE
-    node is left with `video` open rather than wired to a CONDITIONING output.
-
-    __wf_2_folder.json is wired like this:
-
-      Hurricane Song Folder ──► prompt      ──► H3 ref2vid ──► Save Video
-       (song_path)   ──► frames      ──►
-                     ──► audio_path  ──► Load Audio (Path) ──►
-                     ──► ref_1..ref_n ─► image loaders, titled by tag ──►
-
-    Open it, finish the H3 node's own settings, render ONE scene. Then set MV
-    Song Folder's `scene_index` to `increment`, set the queue's batch count to
-    its `scene_count` output, and press Run once. That is the whole song.
-
-    `variant` picks v1, v2 or v3. Paths come out of the node as strings because
-    turning a file into ComfyUI's IMAGE/AUDIO types needs torch, and that file
-    deliberately has no dependencies.
-
-  WHERE THE CLIPS END UP
-
-    Renders are NOT temporary. Save Video writes into ComfyUI/output and the
-    files stay there; what does get cleared is anything from a Preview node,
-    which writes to ComfyUI/temp. If your clips seem to vanish between sessions,
-    check that the end of your graph is a Save and not a Preview.
-
-    What was missing is a name. Hurricane Song Folder has a `save_prefix` output
-    that the generated graphs wire into Save Video's `filename_prefix`, so each
-    clip lands as
-
-      ComfyUI/output/Federphibien/NN_slug-vN_00001.mp4
-
-    grouped per song and named after the prompt that made it - which is what
-    `mvkit concat` wants to see. Put something in `out_subfolder` to change the
-    first part (e.g. "Renders/take2") and the rest follows.
-
-    ComfyUI will not write outside its own output folder; that is its path
-    sanitising, not our choice. Point `out_subfolder` where you want it inside
-    output, then collect from there.
-
-  WRAPPING YOUR OWN H3 WORKFLOW
-
-    The generated graphs guess nothing about your model, resolution or account,
-    so once you have an H3 ref2vid graph that renders the way you want it, keep
-    it and let the kit wrap that instead:
-
-      ./mvkit workflows Federphibien --from my_h3_export.json
-
-    That writes __wf_4_wrapped.json: your graph untouched except for the four
-    inputs a song folder drives - prompt, length, audio and the image slots -
-    plus the save prefix at the back. Every other setting on your H3 node is
-    left exactly as you had it. It prints what it rewired and warns when your
-    node has fewer image slots than the song has reference sheets.
+    Then: `scene_index` to `increment`, batch count to `scene_count`, Run once.
 
   THE OTHER WAY - drive it from outside
 
@@ -246,7 +193,7 @@ RENDERING THIS FOLDER IN COMFYUI
   are deliberately absent from __batch/, which pairs prompts with slices line by
   line and cannot carry a clip that has no slice.
 
-  UPSCALING, AFTERWARDS - __wf_5_upscale.json
+  UPSCALING, AFTERWARDS - __workflow_upscale.json
 
     A separate graph with no H3 in it at all. It is the pass you run once the
     renders exist and you have thrown out the takes you do not want:

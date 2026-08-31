@@ -144,72 +144,49 @@ The `NN_title-vN.txt` files are **finished H3 prompts** - MiniMax's six sections
 no markup, nothing to strip. Paste one in exactly as it is.
 
 One scene = one H3 render, so a whole song is one render per scene per camera
-variant. Nothing about that has to be typed twice: `mvkit build` writes four
-starting API-format graphs into the song folder, so they always match the scenes
-beside them.
+variant. Two workflows live in the song folder:
 
 ```
-__wf_1_scene.json     one scene, every file pre-filled. Each reference loader is
-                      TITLED with its live tag - "<Picture 3> das huhn (char)" -
-                      so the graph itself says which image is which.
-__wf_2_folder.json    the one to use. Hurricane Song Folder reads the folder and
-                      drives prompt, frame count, audio and every reference.
-__wf_3_pipeline.json  Hurricane Build Song runs ./mvkit first, then the same.
-__wf_5_upscale.json   the pass afterwards. No H3 in it at all - see below.
+__workflow_song.json     the render - YOUR H3 graph with the folder wired in
+__workflow_upscale.json  the pass afterwards, no H3 in it
 ```
 
-(`__wf_4_wrapped.json` appears only when you wrap your own graph - below.)
+**The kit does not invent a render graph.** `MiniMaxH3ReferenceToVideo` returns
+`positive` and `LATENT` - it conditions a sampler and hands back no video - so a
+working graph needs a UNET loader, CLIP and VAE loaders, a sampler, a VAEDecode
+*and* a VAEDecodeAudio, and a CreateVideo behind it. ComfyUI ships that whole
+chain under **Workflow → Browse Templates**. Get it rendering one scene, save it,
+and hand it over:
+
+```bash
+./mvkit workflows federphibien --from video_minimax_h3_ref2va.json
+```
+
+Either format works - a workflow saved from the menu is converted to API format
+on the way in. Everything you set stays: loaders, sampler, scheduler, LoRA
+switches, resolution, the audio decode path, your Save node. Only four things are
+rewired - `prompt`, `length`, `ref_audios.ref_audio_0` and the
+`ref_images.ref_image_*` slots - each reference loader **titled with its live
+tag**, so the graph says which image is `<Picture 3>`. Your Save node's
+`filename_prefix` gets driven from `save_prefix`.
+
+Connect as many `ref_image` slots as you have sheets *before* exporting: they are
+dynamic, and a node with one slot takes one sheet. It warns rather than pretending.
+
+**No absolute paths are written.** ComfyUI usually runs on another machine, so
+`song_path` is left empty and the node title says to set it; the build refuses to
+write a graph that carries one.
 
 **The nodes** live in [comfyui/custom_nodes/](comfyui/custom_nodes/) - the path
-mirrors where they go. Two independent files, stdlib only, nothing to pip
-install:
+mirrors where they go. Two independent files, stdlib only:
 
 | file | nodes |
 |---|---|
 | `watching_hurricanes.py` | Song Folder, Build Song, Storyboard Scene, Reference Inventory, Prompt Builder |
 | `watching_hurricanes_upscale.py` | Clip Folder |
 
-Copy or symlink them into your own `ComfyUI/custom_nodes/` and restart. They
-appear under a **Watching Hurricanes** category.
-
-**The H3 node conditions a sampler.** It returns `positive` and `LATENT`, not a
-video, so a complete graph needs the rest of a local pipeline behind it - model
-loader, sampler, VAE decode, video combine. None of that can be generated without
-guessing at your model and settings, which is why wrapping your own graph (below)
-is the route that actually works, and the generated ones are the front half.
-
-Its native size is 1344x768 and `length` is a widget on it; the reference inputs
-are `ref_image_0`, `ref_image_1`, ... (0-based and dynamic - connect one and the
-next appears), with `ref_audio_0` for a standalone audio reference.
-`ref_video_audio_0` is the soundtrack *of* a reference video and is a different
-thing - it claims an `<Audio>` number before any standalone audio.
-
-The class is `MiniMaxH3ReferenceToVideo`. The generated graphs use it, but they
-carry no sampler chain and their `SAVE` node is left with its `video` input open
-on purpose - wiring a save to a CONDITIONING output would be worse than leaving
-it visibly unfinished. `mvkit probe` refreshes the surrounding class names:
-
-```bash
-./mvkit probe                              # what is installed, what to title what
-./mvkit probe --song federphibien --emit   # rewrite the graphs with the real classes
-```
-
-`probe` reads `/object_info` and reports the H3 node's actual input names. That
-matters more than it sounds: `prompt` and `length` usually sit on the H3 node
-itself, and a node carries one title, so it tells you which of the two ways round
-that to take.
-
-**Better still, keep your own graph.** Once you have an H3 ref2vid graph that
-renders the way you want, let the kit wrap that instead of inventing one:
-
-```bash
-./mvkit workflows federphibien --from my_h3_export.json
-```
-
-That writes `__wf_4_wrapped.json`: your graph untouched except for the four
-inputs a song folder drives, plus a save prefix at the back. Model, resolution,
-seed - everything else stays as you had it. It prints what it rewired and warns
-when your node has fewer image slots than the song has reference sheets.
+`./mvkit probe` asks a running server what it has and what to title what - useful
+after a node-pack update, not needed for the normal job.
 
 **Running the whole song:** set Hurricane Song Folder's `scene_index` to
 `increment`, the queue's batch count to its `scene_count` output, and press Run
@@ -243,7 +220,7 @@ change.
 
 ### 6. Upscale, once you have thrown out the bad takes
 
-`__wf_5_upscale.json` is a separate graph with **no H3 in it**. Point Hurricane
+`__workflow_upscale.json` is a separate graph with **no H3 in it**. Point Hurricane
 Clip Folder at the folder you pruned by hand - it lists what is *actually* there,
 so a take you deleted is simply not in the run - set `clip_index` to `increment`
 and the batch count to `clip_count`, and leave it overnight.

@@ -278,7 +278,7 @@ in it:
 - `HurricaneClipFolder` — walks a folder of rendered clips in name order, so
   takes you deleted are simply not in the run. Refuses an index past the end
   rather than silently re-rendering the last clip all night.
-  `__wf_5_upscale.json` wires it to one 4x line-art model
+  `__workflow_upscale.json` wires it to one 4x line-art model
   (`RealESRGAN_x4plus_anime_6B`) and writes whatever comes out — **no scaling
   node after the model**, so the output is 4x the render and hitting 4K exactly
   is the edit's job. A diffusion upscaler is the wrong tool here: it invents
@@ -290,22 +290,27 @@ in it:
   `/chat/completions`); with `use_llm = false` it emits a valid six-section
   prompt from a deterministic template
 
-`mvkit build` writes four starting API-format graphs into every song folder, so
-they always match the scenes beside them: `__wf_1_scene.json` (one scene, all
-files pre-filled, each reference loader **titled with its live tag** so the graph
-says which image is `<Picture 3>`), `__wf_2_folder.json` (HurricaneSongFolder drives the
-song - the one to use) and `__wf_3_pipeline.json` (HurricaneBuildSong runs the kit
-first) and `__wf_5_upscale.json` (the upscale pass, no H3 in it).
-The H3 node is `MiniMaxH3ReferenceToVideo` and it returns `positive`/`LATENT`,
-not a video - so a generated graph is only ever the front half and its `SAVE`
-node is deliberately left unconnected. `bin/make_workflows.py` writes them, and
-`--from <your export.json>` wraps a
-graph you already have working instead of inventing one - it keeps every
-setting on your H3 node and rewires only prompt, length, audio and the image
-slots. `bin/make_workflows.py` writes them; the H3 class name cannot be known
-offline, so it is a marked placeholder until `mvkit probe --song <name> --emit`
-reads `/object_info` off a running server and rewrites all three with the real
-classes. `mvkit probe` alone just reports what is installed and which node to
+`mvkit build` writes `__workflow_upscale.json` into every song folder - the pass
+after rendering, complete and standalone. It does NOT generate a render graph:
+`MiniMaxH3ReferenceToVideo` returns `positive`/`LATENT`, so a working graph needs
+a UNET loader, CLIP and VAE loaders, a sampler, a VAEDecode *and* a
+VAEDecodeAudio, and a CreateVideo - ComfyUI ships that chain under Browse
+Templates and guessing at it is worthless.
+
+`mvkit workflows <song> --from <your workflow.json>` wraps a graph that already
+renders and writes `__workflow_song.json`. A UI-format save is converted to API
+format on the way in (`ui_to_api`, using the widget names the UI file itself
+carries). It keeps every node and setting and rewires only `prompt`, `length`,
+`ref_audios.ref_audio_0` and the `ref_images.ref_image_*` slots - note the
+namespaced input names, and that the ref slots are DYNAMIC, so it can only fill
+as many as the user connected before exporting. It warns when sheets are dropped.
+No absolute path is ever written: ComfyUI usually runs on another machine, so
+`song_path` is left empty and `find_abs_paths` makes the build fail rather than
+emit one. Three earlier generated graphs (`__wf_1_scene`, `__wf_2_folder`,
+`__wf_3_pipeline`) are deleted on sight - they wired a song folder correctly but
+had no sampler chain and could never run.
+
+`mvkit probe` alone just reports what is installed and which node to
 title what - two roles often sit on the H3 node itself and a node has one title. Splitting stays in the kit: ComfyUI never sees the pdf or
 the full mp3, only a built folder.
 

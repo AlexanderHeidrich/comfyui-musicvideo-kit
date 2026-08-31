@@ -4,18 +4,19 @@
   make_workflows.py <song-dir> [--h3-class NAME] [--h3-images N]
                     [--audio-class NAME] [--image-class NAME] [--save-class NAME]
 
-  __wf_1_scene.json     one scene, everything explicit. Each reference loader is
-                        titled with its live tag, so you can see which image is
-                        <Picture 3> without opening refs.json. Driven from
-                        outside with `mvkit queue`.
-  __wf_2_folder.json    Hurricane Song Folder drives the whole song from this folder.
-  __wf_3_pipeline.json  Hurricane Build Song runs ./mvkit first, then the same.
+  __workflow_upscale.json  the pass after rendering: a folder of clips through a
+                           4x line-art model. Complete and standalone.
+  __workflow_song.json     written by --from: YOUR H3 graph with a song folder
+                           wired into it. The render workflow.
 
-The H3 node returns `positive` and `LATENT`, not a video, so these graphs are the
-front half: they wire a song folder into it correctly but carry no sampler chain,
-because the model and settings cannot be guessed. Use `--from <your API export>`
-to keep a chain that already works. `mvkit probe --song <name> --emit` refreshes
-the surrounding class names from a running server.
+The H3 node returns `positive` and `LATENT`, not a video, so there is no point
+generating a render graph from scratch - the model, sampler and settings cannot be
+guessed. Hand it one that works instead:
+
+    make_workflows.py <song-dir> --from your_workflow.json
+
+A workflow saved from the ComfyUI menu is converted to API format on the way in,
+so either format is fine.
 
 Stdlib only.
 """
@@ -40,8 +41,11 @@ def image_slots(inputs):
     `ref_image_size` gets treated as a slot and an image loader wired into a
     combo widget.
     """
+    # the real node namespaces them: "ref_images.ref_image_0". Match the last
+    # segment, and only names ending in a number so ref_image_size is excluded.
     return sorted((k for k in inputs
-                   if re.match(r"^(ref_)?image_?\d+$", k.lower())), key=nat)
+                   if re.match(r"^(ref_)?image_?\d+$", k.lower().rsplit(".", 1)[-1])),
+                  key=nat)
 
 
 def audio_slot(inputs):
@@ -52,7 +56,8 @@ def audio_slot(inputs):
     there would be wrong twice over.
     """
     cands = [k for k in inputs
-             if re.match(r"^(ref_)?audio_?\d*$", k.lower())]
+             if re.match(r"^(ref_)?audio_?\d*$", k.lower().rsplit(".", 1)[-1])
+             and "video" not in k.lower()]
     return sorted(cands, key=nat)[0] if cands else None
 
 H3_CLASS = "MiniMaxH3ReferenceToVideo"   # confirmed against a running server
@@ -76,6 +81,24 @@ NOTE = ("this node conditions a sampler - it returns positive/LATENT, not a "
         "`mvkit workflows <song> --from your_api_export.json`")
 
 
+ABS = re.compile(r"^(?:/(?:Users|home|Volumes|mnt|media)/|[A-Za-z]:[\\/]|\\\\)")
+
+
+def find_abs_paths(graph):
+    """-> [(node, input, value)] for anything that looks like an absolute path.
+
+    ComfyUI usually runs somewhere else than this kit - another machine, another
+    OS - so a path written here is wrong there. Better an empty field the user
+    fills than a path that silently points at nothing.
+    """
+    bad = []
+    for nid, n in sorted(graph.items(), key=lambda x: int(x[0]) if x[0].isdigit() else 0):
+        for k, v in (n.get("inputs") or {}).items():
+            if isinstance(v, str) and ABS.match(v.strip()):
+                bad.append((nid, k, v))
+    return bad
+
+
 def read_refs(song):
     """-> [(tag, label, abs path)] for the reference sheets, in slot order"""
     rj = os.path.join(song, "_source", "refs.json")
@@ -83,40 +106,16 @@ def read_refs(song):
         return []
     with open(rj, encoding="utf-8") as fh:
         data = json.load(fh)
-    rdir = os.path.join(song, "_source", "refs")
     out = []
     for i in data.get("images", []):
+        # refs.json's `file` is ALREADY relative to the song folder
+        # ("_source/refs/01_....png"), so joining the refs dir again doubles it
+        rel = i.get("file", "")
         out.append((i.get("tag", ""),
                     "%s %s (%s)" % (i.get("tag", ""), i.get("slug", ""),
                                     i.get("kind", "")),
-                    os.path.abspath(os.path.join(rdir, i.get("file", "")))))
+                    rel, os.path.basename(rel)))
     return out
-
-
-def first_scene(song):
-    """-> (prompt path, audio path, frames) for the first scene with audio"""
-    man = os.path.join(song, "__SCENES.tsv")
-    if not os.path.isfile(man):
-        return None, None, 124
-    with open(man, encoding="utf-8") as fh:
-        rows = [l.rstrip("\n").split("\t") for l in fh if l.strip()]
-    head = rows[0]
-    for r in rows[1:]:
-        d = dict(zip(head, r))
-        audio = (d.get("audio") or "-").strip()
-        pf = [f for f in (d.get("prompts") or "").split() if f.endswith("-v1.txt")]
-        if audio not in ("", "-") and pf:
-            return (os.path.abspath(os.path.join(song, pf[0])),
-                    os.path.abspath(os.path.join(song, audio)),
-                    int(d.get("frames") or 124))
-    return None, None, 124
-
-
-def h3_node(a, extra_inputs, title):
-    inputs = {"prompt": "", "length": 124}
-    inputs.update(extra_inputs)
-    meta = {"title": title, "note": NOTE}
-    return {"class_type": a.h3_class, "inputs": inputs, "_meta": meta}
 
 
 def save_node(a, prefix):
@@ -129,6 +128,45 @@ def save_node(a, prefix):
     return {"class_type": a.save_class,
             "inputs": {"filename_prefix": prefix},
             "_meta": {"title": "SAVE - connect your VAEDecode to `video`"}}
+
+
+# UI-only inputs: they exist so the browser can draw an upload button and are not
+# part of what /prompt accepts
+UI_ONLY = ("IMAGEUPLOAD", "AUDIOUPLOAD", "AUDIO_UI", "VIDEOUPLOAD")
+
+
+def ui_to_api(ui):
+    """Convert a saved UI workflow to the flat API format /prompt accepts.
+
+    Doable without asking a server, because the UI file names every input: each
+    entry in `inputs` carries a name, and the ones with a `widget` key take their
+    value from `widgets_values` positionally, in order. Muted and bypassed nodes
+    and notes are dropped.
+    """
+    src = {}
+    for l in ui.get("links", []):          # [id, from_node, from_slot, to, slot, type]
+        if isinstance(l, list) and len(l) >= 3:
+            src[l[0]] = (str(l[1]), l[2])
+    out = {}
+    for n in ui.get("nodes", []):
+        t = n.get("type", "")
+        if n.get("mode") in (2, 4) or t in ("Note", "MarkdownNote", "Reroute"):
+            continue
+        ins, widgets = {}, list(n.get("widgets_values") or [])
+        wi = 0
+        for i in (n.get("inputs") or []):
+            name, ityp = i.get("name"), (i.get("type") or "")
+            if i.get("widget"):
+                if wi < len(widgets):
+                    v = widgets[wi]
+                    if ityp.upper() not in UI_ONLY:
+                        ins[name] = v
+                    wi += 1
+            if i.get("link") is not None and i["link"] in src:
+                ins[name] = list(src[i["link"]])
+        out[str(n["id"])] = {"class_type": t, "inputs": ins,
+                             "_meta": {"title": n.get("title") or t}}
+    return out
 
 
 def find_h3_in(graph, h3_class):
@@ -164,8 +202,10 @@ def wrap(raw, song, a):
         return str(n)
 
     src = free(9000)
-    g[src] = {"class_type": "HurricaneSongFolder", "_meta": {"title": "SONG"},
-              "inputs": {"song_path": os.path.abspath(song), "scene_index": 1,
+    g[src] = {"class_type": "HurricaneSongFolder",
+              "_meta": {"title": "SONG - set song_path to this folder on the "
+                                 "ComfyUI machine"},
+              "inputs": {"song_path": "", "scene_index": 1,
                          "variant": "v1", "out_subfolder": ""}}
     au = free(9001)
     g[au] = {"class_type": a.audio_class, "_meta": {"title": "AUDIO"},
@@ -181,7 +221,7 @@ def wrap(raw, song, a):
     # the reference sheets, into whatever image slots this node has
     slots = image_slots(ins)
     refs = read_refs(song)[:len(slots) or a.h3_images]
-    for i, (tag, label, _) in enumerate(refs):
+    for i, (tag, label, _rel, _base) in enumerate(refs):
         if i >= len(slots):
             break
         img = free(9100 + i)
@@ -225,66 +265,6 @@ def wrap(raw, song, a):
     return g, report
 
 
-def wf_scene(song, a):
-    """one scene, every file named and pre-filled"""
-    prompt_f, audio_f, frames = first_scene(song)
-    refs = read_refs(song)[:a.h3_images]
-    g = {}
-    g["10"] = {"class_type": a.audio_class, "_meta": {"title": "AUDIO"},
-               "inputs": {a.audio_field: audio_f or ""}}
-    h3_extra = {"length": frames, "ref_audio_0": ["10", 0]}
-    for n, (tag, label, path) in enumerate(refs, 1):
-        nid = str(100 + n)
-        # the title IS the live tag, so the graph says which image is which
-        g[nid] = {"class_type": a.image_class, "_meta": {"title": label},
-                  "inputs": {a.image_field: path}}
-        h3_extra["ref_image_%d" % (n - 1)] = [nid, 0]
-    if prompt_f:
-        with open(prompt_f, encoding="utf-8") as fh:
-            h3_extra["prompt"] = fh.read()
-    g["20"] = h3_node(a, h3_extra, "PROMPT")
-    g["30"] = save_node(a, "%s/scene" % os.path.basename(os.path.abspath(song)))
-    return g
-
-
-def wf_folder(song, a):
-    """Hurricane Song Folder drives the lot"""
-    refs = read_refs(song)[:a.h3_images]
-    g = {"1": {"class_type": "HurricaneSongFolder", "_meta": {"title": "SONG"},
-               "inputs": {"song_path": os.path.abspath(song),
-                          "scene_index": 1, "variant": "v1"}}}
-    g["10"] = {"class_type": a.audio_class, "_meta": {"title": "AUDIO"},
-               "inputs": {a.audio_field: ["1", 1]}}
-    h3_extra = {"prompt": ["1", 0], "length": ["1", 2],
-                "ref_audio_0": ["10", 0]}
-    for n, (tag, label, _) in enumerate(refs, 1):
-        nid = str(100 + n)
-        g[nid] = {"class_type": a.image_class, "_meta": {"title": label},
-                  "inputs": {a.image_field: ["1", 5 + n]}}   # ref_1 is output 6
-        h3_extra["ref_image_%d" % (n - 1)] = [nid, 0]
-    g["20"] = h3_node(a, h3_extra, a.h3_class)
-    g["30"] = save_node(a, ["1", 15])
-    return g
-
-
-def wf_pipeline(song, a):
-    """Hurricane Build Song: run the kit on the host first"""
-    kit = os.path.abspath(os.path.join(song, "..", ".."))
-    g = {"1": {"class_type": "HurricaneBuildSong", "_meta": {"title": "BUILD"},
-               "inputs": {"kit_path": kit,
-                          "song_name": os.path.basename(os.path.abspath(song)),
-                          "scene_index": 1, "variant": "v1",
-                          "stage": "build only"}}}
-    g["10"] = {"class_type": a.audio_class, "_meta": {"title": "AUDIO"},
-               "inputs": {a.audio_field: ["1", 1]}}
-    g["20"] = h3_node(a, {"prompt": ["1", 0], "length": ["1", 2],
-                          "ref_audio_0": ["10", 0]}, a.h3_class)
-    g["30"] = save_node(a, ["1", 5])
-    g["40"] = {"class_type": "PreviewAny", "_meta": {"title": "KIT LOG"},
-               "inputs": {"source": ["1", 6]}}
-    return g
-
-
 def wf_upscale(song, a):
     """The pass AFTER rendering, and there is no H3 in it.
 
@@ -300,7 +280,8 @@ def wf_upscale(song, a):
     from the storyboard nodes.
     """
     g = {}
-    g["1"] = {"class_type": "HurricaneClipFolder", "_meta": {"title": "CLIPS IN"},
+    g["1"] = {"class_type": "HurricaneClipFolder",
+              "_meta": {"title": "CLIPS IN - set source_dir"},
               "inputs": {"source_dir": "", "clip_index": 1,
                          "out_subfolder": "%s-2K" % os.path.basename(
                              os.path.abspath(song)),
@@ -323,10 +304,14 @@ def wf_upscale(song, a):
     return g
 
 
-WORKFLOWS = (("__wf_1_scene.json", wf_scene, "one scene, every file named"),
-             ("__wf_2_folder.json", wf_folder, "the folder node drives the song"),
-             ("__wf_3_pipeline.json", wf_pipeline, "run the kit, then the song"),
-             ("__wf_5_upscale.json", wf_upscale, "upscale a folder of renders, no H3"))
+WORKFLOWS = (("__workflow_upscale.json", wf_upscale,
+              "upscale a folder of renders, no H3 in it"),)
+
+# graphs generated before the H3 node's real shape was known. They wired a song
+# folder correctly but carried no sampler chain, so they could never run - the
+# render workflow now comes from wrapping one that already works.
+LEGACY = ("__wf_1_scene.json", "__wf_2_folder.json", "__wf_3_pipeline.json",
+          "__wf_5_upscale.json", "__wf_4_wrapped.json", "__workflow_api.json")
 
 
 def main():
@@ -354,13 +339,23 @@ def main():
     song = a.song.rstrip("/")
     if not os.path.isdir(song):
         sys.exit("no such song folder: %s" % song)
+    for old in LEGACY:
+        if os.path.isfile(os.path.join(song, old)):
+            os.remove(os.path.join(song, old))
     if a.raw:
         with open(a.raw, encoding="utf-8") as fh:
             raw = json.load(fh)
         if "nodes" in raw and "last_node_id" in raw:
-            sys.exit("that is a UI workflow. In ComfyUI: Workflow -> Export (API).")
-        out = os.path.join(song, "__wf_4_wrapped.json")
+            n_before = len(raw["nodes"])
+            raw = ui_to_api(raw)
+            print("converted   : UI workflow -> API format (%d of %d nodes; notes "
+                  "and muted ones dropped)" % (len(raw), n_before))
+        out = os.path.join(song, "__workflow_song.json")
         g, report = wrap(raw, song, a)
+        for nid, k, v in find_abs_paths(g):
+            report.append("! node %s.%s still holds an absolute path (%s) - it came "
+                          "from your own graph, check it works where ComfyUI runs"
+                          % (nid, k, v))
         with open(out, "w", encoding="utf-8") as fh:
             json.dump(g, fh, indent=2)
         print("wrapped     : %s" % out)
@@ -369,13 +364,20 @@ def main():
         return
 
     for name, fn, what in WORKFLOWS:
+        g = fn(song, a)
+        bad = find_abs_paths(g)
+        if bad:
+            sys.exit("%s would carry absolute path(s), which are wrong on the "
+                     "machine ComfyUI runs on:\n%s"
+                     % (name, "\n".join("  node %s.%s = %r" % b for b in bad)))
         with open(os.path.join(song, name), "w", encoding="utf-8") as fh:
-            json.dump(fn(song, a), fh, indent=2)
+            json.dump(g, fh, indent=2)
     if not a.quiet:
         print("workflows   : %s" % ", ".join(n for n, _, _ in WORKFLOWS))
-        if not a.confirmed:
-            print("              front half only - H3 conditions a sampler. Use")
-            print("              `mvkit workflows <song> --from your_export.json`")
+        if not os.path.isfile(os.path.join(song, "__workflow_song.json")):
+            print("              no render graph yet - wrap yours:")
+            print("              ./mvkit workflows %s --from <your workflow.json>"
+                  % os.path.basename(os.path.abspath(song)))
 
 
 if __name__ == "__main__":
