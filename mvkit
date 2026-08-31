@@ -15,6 +15,8 @@
 #   build      <song>          blocks + content.json -> flat NN_*.txt
 #   all        <song>          every step above, in order
 #   queue      <song> <wf.json>  POST one ComfyUI job per scene (API format)
+#   layout     <song> [wf.json]  group and lay out a UI-format workflow so it is
+#                                readable; writes songs/<song>/__workflow_song.json
 #   workflows  <song> [--from raw.json]  write the starting graphs, or wrap your
 #                                        own H3 export with our nodes
 #   probe      [--song <name> --emit]  ask the running ComfyUI what it has, and
@@ -132,6 +134,10 @@ case "$CMD" in
     bash "$0" --native draft "$D"
     bash "$0" --native build "$D" ;;
   new)     bash bin/new_song.sh "$@" ;;
+  layout)
+    D="$(song_dir "${1:-}")"; shift || true
+    IN="${1:-$D/__workflow_song.json}"
+    py bin/layout_workflow.py "$IN" -o "$D/__workflow_song.json" ;;
   workflows)
     D="$(song_dir "${1:-}")"; shift || true
     py bin/make_workflows.py "$D" "$@" ;;

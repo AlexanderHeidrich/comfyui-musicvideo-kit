@@ -125,10 +125,25 @@ RENDERING THIS FOLDER IN COMFYUI
   arrives here is already paired: one prompt and one slice per scene, with the
   frame count each scene must be rendered at.
 
-  TWO WORKFLOWS IN THIS FOLDER
+  THE WORKFLOWS IN THIS FOLDER
 
-    __workflow_song.json     the render. YOUR H3 graph with this folder wired in.
-    __workflow_upscale.json  the pass afterwards. No H3 in it.
+    __workflow_song.json      the render. YOUR H3 graph with this folder wired
+                              in, laid out in labelled groups. UI format - this
+                              is the one you open.
+    __workflow_song_api.json  the same graph in API format, for `mvkit queue`.
+                              Written only when you wrap; it has no layout,
+                              because the API format has no positions at all.
+    __workflow_upscale.json   the pass afterwards. No H3 in it.
+
+    KEEP THE UI FILE. Only the UI format carries positions and groups, so a graph
+    that goes through the API format opens as a heap of unpositioned nodes with no
+    groups - that is what happened once here. `./mvkit layout <song> [file]` puts
+    it back: SONG FOLDER, MODELS, REFERENCE SHEETS, SETTINGS, H3, SAMPLER, OUTPUT,
+    left to right in the order the signal flows, images wrapped into a grid. It
+    only moves nodes and adds group boxes; links and values are untouched.
+
+    For the next song you do not need to wrap again - copy this file and change
+    `song_path`. Everything else is identical between songs.
 
     Nothing here tries to invent a render graph. The H3 node returns `positive`
     and `LATENT` - it conditions a sampler and hands back no video - so a

@@ -389,7 +389,7 @@ def main():
             raw = ui_to_api(raw)
             print("converted   : UI workflow -> API format (%d of %d nodes; notes "
                   "and muted ones dropped)" % (len(raw), n_before))
-        out = os.path.join(song, "__workflow_song.json")
+        out = os.path.join(song, "__workflow_song_api.json")
         g, report = wrap(raw, song, a)
         for nid, k, v in find_abs_paths(g):
             report.append("! node %s.%s still holds an absolute path (%s) - it came "
