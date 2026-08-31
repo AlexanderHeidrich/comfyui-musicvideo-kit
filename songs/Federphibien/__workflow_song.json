@@ -1,19 +1,26 @@
 {
-  "115": {
-    "class_type": "ResolutionSelector",
+  "127": {
+    "class_type": "UNETLoader",
     "inputs": {
-      "aspect_ratio": "16:9 (Widescreen)",
-      "megapixels": 0.4,
-      "multiple": 32
+      "unet_name": "h3.safetensors"
     },
     "_meta": {
-      "title": "Resolution Selector (Size)"
+      "title": "UNETLoader"
+    }
+  },
+  "128": {
+    "class_type": "CLIPLoader",
+    "inputs": {
+      "clip_name": "h3_clip.safetensors"
+    },
+    "_meta": {
+      "title": "CLIPLoader"
     }
   },
   "119": {
     "class_type": "VAELoader",
     "inputs": {
-      "vae_name": "minimax_h3_video_vae_fp16.safetensors"
+      "vae_name": "h3_vae.safetensors"
     },
     "_meta": {
       "title": "VAELoader"
@@ -22,51 +29,178 @@
   "120": {
     "class_type": "VAELoader",
     "inputs": {
-      "vae_name": "minimax_h3_audio_vae_fp32.safetensors"
+      "vae_name": "h3_audio_vae.safetensors"
     },
     "_meta": {
       "title": "VAELoader"
     }
   },
-  "121": {
-    "class_type": "VAEDecodeAudio",
+  "115": {
+    "class_type": "ResolutionSelector",
     "inputs": {
-      "samples": [
-        "125",
-        0
-      ],
-      "vae": [
-        "120",
-        0
-      ]
+      "preset": "1344x768"
     },
     "_meta": {
-      "title": "VAEDecodeAudio"
+      "title": "Resolution Selector"
     }
   },
-  "122": {
-    "class_type": "VAEDecode",
+  "137": {
+    "class_type": "LoadImage",
     "inputs": {
-      "samples": [
-        "125",
+      "image": "01_char_federphibium.png"
+    },
+    "_meta": {
+      "title": "<Picture 1> federphibium (char)"
+    }
+  },
+  "139": {
+    "class_type": "LoadImage",
+    "inputs": {
+      "image": "02_char_der-frosch.png"
+    },
+    "_meta": {
+      "title": "<Picture 2> der frosch (char)"
+    }
+  },
+  "148": {
+    "class_type": "LoadImage",
+    "inputs": {
+      "image": "03_char_das-huhn.png"
+    },
+    "_meta": {
+      "title": "<Picture 3> das huhn (char)"
+    }
+  },
+  "149": {
+    "class_type": "LoadImage",
+    "inputs": {
+      "image": "04_style_board.png"
+    },
+    "_meta": {
+      "title": "<Picture 4> board (style)"
+    }
+  },
+  "150": {
+    "class_type": "LoadImage",
+    "inputs": {
+      "image": "05_char_der-forscher.png"
+    },
+    "_meta": {
+      "title": "<Picture 5> der forscher (char)"
+    }
+  },
+  "151": {
+    "class_type": "LoadImage",
+    "inputs": {
+      "image": "06_loc_pond.png"
+    },
+    "_meta": {
+      "title": "<Picture 6> pond (loc)"
+    }
+  },
+  "152": {
+    "class_type": "LoadImage",
+    "inputs": {
+      "image": "07_loc_henhouse-interior.png"
+    },
+    "_meta": {
+      "title": "<Picture 7> henhouse interior (loc)"
+    }
+  },
+  "136": {
+    "class_type": "MiniMaxH3ReferenceToVideo",
+    "inputs": {
+      "clip": [
+        "128",
         0
       ],
       "vae": [
         "119",
         0
-      ]
+      ],
+      "audio_vae": [
+        "120",
+        0
+      ],
+      "ref_images.ref_image_0": [
+        "137",
+        0
+      ],
+      "ref_images.ref_image_1": [
+        "139",
+        0
+      ],
+      "ref_images.ref_image_2": [
+        "148",
+        0
+      ],
+      "ref_images.ref_image_3": [
+        "149",
+        0
+      ],
+      "ref_images.ref_image_4": [
+        "150",
+        0
+      ],
+      "ref_images.ref_image_5": [
+        "151",
+        0
+      ],
+      "ref_images.ref_image_6": [
+        "152",
+        0
+      ],
+      "ref_audios.ref_audio_0": [
+        "9001",
+        0
+      ],
+      "prompt": [
+        "9000",
+        0
+      ],
+      "width": [
+        "115",
+        0
+      ],
+      "height": [
+        "115",
+        1
+      ],
+      "length": [
+        "9000",
+        2
+      ],
+      "ref_image_size": "match"
     },
     "_meta": {
-      "title": "VAEDecode"
+      "title": "MiniMaxH3ReferenceToVideo"
     }
   },
   "123": {
     "class_type": "KSamplerSelect",
     "inputs": {
-      "sampler_name": "res_multistep"
+      "sampler_name": "euler"
     },
     "_meta": {
       "title": "KSamplerSelect"
+    }
+  },
+  "129": {
+    "class_type": "RandomNoise",
+    "inputs": {
+      "noise_seed": 42
+    },
+    "_meta": {
+      "title": "RandomNoise"
+    }
+  },
+  "143": {
+    "class_type": "PrimitiveInt",
+    "inputs": {
+      "value": 30
+    },
+    "_meta": {
+      "title": "Int (Full)"
     }
   },
   "124": {
@@ -78,13 +212,29 @@
       ],
       "scheduler": "simple",
       "steps": [
-        "142",
+        "143",
         0
       ],
-      "denoise": 1
+      "denoise": 30
     },
     "_meta": {
       "title": "BasicScheduler"
+    }
+  },
+  "126": {
+    "class_type": "BasicGuider",
+    "inputs": {
+      "model": [
+        "127",
+        0
+      ],
+      "conditioning": [
+        "136",
+        0
+      ]
+    },
+    "_meta": {
+      "title": "BasicGuider"
     }
   },
   "125": {
@@ -115,50 +265,36 @@
       "title": "SamplerCustomAdvanced"
     }
   },
-  "126": {
-    "class_type": "BasicGuider",
+  "122": {
+    "class_type": "VAEDecode",
     "inputs": {
-      "model": [
-        "141",
+      "samples": [
+        "125",
         0
       ],
-      "conditioning": [
-        "136",
+      "vae": [
+        "119",
         0
       ]
     },
     "_meta": {
-      "title": "BasicGuider"
+      "title": "VAEDecode"
     }
   },
-  "127": {
-    "class_type": "UNETLoader",
+  "121": {
+    "class_type": "VAEDecodeAudio",
     "inputs": {
-      "unet_name": "minimax_h3_ref2va_pruned_int8_convrot.safetensors",
-      "weight_dtype": "default"
+      "samples": [
+        "125",
+        0
+      ],
+      "vae": [
+        "120",
+        0
+      ]
     },
     "_meta": {
-      "title": "UNETLoader"
-    }
-  },
-  "128": {
-    "class_type": "CLIPLoader",
-    "inputs": {
-      "clip_name": "qwen3vl_32b_minimax_h3_nvfp4_awq.safetensors",
-      "type": "minimax",
-      "device": "default"
-    },
-    "_meta": {
-      "title": "CLIPLoader"
-    }
-  },
-  "129": {
-    "class_type": "RandomNoise",
-    "inputs": {
-      "noise_seed": 718741467313429
-    },
-    "_meta": {
-      "title": "RandomNoise"
+      "title": "VAEDecodeAudio"
     }
   },
   "130": {
@@ -172,229 +308,10 @@
         "121",
         0
       ],
-      "fps": 24,
-      "bit_depth": 8,
-      "color_space": "sRGB"
+      "fps": 24.0
     },
     "_meta": {
       "title": "CreateVideo"
-    }
-  },
-  "131": {
-    "class_type": "ComfyMathExpression",
-    "inputs": {
-      "values.a": [
-        "132",
-        0
-      ],
-      "expression": "max(5, round(a * 24)) + (5 - (max(5, round(a * 24)) % 17)) % 17"
-    },
-    "_meta": {
-      "title": "ComfyMathExpression"
-    }
-  },
-  "132": {
-    "class_type": "PrimitiveFloat",
-    "inputs": {
-      "value": 5
-    },
-    "_meta": {
-      "title": "Float (Duration)"
-    }
-  },
-  "141": {
-    "class_type": "ComfySwitchNode",
-    "inputs": {
-      "on_false": [
-        "127",
-        0
-      ],
-      "on_true": [
-        "145",
-        0
-      ],
-      "switch": [
-        "146",
-        0
-      ]
-    },
-    "_meta": {
-      "title": "If/Else Switch (model)"
-    }
-  },
-  "142": {
-    "class_type": "ComfySwitchNode",
-    "inputs": {
-      "on_false": [
-        "143",
-        0
-      ],
-      "on_true": [
-        "144",
-        0
-      ],
-      "switch": [
-        "146",
-        0
-      ]
-    },
-    "_meta": {
-      "title": "If/Else Switch (Steps)"
-    }
-  },
-  "143": {
-    "class_type": "PrimitiveInt",
-    "inputs": {
-      "value": 20
-    },
-    "_meta": {
-      "title": "Int (Full)"
-    }
-  },
-  "144": {
-    "class_type": "PrimitiveInt",
-    "inputs": {
-      "value": 4
-    },
-    "_meta": {
-      "title": "Int (Lightning LoRA)"
-    }
-  },
-  "145": {
-    "class_type": "LoraLoaderModelOnly",
-    "inputs": {
-      "model": [
-        "127",
-        0
-      ],
-      "lora_name": "minimax_h3_ref2v_turbo_4step_v0.1_comfyui_bf16.safetensors",
-      "strength_model": 1
-    },
-    "_meta": {
-      "title": "LoraLoaderModelOnly"
-    }
-  },
-  "146": {
-    "class_type": "PrimitiveBoolean",
-    "inputs": {
-      "value": false
-    },
-    "_meta": {
-      "title": "Boolean (Enable Lightning LoRA)"
-    }
-  },
-  "137": {
-    "class_type": "LoadImage",
-    "inputs": {
-      "image": "01_char_federphibium.png"
-    },
-    "_meta": {
-      "title": "Federphibium"
-    }
-  },
-  "139": {
-    "class_type": "LoadImage",
-    "inputs": {
-      "image": "02_char_der-frosch.png"
-    },
-    "_meta": {
-      "title": "Frosch"
-    }
-  },
-  "148": {
-    "class_type": "LoadImage",
-    "inputs": {
-      "image": "03_char_das-huhn.png"
-    },
-    "_meta": {
-      "title": "Huhn"
-    }
-  },
-  "147": {
-    "class_type": "LoadAudio",
-    "inputs": {
-      "audio": "01_the-pond-from-above.mp3"
-    },
-    "_meta": {
-      "title": "LoadAudio"
-    }
-  },
-  "136": {
-    "class_type": "MiniMaxH3ReferenceToVideo",
-    "inputs": {
-      "clip": [
-        "128",
-        0
-      ],
-      "vae": [
-        "119",
-        0
-      ],
-      "audio_vae": [
-        "120",
-        0
-      ],
-      "ref_images.ref_image_0": [
-        "9100",
-        0
-      ],
-      "ref_images.ref_image_1": [
-        "9101",
-        0
-      ],
-      "ref_images.ref_image_2": [
-        "9102",
-        0
-      ],
-      "ref_images.ref_image_3": [
-        "9103",
-        0
-      ],
-      "ref_images.ref_image_4": [
-        "9104",
-        0
-      ],
-      "ref_images.ref_image_5": [
-        "9105",
-        0
-      ],
-      "ref_images.ref_image_6": [
-        "9106",
-        0
-      ],
-      "ref_audios.ref_audio_0": [
-        "9001",
-        0
-      ],
-      "prompt": [
-        "9000",
-        0
-      ],
-      "width": [
-        "115",
-        0
-      ],
-      "height": [
-        "115",
-        1
-      ],
-      "length": [
-        "9000",
-        2
-      ],
-      "ref_image_size": "match"
-    },
-    "_meta": {
-      "title": "MiniMaxH3ReferenceToVideo"
-    }
-  },
-  "138": {
-    "class_type": "PrimitiveStringMultiline",
-    "inputs": {
-      "value": "subject_definitions\n  References supplied with this generation:\n    <Picture 1>  federphibium (char)\n    <Picture 2>  der frosch (char)\n    <Picture 3>  das huhn (char)\n    <Picture 4>  board (style)\n    <Picture 5>  der forscher (char)\n    <Picture 6>  pond (loc)\n    <Picture 7>  henhouse interior (loc)\n    <Audio 1>    this window of the song\n\n  REFERENCE - read this first\n    Seven images are supplied. Four are subjects, one is the look, two are places.\n\n    <Picture 1> THE FEDERPHIBIUM, the hybrid child: a fat green toad body with a\n    red chicken comb, a red wattle under the chin, a small yellow-orange beak, huge\n    orange-ringed eyes set high and wide, a pale cream belly, dark green speckling,\n    frog legs with long toes ending in small yellow claws, and two small useless\n    white-and-green feathered wings on its flanks.\n    <Picture 2> DER FROSCH.  <Picture 3> DAS HUHN.\n    <Picture 5> DER FORSCHER, seen from behind, which is how he is always seen.\n\n    <Picture 4> is NOT a thing in the scene. It is a colour and construction board:\n    the palette, the line weight, and the way a shadow is shaped. Read the look off\n    it and never draw it.\n    <Picture 6> is the pond, <Picture 7> the inside of the hen house. They are\n    background paintings that set the colour and the architecture of those places.\n    Neither is a character and nothing in them is a subject.\n\n    Take from the character references: the design, the proportions, the colour\n    model, the exact shape of comb, wattle, beak, eyes, wings and claws.\n    Do NOT take their rendering. They carry soft painterly shading, and each figure\n    stands on a plain grey backdrop with a cast shadow under it. This film is cel\n    animation - flat fills, hard-edged shadow shapes, no gradients, no gloss.\n    Redraw them in that idiom, and never reproduce the grey backdrop or that\n    shadow. Never reproduce lettering, caption, logo, watermark or frame from any\n    reference.\n\n  CAST - the reference is the child, and the parents are it taken apart\n    DER FROSCH - <Picture 2>. The narrator, and the only one who ever speaks. Green\n    warty skin, dark speckling, a pale cream belly, huge orange-ringed eyes, long\n    clawed toes, a potbellied sitting build, a wide frog mouth. He is what\n    <Picture 1> is with every chicken part taken away: NO comb, NO wattle, NO beak,\n    NO wings. Permanently wet, with a\n    visible sheen. He wears nothing and owns nothing. Earnest, lovesick, entirely\n    without shame.\n    DAS HUHN - <Picture 3>. A plain brown farmyard hen carrying exactly the chicken parts that\n    <Picture 1> borrowed: the same red comb, the same red wattle, the same\n    yellow-orange beak, the same scaly legs and claws. Otherwise completely\n    ordinary and completely oblivious. She never once deliberately looks at him -\n    everything that reads as a response is coincidence, she was pecking anyway,\n    she turned her head anyway. Beady black eyes. No eyelashes, no blush, no\n    anthropomorphism of any kind.\n    DIE FEDERPHIBIEN - the imagined children: <Picture 1> exactly, in numbers.\n    Comb, wattle, beak, frog body, stub wings, clawed webbed feet. The wings\n    cannot lift them and they will not swim, and they do not know it yet. They\n    appear ONLY inside the chorus fantasies, never in the real pond.\n    DER FORSCHER - <Picture 5>. The only human being in the film, and the film never shows his\n    face. Khaki trousers, a plain shirt with the sleeves turned back, a straw hat.\n    A hardbound notebook and a pencil, and an SLR on a black strap round his neck -\n    most of the time only the strap is visible, the body and lens of the camera\n    only in the close shots of the notebook and at the very end when he finally\n    uses it. Middle aged, unhurried, completely absorbed. He sits on a folding\n    chair at the edge of the pond and draws what he sees, in the fine pencil manner\n    of a nineteenth century scientific plate, the parts labelled in a small hand.\n    Always seen from behind or over his shoulder. Never his face, never a reaction\n    shot, never a word. He does not interact with the animals and they never notice\n    him. He moves quickly exactly once, when he jumps up and grabs the chair to\n    stop it going over.\n\n  WORLD\n    A murky farm pond at the bottom edge of a chicken yard. High summer, humid,\n    overcast bright. Green scum water, cattails, duckweed. A leaning chicken-wire\n    fence with a gap worn under it. A corrugated tin coop. Dry mud cracked into\n    plates. One bare bulb on a sagging cable. Flies everywhere.\n    The farm plainly works - the coop is repaired, there is feed on the ground -\n    and nobody is home. The one person who ever appears is the researcher at the\n    pond, and he is never shown from the front. Never explain either of those.\n\n  RUNNING GAGS\n    The frog is always wet. Wherever he sits a small dark puddle forms, and it is\n    still there after he moves away.\n    Flies orbit his head in every single beat. He never eats one. Not once.\n    One single corn kernel keeps coming back - dropped, carried, offered, ignored.\n    The hen never blinks at the same time as he does.\n    Hearts appear exactly twice in the whole film and nowhere else: rising over the\n    frog's head when the focus comes back to him, and circling the pair as they\n    clear the hen house door. Both times they are flat hard-edged cartoon shapes,\n    drawn like everything else, held a moment and gone. Never a constant, never\n    throbbing, never a drifting background of them. Everywhere else the film\n    refuses that shorthand.\n\n  RULES\n    Only the frog speaks, and only in the song's own words. Keep his lines in\n    German exactly as written.\n    The hen makes real chicken sounds and nothing else. She is never given a human\n    reaction, never a take, never a double-take.\n    The frog never looks into the lens until the final beat.\n    Nothing here is cute. Everything is sincere. The sincerity is the joke - so\n    never play it for laughs, never mug, never wink.\n\nsummary\n  The farmyard lies still around its pond. In the water there is only a small dark shape at first, which resolves into a frog: he kicks his legs in slow swimming strokes and jerks forward with each push, the way a frog actually moves through water.\n\nretention_analysis\n  Hand-drawn 2D cel animation as made for television in the mid 1990s: ink and\n  paint on acetate cels, photographed over painted backgrounds. Cheap, fast,\n  slightly grubby work by people who could draw. Reproduce the CRAFT of that era,\n  never the condition of an old tape.\n\n  LINE\n    Brush-and-ink outlines with real taper - the line swells and thins along its\n    length and closes every shape. The line is not uniform and not confident:\n    slight wobble, the odd overshoot at a corner, thickness varying between\n    drawings of the same character. One line weight per character, scaled to the\n    shot size, so a close-up is not just an enlargement.\n    Self-coloured lines where it suits - a dark olive outline on a green animal, a\n    deep umber on a brown one - with black kept for accents.\n\n  COLOUR AND FILLS\n    Flat fills. No gradients, no soft rendering, no ambient occlusion, no gloss.\n    Shadows are a SEPARATE flat shape with a hard edge, one or two steps darker on\n    the same hue - never a blur, never a multiply wash. Highlights are the same\n    idea inverted.\n    Palette dusty and slightly off: mustard, moss, liver brown, dishwater blue,\n    a sour pink. Two or three saturated accents per shot at most. Each character\n    has a fixed colour model that never drifts between shots.\n\n  BACKGROUNDS\n    Gouache or watercolour on board: visibly brushy, textured, unoutlined, edges\n    softer than the characters. Warmer and duller than the figures so the cels pop\n    off them. Real botany and real architecture - a specific fence, a specific\n    weed - rather than generic cartoon shapes.\n    The mismatch between crisp outlined characters and soft painted backgrounds IS\n    the look. Lean into it rather than harmonising it.\n\n  DIRT AND DETAIL\n    Everything in the world is used. Chipped paint, rust bloom at a bolt, dried\n    mud in the tread of a tyre, a scuffed floor, seed husks and hair on the\n    ground, flies that are actually drawn. Wet things read wet, dry things read\n    dusty.\n    In close-ups the detail goes UP, not down: pores, chapped skin, a split claw,\n    crumbs at the corner of a mouth. The wide shots stay simple and graphic.\n\n  MOVEMENT\n    Limited animation on twos, twelve drawings a second. Pose-to-pose with strong\n    readable key poses and very few in-betweens. Held cels for long stretches.\n    Cycled blinks and walks.\n    Rubbery squash, stretch and deformation reserved for single accents, taken\n    further than is comfortable, then straight back to a held pose.\n    Smears drawn as a shape rather than rendered as motion blur. Dry-brush speed\n    lines where something moves fast.\n    Lipsync from a fixed mouth chart of about ten shapes, so the mouth SNAPS\n    between positions rather than morphing. Expressions come from a small reused\n    library. Eyes are simple ovals with dot or pinprick pupils.\n\n  CAMERA\n    Rostrum and multiplane thinking: lateral pans across a long background\n    painting, truck-ins on a held cel, simple zooms, layered foreground elements\n    for depth. No 3D camera, no arcing moves, no rack-focus theatrics.\n    Composition centred and TV-safe.\n\n  THE GROSS-UP\n    Once per scene at most, on a punchline: cut to a single fully painted,\n    high-detail, properly rendered illustration - wet skin, mucus, the grain of a\n    scaly leg, a bead of water - which abandons the flat cel style entirely for\n    one or two seconds, then cut straight back. This is a deliberate 1990s device.\n    Render it CLEAN and sharp, like a painted plate, not like damaged footage.\n\n  RENDER CLEAN - this matters\n    Output a pristine, stable, sharp image. Do NOT add film grain, video noise,\n    VHS softness, tape dropouts, tracking lines, head-switching noise, scanlines,\n    interlace combing, chroma bleed, dot crawl, colour fringing, chromatic\n    aberration, gate weave, registration wobble, frame jitter, dust, scratches,\n    hair in the gate, vignetting, halation, bloom, letterbox bars, timecode or\n    any on-screen text. No lens effects of any kind.\n    Every one of those is being added afterwards in the grade, and baked-in\n    artefacts cannot be removed. Full frame, clean edges, steady.\n\n  Hold identical across every scene of this film: the colour model, the\n  line weight, the proportions and the costume of every character named\n  above, and the time of day and weather of the location.\n\ndetailed_description\n  [Static shot] Close on the water surface where the dark shape moves.\n\n  The farmyard lies still around its pond. In the water there is only a small dark shape at first, which resolves into a frog: he kicks his legs in slow swimming strokes and jerks forward with each push, the way a frog actually moves through water. He covers half the distance to the bank.\n\noverall_soundscape\n  Under everything, always present and always quiet: a summer farm pond. Wet\n    plops, crickets, the low mutter of hens somewhere off frame, corrugated tin\n    ticking in the heat, and one distant tractor that never arrives. Never louder\n    than the vocal.\n    NO cartoon sound effects. No boings, no slide whistles, no rubber-band twangs,\n    no comedy impacts on cuts. The frog's quakes and the hen's clucks are the only\n    animal sounds, and both are recorded-real rather than performed.\n    The film never uses sound to tell you something is funny.\n\nnon_diegetic_music\n  The provided song excerpt is the ONLY music. Do not invent, add or extend any\n    instrumentation - no score, no stings, no risers.\n"
-    },
-    "_meta": {
-      "title": "Input Text (Prompt)"
     }
   },
   "92": {
@@ -409,47 +326,10 @@
         15
       ],
       "format": "auto",
-      "format.codec": "auto",
       "codec": "auto"
     },
     "_meta": {
       "title": "SaveVideo"
-    }
-  },
-  "150": {
-    "class_type": "LoadImage",
-    "inputs": {
-      "image": "05_char_der-forscher.png"
-    },
-    "_meta": {
-      "title": "Forscher"
-    }
-  },
-  "149": {
-    "class_type": "LoadImage",
-    "inputs": {
-      "image": "04_style_board.png"
-    },
-    "_meta": {
-      "title": "Style Board"
-    }
-  },
-  "151": {
-    "class_type": "LoadImage",
-    "inputs": {
-      "image": "06_loc_pond.png"
-    },
-    "_meta": {
-      "title": "Teich"
-    }
-  },
-  "152": {
-    "class_type": "LoadImage",
-    "inputs": {
-      "image": "07_loc_henhouse-interior.png"
-    },
-    "_meta": {
-      "title": "H\u00fchnerstall"
     }
   },
   "9000": {
@@ -473,90 +353,6 @@
       "audio_file": [
         "9000",
         1
-      ]
-    }
-  },
-  "9100": {
-    "class_type": "VHS_LoadImagePath",
-    "_meta": {
-      "title": "<Picture 1> federphibium (char)"
-    },
-    "inputs": {
-      "path": [
-        "9000",
-        6
-      ]
-    }
-  },
-  "9101": {
-    "class_type": "VHS_LoadImagePath",
-    "_meta": {
-      "title": "<Picture 2> der frosch (char)"
-    },
-    "inputs": {
-      "path": [
-        "9000",
-        7
-      ]
-    }
-  },
-  "9102": {
-    "class_type": "VHS_LoadImagePath",
-    "_meta": {
-      "title": "<Picture 3> das huhn (char)"
-    },
-    "inputs": {
-      "path": [
-        "9000",
-        8
-      ]
-    }
-  },
-  "9103": {
-    "class_type": "VHS_LoadImagePath",
-    "_meta": {
-      "title": "<Picture 4> board (style)"
-    },
-    "inputs": {
-      "path": [
-        "9000",
-        9
-      ]
-    }
-  },
-  "9104": {
-    "class_type": "VHS_LoadImagePath",
-    "_meta": {
-      "title": "<Picture 5> der forscher (char)"
-    },
-    "inputs": {
-      "path": [
-        "9000",
-        10
-      ]
-    }
-  },
-  "9105": {
-    "class_type": "VHS_LoadImagePath",
-    "_meta": {
-      "title": "<Picture 6> pond (loc)"
-    },
-    "inputs": {
-      "path": [
-        "9000",
-        11
-      ]
-    }
-  },
-  "9106": {
-    "class_type": "VHS_LoadImagePath",
-    "_meta": {
-      "title": "<Picture 7> henhouse interior (loc)"
-    },
-    "inputs": {
-      "path": [
-        "9000",
-        12
       ]
     }
   }

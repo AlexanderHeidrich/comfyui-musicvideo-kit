@@ -162,7 +162,23 @@ RENDERING THIS FOLDER IN COMFYUI
     is titled to say so. Set it once to where this folder lives on the ComfyUI
     machine. The build refuses to write a graph containing an absolute path.
 
-    Then: `scene_index` to `increment`, batch count to `scene_count`, Run once.
+    RUNNING THE WHOLE SONG - one press of Run
+
+    1. set `song_path` to where this folder lives on the ComfyUI machine
+    2. click the arrows beside `scene_index` and set its control to `increment`
+    3. set the queue's **Batch count** (the number next to Run, not a widget) to
+       the scene count - it is the number of data rows in __SCENES.tsv, printed
+       at the top of this file
+    4. press Run ONCE
+
+    ComfyUI queues that many jobs and steps `scene_index` up by one for each. You
+    do not touch anything in between. A count set too high is an error rather
+    than a silent re-render of the last scene, so getting it wrong costs you a
+    message and not a night.
+
+    The reference sheets are NOT driven per scene - they are the same in every
+    scene, so their loaders keep their own filenames and are only retitled with
+    their live tag. Only the prompt, the frame count and the audio slice change.
 
   THE OTHER WAY - drive it from outside
 

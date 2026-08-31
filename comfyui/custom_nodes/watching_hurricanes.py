@@ -466,7 +466,14 @@ class HurricaneSongFolder:
         scenes = data["scenes"]
         if not scenes:
             raise ValueError("__SCENES.tsv lists no scenes")
-        sc = scenes[min(max(int(scene_index), 1), len(scenes)) - 1]
+        # not clamped, for the same reason the clip folder is not: a batch count
+        # set higher than scene_count would re-render the last scene all night
+        if int(scene_index) > len(scenes):
+            raise ValueError(
+                "scene_index %d but this song has %d scene(s). Set the queue's "
+                "batch count to scene_count (%d), not higher."
+                % (int(scene_index), len(scenes), len(scenes)))
+        sc = scenes[max(int(scene_index), 1) - 1]
         pf = sc["prompts"].get(variant)
         if not pf:
             have = ", ".join(sorted(sc["prompts"])) or "none"

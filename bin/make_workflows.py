@@ -169,6 +169,40 @@ def ui_to_api(ui):
     return out
 
 
+# nodes that are an end in themselves; everything else only matters if it feeds one
+OUTPUT_CLASSES = re.compile(r"^(Save|Preview|VHS_VideoCombine|SaveAudio|SaveVideo)",
+                            re.I)
+
+
+def prune_unreachable(graph):
+    """Drop nodes that no longer reach an output, and say which.
+
+    Wrapping displaces whatever used to feed the H3 node - the prompt primitive,
+    the LoadImage nodes, the LoadAudio. ComfyUI would not execute them, but they
+    sit in the graph looking connected and are the first thing you misread when
+    you open it. Removing them is the difference between a graph you can read and
+    one you have to squint at.
+    """
+    outs = [nid for nid, n in graph.items()
+            if OUTPUT_CLASSES.match(n.get("class_type", ""))]
+    if not outs:
+        return graph, []                       # nothing recognisable to walk back from
+    keep, stack = set(), list(outs)
+    while stack:
+        nid = stack.pop()
+        if nid in keep or nid not in graph:
+            continue
+        keep.add(nid)
+        for v in (graph[nid].get("inputs") or {}).values():
+            if isinstance(v, list) and v and isinstance(v[0], str):
+                stack.append(v[0])
+    dropped = [(nid, graph[nid].get("class_type", "?"),
+                (graph[nid].get("_meta") or {}).get("title", ""))
+               for nid in sorted(graph, key=lambda x: int(x) if x.isdigit() else 0)
+               if nid not in keep]
+    return {k: v for k, v in graph.items() if k in keep}, dropped
+
+
 def find_h3_in(graph, h3_class):
     """the H3 node inside a graph the user exported themselves"""
     for nid, n in graph.items():
@@ -218,16 +252,20 @@ def wrap(raw, song, a):
     if a_slot:
         ins[a_slot] = [au, 0]
 
-    # the reference sheets, into whatever image slots this node has
+    # The reference sheets are CONSTANT for the whole song - only the prompt, the
+    # length and the audio slice change per scene. So the loaders already feeding
+    # ref_image_* are correct and are left exactly as they are. They only get
+    # retitled with their live tag, so the graph says which image is <Picture 3>.
     slots = image_slots(ins)
-    refs = read_refs(song)[:len(slots) or a.h3_images]
-    for i, (tag, label, _rel, _base) in enumerate(refs):
-        if i >= len(slots):
-            break
-        img = free(9100 + i)
-        g[img] = {"class_type": a.image_class, "_meta": {"title": label},
-                  "inputs": {a.image_field: [src, 6 + i]}}
-        ins[slots[i]] = [img, 0]
+    refs = read_refs(song)
+    retitled = 0
+    for i, slot in enumerate(slots):
+        link = ins.get(slot)
+        if not (isinstance(link, list) and link[0] in g):
+            continue
+        if i < len(refs):
+            g[link[0]].setdefault("_meta", {})["title"] = refs[i][1]
+            retitled += 1
 
     # a save node the user already has keeps its settings, it only learns where
     saved = [k for k, n in g.items() if "filename_prefix" in n.get("inputs", {})]
@@ -241,27 +279,28 @@ def wrap(raw, song, a):
               % (nid, g[nid]["class_type"],
                  ", ".join("%s=%r" % (k, v) for k, v in sorted(ins.items())
                            if not isinstance(v, list)) or "none")]
-    report.append("rewired: prompt, length, %s, %d of %d image slot(s)"
-                  % ("audio -> %s" % a_slot if a_slot else "no audio slot found",
-                     min(len(refs), len(slots)), len(slots)))
-    if len(read_refs(song)) > len(slots):
-        report.append("! %d reference sheets but only %d image slot(s) on that node - "
-                      "%d dropped. Add image inputs in ComfyUI and re-wrap."
-                      % (len(read_refs(song)), len(slots),
-                         len(read_refs(song)) - len(slots)))
+    report.append("rewired: prompt, length, %s"
+                  % ("audio -> %s" % a_slot if a_slot else "NO audio slot found"))
+    report.append("reference sheets left alone (they are the same in every scene); "
+                  "%d loader(s) retitled with their live tag" % retitled)
+    connected = sum(1 for k in slots if isinstance(ins.get(k), list))
+    if connected < len(refs):
+        report.append("! %d sheets in _source/refs but only %d ref_image slot(s) are "
+                      "connected. Wire up the rest in ComfyUI and re-wrap, or those "
+                      "sheets never reach H3." % (len(refs), connected))
     if any(t in ("CONDITIONING", "LATENT")
            for t in (g[nid].get("_out_types") or ())):
         report.append("that node conditions a sampler rather than returning a "
                       "video; the rest of your chain is untouched")
-    orphans = [k for k, n in g.items()
-               if k not in (src, au) and not k.startswith("91")
-               and n.get("class_type") in (a.audio_class, IMAGE_CLASS, "LoadImage",
-                                           "LoadAudio", "LoadImageFromPath")]
-    if orphans:
-        report.append("your own loader node(s) %s are now unreachable - harmless, "
-                      "delete them if you like" % ", ".join(sorted(orphans)))
     report.append("saved via %s, filename_prefix now comes from save_prefix"
                   % (", ".join(sorted(saved)) if saved else "a new SAVE node"))
+
+    g, dropped = prune_unreachable(g)
+    if dropped:
+        report.append("removed %d node(s) your graph no longer needs, because this "
+                      "folder feeds those inputs now:" % len(dropped))
+        for nid, cls, title in dropped:
+            report.append("    %-5s %-26s %s" % (nid, cls, title))
     return g, report
 
 

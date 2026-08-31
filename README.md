@@ -188,9 +188,17 @@ mirrors where they go. Two independent files, stdlib only:
 `./mvkit probe` asks a running server what it has and what to title what - useful
 after a node-pack update, not needed for the normal job.
 
-**Running the whole song:** set Hurricane Song Folder's `scene_index` to
-`increment`, the queue's batch count to its `scene_count` output, and press Run
-once. Or drive it from outside with no node from this kit at all:
+**Running the whole song is one press of Run.** Set `song_path`, set the control
+beside `scene_index` to `increment`, set the queue's **Batch count** to the number
+of scenes (the data rows in `__SCENES.tsv`), and press Run once - ComfyUI queues
+that many jobs and steps the index for you. Nothing to click in between. A batch
+count set too high raises rather than silently re-rendering the last scene.
+
+The reference sheets are not driven per scene, because they are identical in every
+scene: their loaders keep their own filenames and are only retitled with their
+live tag. Only the prompt, the frame count and the audio slice change.
+
+Or drive it from outside with no node from this kit at all:
 
 ```bash
 ./mvkit queue federphibien workflow_api.json --variant v1 --dry-run
