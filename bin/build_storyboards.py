@@ -596,6 +596,13 @@ def main():
     if from_screenplay:
         print("from drehbuch: %d scene(s) had no content.json entry and used the "
               "screenplay text" % from_screenplay)
+    try:
+        import subprocess
+        subprocess.run([sys.executable, os.path.join(KIT, "bin", "make_workflows.py"),
+                        song], check=True)
+    except Exception as e:                       # a broken generator must not
+        print("! workflows not written (%s)" % e)   # cost you the deliverable
+
     if elements:
         print("elements    : %d clip(s) with no audio, for compositing only" % elements)
     if renamed:

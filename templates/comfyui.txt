@@ -1,43 +1,79 @@
 # Baked into every song's __READ_ME.txt by `mvkit build`. {song} becomes the name.
 # A song can override it with its own _source/comfyui.txt.
 
-RENDERING THE WHOLE FOLDER IN ONE RUN
+RENDERING THIS FOLDER IN COMFYUI
 
-  The fast path does not batch inside the graph at all - it posts one job per
-  scene over ComfyUI's HTTP API, reading this folder directly. Every scene keeps
-  its own frame count that way, which in-graph batching cannot do: H3 only
-  accepts lengths where frames % 17 == 5, so one `length` per queue run means
-  one run per frame count.
+  This folder is finished. ComfyUI never needs the pdf or the whole mp3 - the
+  screenplay, the transcript and the audio split all happen in the kit, and what
+  arrives here is already paired: one prompt and one slice per scene, with the
+  frame count each scene must be rendered at.
 
-  Once:
-    1. copy mv_h3_nodes.py into ComfyUI/custom_nodes/ and restart ComfyUI
-    2. build a graph for ONE scene and get it rendering
-    3. rename three nodes by double-clicking their title bars:
-         PROMPT   the text node feeding the H3 prompt
-         AUDIO    the node that loads an audio file by path
-         LENGTH   the int feeding `length`
-    4. Workflow -> Export (API). Not the normal save - the API format is a flat
-       map of node ids, and the normal save is rejected with a message saying so.
+  THREE STARTING WORKFLOWS ARE IN THIS FOLDER
 
-  Then, every time:
-    ./mvkit queue {song} wf_api.json --dry-run
-    ./mvkit queue {song} wf_api.json
+    `mvkit build` writes them every time, so they always match the scenes beside
+    them. All three are API-format graphs - open them with Workflow -> Open.
 
-  The dry run prints which node each title matched and lists every scene with
-  its frame count and audio file. Read it before the real run: a title that
-  matched nothing is reported, not guessed at.
+      __wf_1_scene.json     one scene, everything explicit and pre-filled. Every
+                            reference loader is TITLED with its live tag, e.g.
+                            "<Picture 3> das huhn (char)", so the graph itself
+                            says which image is which. Good for getting the H3
+                            node right the first time.
+      __wf_2_folder.json    the one you want. MV Song Folder reads this folder
+                            and drives everything.
+      __wf_3_pipeline.json  MV Build Song runs ./mvkit on the host first, then
+                            the same. For when you want one button.
 
-  Useful flags:
-    --variant v2        render the coverage instead of the masters (default v1)
-    --scenes 1-10,15    a subset, by scene number
-    COMFY_HOST=...      another machine (default http://127.0.0.1:8188)
+    First, once: copy (or symlink) comfyui/custom_nodes/mv_h3_nodes.py into your
+    own ComfyUI/custom_nodes/ and restart. Stdlib only, nothing to install.
 
-  Scene 00 and any 90+ scene have no audio - they are the Vorspann and the
-  compositing elements. The API path queues them with the audio input left
-  alone. They are deliberately absent from __batch/, which pairs prompts with
-  slices line by line and so cannot carry a clip that has no slice.
+    Then, because the H3 node's class name cannot be known without asking:
 
-  If you would rather batch inside the graph, __batch/ holds prompt and audio
-  lists grouped by frame count, one pair per group, line-for-line aligned. That
-  needs VideoHelperSuite and WAS Node Suite, and one queue run per group with
-  `length` typed from __batch/__README.txt. See docs/comfyui-batch.md.
+      ./mvkit probe --song {song} --emit
+
+    That reads /object_info off the running server and rewrites all three with
+    the class names it actually reports. Until you run it the H3 node may show as
+    missing - that is the placeholder, not a broken graph.
+
+    __wf_2_folder.json is wired like this:
+
+      MV Song Folder ──► prompt      ──► H3 ref2vid ──► Save Video
+       (song_path)   ──► frames      ──►
+                     ──► audio_path  ──► Load Audio (Path) ──►
+                     ──► ref_1..ref_n ─► image loaders, titled by tag ──►
+
+    Open it, finish the H3 node's own settings, render ONE scene. Then set MV
+    Song Folder's `scene_index` to `increment`, set the queue's batch count to
+    its `scene_count` output, and press Run once. That is the whole song.
+
+    `variant` picks v1, v2 or v3. Paths come out of the node as strings because
+    turning a file into ComfyUI's IMAGE/AUDIO types needs torch, and that file
+    deliberately has no dependencies.
+
+  THE OTHER WAY - drive it from outside
+
+    If you would rather not install anything, `mvkit queue` posts one job per
+    scene to ComfyUI's HTTP API and needs no node from this kit:
+
+      ./mvkit queue {song} wf_api.json --dry-run
+      ./mvkit queue {song} wf_api.json
+
+    Export the graph with Workflow -> Export (API), not the normal save, and
+    title the nodes it should drive PROMPT, AUDIO and LENGTH. `mvkit probe` tells
+    you which node to give which title - two roles often sit on the H3 node
+    itself, and a node has only one title, so it matters. The dry run prints what
+    it matched and what it would send; read it first.
+
+    Flags: --variant v2, --scenes 1-10,15, COMFY_HOST for another machine.
+
+  WHY NOT ONE BATCH FOR EVERYTHING
+
+    H3 only accepts lengths where frames % 17 == 5 and there is one `length` per
+    queue run, so in-graph batching needs one run per frame count. Both routes
+    above set the length per scene instead, which is why they manage the whole
+    song in one pass. __batch/ still holds the grouped lists if you want the
+    node-pack route; see docs/comfyui-batch.md.
+
+  Scene 00 and any 90+ scene have no audio - the Vorspann and the compositing
+  elements. Both routes handle them: the audio input is simply left alone. They
+  are deliberately absent from __batch/, which pairs prompts with slices line by
+  line and cannot carry a clip that has no slice.

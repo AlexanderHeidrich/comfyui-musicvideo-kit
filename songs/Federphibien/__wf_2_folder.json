@@ -1,0 +1,170 @@
+{
+  "1": {
+    "class_type": "MVSongFolder",
+    "_meta": {
+      "title": "SONG"
+    },
+    "inputs": {
+      "song_path": "/Users/alexander/PhpstormProjects/comfyui-musicvideo-kit/songs/Federphibien",
+      "scene_index": 1,
+      "variant": "v1"
+    }
+  },
+  "10": {
+    "class_type": "VHS_LoadAudio",
+    "_meta": {
+      "title": "AUDIO"
+    },
+    "inputs": {
+      "audio_file": [
+        "1",
+        1
+      ]
+    }
+  },
+  "101": {
+    "class_type": "VHS_LoadImagePath",
+    "_meta": {
+      "title": "<Picture 1> federphibium (char)"
+    },
+    "inputs": {
+      "path": [
+        "1",
+        6
+      ]
+    }
+  },
+  "102": {
+    "class_type": "VHS_LoadImagePath",
+    "_meta": {
+      "title": "<Picture 2> der frosch (char)"
+    },
+    "inputs": {
+      "path": [
+        "1",
+        7
+      ]
+    }
+  },
+  "103": {
+    "class_type": "VHS_LoadImagePath",
+    "_meta": {
+      "title": "<Picture 3> das huhn (char)"
+    },
+    "inputs": {
+      "path": [
+        "1",
+        8
+      ]
+    }
+  },
+  "104": {
+    "class_type": "VHS_LoadImagePath",
+    "_meta": {
+      "title": "<Picture 4> board (style)"
+    },
+    "inputs": {
+      "path": [
+        "1",
+        9
+      ]
+    }
+  },
+  "105": {
+    "class_type": "VHS_LoadImagePath",
+    "_meta": {
+      "title": "<Picture 5> der forscher (char)"
+    },
+    "inputs": {
+      "path": [
+        "1",
+        10
+      ]
+    }
+  },
+  "106": {
+    "class_type": "VHS_LoadImagePath",
+    "_meta": {
+      "title": "<Picture 6> pond (loc)"
+    },
+    "inputs": {
+      "path": [
+        "1",
+        11
+      ]
+    }
+  },
+  "107": {
+    "class_type": "VHS_LoadImagePath",
+    "_meta": {
+      "title": "<Picture 7> henhouse interior (loc)"
+    },
+    "inputs": {
+      "path": [
+        "1",
+        12
+      ]
+    }
+  },
+  "20": {
+    "class_type": "MiniMaxHailuoH3Ref2VideoAudio",
+    "inputs": {
+      "prompt": [
+        "1",
+        0
+      ],
+      "length": [
+        "1",
+        2
+      ],
+      "audio1": [
+        "10",
+        0
+      ],
+      "image1": [
+        "101",
+        0
+      ],
+      "image2": [
+        "102",
+        0
+      ],
+      "image3": [
+        "103",
+        0
+      ],
+      "image4": [
+        "104",
+        0
+      ],
+      "image5": [
+        "105",
+        0
+      ],
+      "image6": [
+        "106",
+        0
+      ],
+      "image7": [
+        "107",
+        0
+      ]
+    },
+    "_meta": {
+      "title": "MiniMaxHailuoH3Ref2VideoAudio",
+      "note": "placeholder class name - run `mvkit probe --song <name> --emit` against a running ComfyUI to replace it with the real one"
+    }
+  },
+  "30": {
+    "class_type": "SaveVideo",
+    "inputs": {
+      "video": [
+        "20",
+        0
+      ]
+    },
+    "_meta": {
+      "title": "SAVE"
+    }
+  }
+}

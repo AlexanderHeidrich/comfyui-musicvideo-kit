@@ -15,6 +15,8 @@
 #   build      <song>          blocks + content.json -> flat NN_*.txt
 #   all        <song>          every step above, in order
 #   queue      <song> <wf.json>  POST one ComfyUI job per scene (API format)
+#   probe      [--song <name> --emit]  ask the running ComfyUI what it has, and
+#                                      write a starting workflow into the song
 #   concat     <dir> [out]     join rendered clips
 #   llm-up / llm-down          start or stop the local drafting model
 #   verify     <song>          check the grid, the seconds and the audio slices
@@ -128,6 +130,8 @@ case "$CMD" in
     bash "$0" --native draft "$D"
     bash "$0" --native build "$D" ;;
   new)     bash bin/new_song.sh "$@" ;;
+  probe)
+    py bin/comfy_probe.py "$@" ;;
   queue)
     D="$(song_dir "${1:-}")"; shift || true
     py bin/queue_comfy.py "$D" "$@" ;;

@@ -40,7 +40,7 @@ songs/Federphibien/
     f124-v1-prompts.txt   39 paths, one per line, relative to the song folder
     f124-v1-audio.txt     the same 39 scenes' mp3s, in the same order
     f158-v1-...           and so on, one pair per frame count
-  ALL_scenes.txt       the same material in this kit's DSL, for mv_h3_nodes.py
+  ALL_scenes.txt       the same material in this kit's DSL, for the MV nodes
 ```
 
 The `__batch/` lists are grouped **by frame count** on purpose. H3's `length` is

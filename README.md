@@ -223,7 +223,7 @@ songs/federphibien/
   NN_title-v1.txt      a paste-ready six-section H3 prompt
   NN_title.mp3         the audio slice, shared by v1/v2/v3
   __batch/             line-aligned lists for batching, grouped by frame count
-  ALL_scenes.txt       the same material in this kit's DSL, for mv_h3_nodes.py
+  ALL_scenes.txt       the same material in this kit's DSL, for the MV nodes
   _source/             every input; nothing here is meant to be copied out
 ```
 
