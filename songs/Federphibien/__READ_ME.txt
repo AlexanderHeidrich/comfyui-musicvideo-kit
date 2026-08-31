@@ -182,6 +182,18 @@ RENDERING THIS FOLDER IN COMFYUI
     as the first frame of the next. The prompt and the slice from this folder stay
     the same; only the model and that one input differ.
 
+  CHECK THE RESOLUTION BEFORE THE LONG RUN
+
+    If your graph gets width/height from a ResolutionSelector, look at its
+    `megapixels`. H3's own widget defaults are 1344x768, which is 1.03 MP - a
+    selector left at 0.4 MP renders 832x480 instead, and you will not notice
+    until you compare. 16:9 at multiple=32:
+
+      megapixels 0.4  ->  832x480      1.0  -> 1344x736
+                 0.6  -> 1024x576      1.03 -> 1344x768   (H3's default)
+
+    It also decides where upscaling lands: 480 lines times four is 1920, not 4K.
+
   RUNNING THE WHOLE SONG - one press of Run
 
     1. set `song_path` to where this folder lives on the ComfyUI machine
@@ -190,6 +202,11 @@ RENDERING THIS FOLDER IN COMFYUI
        the scene count - it is the number of data rows in __SCENES.tsv, printed
        at the top of this file
     4. press Run ONCE
+
+    You see each result as it lands, not at the end. Every queued job is its own
+    execution, so Save Video writes that scene's file the moment it finishes and
+    the node shows it. Watch the first one or two, and abort the queue if the look
+    is wrong - that is the whole reason to check scene 1 before committing 49.
 
     ComfyUI queues that many jobs and steps `scene_index` up by one for each. You
     do not touch anything in between. A count set too high is an error rather
