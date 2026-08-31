@@ -1,0 +1,34 @@
+# The short build (v4). Optional: without this file no v4 is generated.
+#
+# v4 is v1's shot and v1's camera, assembled from the blocks below instead of
+# the whole bible and style, and carrying only the characters that are actually
+# in the scene. Every published MiniMax H3 guide puts the prompt limit at 7,000
+# characters; a full v1 build is several times that. `mvkit build` prints the
+# longest prompt per variant and warns past 7,000.
+#
+# {S} becomes that scene's live <Subject n>, {P} its <Picture n> - never write
+# the numbers by hand, H3 renumbers when a slot is left unconnected.
+# A [subject <slug>] block is keyed by the reference's slug (the middle part of
+# its filename) and is only used in the scenes that reference is in, which
+# `_source/refs/refs.json` plus `_source/refs/__ALIASES.txt` decide.
+
+[style]
+One paragraph of the look: medium, line, colour and finish, light, palette,
+animation method - then the RENDER CLEAN sentence. Target 900 characters.
+
+[sound]
+The constant ambience, and what is forbidden. Target 400 characters.
+
+[music]
+The supplied song excerpt is the only music. Do not invent, add or extend any
+instrumentation - no score, no stings, no risers.
+
+[subject <a character slug>]
+{S} is THE NAME, shown in {P}: build, size in real units and against the other
+characters, colour model, the two or three things that must never drift, and the
+one behavioural rule. Target 500 characters. One block per character.
+
+[subject <a location slug>]
+{P} is the place, a background painting in which nothing is a subject: the fixed
+inventory of what stands there, in the order a camera meets it. Anything that
+must appear in EVERY shot of that place is named here.

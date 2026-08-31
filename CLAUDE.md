@@ -88,6 +88,31 @@ Verified against `comfy_extras/nodes_minimax_h3.py`, not guessed.
   00:0X.XXX, the shot cuts to:` - the label first, then the time, per MiniMax's
   own guide. `[Shot 1]` opens the first shot and carries no timestamp. Dialogue stays verbatim in its
   original language. Concrete physical detail — never "cinematic", "epic".
+- **UNTESTED: the prompts are 4x over the documented length.** Every published H3
+  guide says prompts run to **7,000 characters**; a built scene is ~28,000,
+  because the whole bible goes into `subject_definitions` and the whole style
+  into `detailed_description`. At 7,000 the text stops inside the bible's cast
+  list — the summary, the ledger, the shot, the camera and the sound all sit
+  past it. If the ComfyUI path truncates the way the hosted API does, H3 has
+  never seen a shot description, which would explain references turning up in
+  scenes they are not in and scenery vanishing between cuts.
+  Not proven: the 7,000 is documented for the hosted API, and how
+  `nodes_minimax_h3.py` and the qwen3vl encoder handle a longer prompt has not
+  been measured. **Test before restructuring anything**: that is what **v4** is
+  - the short build, described under Variants below. Render `01-v4` against
+  `01-v1` and compare. If v4 wins, v1-v3 get built the same way and the long
+  blocks stop being pasted whole.
+  Sources: rundiffusion.com/minimax-h3-prompt-guide, fal.ai/learn/devs/minimax-h3-prompting-guide.
+- **A reference not in the shot must be declared absent.** H3 draws what the
+  ledger tells it to preserve, so `retention_analysis` carries a `weak_reference`
+  line for every character that is not in this scene, saying not to draw it and
+  not to let its features reach another character - "give every reference a clear
+  role" is the guide's own rule. Presence is derived from the words in the action;
+  `_source/refs/__ALIASES.txt` maps a reference slug to the English words that
+  mean it is on screen (`-phrase` blanks a phrase first, so "hen" does not match
+  inside "hen house"), and a scene may override the guess with a `"cast"` list in
+  content.json. `mvkit build` prints the per-scene cast and warns when a scene
+  names no character at all.
 - **English descriptions, verbatim lyrics.** Every title, summary and shot
   description is written in English however the screenplay was written; H3
   follows English shot language far more reliably. Lyrics and dialogue stay
@@ -238,11 +263,22 @@ chosen by film-theory practice (never repeat v1's size, cross the axis, give one
 of them something the master cannot hold); `templates/cameras/__COVERAGE.txt` has
 the table.
 
+**v4 is not a fourth angle.** It is v1's shot and v1's camera, built SHORT: the
+six sections assembled from `_source/brief.txt` instead of the whole bible and
+style, carrying only the characters the scene actually contains, with the guide's
+`<Subject n> is ... shown in <Picture n>` binding. ~6 KB against v1's ~30 KB.
+It only exists when the song has a `_source/brief.txt`; that file has `[style]`,
+`[sound]`, `[music]` and one `[subject <ref slug>]` per reference, where `{S}`
+becomes the scene's live `<Subject n>` and `{P}` its `<Picture n>`. Keep it under
+7,000 characters - `mvkit build` prints the longest prompt per variant and warns
+past that. v4 exists to settle the length question above; if it wins, the others
+follow and brief.txt becomes the only source.
+
 Cameras live per scene in `content.json` under `"cameras": {"v1": ..., "v2": ...,
 "v3": ...}`. A scene without that key falls back to `templates/cameras.txt` (or a
 song's own `_source/cameras.txt`), which is the generic wide/angle/detail set -
-fine for a song with no screenplay, not fine for one that has one. Add a `[v4]`
-block or a `v4` key and it is generated too.
+fine for a song with no screenplay, not fine for one that has one. Add a `[v5]`
+block or a `v5` key and it is generated too.
 
 Because the action is reused byte-for-byte, it must not name a framing —
 "close-up" in the action contradicts the wide master. `mvkit build` lints for

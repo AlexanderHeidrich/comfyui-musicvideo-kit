@@ -18,11 +18,13 @@ cp "$AUDIO" "$SRC/song.$EXT"
 if [ -f "$KIT/songs/$PICK/_source/style.txt" ]; then
   FROM="song '$PICK'"
   for f in bible style tail; do cp "$KIT/songs/$PICK/_source/$f.txt" "$SRC/$f.txt"; done
+  [ -f "$KIT/songs/$PICK/_source/brief.txt" ] && cp "$KIT/songs/$PICK/_source/brief.txt" "$SRC/brief.txt"
 elif [ -f "$KIT/templates/styles/$PICK.txt" ]; then
   FROM="templates (style: $PICK)"
   cp "$KIT/templates/styles/$PICK.txt" "$SRC/style.txt"
   cp "$KIT/templates/bible/_TEMPLATE.txt" "$SRC/bible.txt"
   cp "$KIT/templates/tail/default.txt"    "$SRC/tail.txt"
+  cp "$KIT/templates/brief.txt"           "$SRC/brief.txt"
 else
   echo "no style '$PICK'. Available:"
   ls "$KIT/templates/styles" | sed 's/\.txt$//;s/^/  /'
@@ -67,6 +69,7 @@ scaffolded $DST  (blocks from $FROM)
   _source/style.txt        the look - keep the RENDER CLEAN section
   _source/style_examples.txt   free notes on the look, distilled into style.txt
   _source/bible.txt        cast, world, rules - rewrite for this song
+  _source/brief.txt        the same, said short - builds the v4 prompts
   _source/tail.txt         global audio block
   _source/lyrics.txt       the real lyrics
   _source/content.json     empty - filled by \`mvkit draft\`
