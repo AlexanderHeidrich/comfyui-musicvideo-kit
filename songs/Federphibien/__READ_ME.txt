@@ -166,6 +166,41 @@ RENDERING THIS FOLDER IN COMFYUI
     turning a file into ComfyUI's IMAGE/AUDIO types needs torch, and that file
     deliberately has no dependencies.
 
+  WHERE THE CLIPS END UP
+
+    Renders are NOT temporary. Save Video writes into ComfyUI/output and the
+    files stay there; what does get cleared is anything from a Preview node,
+    which writes to ComfyUI/temp. If your clips seem to vanish between sessions,
+    check that the end of your graph is a Save and not a Preview.
+
+    What was missing is a name. Hurricane Song Folder has a `save_prefix` output
+    that the generated graphs wire into Save Video's `filename_prefix`, so each
+    clip lands as
+
+      ComfyUI/output/Federphibien/NN_slug-vN_00001.mp4
+
+    grouped per song and named after the prompt that made it - which is what
+    `mvkit concat` wants to see. Put something in `out_subfolder` to change the
+    first part (e.g. "Renders/take2") and the rest follows.
+
+    ComfyUI will not write outside its own output folder; that is its path
+    sanitising, not our choice. Point `out_subfolder` where you want it inside
+    output, then collect from there.
+
+  WRAPPING YOUR OWN H3 WORKFLOW
+
+    The generated graphs guess nothing about your model, resolution or account,
+    so once you have an H3 ref2vid graph that renders the way you want it, keep
+    it and let the kit wrap that instead:
+
+      ./mvkit workflows Federphibien --from my_h3_export.json
+
+    That writes __wf_4_wrapped.json: your graph untouched except for the four
+    inputs a song folder drives - prompt, length, audio and the image slots -
+    plus the save prefix at the back. Every other setting on your H3 node is
+    left exactly as you had it. It prints what it rewired and warns when your
+    node has fewer image slots than the song has reference sheets.
+
   THE OTHER WAY - drive it from outside
 
     If you would rather not install anything, `mvkit queue` posts one job per

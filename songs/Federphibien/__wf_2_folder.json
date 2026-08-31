@@ -151,7 +151,8 @@
       ]
     },
     "_meta": {
-      "title": "MiniMaxHailuoH3Ref2VideoAudio"
+      "title": "MiniMaxHailuoH3Ref2VideoAudio",
+      "note": "placeholder class name - run `mvkit probe --song <name> --emit` against a running ComfyUI to replace it with the real one"
     }
   },
   "30": {
@@ -160,6 +161,10 @@
       "video": [
         "20",
         0
+      ],
+      "filename_prefix": [
+        "1",
+        15
       ]
     },
     "_meta": {

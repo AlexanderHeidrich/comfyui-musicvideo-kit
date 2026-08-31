@@ -436,10 +436,10 @@ class HurricaneSongFolder:
     FUNCTION = "run"
     RETURN_TYPES = ("STRING", "STRING", "INT", "STRING", "INT", "STRING",
                     "STRING", "STRING", "STRING", "STRING", "STRING", "STRING",
-                    "STRING", "STRING", "STRING")
+                    "STRING", "STRING", "STRING", "STRING")
     RETURN_NAMES = ("prompt", "audio_path", "frames", "title", "scene_count",
                     "inventory", "ref_1", "ref_2", "ref_3", "ref_4", "ref_5",
-                    "ref_6", "ref_7", "ref_8", "ref_9")
+                    "ref_6", "ref_7", "ref_8", "ref_9", "save_prefix")
 
     @classmethod
     def INPUT_TYPES(cls):
@@ -447,17 +447,18 @@ class HurricaneSongFolder:
             "song_path": ("STRING", {"default": "", "multiline": False}),
             "scene_index": ("INT", {"default": 1, "min": 1, "max": 9999}),
             "variant": (["v1", "v2", "v3"], {"default": "v1"}),
+            "out_subfolder": ("STRING", {"default": "", "multiline": False}),
         }}
 
     @classmethod
-    def IS_CHANGED(cls, song_path, scene_index, variant):
+    def IS_CHANGED(cls, song_path, scene_index, variant, out_subfolder=""):
         try:
             m = os.path.getmtime(os.path.join(song_path, "__SCENES.tsv"))
         except OSError:
             m = "missing"
-        return "%s:%s:%s:%s" % (song_path, m, scene_index, variant)
+        return "%s:%s:%s:%s:%s" % (song_path, m, scene_index, variant, out_subfolder)
 
-    def run(self, song_path, scene_index, variant):
+    def run(self, song_path, scene_index, variant, out_subfolder=""):
         data = read_song_folder(song_path)
         scenes = data["scenes"]
         if not scenes:
@@ -472,9 +473,15 @@ class HurricaneSongFolder:
             prompt = fh.read()
         paths = [r["path"] for r in data["refs"]][:9]
         paths += [""] * (9 - len(paths))
+        # save_prefix groups the renders per song and names each after its prompt,
+        # so the clips come out of ComfyUI already sorted and already paired
+        base = (out_subfolder.strip().strip("/") or
+                os.path.basename(os.path.abspath(song_path)))
+        stem = os.path.basename(pf)[:-4]                  # NN_slug-vN
+        prefix = "%s/%s" % (base, stem)
         return (prompt, sc["audio"], sc["frames"],
                 "%s %s" % (sc["scene"], sc["title"]), len(scenes),
-                data["inventory"]) + tuple(paths)
+                data["inventory"]) + tuple(paths) + (prefix,)
 
 
 class HurricaneBuildSong:
@@ -492,8 +499,9 @@ class HurricaneBuildSong:
 
     CATEGORY = CATEGORY
     FUNCTION = "run"
-    RETURN_TYPES = ("STRING", "STRING", "INT", "STRING", "INT", "STRING")
-    RETURN_NAMES = ("prompt", "audio_path", "frames", "title", "scene_count", "log")
+    RETURN_TYPES = ("STRING", "STRING", "INT", "STRING", "INT", "STRING", "STRING")
+    RETURN_NAMES = ("prompt", "audio_path", "frames", "title", "scene_count",
+                    "save_prefix", "log")
 
     @classmethod
     def INPUT_TYPES(cls):
@@ -532,7 +540,7 @@ class HurricaneBuildSong:
                 raise RuntimeError("mvkit %s failed:\n%s" % (step, r.stderr[-2000:]))
         song = os.path.join(kit, "songs", song_name)
         out = HurricaneSongFolder().run(song, scene_index, variant)
-        return (out[0], out[1], out[2], out[3], out[4], "\n".join(log))
+        return (out[0], out[1], out[2], out[3], out[4], out[15], "\n".join(log))
 
 
 NODE_CLASS_MAPPINGS = {
