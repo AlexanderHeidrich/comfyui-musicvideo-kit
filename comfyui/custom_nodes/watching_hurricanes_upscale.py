@@ -64,7 +64,8 @@ class HurricaneClipFolder:
     def INPUT_TYPES(cls):
         return {"required": {
             "source_dir": ("STRING", {"default": "", "multiline": False}),
-            "clip_index": ("INT", {"default": 1, "min": 1, "max": 99999}),
+            "clip_index": ("INT", {"default": 1, "min": 1, "max": 99999,
+                                   "control_after_generate": True}),
             "out_subfolder": ("STRING", {"default": "upscaled"}),
             "extensions": ("STRING", {"default": "mp4,mov,webm,mkv"}),
         }}

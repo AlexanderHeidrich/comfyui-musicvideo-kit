@@ -78,7 +78,8 @@ class HurricaneSongFolder:
     def INPUT_TYPES(cls):
         return {"required": {
             "song_path": ("STRING", {"default": "", "multiline": False}),
-            "scene_index": ("INT", {"default": 1, "min": 1, "max": 9999}),
+            "scene_index": ("INT", {"default": 1, "min": 1, "max": 9999,
+                                    "control_after_generate": True}),
             "variant": (["v1", "v2", "v3"], {"default": "v1"}),
             "out_subfolder": ("STRING", {"default": "", "multiline": False}),
         }}

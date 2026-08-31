@@ -141,6 +141,12 @@ def save_node(a, prefix):
 # part of what /prompt accepts
 UI_ONLY = ("IMAGEUPLOAD", "AUDIOUPLOAD", "AUDIO_UI", "VIDEOUPLOAD")
 
+# A `control_after_generate` widget takes a slot in `widgets_values` but is not
+# listed in `inputs` - it is the browser's own counter, not a node input. It only
+# ever follows a numeric widget, so skipping it keeps the positional walk aligned.
+# Without this, KSampler's seed control shifts steps/cfg/sampler by one.
+CONTROL_VALUES = ("fixed", "increment", "decrement", "randomize")
+
 
 def ui_to_api(ui):
     """Convert a saved UI workflow to the flat API format /prompt accepts.
@@ -169,6 +175,9 @@ def ui_to_api(ui):
                     if ityp.upper() not in UI_ONLY:
                         ins[name] = v
                     wi += 1
+                    if (ityp.upper() in ("INT", "FLOAT") and wi < len(widgets)
+                            and widgets[wi] in CONTROL_VALUES):
+                        wi += 1
             if i.get("link") is not None and i["link"] in src:
                 ins[name] = list(src[i["link"]])
         out[str(n["id"])] = {"class_type": t, "inputs": ins,
@@ -228,7 +237,7 @@ SONG_NODE_DEF = {
                 for n, t in (("prompt", "STRING"), ("audio_path", "STRING"),
                              ("frames", "INT"), ("scene_count", "INT"),
                              ("save_prefix", "STRING"))],
-    "widgets_values": ["", 1, "v1", ""],
+    "widgets_values": ["", 1, "increment", "v1", ""],
 }
 
 AUDIO_NODE_DEF = {
