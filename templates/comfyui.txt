@@ -45,7 +45,27 @@ RENDERING THIS FOLDER IN COMFYUI
     is titled to say so. Set it once to where this folder lives on the ComfyUI
     machine. The build refuses to write a graph containing an absolute path.
 
-    RUNNING THE WHOLE SONG - one press of Run
+    WHICH WEIGHTS GO WHERE
+
+    There is nothing to tune here - each slot has exactly one right answer:
+
+      UNET       minimax_h3_ref2va_pruned_int8_convrot     reference -> video+audio
+      CLIP       qwen3vl_..._minimax_h3_...                the only one that fits
+      vae        minimax_h3_video_vae_fp16                 the picture
+      audio_vae  minimax_h3_audio_vae_fp32                 the sound
+
+    `pixel_space` in the VAE list is ComfyUI's "no VAE" entry, not a file. The
+    fp16/fp32 split is how these ship, not a mistake.
+
+    THE OTHER H3 MODEL IS FOR THE CHAINED SCENES. `minimax_h3_fl2va` is
+    first-and-last-frame to video, and __SCENES.tsv marks some scenes `chain` in
+    the continuity column: they have to continue off the previous clip's last
+    frame, and ref2va has no way to do that - it only knows reference images. For
+    those, render the run in order with fl2va, feeding each clip's last frame in
+    as the first frame of the next. The prompt and the slice from this folder stay
+    the same; only the model and that one input differ.
+
+  RUNNING THE WHOLE SONG - one press of Run
 
     1. set `song_path` to where this folder lives on the ComfyUI machine
     2. click the arrows beside `scene_index` and set its control to `increment`

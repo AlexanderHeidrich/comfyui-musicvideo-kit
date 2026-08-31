@@ -310,6 +310,12 @@ emit one. Three earlier generated graphs (`__wf_1_scene`, `__wf_2_folder`,
 `__wf_3_pipeline`) are deleted on sight - they wired a song folder correctly but
 had no sampler chain and could never run.
 
+The weights, for reference: UNET `minimax_h3_ref2va_pruned_int8_convrot`, CLIP
+`qwen3vl_*_minimax_h3_*`, `vae` = `minimax_h3_video_vae_fp16`, `audio_vae` =
+`minimax_h3_audio_vae_fp32`. There is one right answer per slot. The sibling
+`minimax_h3_fl2va` is first-and-last-frame to video and is the model for scenes
+marked `chain` — ref2va cannot continue off a previous clip's last frame at all.
+
 `mvkit probe` alone just reports what is installed and which node to
 title what - two roles often sit on the H3 node itself and a node has one title. Splitting stays in the kit: ComfyUI never sees the pdf or
 the full mp3, only a built folder.
