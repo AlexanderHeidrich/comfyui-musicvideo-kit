@@ -15,13 +15,27 @@ nur am Ende beim fotografieren.
 Screenplay
 
 --------------------------------------------------------------------------
-Frame -120 bis 0
-Vorspann Nahaufnahme des Teiches. Schild weht sachte im Wind. Libellen schwirren umher. Kameradolly langsam links nach rechts. Ab und zu Windböe die das Schilf bewegt => rauschen des Schilfs In der Ferne leicht verschwommen ein Bauernhofgebäude/Stall Hintergrundgeräusche => Gackern, Zwitschern, Schweine, Kühe (nur hören), Wasser
-gluckern.
+Frame -240 bis 0
+Vorspann. Aerial aus Flughöhe, weit über dem Land, zwischen verstreuten
+Sommerwolken. Kamera treibt langsam vorwärts, Wolkenoberkanten ziehen unter ihr
+durch, dazwischen Felder und Wege als flaches Muster. Der Bauernhof taucht klein
+in einer Lücke auf und wandert in die Bildmitte. Kamera hält die Flughöhe, es
+sinkt noch nichts. Am Ende steht das Gelände in Draufsicht ruhig im Bild - genau
+die Einstellung, mit der Szene 1 beginnt. Bild bleibt ruhig und offen, damit die
+Titel eingeblendet werden können (Titel kommen im Schnitt, nicht im Render).
+Kein Charakter ist auf dieser Höhe zu erkennen.
+Hintergrundgeräusche => Wind in der Höhe, weit entfernt Hof (Gackern,
+Zwitschern, Kühe), keine Musik.
 
 --------------------------------------------------------------------------
 Frame 0 bis 155
-Musik setzt ein Vogelperspektive auf das Gelände Langsamer Zoom auf den Teich Anfangs nur ein schwarzer kleiner Schatten im Wasser Wird deutlicher dass es ein Frosch von oben ist Schatten/Frosch macht langsame schwimmartige Bewegungen mit den Beinen und kommt ruckartig voran, wie beim Abstoßen im Wasser Erreicht in der Zeit das Ufer zur Hälfte
+Musik setzt ein. Continues the Vorspann: startet auf dessen letztem Frame, gleiche
+Ansicht des Geländes von oben. Drohnenflug - die Kamera sinkt jetzt wirklich aus
+der Flughöhe auf den Teich zu, Vogelperspektive, Gelände wächst aus dem Bild
+heraus. Anfangs nur ein schwarzer kleiner Schatten im Wasser. Wird deutlicher dass
+es ein Frosch von oben ist. Schatten/Frosch macht langsame schwimmartige
+Bewegungen mit den Beinen und kommt ruckartig voran, wie beim Abstoßen im Wasser.
+Erreicht in der Zeit das Ufer zur Hälfte.
 
 --------------------------------------------------------------------------
 Frame 155 bis 297

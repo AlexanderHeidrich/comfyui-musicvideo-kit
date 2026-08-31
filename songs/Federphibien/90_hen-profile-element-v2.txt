@@ -123,9 +123,10 @@ subject_definitions
 
   WORLD
     A murky farm pond at the bottom edge of a chicken yard. High summer, a clear
-    bright sunny day - blue sky, warm light, short soft shadows, no cloud bank and
-    no rain. The weather never changes and is never a mood; the only light that
-    moves is the low warm sun of the last two scenes. Flies everywhere.
+    bright sunny day - blue sky with scattered high fair-weather cloud, warm
+    light, short soft shadows, no overcast and no rain. The weather never changes
+    and is never a mood; the only light that moves is the low warm sun of the last
+    two scenes. Flies everywhere.
     The farm plainly works - the coop is repaired, there is feed on the ground -
     and nobody is home. The one person who ever appears is the researcher at the
     pond, and his face is never seen. Never explain either of those.
@@ -318,8 +319,9 @@ detailed_description
     whisper of tooth, not a texture that competes with the drawing.
 
   LIGHT
-    A clear, bright summer day. Sun out, blue sky, no cloud bank, no rain, no
-    wind-up of weather anywhere in the film. Warm sunlight from one fixed
+    A clear, bright summer day. Sun out, blue sky with scattered white
+    fair-weather cloud high up, no overcast, no rain, no wind-up of weather
+    anywhere in the film. Warm sunlight from one fixed
     direction - high and from the left - which does not change between shots, so
     every scene at the pond throws its shadows the same way.
     Shadows are short, warm and soft-edged, and they sit under the thing that

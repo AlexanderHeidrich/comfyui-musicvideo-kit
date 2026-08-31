@@ -123,9 +123,10 @@ subject_definitions
 
   WORLD
     A murky farm pond at the bottom edge of a chicken yard. High summer, a clear
-    bright sunny day - blue sky, warm light, short soft shadows, no cloud bank and
-    no rain. The weather never changes and is never a mood; the only light that
-    moves is the low warm sun of the last two scenes. Flies everywhere.
+    bright sunny day - blue sky with scattered high fair-weather cloud, warm
+    light, short soft shadows, no overcast and no rain. The weather never changes
+    and is never a mood; the only light that moves is the low warm sun of the last
+    two scenes. Flies everywhere.
     The farm plainly works - the coop is repaired, there is feed on the ground -
     and nobody is home. The one person who ever appears is the researcher at the
     pond, and his face is never seen. Never explain either of those.
@@ -261,14 +262,14 @@ subject_definitions
     never play it for laughs, never mug, never wink.
 
 summary
-  [reference generation] Title card, before the song begins. The pond lies still in bright summer sunlight, the sky above it a clean blue.
+  [reference generation] Before the song. The air at the altitude of a low-flying aircraft, out over open summer farmland.
 
 retention_analysis
   <Picture 1> (federphibium, char): weak_reference - this character is NOT in this shot. Do not draw it anywhere in frame, at any size, and do not let any of its features reach another character. It is supplied only so its design stays fixed for the scenes it is in.
   <Picture 2> (der frosch, char): weak_reference - this character is NOT in this shot. Do not draw it anywhere in frame, at any size, and do not let any of its features reach another character. It is supplied only so its design stays fixed for the scenes it is in.
   <Picture 3> (das huhn, char): weak_reference - this character is NOT in this shot. Do not draw it anywhere in frame, at any size, and do not let any of its features reach another character. It is supplied only so its design stays fixed for the scenes it is in.
   <Picture 4> (board, style): attribute_transfer - the palette, the line weight and the way shading is laid down are transferred to everything drawn in this shot. The board itself is never a thing in the scene and is never drawn.
-  <Picture 5> (der forscher, char): partially_preserved - the design, proportions, colour model and every marking are preserved exactly and never drift between scenes; only the sheet's plain backdrop and the cast shadow under the figure are dropped. How the character is rendered is set by the style below.
+  <Picture 5> (der forscher, char): weak_reference - this character is NOT in this shot. Do not draw it anywhere in frame, at any size, and do not let any of its features reach another character. It is supplied only so its design stays fixed for the scenes it is in.
   <Picture 6> (pond, loc): partially_preserved - a background painting. Where this shot is set in that place its architecture, layout and palette are preserved and nothing in it is a subject; where the shot is set elsewhere it contributes nothing.
   <Picture 7> (henhouse interior, loc): partially_preserved - a background painting. Where this shot is set in that place its architecture, layout and palette are preserved and nothing in it is a subject; where the shot is set elsewhere it contributes nothing.
 
@@ -318,8 +319,9 @@ detailed_description
     whisper of tooth, not a texture that competes with the drawing.
 
   LIGHT
-    A clear, bright summer day. Sun out, blue sky, no cloud bank, no rain, no
-    wind-up of weather anywhere in the film. Warm sunlight from one fixed
+    A clear, bright summer day. Sun out, blue sky with scattered white
+    fair-weather cloud high up, no overcast, no rain, no wind-up of weather
+    anywhere in the film. Warm sunlight from one fixed
     direction - high and from the left - which does not change between shots, so
     every scene at the pond throws its shadows the same way.
     Shadows are short, warm and soft-edged, and they sit under the thing that
@@ -393,9 +395,9 @@ detailed_description
   line weight, the proportions and the costume of every character named
   above, and the time of day and weather of the location.
 
-  [Shot 1] Insert on the dragonflies criss-crossing the open water. The camera holds a static shot.
+  [Shot 1] An aerial from the altitude of a low-flying aircraft, looking down at a steep angle, cloud tops passing through the near frame. The farm sits small in the lower middle at the start and settles to the centre. The camera holds its altitude for the whole clip and never descends; by the last second the angle has come round to almost straight down and the shot settles and stops there, the whole property inside the frame with the pond at its bottom corner - the framing the next clip has to begin on. The camera pushes in with small amplitude at slow speed.
 
-  Title card, before the song begins. The pond lies still in bright summer sunlight, the sky above it a clean blue. A weathered enamel sign hangs from a leaning post at the near edge of frame and sways gently, its lettering worn away to nothing. Dragonflies criss-cross low over the water. Every few seconds a gust runs through the reeds and lays them over, then lets them stand again. Cattails stand up out of the water at both edges of frame as near-black silhouettes, and lily pads lie in loose clusters across it, each with its white glint. Along the top of the far bank runs the leaning chicken-wire fence on its rough posts, sagging between them, and behind the fence to the right the coop shows its ridged corrugated tin roof end-on. Beyond that the farmhouse and the cow barn sit far off, pale and flat with distance. At the far edge of the pond, small and easy to miss, a man already sits on a folding chair, bent right down over a notebook, the brim of his straw hat lying flat across his face so that nothing of the face is visible at all - only the crown of the hat and the shoulders under it. He does not move and nothing else happens.
+  Before the song. The air at the altitude of a low-flying aircraft, out over open summer farmland. Scattered white fair-weather clouds stand at this height and below, drifting slowly past, their tops flat-lit and their undersides a cool grey-green, and the land shows through the gaps between them: fields in pale sage and olive rectangles, a dirt track ruled across them, hedge lines, one row of trees. In one of those gaps sits a single farm, small enough to cover with a thumbnail - the farmhouse, the cow barn, the chicken coop with its ridged corrugated tin roof, the chicken-wire fence ruled right around the yard, and at the bottom corner of the yard a pond barely three metres across, a dark green oval the size of a lentil at this distance. Nothing on the farm is large enough to read from up here: no animal and no person resolves, and nothing down there moves. The clouds keep passing, the farm stays where it is, and the ground never comes any closer.
 
 overall_soundscape
   Under everything, always present and always quiet: a summer farm pond. Wet

@@ -314,6 +314,10 @@ def main():
             sc["st"] = max(0.0, sc["st"])
         scenes, held_notes = fuse_holds(scenes, MAX_S)
         warn.extend(held_notes)
+        # the Vorspann is not in that list, so a first scene that says it continues
+        # it has to be chained here
+        if preroll and scenes and scenes[0]["cont"] and scenes[0]["st"] < 0.05:
+            scenes[0]["chain"] = True
         if a.merge_short:
             scenes, notes = merge_short(scenes, MIN_S)
             warn.extend(notes)

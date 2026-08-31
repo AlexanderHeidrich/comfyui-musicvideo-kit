@@ -113,9 +113,10 @@ CAST - the reference is the child, and the parents are it taken apart
 
 WORLD
   A murky farm pond at the bottom edge of a chicken yard. High summer, a clear
-  bright sunny day - blue sky, warm light, short soft shadows, no cloud bank and
-  no rain. The weather never changes and is never a mood; the only light that
-  moves is the low warm sun of the last two scenes. Flies everywhere.
+  bright sunny day - blue sky with scattered high fair-weather cloud, warm
+  light, short soft shadows, no overcast and no rain. The weather never changes
+  and is never a mood; the only light that moves is the low warm sun of the last
+  two scenes. Flies everywhere.
   The farm plainly works - the coop is repaired, there is feed on the ground -
   and nobody is home. The one person who ever appears is the researcher at the
   pond, and his face is never seen. Never explain either of those.

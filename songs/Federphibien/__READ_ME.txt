@@ -1,16 +1,16 @@
-FEDERPHIBIEN - 49 scenes over 171.4 s of song, 283.6 s of clip material (scenes overlap - trim in the edit)
+FEDERPHIBIEN - 49 scenes over 171.4 s of song, 288.6 s of clip material (scenes overlap - trim in the edit)
 ==========================================================================
 
 WHAT HAPPENS
 
   A frog loves a hen. That is the whole plot, and it is played completely straight.
 
-  Before the music, the pond sits still: a worn sign swaying, dragonflies, reeds
-  moving in the wind. A man in a straw hat is already sitting at the far edge with
-  his back turned, drawing. Nobody points him out.
+  Before the music, the titles run over an aerial from flying height: scattered
+  summer cloud drifting past, farmland below, and in one gap a single farm small
+  enough to cover with a thumbnail. Nothing down there is big enough to see.
 
-  The song starts high above the farm and comes down to one frog swimming across
-  the pond. He hauls himself out, flops on his belly, rolls onto his back and
+  The song starts on that last frame and the camera drops out of the sky onto the
+  pond, where one frog is swimming across it. He hauls himself out, flops on his belly, rolls onto his back and
   begins to complain: he is sad, his skin is slimy, the flies could be lunch but he
   is not hungry. Across the yard a hen pecks grain, entirely unbothered. She lifts
   her head, judges the pond, and walks off. He is a frog, in love with a chicken,
@@ -104,6 +104,7 @@ Scenes that continue the shot before them:
   first-frame reference for the next - that is what keeps the drawing from
   changing mid-setup while there are no character references.
 
+  01_the-pond-from-above   <- last frame of 00_high-above-the-farm
   12_back-to-the-frog   <- last frame of 11_the-hen-turns-away
   29_she-walks-straight-past   <- last frame of 28_she-swallows-it
   31_cartoon-hearts   <- last frame of 30_her-walk
