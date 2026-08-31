@@ -15,7 +15,7 @@ scene	song_start	song_end	tl_frame	frames	duration	inner_cuts	continuity	audio	p
 13	00:44.167	00:49.333	1184	124	5.1667	-	-	13_i-am-a-frog.mp3	13_i-am-a-frog-v1.txt 13_i-am-a-frog-v2.txt 13_i-am-a-frog-v3.txt	Ich bin ein Frosch! Was soll ich tun?
 14	00:46.750	00:56.167	1246	226	9.4167	2.833,5.958	hold	14_in-love-with-a-chicken.mp3	14_in-love-with-a-chicken-v1.txt 14_in-love-with-a-chicken-v2.txt 14_in-love-with-a-chicken-v3.txt	Bin argh verknallt in ein Huhn. / Uns’re Welten, weit auseinander. / Doch bestimmt nur für einander.
 15	00:55.708	01:01.583	1461	141	5.8750	-	-	15_imagine-our-children.mp3	15_imagine-our-children-v1.txt 15_imagine-our-children-v2.txt 15_imagine-our-children-v3.txt	Stell dir unsre Kinder vooooor
-16	00:55.708	01:07.958	1461	294	12.2500	4.552	-	16_hopping-through-the-grass.mp3	16_hopping-through-the-grass-v1.txt 16_hopping-through-the-grass-v2.txt 16_hopping-through-the-grass-v3.txt	(instrumental)
+16	00:55.708	01:07.958	1461	294	12.2500	5.500	-	16_hopping-through-the-grass.mp3	16_hopping-through-the-grass-v1.txt 16_hopping-through-the-grass-v2.txt 16_hopping-through-the-grass-v3.txt	(instrumental)
 17	01:01.458	01:06.625	1599	124	5.1667	-	-	17_slimy-feathers.mp3	17_slimy-feathers-v1.txt 17_slimy-feathers-v2.txt 17_slimy-feathers-v3.txt	Schleimige Federn …
 18	01:03.542	01:08.708	1649	124	5.1667	-	-	18_great-big-eyes.mp3	18_great-big-eyes-v1.txt 18_great-big-eyes-v2.txt 18_great-big-eyes-v3.txt	... große Auuuugen [so große Augen!]
 19	01:07.500	01:12.667	1744	124	5.1667	-	-	19_dead-in-the-water.mp3	19_dead-in-the-water-v1.txt 19_dead-in-the-water-v2.txt 19_dead-in-the-water-v3.txt	die nicht zum fliegen oder schwimmen taugen
@@ -44,7 +44,7 @@ scene	song_start	song_end	tl_frame	frames	duration	inner_cuts	continuity	audio	p
 42	02:15.625	02:22.208	3379	158	6.5833	-	-	42_stroking-her-feathers.mp3	42_stroking-her-feathers-v1.txt 42_stroking-her-feathers-v2.txt 42_stroking-her-feathers-v3.txt	Schleimige Federn große Augen
 43	02:21.667	02:26.833	3524	124	5.1667	-	-	43_the-researcher-stands-up.mp3	43_the-researcher-stands-up-v1.txt 43_the-researcher-stands-up-v2.txt 43_the-researcher-stands-up-v3.txt	Die nicht zum fliegen oder schwimmen taugen
 44	02:24.792	02:29.958	3599	124	5.1667	-	-	44_photographing-them.mp3	44_photographing-them-v1.txt 44_photographing-them-v2.txt 44_photographing-them-v3.txt	Federphibien soll man sie nennen
-45	02:28.125	02:39.667	3679	277	11.5417	5.500	-	45_running-on.mp3	45_running-on-v1.txt 45_running-on-v2.txt 45_running-on-v3.txt	Nachkömmlinge von Frosch und Hennen
+45	02:28.125	02:39.667	3679	277	11.5417	7.955	-	45_running-on.mp3	45_running-on-v1.txt 45_running-on-v2.txt 45_running-on-v3.txt	Nachkömmlinge von Frosch und Hennen
 46	02:39.083	02:44.250	3942	124	5.1667	-	-	46_into-the-sunset.mp3	46_into-the-sunset-v1.txt 46_into-the-sunset-v2.txt 46_into-the-sunset-v3.txt	(instrumental)
 47	02:46.250	02:51.417	4114	124	5.1667	-	hold	47_the-final-freeze.mp3	47_the-final-freeze-v1.txt 47_the-final-freeze-v2.txt 47_the-final-freeze-v3.txt	(instrumental)
 90	-	-	-	226	9.4167	-	-	-	90_hen-profile-element-v1.txt 90_hen-profile-element-v2.txt 90_hen-profile-element-v3.txt	(instrumental)

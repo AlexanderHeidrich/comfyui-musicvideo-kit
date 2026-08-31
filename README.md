@@ -97,21 +97,31 @@ which is these steps, each also runnable alone:
 ./mvkit split      federphibien   # song.mp3         -> scene_NN.mp3
 ./mvkit draft      federphibien   # screenplay+lyrics -> content.json
 ./mvkit build      federphibien   # everything       -> the flat NN_*.txt files
+./mvkit verify     federphibien   # measures the timing rather than trusting it
 ```
 
 Real output from the scenes step on this song:
 
 ```
 drehbuch: 50 scenes, frame numbers read at 24 fps (H3 renders at 24 fps)
-scenes           : 49
-covers           : 0.000 -> 171.417 s  (song 167.314 s, +4.103)
+scenes            : 48 (incl. scene 0, no audio)
+covers           : 0.000 -> 171.417 s  (song 207.203 s, -35.786)
 durations        : 5.167 .. 12.250 s  (all on the 17k+5 grid: True)
 longest tail     : +0.667 s of clip past its scene, trim in the edit
-! 1 scene(s) end at or before 0.0s (Vorspann, no music yet) - dropped
-! 39 scene(s) were shorter than H3's 5.17s minimum - padded, so they overlap
+! 1 scene(s) end before the music starts - kept as scene 0, 5.167s with no audio
+! scenes at 46.75s..55.71s are one held setup - fused, with 2 internal cut(s)
+! 36 scene(s) were shorter than H3's 5.17s minimum - padded, so they overlap
 ```
 
 Read those warnings. They are the honest report of what H3 could not do.
+
+**Two time bases, on purpose.** `__SCENES.tsv` carries `song_start`/`song_end` -
+the window of the track a clip takes its audio from - and `tl_frame`, the frame
+the clip sits on in the edit. A screenplay block that ends before the music
+starts becomes **scene 00**, a clip with no audio at all, and everything after it
+shifts on the timeline without moving on the song. Scene numbers **90 and up** are
+compositing elements: clips that exist only to be laid over something, so they
+have no audio and no place on the timeline either.
 
 ### 4. Write the prose, rebuild
 
@@ -133,19 +143,78 @@ Edit `_source/bible.txt`, `_source/style.txt`, `_source/tail.txt`,
 The `NN_title-vN.txt` files are **finished H3 prompts** - MiniMax's six sections,
 no markup, nothing to strip. Paste one in exactly as it is.
 
-One scene = one H3 render, so a whole song is 49 renders per camera variant.
-Core ComfyUI has no node that reads a text file and no way to load audio from a
-path, so batching needs either two node packs or the HTTP API:
+One scene = one H3 render, so a whole song is one render per scene per camera
+variant. Nothing about that has to be typed twice: `mvkit build` writes four
+starting API-format graphs into the song folder, so they always match the scenes
+beside them.
 
-```bash
-./mvkit queue Federphibien workflow_api.json --variant v1 --dry-run
+```
+__wf_1_scene.json     one scene, every file pre-filled. Each reference loader is
+                      TITLED with its live tag - "<Picture 3> das huhn (char)" -
+                      so the graph itself says which image is which.
+__wf_2_folder.json    the one to use. Hurricane Song Folder reads the folder and
+                      drives prompt, frame count, audio and every reference.
+__wf_3_pipeline.json  Hurricane Build Song runs ./mvkit first, then the same.
+__wf_5_upscale.json   the pass afterwards. No H3 in it at all - see below.
 ```
 
-**[docs/comfyui-batch.md](docs/comfyui-batch.md)** has the whole thing: which
-nodes, how to wire them, and why the stock ones are not enough. The deliverable
-ships what both paths need - `__SCENES.tsv` (frames and pairing per scene) and
-`__batch/` (line-aligned prompt/audio lists, grouped by frame count so `length`
-is set once per group instead of once per scene).
+(`__wf_4_wrapped.json` appears only when you wrap your own graph - below.)
+
+**The nodes** live in [comfyui/custom_nodes/](comfyui/custom_nodes/) - the path
+mirrors where they go. Two independent files, stdlib only, nothing to pip
+install:
+
+| file | nodes |
+|---|---|
+| `watching_hurricanes.py` | Song Folder, Build Song, Storyboard Scene, Reference Inventory, Prompt Builder |
+| `watching_hurricanes_upscale.py` | Clip Folder |
+
+Copy or symlink them into your own `ComfyUI/custom_nodes/` and restart. They
+appear under a **Watching Hurricanes** category.
+
+**The H3 node's class name cannot be known offline**, so the generated graphs
+carry a marked placeholder until you ask a running server:
+
+```bash
+./mvkit probe                              # what is installed, what to title what
+./mvkit probe --song federphibien --emit   # rewrite the graphs with the real classes
+```
+
+`probe` reads `/object_info` and reports the H3 node's actual input names. That
+matters more than it sounds: `prompt` and `length` usually sit on the H3 node
+itself, and a node carries one title, so it tells you which of the two ways round
+that to take.
+
+**Better still, keep your own graph.** Once you have an H3 ref2vid graph that
+renders the way you want, let the kit wrap that instead of inventing one:
+
+```bash
+./mvkit workflows federphibien --from my_h3_export.json
+```
+
+That writes `__wf_4_wrapped.json`: your graph untouched except for the four
+inputs a song folder drives, plus a save prefix at the back. Model, resolution,
+seed - everything else stays as you had it. It prints what it rewired and warns
+when your node has fewer image slots than the song has reference sheets.
+
+**Running the whole song:** set Hurricane Song Folder's `scene_index` to
+`increment`, the queue's batch count to its `scene_count` output, and press Run
+once. Or drive it from outside with no node from this kit at all:
+
+```bash
+./mvkit queue federphibien workflow_api.json --variant v1 --dry-run
+```
+
+**Where the clips land.** Renders are not temporary - Save Video writes to
+`ComfyUI/output` and stays; it is Preview nodes that write to `temp` and get
+cleared. Hurricane Song Folder has a `save_prefix` output wired into
+`filename_prefix`, so clips arrive as
+`output/<song>/NN_slug-vN_00001.mp4` - grouped per song and named after the
+prompt that made them, which is what `mvkit concat` reads.
+
+**[docs/comfyui-batch.md](docs/comfyui-batch.md)** covers the node-pack route and
+why stock ComfyUI is not enough on its own; `__batch/` still ships the
+line-aligned prompt/audio lists grouped by frame count for it.
 
 ### 5b. Check the timing
 
@@ -158,7 +227,31 @@ length against what it claims, and where it actually sits in the song. Nothing
 downstream survives a wrong `scenes.tsv`, so this is worth running after any
 change.
 
-### 6. Join the clips
+### 6. Upscale, once you have thrown out the bad takes
+
+`__wf_5_upscale.json` is a separate graph with **no H3 in it**. Point Hurricane
+Clip Folder at the folder you pruned by hand - it lists what is *actually* there,
+so a take you deleted is simply not in the run - set `clip_index` to `increment`
+and the batch count to `clip_count`, and leave it overnight.
+
+```
+Hurricane Clip Folder ─► Load Video (Path) ─► Upscale 4x ─► Video Combine
+ (source_dir)                    └─ audio ───────────────────┘
+```
+
+One 4x line-art model, `RealESRGAN_x4plus_anime_6B`, and **nothing after it** -
+the output is exactly 4x the render. Only a 540p source lands on 4K on the nose;
+correct the rest in the edit, which scales better than a second model pass.
+
+Deliberately not a diffusion upscaler. A picture made of a black ink line and
+flat washes has no hidden detail to reconstruct, so a generative model invents
+texture in fills that must stay flat - and invents it differently in every frame,
+which shimmers far more on flat colour than on photographic footage. ESRGAN-class
+models are deterministic, so they are temporally stable for free.
+
+Clips keep their own names, so the pairing with the prompt survives the pass.
+
+### 7. Join the clips
 
 ```bash
 ./mvkit concat ComfyUI/output/video/MV
@@ -218,14 +311,30 @@ order and feed the previous clip's last frame in as the next one's first frame.
 
 ```
 songs/federphibien/
-  __READ_ME.txt        what this folder is
-  __SCENES.tsv         scene, start, end, frames, duration, cut, audio, prompts, lyrics
+  __READ_ME.txt        what this folder is, in plain language, including a
+                       synopsis of the screenplay and how to render the folder
+  __SCENES.tsv         scene, song_start, song_end, tl_frame, frames, duration,
+                       inner_cuts, continuity, audio, prompts, lyrics
   NN_title-v1.txt      a paste-ready six-section H3 prompt
   NN_title.mp3         the audio slice, shared by v1/v2/v3
+  __wf_1..5.json       starting ComfyUI graphs, regenerated on every build
   __batch/             line-aligned lists for batching, grouped by frame count
-  ALL_scenes.txt       the same material in this kit's DSL, for the MV nodes
+  ALL_scenes.txt       the same material in this kit's DSL, for the storyboard node
   _source/             every input; nothing here is meant to be copied out
 ```
+
+`__READ_ME.txt` is generated but its prose is not: `_source/synopsis.txt` is
+written by hand (or by an agent that read the screenplay) and baked in, and the
+build only warns when `drehbuch.txt` is newer than it. A script summarising prose
+could reword it but never check whether the reading is right.
+
+**Compositing is listed, not baked.** Where the screenplay asks for something laid
+over something else - a half-transparent hen in the sky, three daydreams over a
+looping hop - the plate is rendered with that area deliberately EMPTY and the
+overlay is a full-frame clip of its own. `__READ_ME.txt` gets a COMPOSITING
+section naming which file is a plate, which is an inset or element, what loops and
+what freezes. Nothing is burned into a render, because the assembly happens in
+DaVinci.
 
 The `@BIBLE` / `@STYLE` / `@SCENE` / `@TAIL` markers are **this kit's DSL, not a
 MiniMax convention** - they only appear in `ALL_scenes.txt`, which is what the
@@ -262,6 +371,7 @@ templates/
   cameras.txt           the active camera set (v1/v2/v3 blocks)
   sections.txt          H3's six prompt sections and what belongs in each
   drafting.txt          the brief used when content.json is written
+  comfyui.txt           the render instructions baked into every song's README
   cameras/              camera sets to pick from - drop one over cameras.txt
     __GLOSSARY.txt      shot sizes, angles, moves, amplitude and speed
     static-coverage.txt  moving-coverage.txt  rostrum-2d.txt
@@ -285,6 +395,9 @@ other references belong.
 | `./mvkit --docker <cmd>` | force Docker |
 | `mvkit.cmd <cmd>` | Windows, always Docker |
 | `make <target> SONG=x` | `drehbuch transcribe scenes refs split draft build all` |
+| `./mvkit probe` | ask a running ComfyUI what it has and what to title what |
+| `./mvkit workflows <song> [--from wf.json]` | write the graphs, or wrap your own |
+| `./mvkit verify <song>` | measure the timing instead of trusting it |
 | `make check` | syntax-check every script |
 | `docker compose build` | build the image (whisper.cpp + ffmpeg + python) |
 | `./mvkit llm-up` | start the local drafting model |
@@ -316,14 +429,24 @@ WHISPER_MODEL_NAME=ggml-base.bin ./mvkit --docker transcribe mysong
   the file elsewhere or grant Full Disk Access.
 - Scanned PDFs have no text layer, so `mvkit drehbuch` comes back empty. Write
   `drehbuch.txt` by hand.
+- Whisper fills trailing silence with one hallucinated line repeated to the end
+  of the file. `transcribe` finds the last real audio from the silence log and
+  drops what sits after it, but check `segment_count` if a song has a long tail.
+- The ComfyUI nodes have not been run inside a live ComfyUI - there is none on
+  the machine they were written on. Their parsing, grid and tag logic is tested
+  standalone. Two VideoHelperSuite connections in the upscale graph are flagged
+  in `__READ_ME.txt` as needing one look in the UI, because VHS has renamed both
+  between versions.
 
 ## Grade artefacts stay out of the prompt
 
 `style.txt` explicitly forbids grain, video noise, VHS softness, scanlines,
 chroma bleed, gate weave, dust, halation and lens effects. The prompt describes
-the *craft* of the era - ink taper, flat fills with hard-edged shadow tones,
-gouache backgrounds, animation on twos, mouth charts, rostrum camera. The period
-damage goes on afterwards in DaVinci, where you can still take it off.
+the *craft* of the era instead - how the line was drawn, how the paint was laid,
+animation on twos, mouth charts, rostrum camera - never the condition of an old
+tape. The period damage goes on afterwards in DaVinci, where you can still take
+it off. It is also what makes the upscale pass work: a clean plate upscales, a
+grainy one amplifies its grain.
 
 For a 90s broadcast grade, the artefacts that actually read are composite video
 ones: chroma bleed and dot crawl, slight horizontal smear, interlace combing on
