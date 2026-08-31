@@ -299,11 +299,24 @@ RENDERING THIS FOLDER IN COMFYUI
     the 540p case lands on 4K on the nose; correct the rest in DaVinci, which
     scales better than a second model pass would anyway.
 
-    The model is RealESRGAN_x4plus_anime_6B - trained on line art, keeps a hard
-    ink outline where a photo model smears it. Put the .pth in
-    ComfyUI/models/upscale_models/. Alternatives if it is too soft or too sharp:
-    4x-AnimeSharp (sharper), DigitalFrames 2.0 (trained on cel/film toons - not
-    the 2.1_Aggressive variant).
+    GETTING THE MODEL. Exact filename, and it is a .pth - ComfyUI loads those for
+    upscalers, no conversion needed:
+
+      RealESRGAN_x4plus_anime_6B.pth      (17 MB)
+      https://github.com/xinntao/Real-ESRGAN/releases/download/v0.2.2.4/RealESRGAN_x4plus_anime_6B.pth
+
+    Drop it in  <your ComfyUI>/models/upscale_models/  and refresh the browser
+    (or hit the refresh button) - the model_name dropdown is built from that
+    folder when the UI loads, so a file added while it is open will not show up
+    until you do.
+
+    The graph already names it, so once the file is there the two nodes resolve
+    on their own: Load Upscale Model (UpscaleModelLoader) feeds Upscale Image
+    (using Model) (ImageUpscaleWithModel).
+
+    Alternatives if it comes out too soft or too sharp: 4x-AnimeSharp (sharper),
+    DigitalFrames 2.0 (trained on cel/film toons - not the 2.1_Aggressive
+    variant). Both are on openmodeldb.info and go in the same folder.
 
     Mind the size: 8K frames eat VRAM and disk, and crf 12 on the combine keeps
     quality high, which also means large files.

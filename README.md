@@ -238,7 +238,7 @@ Hurricane Clip Folder ─► Load Video (Path) ─► Upscale 4x ─► Video Co
  (source_dir)                    └─ audio ───────────────────┘
 ```
 
-One 4x line-art model, `RealESRGAN_x4plus_anime_6B`, and **nothing after it** -
+One 4x line-art model and **nothing after it** -
 the output is exactly 4x the render. Only a 540p source lands on 4K on the nose;
 correct the rest in the edit, which scales better than a second model pass.
 
@@ -247,6 +247,14 @@ flat washes has no hidden detail to reconstruct, so a generative model invents
 texture in fills that must stay flat - and invents it differently in every frame,
 which shimmers far more on flat colour than on photographic footage. ESRGAN-class
 models are deterministic, so they are temporally stable for free.
+
+The model, exactly: **`RealESRGAN_x4plus_anime_6B.pth`** (17 MB), from
+[the Real-ESRGAN v0.2.2.4 release](https://github.com/xinntao/Real-ESRGAN/releases/download/v0.2.2.4/RealESRGAN_x4plus_anime_6B.pth).
+It goes in `<your ComfyUI>/models/upscale_models/` and needs a browser refresh
+before the dropdown sees it - that list is built when the UI loads. The graph
+already names the file, so `Load Upscale Model` (`UpscaleModelLoader`) and
+`Upscale Image (using Model)` (`ImageUpscaleWithModel`) resolve on their own once
+it is there. `.pth` is fine as-is, no conversion.
 
 Clips keep their own names, so the pairing with the prompt survives the pass.
 
