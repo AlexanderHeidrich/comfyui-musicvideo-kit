@@ -42,9 +42,41 @@ WHAT HAPPENS
 Every scene is one MiniMax H3 render. Files are paired by prefix:
 
   NN_title.mp3      the exact window of the song for that scene
-  NN_title-v1.txt   wide master        }  same action, three cameras -
-  NN_title-v2.txt   other angle        }  render two or three and cut
-  NN_title-v3.txt   close / detail     }  between them inside the scene
+  NN_title-v1.txt   the director's shot
+  NN_title-v2.txt   other angle, medium
+  NN_title-v3.txt   close / detail
+
+WHAT EACH VERSION IS FOR
+
+  v1  YOURS. Whatever framing the screenplay states is what v1 does -
+      `mvkit scenes` lifts it out of the Drehbuch into the framing column
+      and the build warns when v1 ignores it. If the screenplay says
+      over-the-shoulder at water level, that is v1. It is the shot you
+      wrote, not an interpretation of it.
+
+  v2  and
+  v3  COVERAGE, chosen by film practice rather than by the screenplay:
+      never repeat v1's size, cross the axis so the two cut together,
+      and give one of them something the master cannot hold - a face, a
+      hand, a point of contact. v2 is roughly ninety degrees off the
+      master and closer, v3 is the detail. See
+      templates/cameras/__COVERAGE.txt for the table they come from.
+
+      The ACTION text is byte-identical in v1, v2 and v3 - only the
+      camera differs. That is the point: they are three angles on ONE
+      moment, they share the single NN_title.mp3, and they can be cut
+      together inside the scene. They are not alternative takes.
+
+  v4  THE SHORT BUILD, and an experiment. Same shot as v1, same camera,
+      same references - but assembled from _source/brief.txt instead of
+      the full bible and style, and carrying only the characters that are
+      actually in the scene. Roughly 6 KB against v1's 30 KB.
+      Every published H3 guide puts the prompt limit at 7,000 characters.
+      If that limit is real for ComfyUI too, then in v1 the model never
+      reaches the shot description at all - it stops inside the cast list
+      and improvises the rest, which is what stray characters and
+      vanishing scenery look like. UNTESTED. Render 01-v4 against 01-v1
+      and compare before believing either of them.
 
 The -vN.txt files are finished H3 prompts: MiniMax's six sections, no
 markup, nothing to strip. Paste one in as the prompt exactly as it is.
@@ -104,8 +136,8 @@ COMPOSITING - assembled in the edit, not rendered in
   90_hen-profile-element  [element] -> over 14
         upper left of the empty sky in scene 14, half transparent
         no audio and no place on the timeline - hold or loop it to taste.
-        Blend mode over the plate's flat sky; her grey field is meant to
-        disappear.
+        Blend mode over the plate's flat sky; her flat blue field is meant
+        to disappear.
   47_the-final-freeze  [freeze]
         hold the last frame as long as you like, then close the iris in
         Resolve - the screenplay asks for the effect there, so it is not

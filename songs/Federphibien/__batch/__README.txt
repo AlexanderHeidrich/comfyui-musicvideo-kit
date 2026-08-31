@@ -7,21 +7,27 @@ group                  length   queue batch count
 f124-v1                124      36
 f124-v2                124      36
 f124-v3                124      36
+f124-v4                124      36
 f141-v1                141      4
 f141-v2                141      4
 f141-v3                141      4
+f141-v4                141      4
 f158-v1                158      4
 f158-v2                158      4
 f158-v3                158      4
+f158-v4                158      4
 f226-v1                226      1
 f226-v2                226      1
 f226-v3                226      1
+f226-v4                226      1
 f277-v1                277      1
 f277-v2                277      1
 f277-v3                277      1
+f277-v4                277      1
 f294-v1                294      1
 f294-v2                294      1
 f294-v3                294      1
+f294-v4                294      1
 
 NOT in these lists, because they have no audio to pair with:
   00_the-pond-before-the-music, 90_hen-profile-element

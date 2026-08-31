@@ -29,7 +29,8 @@ subject_definitions
     small black dot pupil and a fine dark rim - no iris colour, no ring.
     Take the build straight off the sheet. It is the spec, not an approximation.
     <Picture 2> THE FROG.  <Picture 3> THE HEN.
-    <Picture 5> THE RESEARCHER, seen from behind, which is how he is always seen.
+    <Picture 5> THE RESEARCHER, seen from behind, which is how he is seen whenever
+    the shot allows it - and where it does not, his face is under the hat.
 
     <Picture 4> is NOT a thing in the scene. It is a colour and construction board:
     the palette, the line weight, and the way the shading grades inside the line. Read the look off it and never draw it.
@@ -80,7 +81,9 @@ subject_definitions
     Comb, wattle, beak, a squat potbellied frog body, frog feet with small claws,
     small feather tufts at the flanks. The wings
     cannot lift them and they will not swim, and they do not know it yet. They
-    appear ONLY inside the chorus fantasies, never in the real pond.
+    appear ONLY inside the fantasies. A fantasy may borrow the real place - the
+    drowned ones float in this same pond - but nothing in a scene that is not a
+    vision is ever a Federphibium.
     THE RESEARCHER - <Picture 5>. The only human being in the film, and the film never shows his
     face. Khaki trousers, a plain shirt with the sleeves turned back, a straw hat.
     A green hardbound notebook and a pencil, and an old 1920s camera - a squarish
@@ -92,32 +95,92 @@ subject_definitions
     end, when he finally uses it. Middle aged, unhurried, completely absorbed. He sits on a folding
     chair at the edge of the pond and draws what he sees, in the fine pencil manner
     of a nineteenth century scientific plate, the parts labelled in a small hand.
-    Always seen from behind or over his shoulder, at most a rear three-quarter where
-    the edge of a nose and a chin show past the hat brim. His face is never turned to
-    camera and never readable. Never a reaction shot, never a word. He does not interact with the animals and they never notice
+    His face is never readable, at any size, however small he is in the frame.
+    Never a reaction shot, never a word. He does not interact with the animals and they never notice
     him. He moves quickly exactly once, when he jumps up and grabs the chair to
     stop it going over.
     He is ALREADY THERE from the very first frame of the film, sitting at the far
     edge of the pond. This is only so that nobody wonders where he came from when the
-    song reaches him: he is a plant, not a presence. A wide shot holding the pond bank
-    MAY carry him somewhere at the edge of frame, and the least is enough - a khaki
-    shape under a straw hat, or just his shadow and the shadow of the chair falling
-    across the mud. He is never the subject, never lit for and never looked at, and
-    plenty of setups simply do not include him. What is not optional: whenever he is
-    in frame at all, he is seen FROM BEHIND. Never his face, at any size, however
-    small he is. Indoors and in close-ups he is not in frame.
+    song reaches him: he is a plant, not a presence. He is never the subject, never
+    lit for and never looked at, and plenty of setups simply do not include him.
+    Indoors and in close-ups he is not in frame.
+
+    HOW HE IS SHOWN - a back only reads as a back if we are behind it, so a shot
+    picks one of exactly two arrangements and never mixes them:
+    1. NEAR, the default and the strong one. He sits between us and whatever the
+       shot is about - the pond, the frog, the running pair all lie BEYOND him. He
+       is in the front of the frame, close, his back filling a corner of it, soft,
+       cut by the edge. A rear three-quarter is allowed at most, where the edge of
+       a nose and a chin show past the hat brim.
+    2. FAR, when he is across the water or away down the bank and therefore turned
+       towards us. Then he is bent right down over the notebook with the hat brim
+       lying flat across his face, and the crown of the hat and the shoulders are
+       all there is. No features, no chin, no eye, no pale shape where a face
+       would be.
+    Forbidden is the arrangement that cannot happen: a man on the far side of the
+    pond, sitting up and facing the water, described as seen from behind. If he is
+    facing us and his head is up, the shot is wrong - lower the head or leave him
+    out.
 
   WORLD
-    A murky farm pond at the bottom edge of a chicken yard. High summer, humid,
-    overcast bright. Green scum water, cattails, duckweed. A leaning chicken-wire
-    fence with a gap worn under it. A coop roofed in corrugated tin, whose INSIDE
-    is quite different: tall walls of green-painted vertical timber boarding framed
-    by heavy warm-brown posts and beams, an ochre earth floor, a straw nesting shelf
-    up under the roof, cables strung across and one bare bulb hanging off a sagging
-    one. Never tin on the inside. Dry mud cracked into plates. Flies everywhere.
+    A murky farm pond at the bottom edge of a chicken yard. High summer, a clear
+    bright sunny day - blue sky, warm light, short soft shadows, no cloud bank and
+    no rain. The weather never changes and is never a mood; the only light that
+    moves is the low warm sun of the last two scenes. Flies everywhere.
     The farm plainly works - the coop is repaired, there is feed on the ground -
     and nobody is home. The one person who ever appears is the researcher at the
-    pond, and he is never shown from the front. Never explain either of those.
+    pond, and his face is never seen. Never explain either of those.
+
+  THE SET - what is standing there, in every single shot of that place
+    Two locations, and they are the SAME two locations all film. A shot does not
+    invent scenery and it does not quietly drop it: if a part of the place is in
+    frame, everything on its list that belongs in that part is in frame with it.
+    Things vanishing between cuts is the one thing that gives this away as
+    generated, so treat these as built sets that were nailed down before shooting.
+
+    THE POND - <Picture 6> is the plan of it. From the water outwards:
+      1. The water: a large, calm, almost flat pale green wash, skinned with
+         duckweed. Ripples drawn as thin concentric ink rings.
+      2. Lily pads floating on it, each a rounded leaf with a red-brown outline, a
+         darker green centre and one hard white glint. They lie in loose clusters,
+         thicker at the right, and there are always some.
+      3. Cattails - tall dark stems with brown cigar heads - standing up out of the
+         water at BOTH edges of frame, near the camera, drawn as near-black
+         silhouettes with no interior detail. They are the film's foreground
+         framing device and they cut into almost every pond shot.
+      4. The bank: dry mud cracked into flat plates with black lines between them,
+         straw-yellow going to olive, dropping about a hand's depth to the water.
+      5. Behind the bank a band of tall pale grass, and behind that
+      6. THE FENCE: leaning chicken-wire on rough wooden posts, sagging between
+         them, the wire torn open in places and worn away underneath at one point
+         into a gap a frog can pass. It runs the whole length of the far bank.
+      7. Behind the fence, to the right, the coop: a low building with a ridged
+         CORRUGATED TIN roof, grey-green, seen end-on.
+      8. Further off and much smaller, the farmhouse and the cow barn, pale and
+         flat with distance.
+      The fence and the tin roof are what make this pond THIS pond. Whenever the
+      far bank is in frame - at any distance, from any angle, in focus or not -
+      both are in it. Seen from directly overhead they do not disappear either:
+      the fence reads as a thin dark line ruled around the yard and the coop as a
+      small rectangle of ridged tin. An aerial that shows bare grass where the
+      fence should be is wrong.
+
+    INSIDE THE HEN HOUSE - <Picture 7> is the plan of it.
+      1. Tall walls of green-painted vertical timber boarding, weathered, the
+         paint thin over the grain.
+      2. Heavy warm-brown posts and beams framing them, one horizontal rail
+         crossing the wall at about a third of its height.
+      3. An ochre-tan bare earth floor.
+      4. A big heap of grey-white down and feathers banked against the left wall,
+         loose feathers scattered across the floor and a few always drifting in
+         the air.
+      5. A straw nesting shelf high up under the roof on the left, eggs on it.
+      6. Two black cables strung across the room, one sagging, with a single bare
+         bulb hanging off it, lit warm even in daylight.
+      7. A doorway to the right in a brown timber frame, filled with flat blown-out
+         daylight and no detail in it at all - the brightest thing in the film.
+      Never corrugated tin on the inside. The building is 3.5 m to the ridge, so
+      the wall runs far above the hen and the hen far above the frog.
 
   SCALE - these are real animals and they are not the same size
     The references are portraits: every character is drawn alone, filling its own
@@ -142,9 +205,14 @@ subject_definitions
     A FLY           8 mm. A tenth of the frog's body length, a speck beside him.
 
     PLACES, to the same ruler
-      The pond is a farm pond, about 10 m across - the frog needs a couple of
-      hundred of his own body lengths to cross it, and the whole of his journey
-      from the water to the hen house is roughly 2 m of ground.
+      The pond is a small farm pond, about 3 m across - forty of the frog's own
+      body lengths. He is a slow swimmer and crossing it still takes him the whole
+      opening. From the bank to the hen house is about 5 m of ground: sixty body
+      lengths, which from 8 cm off the floor reads as the far side of the world.
+      He covers it in small hops, and that is why it takes half the song. The
+      pond reference <Picture 6> is the ruler for both - the coop stands just
+      beyond the fence at the top of the bank, close enough to see the corrugation
+      on its roof.
       The farmyard is about 40 m across and holds the house, the barn, the coop,
       the fenced run and the pond. Seen from the air the pond is one small dark
       oval in the corner of it and the frog in the water is a single dark speck.
@@ -194,14 +262,14 @@ subject_definitions
     never play it for laughs, never mug, never wink.
 
 summary
-  [reference generation + audio reuse] The frog's eyes are glassy and unfocused, clouds drifting faintly reflected across them. He sings the line. The lyric sung here is "Ich sitze traurig am Rand vom Teich".
+  [reference generation + audio reuse] The frog's eyes are glassy and unfocused, the blue sky and one thin drifting cloud faintly reflected across them. He sings the line. The lyric sung here is "Ich sitze traurig am Rand vom Teich".
 
 retention_analysis
-  <Picture 1> (federphibium, char): partially_preserved - the design, proportions, colour model and every marking are preserved exactly and never drift between scenes; only the sheet's plain backdrop and the cast shadow under the figure are dropped. How the character is rendered is set by the style below.
+  <Picture 1> (federphibium, char): weak_reference - this character is NOT in this shot. Do not draw it anywhere in frame, at any size, and do not let any of its features reach another character. It is supplied only so its design stays fixed for the scenes it is in.
   <Picture 2> (der frosch, char): partially_preserved - the design, proportions, colour model and every marking are preserved exactly and never drift between scenes; only the sheet's plain backdrop and the cast shadow under the figure are dropped. How the character is rendered is set by the style below.
-  <Picture 3> (das huhn, char): partially_preserved - the design, proportions, colour model and every marking are preserved exactly and never drift between scenes; only the sheet's plain backdrop and the cast shadow under the figure are dropped. How the character is rendered is set by the style below.
+  <Picture 3> (das huhn, char): weak_reference - this character is NOT in this shot. Do not draw it anywhere in frame, at any size, and do not let any of its features reach another character. It is supplied only so its design stays fixed for the scenes it is in.
   <Picture 4> (board, style): attribute_transfer - the palette, the line weight and the way shading is laid down are transferred to everything drawn in this shot. The board itself is never a thing in the scene and is never drawn.
-  <Picture 5> (der forscher, char): partially_preserved - the design, proportions, colour model and every marking are preserved exactly and never drift between scenes; only the sheet's plain backdrop and the cast shadow under the figure are dropped. How the character is rendered is set by the style below.
+  <Picture 5> (der forscher, char): weak_reference - this character is NOT in this shot. Do not draw it anywhere in frame, at any size, and do not let any of its features reach another character. It is supplied only so its design stays fixed for the scenes it is in.
   <Picture 6> (pond, loc): partially_preserved - a background painting. Where this shot is set in that place its architecture, layout and palette are preserved and nothing in it is a subject; where the shot is set elsewhere it contributes nothing.
   <Picture 7> (henhouse interior, loc): partially_preserved - a background painting. Where this shot is set in that place its architecture, layout and palette are preserved and nothing in it is a subject; where the shot is set elsewhere it contributes nothing.
   <Audio 1>: partially_copy - the supplied window of the song is reused as the audience-only score for this clip; the diegetic ambience described below is added over it and nothing else is.
@@ -214,9 +282,12 @@ detailed_description
 
   WHERE THE REFERENCES AND THIS TEXT DISAGREE
     The supplied reference images are looser and more washed than the finished
-    film. Take the PALETTE, the light and the atmosphere from them. Take the LINE
-    and the FINISH from the description below - it wins. The result sits between
-    the two, and that is deliberate.
+    film. Take the PALETTE and the atmosphere from them. Take the LINE and the
+    FINISH from the description below - it wins. The result sits between the two,
+    and that is deliberate.
+    The LIGHT is the one thing the references do not carry: they were painted
+    under a grey sky and the film is a bright summer day. Read every pale sky in
+    them as clear blue and warm the light accordingly.
 
   LINE
     A clean BLACK ink outline, drawn by hand and confident. It is fairly bold and
@@ -238,15 +309,28 @@ detailed_description
     Every rounded wet surface carries a hard little WHITE specular highlight,
     clean-edged and glassy, sitting off-centre. The lily pads have it, the frog's
     back and eyes have it, wet mud has it. This gloss is part of the look.
-    Values stay HIGH-KEY: water and sky are pale, almost bleached, and the black
-    line supplies the only real dark. Nothing in the frame goes to a muddy
-    mid-grey.
+    Values stay HIGH-KEY: the water is pale and luminous, the black line supplies
+    the only real dark, and nothing in the frame goes to a muddy mid-grey.
     Palette fresh but not loud: a clear leaf green over a pale green-white water,
-    sage and olive on the land, dusty liver brown, straw, cream, a lilac-grey
-    overcast sky. Red appears on a comb and a wattle and almost nowhere else.
+    sage and olive on the land, dusty liver brown, straw, cream, and a clean
+    summer blue overhead. Red appears on a comb and a wattle and almost nowhere
+    else.
     Each character has a fixed colour model that never drifts between shots.
     The paper the film is painted on is faintly present under the colour - a
     whisper of tooth, not a texture that competes with the drawing.
+
+  LIGHT
+    A clear, bright summer day. Sun out, blue sky, no cloud bank, no rain, no
+    wind-up of weather anywhere in the film. Warm sunlight from one fixed
+    direction - high and from the left - which does not change between shots, so
+    every scene at the pond throws its shadows the same way.
+    Shadows are short, warm and soft-edged, and they sit under the thing that
+    casts them: a chair, a hen, a leaning post. They are a deeper tone of the
+    ground colour, never grey and never black, and they are painted with the same
+    airbrush as everything else - not as a hard cel shadow shape. Sunlit surfaces
+    are warm, the shaded side of a form cools slightly. That is the whole system.
+    Two scenes break it on purpose, and only those two: the closing run, where the
+    sun is low and warm behind the hill, and the freeze that follows it.
 
   BACKGROUNDS
     Painted in the same medium as the characters, not a different one: the same
@@ -313,7 +397,7 @@ detailed_description
 
   [Shot 1] Wide from across the water, the frog small at the near bank. The camera holds a static shot.
 
-  The frog's eyes are glassy and unfocused, clouds drifting faintly reflected across them. He sings the line.
+  The frog's eyes are glassy and unfocused, the blue sky and one thin drifting cloud faintly reflected across them. He sings the line.
 
 overall_soundscape
   Under everything, always present and always quiet: a summer farm pond. Wet

@@ -1,0 +1,74 @@
+subject_definitions
+  <Subject 1> is THE FEDERPHIBIUM, shown in <Picture 1>, and it exists only
+  inside a daydream: a fat potbellied sage-green frog body sitting squat like a
+  toad, about 12 cm to the top of the comb, with a large pale cream belly and
+  mottled olive patches. An upright red chicken comb on its head, a red
+  two-lobed wattle under a small yellow-orange beak. Frog legs and frog feet,
+  long toes ending in small yellow claws, and two small useless tufts of
+  cream-white feathers at the flanks where wings would be. Large white eyes with
+  small black dot pupils.
+  <Picture 4> is a colour and construction board: read the palette, the line
+  weight and the way shading grades inside the line off it. It is never a thing
+  in the scene and is never drawn.
+  <Subject 2> is THE RESEARCHER, shown in <Picture 5>: the only human in the
+  film, 180 cm tall - eighteen times the frog, four times the hen, who reaches
+  just below his knee. Khaki trousers, a plain shirt with the sleeves turned
+  back, a straw hat, a green notebook and pencil, and an old black leather
+  folding plate camera at his front on a broad black strap over one shoulder,
+  reading as a dark block, not a bag. He sits on a folding chair at the edge of
+  the pond and draws what he sees. His face is NEVER visible: either he is at
+  the front of the frame with his back to us and everything else beyond him, or
+  he is far off and bent down over the notebook with the hat brim flat across
+  his face. He never reacts, never speaks, and the animals never notice him.
+  <Picture 6> is the pond, a background painting in which nothing is a subject.
+  Out from the water: a calm flat pale green wash skinned with duckweed, ripples
+  as thin concentric ink rings; lily pads with red-brown outlines, dark green
+  centres and one white glint each; cattails at both edges of frame as
+  near-black silhouettes with no interior detail; a bank of dry mud cracked into
+  plates; a band of tall pale grass; a leaning chicken-wire fence on rough
+  posts, sagging, torn and worn under into a gap a frog can pass; behind it to
+  the right the coop with its ridged corrugated tin roof; far off the farmhouse
+  and cow barn, pale with distance. The pond is 3 m across, the farmyard 40 m,
+  and it is 5 m from the bank to the hen house. The fence and the tin roof are
+  in every shot that holds the far bank, at any distance, from any angle,
+  including straight down.
+  <Picture 2>, <Picture 3>, <Picture 7>: not used in this shot.
+
+summary
+  [reference generation + audio reuse] This is the last image of the daydream and it is the cruel one, so the hybrids are here on purpose: dead Federphibien float in the real pond, backs upward, a dozen of them turning slowly in the duckweed between the lily pads, cattails standing black at the edges of frame and the leaning fence along the far bank behind it all. At the water's edge a man sits on a chair with his back turned, sharpening out of blur as he is approached from behind, until his back and the straw hat above it stand across the front of the frame with the pond beyond him. The lyric sung here is "die nicht zum fliegen oder schwimmen taugen".
+
+retention_analysis
+  <Picture 1> (<Subject 1>): partially_preserved - design, proportions and colour model exactly.
+  <Picture 4>: attribute_transfer - palette, line weight and shading only. Never drawn.
+  <Picture 5> (<Subject 2>): partially_preserved - design, proportions and colour model exactly.
+  <Picture 6>: partially_preserved - the layout, architecture and palette of that place.
+  <Picture 2>, <Picture 3>, <Picture 7>: weak_reference - NOT in this shot. Do not draw it and do not let its features reach anything else.
+  <Audio 1>: partially_copy - reused as the audience-only score.
+
+detailed_description
+  Hand-drawn 2D television animation: clean bold black ink outlines over flat
+  colour, softly airbrushed darker toward the rim of each form and where forms
+  overlap. No hard-edged cel shadow shapes, no watercolour bloom. One hard white
+  glint on every wet rounded surface. High-key - the black line is the only real
+  dark. A clear bright summer day, warm sunlight from one fixed direction high
+  and left, short soft warm shadows, clean blue sky, no cloud bank and no rain.
+  Palette: leaf green over pale green-white water, sage and olive land, dusty
+  liver brown, straw, cream. Red only on a comb and a wattle. Limited animation on twos
+  with strong held poses. Faint paper tooth under the paint.
+  Output clean and sharp: no film grain, video noise, VHS softness, scanlines,
+  chroma bleed, gate weave, dust, vignetting, bloom, lens effects or on-screen text.
+
+  [Shot 1] Low aerial travelling along the pond, side on, ending behind the seated man. The camera tracks the subject, holding the framing.
+
+  This is the last image of the daydream and it is the cruel one, so the hybrids are here on purpose: dead Federphibien float in the real pond, backs upward, a dozen of them turning slowly in the duckweed between the lily pads, cattails standing black at the edges of frame and the leaning fence along the far bank behind it all. At the water's edge a man sits on a chair with his back turned, sharpening out of blur as he is approached from behind, until his back and the straw hat above it stand across the front of the frame with the pond beyond him. He never turns.
+
+overall_soundscape
+  A working summer farm, quiet and constant under everything: wet plops, crickets,
+  the low mutter of hens off frame, corrugated tin ticking in the heat, one distant
+  tractor that never arrives. Flies. No cartoon sound effects of any kind - no
+  boings, no slide whistles, no comedy impacts. The frog's croaks and the hen's
+  clucks are recorded-real, never performed. Never louder than the vocal.
+
+non_diegetic_music
+  The supplied song excerpt is the only music. Do not invent, add or extend any
+  instrumentation - no score, no stings, no risers.

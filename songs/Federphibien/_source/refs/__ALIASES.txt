@@ -1,0 +1,15 @@
+# Which words in a shot description mean a reference is IN that shot.
+# The files are named in German, the shot descriptions are written in English,
+# so without this every character reads as absent. `<slug>: word, word`.
+# A `-phrase` is blanked out of the text first, so "hen" does not match inside
+# "hen house". A scene no keyword can get right names its own "cast" in
+# content.json instead.
+
+federphibium:  federphibium, federphibien, hybrid, hybrids
+der frosch:    frog, frog's, -the frog sings the line.
+das huhn:      hen, hen's, -hen house
+der forscher:  researcher, researcher's, scientist, straw hat, folding chair
+
+# Locations, so the short build carries only the place the shot is set in.
+pond:              pond, water, bank, waterline, reeds, duckweed, cattails, grass, mud, gravel, yard, farm, sky, hill
+henhouse interior: feather, feathers, down, doorway, nesting, hen house wall, indoors, inside the hen house

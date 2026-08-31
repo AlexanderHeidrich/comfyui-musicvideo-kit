@@ -14,9 +14,12 @@ condition of an old tape.
 
 WHERE THE REFERENCES AND THIS TEXT DISAGREE
   The supplied reference images are looser and more washed than the finished
-  film. Take the PALETTE, the light and the atmosphere from them. Take the LINE
-  and the FINISH from the description below - it wins. The result sits between
-  the two, and that is deliberate.
+  film. Take the PALETTE and the atmosphere from them. Take the LINE and the
+  FINISH from the description below - it wins. The result sits between the two,
+  and that is deliberate.
+  The LIGHT is the one thing the references do not carry: they were painted
+  under a grey sky and the film is a bright summer day. Read every pale sky in
+  them as clear blue and warm the light accordingly.
 
 LINE
   A clean BLACK ink outline, drawn by hand and confident. It is fairly bold and
@@ -38,15 +41,28 @@ COLOUR AND FINISH
   Every rounded wet surface carries a hard little WHITE specular highlight,
   clean-edged and glassy, sitting off-centre. The lily pads have it, the frog's
   back and eyes have it, wet mud has it. This gloss is part of the look.
-  Values stay HIGH-KEY: water and sky are pale, almost bleached, and the black
-  line supplies the only real dark. Nothing in the frame goes to a muddy
-  mid-grey.
+  Values stay HIGH-KEY: the water is pale and luminous, the black line supplies
+  the only real dark, and nothing in the frame goes to a muddy mid-grey.
   Palette fresh but not loud: a clear leaf green over a pale green-white water,
-  sage and olive on the land, dusty liver brown, straw, cream, a lilac-grey
-  overcast sky. Red appears on a comb and a wattle and almost nowhere else.
+  sage and olive on the land, dusty liver brown, straw, cream, and a clean
+  summer blue overhead. Red appears on a comb and a wattle and almost nowhere
+  else.
   Each character has a fixed colour model that never drifts between shots.
   The paper the film is painted on is faintly present under the colour - a
   whisper of tooth, not a texture that competes with the drawing.
+
+LIGHT
+  A clear, bright summer day. Sun out, blue sky, no cloud bank, no rain, no
+  wind-up of weather anywhere in the film. Warm sunlight from one fixed
+  direction - high and from the left - which does not change between shots, so
+  every scene at the pond throws its shadows the same way.
+  Shadows are short, warm and soft-edged, and they sit under the thing that
+  casts them: a chair, a hen, a leaning post. They are a deeper tone of the
+  ground colour, never grey and never black, and they are painted with the same
+  airbrush as everything else - not as a hard cel shadow shape. Sunlit surfaces
+  are warm, the shaded side of a form cools slightly. That is the whole system.
+  Two scenes break it on purpose, and only those two: the closing run, where the
+  sun is low and warm behind the hill, and the freeze that follows it.
 
 BACKGROUNDS
   Painted in the same medium as the characters, not a different one: the same

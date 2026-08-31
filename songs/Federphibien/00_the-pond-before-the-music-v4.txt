@@ -1,0 +1,76 @@
+subject_definitions
+  <Picture 4> is a colour and construction board: read the palette, the line
+  weight and the way shading grades inside the line off it. It is never a thing
+  in the scene and is never drawn.
+  <Subject 1> is THE RESEARCHER, shown in <Picture 5>: the only human in the
+  film, 180 cm tall - eighteen times the frog, four times the hen, who reaches
+  just below his knee. Khaki trousers, a plain shirt with the sleeves turned
+  back, a straw hat, a green notebook and pencil, and an old black leather
+  folding plate camera at his front on a broad black strap over one shoulder,
+  reading as a dark block, not a bag. He sits on a folding chair at the edge of
+  the pond and draws what he sees. His face is NEVER visible: either he is at
+  the front of the frame with his back to us and everything else beyond him, or
+  he is far off and bent down over the notebook with the hat brim flat across
+  his face. He never reacts, never speaks, and the animals never notice him.
+  <Picture 6> is the pond, a background painting in which nothing is a subject.
+  Out from the water: a calm flat pale green wash skinned with duckweed, ripples
+  as thin concentric ink rings; lily pads with red-brown outlines, dark green
+  centres and one white glint each; cattails at both edges of frame as
+  near-black silhouettes with no interior detail; a bank of dry mud cracked into
+  plates; a band of tall pale grass; a leaning chicken-wire fence on rough
+  posts, sagging, torn and worn under into a gap a frog can pass; behind it to
+  the right the coop with its ridged corrugated tin roof; far off the farmhouse
+  and cow barn, pale with distance. The pond is 3 m across, the farmyard 40 m,
+  and it is 5 m from the bank to the hen house. The fence and the tin roof are
+  in every shot that holds the far bank, at any distance, from any angle,
+  including straight down.
+  <Picture 7> is the hen house interior painting and nothing in it is a subject:
+  tall walls of green-painted vertical timber boarding framed by heavy
+  warm-brown posts and beams, one horizontal rail across the wall at a third of
+  its height, an ochre bare-earth floor, a big heap of grey-white down banked
+  against the left wall with loose feathers on the floor and drifting in the
+  air, a straw nesting shelf high under the roof with eggs on it, two black
+  cables strung across with one bare bulb hanging off a sagging one, and a
+  doorway to the right in a brown timber frame filled with flat blown-out
+  daylight. Never corrugated tin inside. 3.5 m to the ridge, so the wall runs
+  far above the hen and the hen far above the frog.
+  <Picture 1>, <Picture 2>, <Picture 3>: not used in this shot.
+
+summary
+  [reference generation] Title card, before the song begins. The pond lies still in bright summer sunlight, the sky above it a clean blue.
+
+retention_analysis
+  <Picture 4>: attribute_transfer - palette, line weight and shading only. Never drawn.
+  <Picture 5> (<Subject 1>): partially_preserved - design, proportions and colour model exactly.
+  <Picture 6>: partially_preserved - the layout, architecture and palette of that place.
+  <Picture 7>: partially_preserved - the layout, architecture and palette of that place.
+  <Picture 1>, <Picture 2>, <Picture 3>: weak_reference - NOT in this shot. Do not draw it and do not let its features reach anything else.
+  <Audio 1>: partially_copy - reused as the audience-only score.
+
+detailed_description
+  Hand-drawn 2D television animation: clean bold black ink outlines over flat
+  colour, softly airbrushed darker toward the rim of each form and where forms
+  overlap. No hard-edged cel shadow shapes, no watercolour bloom. One hard white
+  glint on every wet rounded surface. High-key - the black line is the only real
+  dark. A clear bright summer day, warm sunlight from one fixed direction high
+  and left, short soft warm shadows, clean blue sky, no cloud bank and no rain.
+  Palette: leaf green over pale green-white water, sage and olive land, dusty
+  liver brown, straw, cream. Red only on a comb and a wattle. Limited animation on twos
+  with strong held poses. Faint paper tooth under the paint.
+  Output clean and sharp: no film grain, video noise, VHS softness, scanlines,
+  chroma bleed, gate weave, dust, vignetting, bloom, lens effects or on-screen text.
+
+  [Shot 1] Close on the water, a slow and even lateral dolly left to right across the pond, the sign passing through the near foreground. The camera tracks the subject, holding the framing.
+
+  Title card, before the song begins. The pond lies still in bright summer sunlight, the sky above it a clean blue. A weathered enamel sign hangs from a leaning post at the near edge of frame and sways gently, its lettering worn away to nothing. Dragonflies criss-cross low over the water. Every few seconds a gust runs through the reeds and lays them over, then lets them stand again. Cattails stand up out of the water at both edges of frame as near-black silhouettes, and lily pads lie in loose clusters across it, each with its white glint. Along the top of the far bank runs the leaning chicken-wire fence on its rough posts, sagging between them, and behind the fence to the right the coop shows its ridged corrugated tin roof end-on. Beyond that the farmhouse and the cow barn sit far off, pale and flat with distance. At the far edge of the pond, small and easy to miss, a man already sits on a folding chair, bent right down over a notebook, the brim of his straw hat lying flat across his face so that nothing of the face is visible at all - only the crown of the hat and the shoulders under it. He does not move and nothing else happens.
+
+overall_soundscape
+  A working summer farm, quiet and constant under everything: wet plops, crickets,
+  the low mutter of hens off frame, corrugated tin ticking in the heat, one distant
+  tractor that never arrives. Flies. No cartoon sound effects of any kind - no
+  boings, no slide whistles, no comedy impacts. The frog's croaks and the hen's
+  clucks are recorded-real, never performed. Never louder than the vocal.
+
+non_diegetic_music
+  There is NO music in this clip. The song has not started yet. Leave
+  the track empty and let the location sound above carry it alone.
