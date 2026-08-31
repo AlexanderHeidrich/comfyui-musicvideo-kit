@@ -284,12 +284,16 @@ request and none that reads a text file from disk:
   `/chat/completions`); with `use_llm = false` it emits a valid six-section
   prompt from a deterministic template
 
-`mvkit build` writes three starting API-format graphs into every song folder, so
+`mvkit build` writes four starting API-format graphs into every song folder, so
 they always match the scenes beside them: `__wf_1_scene.json` (one scene, all
 files pre-filled, each reference loader **titled with its live tag** so the graph
 says which image is `<Picture 3>`), `__wf_2_folder.json` (HurricaneSongFolder drives the
 song - the one to use) and `__wf_3_pipeline.json` (HurricaneBuildSong runs the kit
-first). `bin/make_workflows.py` writes them; the H3 class name cannot be known
+first) and `__wf_5_upscale.json` (the upscale pass, no H3 in it).
+`bin/make_workflows.py` writes them, and `--from <your export.json>` wraps a
+graph you already have working instead of inventing one - it keeps every
+setting on your H3 node and rewires only prompt, length, audio and the image
+slots. `bin/make_workflows.py` writes them; the H3 class name cannot be known
 offline, so it is a marked placeholder until `mvkit probe --song <name> --emit`
 reads `/object_info` off a running server and rewrites all three with the real
 classes. `mvkit probe` alone just reports what is installed and which node to
