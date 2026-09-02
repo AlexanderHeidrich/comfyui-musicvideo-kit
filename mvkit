@@ -14,13 +14,11 @@
 #   draft      <song> [--llm]  screenplay + lyrics -> _source/content.json
 #   build      <song>          blocks + content.json -> flat NN_*.txt
 #   all        <song>          every step above, in order
-#   queue      <song> <wf.json>  POST one ComfyUI job per scene (API format)
-#   layout     <song> [wf.json]  group and lay out a UI-format workflow so it is
-#                                readable; writes songs/<song>/__workflow_song.json
-#   workflows  <song> [--from raw.json]  write the starting graphs, or wrap your
-#                                        own H3 export with our nodes
-#   probe      [--song <name> --emit]  ask the running ComfyUI what it has, and
-#                                      write a starting workflow into the song
+#   layout     <song> [wf.json]  group and lay out a saved workflow so it is
+#                                readable; writes songs/<song>/<song>.json
+#   workflows  <song> [--from saved.json]  write the upscale graph, or graft the
+#                                          song folder into your own saved graph
+#   probe                      ask a running ComfyUI which nodes it actually has
 #   concat     <dir> [out]     join rendered clips
 #   llm-up / llm-down          start or stop the local drafting model
 #   verify     <song>          check the grid, the seconds and the audio slices
@@ -143,9 +141,6 @@ case "$CMD" in
     py bin/make_workflows.py "$D" "$@" ;;
   probe)
     py bin/comfy_probe.py "$@" ;;
-  queue)
-    D="$(song_dir "${1:-}")"; shift || true
-    py bin/queue_comfy.py "$D" "$@" ;;
   concat)  bash bin/concat.sh "$@" ;;
   llm-up)
     MODEL="${MVKIT_LLM_MODEL:-gemma3:4b}"

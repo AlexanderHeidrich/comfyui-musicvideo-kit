@@ -80,7 +80,7 @@ class HurricaneSongFolder:
             "song_path": ("STRING", {"default": "", "multiline": False}),
             "scene_index": ("INT", {"default": 1, "min": 1, "max": 9999,
                                     "control_after_generate": True}),
-            "variant": (["v1", "v2", "v3", "v4"], {"default": "v1"}),
+            "variant": (["v1", "v2", "v3"], {"default": "v1"}),
             "out_subfolder": ("STRING", {"default": "", "multiline": False}),
         }}
 
@@ -133,6 +133,12 @@ class HurricaneSongFolder:
 NODE_CLASS_MAPPINGS = {"HurricaneSongFolder": HurricaneSongFolder}
 NODE_DISPLAY_NAME_MAPPINGS = {"HurricaneSongFolder": "Hurricane Song Folder"}
 
-# the class was briefly called MVSongFolder; keep a graph saved against that name
-# loading rather than opening with a red box
-NODE_CLASS_MAPPINGS["MVSongFolder"] = HurricaneSongFolder
+class MVSongFolder(HurricaneSongFolder):
+    """The class was briefly called this. A graph saved against the old name still
+    loads; DEPRECATED keeps it out of the node menu, so the only thing you find
+    under "Watching Hurricanes" is the one node that is current."""
+
+    DEPRECATED = True
+
+
+NODE_CLASS_MAPPINGS["MVSongFolder"] = MVSongFolder

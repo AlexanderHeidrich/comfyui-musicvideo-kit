@@ -67,24 +67,14 @@ WHAT EACH VERSION IS FOR
       moment, they share the single NN_title.mp3, and they can be cut
       together inside the scene. They are not alternative takes.
 
-  v4  THE SHORT BUILD, and an experiment. Same shot as v1, same camera,
-      same references - but assembled from _source/brief.txt instead of
-      the full bible and style, and carrying only the characters that are
-      actually in the scene. Roughly 6 KB against v1's 30 KB.
-      Every published H3 guide puts the prompt limit at 7,000 characters.
-      If that limit is real for ComfyUI too, then in v1 the model never
-      reaches the shot description at all - it stops inside the cast list
-      and improvises the rest, which is what stray characters and
-      vanishing scenery look like. UNTESTED. Render 01-v4 against 01-v1
-      and compare before believing either of them.
+All three are built from _source/brief.txt and carry only the
+characters the scene actually contains, so they stay inside the 7,000
+characters MiniMax documents as the prompt length.
 
 The -vN.txt files are finished H3 prompts: MiniMax's six sections, no
 markup, nothing to strip. Paste one in as the prompt exactly as it is.
 
   __SCENES.tsv      frame count, timing and pairing for every scene
-  __batch/          line-aligned lists for batching in ComfyUI
-  ALL_scenes.txt    the same material in this kit's DSL, which is what
-                    the ComfyUI storyboard node reads for a batch run
 
 References to load, in this order:
 
@@ -161,9 +151,7 @@ RENDERING THIS FOLDER IN COMFYUI
   THE WORKFLOWS IN THIS FOLDER
 
     Federphibien.json        the render. YOUR H3 graph with this folder wired in, your
-                       layout and groups kept. UI format - open this one.
-    Federphibien-api.json    the same in API format, for `mvkit queue`. No layout,
-                       because that format has no positions at all.
+                       layout and groups kept. Open this one.
     Federphibien-4x.json     the upscale pass afterwards. No H3 in it.
 
     Nothing here invents a render graph. The H3 node returns `positive` and
@@ -263,34 +251,16 @@ RENDERING THIS FOLDER IN COMFYUI
     scene, so their loaders keep their own filenames and are only retitled with
     their live tag. Only the prompt, the frame count and the audio slice change.
 
-  THE OTHER WAY - drive it from outside
-
-    If you would rather not install anything, `mvkit queue` posts one job per
-    scene to ComfyUI's HTTP API and needs no node from this kit:
-
-      ./mvkit queue Federphibien wf_api.json --dry-run
-      ./mvkit queue Federphibien wf_api.json
-
-    Export the graph with Workflow -> Export (API), not the normal save, and
-    title the nodes it should drive PROMPT, AUDIO and LENGTH. `mvkit probe` tells
-    you which node to give which title - two roles often sit on the H3 node
-    itself, and a node has only one title, so it matters. The dry run prints what
-    it matched and what it would send; read it first.
-
-    Flags: --variant v2, --scenes 1-10,15, COMFY_HOST for another machine.
-
   WHY NOT ONE BATCH FOR EVERYTHING
 
     H3 only accepts lengths where frames % 17 == 5 and there is one `length` per
-    queue run, so in-graph batching needs one run per frame count. Both routes
-    above set the length per scene instead, which is why they manage the whole
-    song in one pass. __batch/ still holds the grouped lists if you want the
-    node-pack route; see docs/comfyui-batch.md.
+    queue run, so in-graph batching over a fixed list needs one run per frame
+    count. The Hurricane node sets the length per scene instead, which is why it
+    manages the whole song in one pass. See docs/comfyui-batch.md for why core
+    ComfyUI cannot do it alone.
 
   Scene 00 and any 90+ scene have no audio - the Vorspann and the compositing
-  elements. Both routes handle them: the audio input is simply left alone. They
-  are deliberately absent from __batch/, which pairs prompts with slices line by
-  line and cannot carry a clip that has no slice.
+  elements. They get a slice of silence so one graph still renders them all.
 
   UPSCALING, AFTERWARDS - __workflow_upscale.json
 

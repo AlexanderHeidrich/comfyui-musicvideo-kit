@@ -1,6 +1,6 @@
 ---
 name: storyboard
-description: Turn a song into per-scene MiniMax H3 storyboards in this repo. Use when the user wants to build a music video, add or rebuild a song under songs/, convert a Drehbuch/screenplay into scenes, write style/bible/content blocks, or fix an existing storyboard. Handles the intake of mp3, screenplay, references, lyrics and style notes.
+description: Turn a song into per-scene MiniMax H3 storyboards in this repo. Use when the user wants to build a music video, add or rebuild a song under songs/, convert a Drehbuch/screenplay into scenes, write the brief and content blocks, or fix an existing storyboard. Handles the intake of mp3, screenplay, references, lyrics and style notes.
 ---
 
 # Storyboard a song
@@ -21,8 +21,10 @@ optional parts. Use the user's language.
    and only ask if it fails.
 2. **The style.** "Describe the look, and name whatever it reminds you of -
    shows, films, illustrators, an era." Their examples go verbatim into
-   `_source/style_examples.txt`; you distill them into `_source/style.txt`.
-   Offer the ready-made ones: `ls templates/styles/`.
+   `_source/style_examples.txt`; you distil them into the `[style]` block of
+   `_source/brief.txt` - about 900 characters, because that block sits in every
+   prompt. `templates/styles/` holds long-form look blocks to read and condense;
+   offer them: `ls templates/styles/`.
 3. **The screenplay.** "Do you have a Drehbuch? A pdf or text file that says,
    per frame range or per second range, what happens?" This is the single
    biggest quality lever - with it the scene split follows the story instead of
@@ -57,15 +59,21 @@ Check its output before writing prose:
 
 Edit only these, then re-run `./mvkit build <name>`:
 
-- `_source/bible.txt` - cast, world, rules. Constant in every scene. Start from
-  `templates/bible/_TEMPLATE.txt`. Name the reference tag that carries each
-  character, and state what NOT to take from the reference (its rendering, any
-  lettering or border in the image).
-- `_source/style.txt` - the look. Start from a file in `templates/styles/`.
-  Describe the craft of the era, never the condition of an old tape. Keep the
-  RENDER CLEAN section: the user adds period artefacts later in DaVinci and
-  baked-in ones cannot be removed.
-- `_source/tail.txt` - global audio and negatives.
+- `_source/brief.txt` - REQUIRED, and the only one of these that reaches H3.
+  `[style]`, `[sound]`, `[music]` and one `[subject <ref slug>]` per reference,
+  where `{S}` becomes the scene's live `<Subject n>` and `{P}` its `<Picture n>`.
+  A prompt carries only the subjects that scene contains, which is what keeps it
+  inside H3's documented 7,000 characters. Keep each subject block near 500
+  characters and `[style]` near 900; `mvkit build` names any scene that overruns.
+  Write a `[subject]` as `{S} is NAME, shown in {P}: ...` for a character and as
+  `{P} is ...` for a location or board - `mvkit shotlist` reads that difference,
+  and only a character gets a sheet. State what NOT to take from a reference (its
+  rendering, any lettering or border). Keep the RENDER CLEAN sentence in
+  `[style]`: the user adds period artefacts later in DaVinci and baked-in ones
+  cannot be removed. There is no bible.txt and no style.txt any more - this file
+  is the whole authoring surface.
+- `_source/tail.txt` - the audio fallback, used only where brief.txt has no
+  `[sound]` or `[music]`.
 - `_source/content.json` - one entry per scene. `mvkit draft` seeds it from the
   screenplay; rewrite the entries into real shot language per
   `templates/drafting.txt`.
@@ -118,14 +126,17 @@ the scenes marked `chain` and make sure the user knows to render those in order.
 
 ## 4. Hand over
 
+If `mvkit build` reports prompts over 7,000 characters, run the **`fit-prompts`**
+skill before handing over. The build only measures; that skill decides which text
+to shorten and rewrites it.
+
 Report: scene count, the span of song covered, which scenes were padded or
 split, the reference tags, and where the deliverable is. Point at
 `songs/<name>/__READ_ME.txt`, and at `docs/comfyui-batch.md` if they ask how to
 render a whole song rather than one scene.
 
 The generated `NN_*.txt` are finished six-section H3 prompts - no `#` comments,
-no `@` directives. That markup is the kit's DSL and belongs only in
-`ALL_scenes.txt`. Do not add it back to the per-scene files.
+no markup, nothing to strip. Do not add any back.
 
 ## Rules that break renders if you get them wrong
 
@@ -140,8 +151,8 @@ no `@` directives. That markup is the kit's DSL and belongs only in
   opens the first shot with no timestamp; later shots are
   `[Shot N] At 00:0X.XXX, the shot cuts to:` - label first, then the time.
 - Scale is not in the references. Every reference is a portrait filling its own
-  frame, so without a SCALE section in the bible H3 draws a frog the size of a
-  man. Give real measurements, the relation between characters, and how small
+  frame, so without measurements in the `[subject]` blocks H3 draws a frog the
+  size of a man. Give real measurements, the relation between characters, and how small
   the subject must be in a wide. Write it into the action wherever two
   characters share a frame.
 - Concrete physical detail. Never "cinematic", "epic", "beautiful".

@@ -4,15 +4,13 @@
   build_storyboards.py <song-dir>
 
 Reads   <song>/_source/scenes.tsv     timing spine (bin/make_scenes.py)
-        <song>/_source/bible.txt      cast, world, rules
-        <song>/_source/style.txt      the look
-        <song>/_source/tail.txt       sound
+        <song>/_source/brief.txt      the blocks every prompt is built from
+        <song>/_source/tail.txt       sound, if brief.txt does not carry it
         <song>/_source/content.json   {"<scene>": {title, lyrics, shot1, shot2}}
         <song>/_source/refs.json      live H3 tags (bin/scan_refs.py)
 Writes  <song>/NN_slug-v{1,2,3}.txt   paste-ready prompts, H3's six sections, no
                                       markup - beside the NN_slug.mp3 they share
         <song>/__SCENES.tsv           frames, timing and pairing for every scene
-        <song>/ALL_scenes.txt         the storyboard DSL, for the ComfyUI node
         <song>/__READ_ME.txt          what the folder is
 
 Edit _source/* and re-run; nothing is duplicated by hand.
@@ -152,35 +150,9 @@ def ref_lines(refs):
     return out
 
 
-RETENTION = {
-    "char": ("partially_preserved", "the design, proportions, colour model and "
-             "every marking are preserved exactly and never drift between scenes; "
-             "only the sheet's plain backdrop and the cast shadow under the figure "
-             "are dropped. How the character is rendered is set by the style below."),
-    "prop": ("partially_preserved", "the shape, material and colour of the object "
-             "are preserved; the reference's own rendering and backdrop are not."),
-    "style": ("attribute_transfer", "the palette, the line weight and the way "
-              "shading is laid down are transferred to everything drawn in this "
-              "shot. The board itself is never a thing in the scene and is never "
-              "drawn."),
-    "loc": ("partially_preserved", "a background painting. Where this shot is set "
-            "in that place its architecture, layout and palette are preserved and "
-            "nothing in it is a subject; where the shot is set elsewhere it "
-            "contributes nothing."),
-    "video": ("weak_reference", "only its camera movement, cutting and rhythm are "
-              "referenced."),
-}
-
-# H3 draws what the ledger tells it to preserve, so a character that is not in
-# this shot needs its own line saying so - otherwise every reference turns up in
-# every scene, or bleeds its features onto whoever is there.
-ABSENT = {
-    "char": ("weak_reference", "this character is NOT in this shot. Do not draw "
-             "it anywhere in frame, at any size, and do not let any of its "
-             "features reach another character. It is supplied only so its "
-             "design stays fixed for the scenes it is in."),
-    "prop": ("weak_reference", "this object is NOT in this shot and is not drawn."),
-}
+# Kinds that are a thing in the frame, so a shot either has them or has to say
+# it does not. A style board or a location is neither.
+SUBJECT_KINDS = {"char", "prop"}
 
 ARTICLES = {"der", "die", "das", "the", "a", "an"}
 
@@ -214,7 +186,7 @@ def present_tags(refs, text, aliases, declared=None):
     low = text.lower()
     out = set()
     for i in (refs or {}).get("images", []) + (refs or {}).get("videos", []):
-        if declared is not None and i["kind"] in ABSENT:
+        if declared is not None and i["kind"] in SUBJECT_KINDS:
             if i["slug"].lower() in declared:
                 out.add(i["tag"])
             continue
@@ -239,9 +211,9 @@ def word_pattern(term):
     return left + re.escape(term) + right
 
 
-# The short build. Every published H3 guide puts the prompt limit at 7,000
-# characters and a full one here is four times that, so v4 is the same shot said
-# briefly: only the subjects in the scene, bound the way the guide binds them.
+# Every published H3 guide puts the prompt limit at 7,000 characters, so a
+# prompt carries only the subjects the scene contains, bound the way the guide
+# binds them, and says in one line which references it is not using.
 SHORT = {
     "char": "partially_preserved - design, proportions and colour model exactly.",
     "prop": "partially_preserved - shape, material and colour.",
@@ -253,7 +225,7 @@ SHORT_ABSENT = "weak_reference - NOT in this shot. Do not draw it and do not let
 
 
 def read_brief(src):
-    """`_source/brief.txt` - the short forms v4 is assembled from. Blocks are
+    """`_source/brief.txt` - the blocks every prompt is assembled from. Blocks are
     `[style] [sound] [music]` and one `[subject <ref slug>]` per character, where
     {S} and {P} are replaced by that scene's live <Subject n> / <Picture n>."""
     path = os.path.join(src, "brief.txt")
@@ -279,12 +251,12 @@ def read_brief(src):
     return out
 
 
-def prompt_tight(c, cam_block, action, brief, refs, here, aliases, prefix, music):
-    """the same scene as v1, built to fit inside the documented prompt length"""
+def prompt_for(c, cam_block, action, brief, refs, here, aliases, prefix, music):
+    """one variant of one scene, built to fit inside the documented prompt length"""
     items = (refs or {}).get("images", []) + (refs or {}).get("videos", [])
     subs, defs, unused, ret = {}, [], [], []
     for i in items:
-        if i["kind"] in ABSENT and i["tag"] in here:
+        if i["kind"] in SUBJECT_KINDS and i["tag"] in here:
             subs[i["tag"]] = "<Subject %d>" % (len(subs) + 1)
     for i in items:
         tag, slugk = i["tag"], i["slug"].lower()
@@ -293,7 +265,7 @@ def prompt_tight(c, cam_block, action, brief, refs, here, aliases, prefix, music
             text = text or "{S} is %s, shown in {P}." % i["slug"]
             defs.append(text.replace("{S}", subs[tag]).replace("{P}", tag))
             ret.append("%s (%s): %s" % (tag, subs[tag], SHORT[i["kind"]]))
-        elif i["kind"] in ABSENT:
+        elif i["kind"] in SUBJECT_KINDS:
             unused.append(tag)
         elif tag in here or slugk not in aliases:
             # a place or a style board: no <Subject n>, and only the place this
@@ -304,7 +276,7 @@ def prompt_tight(c, cam_block, action, brief, refs, here, aliases, prefix, music
         else:
             unused.append(tag)
     if unused:
-        defs.append("%s: not used in this shot." % ", ".join(unused))
+        # only in the ledger: subject_definitions defines what IS there
         ret.append("%s: %s" % (", ".join(unused), SHORT_ABSENT))
     tag = (refs or {}).get("scene_audio_tag")
     if tag:
@@ -313,7 +285,9 @@ def prompt_tight(c, cam_block, action, brief, refs, here, aliases, prefix, music
     if c.get("lyrics"):
         summary += ' The lyric sung here is "%s".' % c["lyrics"]
     body = [
-        ("subject_definitions", "\n".join("\n".join(wrap(d, 78)) for d in defs)),
+        # a blank line between subjects: without the indent it is the only thing
+        # that says where one definition ends and the next begins
+        ("subject_definitions", "\n\n".join("\n".join(wrap(d, 78)) for d in defs)),
         ("summary", summary),
         ("retention_analysis", "\n".join(ret)),
         ("detailed_description",
@@ -321,7 +295,9 @@ def prompt_tight(c, cam_block, action, brief, refs, here, aliases, prefix, music
         ("overall_soundscape", brief["sound"]),
         ("non_diegetic_music", music),
     ]
-    return "\n\n".join("%s\n%s" % (k, indent(v)) for k, v in body) + "\n"
+    # no indent: the section name on its own line is the only delimiter, and two
+    # spaces per line is ~120 characters of the 7,000 spent on nothing
+    return "\n\n".join("%s\n%s" % (k, v.strip()) for k, v in body) + "\n"
 
 
 def summary_prefix(refs):
@@ -332,30 +308,6 @@ def summary_prefix(refs):
     if not refs or refs.get("scene_audio_tag"):
         kinds.append("audio reuse")
     return "[%s] " % " + ".join(kinds)
-
-
-def retention_lines(refs, present=None):
-    """one line per reference label, with H3's fixed relationship markers.
-    `present` is the set of tags this shot actually uses; the rest are declared
-    absent instead of preserved."""
-    if not refs:
-        return ["<Picture 1>: fully_preserved - the character reference.",
-                "<Audio 1>: partially_copy - the supplied window of the song is "
-                "reused as the audience-only score; the ambience below is added "
-                "over it."]
-    out = []
-    for i in refs.get("images", []) + refs.get("videos", []):
-        table = RETENTION
-        if present is not None and i["tag"] not in present and i["kind"] in ABSENT:
-            table = ABSENT
-        marker, why = table.get(i["kind"], ("partially_preserved", "as defined above."))
-        out.append("%s (%s, %s): %s - %s" % (i["tag"], i["slug"], i["kind"], marker, why))
-    tag = refs.get("scene_audio_tag")
-    if tag:
-        out.append("%s: partially_copy - the supplied window of the song is reused "
-                   "as the audience-only score for this clip; the diegetic ambience "
-                   "described below is added over it and nothing else is." % tag)
-    return out
 
 
 def split_tail(tail):
@@ -373,11 +325,6 @@ def split_tail(tail):
         return tail, MUSIC_DEFAULT
     return ("\n".join(parts.get("overall_soundscape", [])).strip(),
             "\n".join(parts.get("non_diegetic_music", [])).strip() or MUSIC_DEFAULT)
-
-
-def indent(text, n=2):
-    pad = " " * n
-    return "\n".join(pad + l if l.strip() else "" for l in text.splitlines())
 
 
 def first_sentences(text, k=2):
@@ -445,76 +392,18 @@ def cuts_of(r):
     return [one] if one > 0 else []
 
 
-def prompt_for(c, cam_block, action, bible, style, sound, music, refs, retention,
-               prefix):
-    summary = prefix + (c.get("summary") or first_sentences(c["shot1"]))
-    if c.get("lyrics"):
-        summary += ' The lyric sung here is "%s".' % c["lyrics"]
-    # H3 wants the style established before [Shot 1], not in retention_analysis
-    opening = style + (
-        "\n\nHold identical across every scene of this film: the colour model, the\n"
-        "line weight, the proportions and the costume of every character named\n"
-        "above, and the time of day and weather of the location.")
-    body = [
-        ("subject_definitions",
-         "References supplied with this generation:\n" +
-         "\n".join("  " + l for l in refs) + "\n\n" + bible),
-        ("summary", summary),
-        ("retention_analysis", "\n".join(retention)),
-        ("detailed_description",
-         opening + "\n\n[Shot 1] " + cam_block + "\n\n" + action),
-        ("overall_soundscape", sound),
-        ("non_diegetic_music", music),
-    ]
-    return "\n\n".join("%s\n%s" % (k, indent(v)) for k, v in body) + "\n"
-
-
-def write_batch_lists(song, rows, content, cams):
-    """Index files for in-graph batching: one path per line, relative to the song
-    folder so the deliverable survives being moved or copied to another machine.
-    Prompts and audio in the same order, grouped by frame count so `length` is
-    set once per group instead of per scene."""
-    d = os.path.join(song, "__batch")
-    shutil.rmtree(d, ignore_errors=True)
-    os.makedirs(d)
-    groups, silent = {}, []
-    for r in rows:
-        n = int(r["scene"]); sl = slug(content[r["scene"]]["title"])
-        if str(r.get("start", "")).strip() in ("", "-"):
-            silent.append("%02d_%s" % (n, sl))   # no audio, so it cannot be paired
-            continue
-        for tag in sorted(cams):
-            groups.setdefault((int(r["frames"]), tag), []).append(
-                ("%02d_%s-%s.txt" % (n, sl, tag), "%02d_%s.mp3" % (n, sl)))
-    lines = []
-    for (frames, tag), items in sorted(groups.items()):
-        base = "f%d-%s" % (frames, tag)
-        for kind, idx in (("prompts", 0), ("audio", 1)):
-            with open(os.path.join(d, "%s-%s.txt" % (base, kind)), "w",
-                      encoding="utf-8", newline="\n") as fh:
-                for it in items:
-                    fh.write(it[idx] + "\n")
-        lines.append((frames, tag, len(items)))
-    with open(os.path.join(d, "__README.txt"), "w", encoding="utf-8",
-              newline="\n") as fh:
-        fh.write("Index files for batching this folder through ComfyUI.\n"
-                 "Each pair is line-for-line aligned: line N of -prompts.txt is the\n"
-                 "prompt for line N of -audio.txt. One pair per frame count, so you\n"
-                 "set `length` once per group.\n\n")
-        fh.write("%-22s %-8s %s\n" % ("group", "length", "queue batch count"))
-        for frames, tag, count in lines:
-            fh.write("%-22s %-8d %d\n" % ("f%d-%s" % (frames, tag), frames, count))
-        if silent:
-            fh.write("\nNOT in these lists, because they have no audio to pair with:\n"
-                     "  %s\nRender them on their own.\n" % ", ".join(silent))
-        fh.write("\nWiring, and why core nodes are not enough: see docs/comfyui-batch.md\n"
-                 "Paths are relative to the song folder - the one directly above this\n"
-                 "one. Prefix them with wherever that folder lives on the machine that\n"
-                 "runs ComfyUI.\n")
-    return lines
-
-
 FPS = 24            # H3 renders at 24 fps regardless of the screenplay's own rate
+LIMIT = 7000        # the prompt length every published H3 guide documents
+
+SECTIONS = ("subject_definitions", "summary", "retention_analysis",
+            "detailed_description", "overall_soundscape", "non_diegetic_music")
+SECTION_RE = re.compile(r"(?m)^(%s)$" % "|".join(SECTIONS))
+
+
+def section_sizes(text):
+    """-> [(section, chars)], so an over-long prompt says where its weight is"""
+    parts = SECTION_RE.split(text)
+    return list(zip(parts[1::2], (len(p) for p in parts[2::2])))
 
 SILENT_MUSIC = ("There is NO music in this clip. The song has not started yet. Leave\n"
                 "the track empty and let the location sound above carry it alone.")
@@ -525,7 +414,7 @@ def main():
     name = os.path.basename(os.path.abspath(song))
     SRC = os.path.join(song, "_source")
     R = lambda p: strip_comments(open(os.path.join(SRC, p), encoding="utf-8").read())
-    bible, style, tail = R("bible.txt"), R("style.txt"), R("tail.txt")
+    tail = R("tail.txt")
     synopsis = R("synopsis.txt").strip() if os.path.isfile(
         os.path.join(SRC, "synopsis.txt")) else ""
     sound, music = split_tail(tail)
@@ -537,9 +426,16 @@ def main():
     rlines = ref_lines(refs)
     prefix = summary_prefix(refs)
     mute = dict(refs or {}, scene_audio_tag=None)
-    rlines_q, prefix_q = ref_lines(mute), summary_prefix(mute)
+    prefix_q = summary_prefix(mute)
     aliases = read_aliases(SRC)
     brief = read_brief(SRC)
+    if not brief:
+        sys.exit("no %s/brief.txt - that file is what the prompts are built from.\n"
+                 "Copy templates/brief.txt into it and fill in [style], [sound],\n"
+                 "[music] and one [subject <slug>] per reference." % SRC)
+    for key, fallback in (("sound", sound), ("music", music)):
+        if not brief.get(key):
+            brief[key] = fallback
 
     # scenes with no content.json entry fall back to the screenplay in scenes.tsv,
     # so a drehbuch run produces usable prompts with no drafting pass at all
@@ -573,18 +469,14 @@ def main():
     for f in os.listdir(song):                      # clear previous generated output
         if re.match(r"^\d\d_.*-v\d\.txt$", f) or f in ("ALL_scenes.txt", "__SCENES.tsv"):
             os.remove(os.path.join(song, f))
-    shutil.rmtree(os.path.join(song, "variants"), ignore_errors=True)
+    for d in ("variants", "__batch"):        # __batch fed the node-pack route
+        shutil.rmtree(os.path.join(song, d), ignore_errors=True)
 
     per_scene_cams = 0
+    oversize = []
     bad_cam = set()
     cast = []
     longest = {}
-    dsl = ["# %s - all %d scenes in one file, in the storyboard DSL.\n"
-           "# This is the ComfyUI node's batch input. The NN_*.txt files beside it\n"
-           "# are the same material as finished H3 prompts, for pasting by hand.\n"
-           "# Point the storyboard node here and set batch count = %d.\n"
-           % (name.upper(), len(rows), len(rows)),
-           "@BIBLE\n" + bible, "\n@STYLE\n" + style]
     manifest = [["scene", "song_start", "song_end", "tl_frame", "frames", "duration",
                  "inner_cuts", "continuity", "audio", "prompts", "lyrics"]]
     n_var = 0
@@ -601,39 +493,28 @@ def main():
                             None if declared is None
                             else {s.lower() for s in declared})
         cast.append((n, here))
-        RL, RT, PF = (rlines_q, retention_lines(mute, here), prefix_q) if silent \
-            else (rlines, retention_lines(refs, here), prefix)
+        RF, PF = (mute, prefix_q) if silent else (refs, prefix)
 
         # a scene may carry its own cameras: v1 is the screenplay's framing, the
         # rest is coverage. Anything it does not define falls back to the template.
         own = c.get("cameras") or {}
-        tags = sorted(set(CAM) | set(own) | ({"v4"} if brief else set()))
+        tags = sorted(set(CAM) | set(own))
         for tag in tags:
-            # v4 is not a fourth angle - it is v1's shot, built short
-            src_tag = "v1" if tag == "v4" and "v4" not in own else tag
-            cam = (own.get(src_tag) or "").strip() \
-                or (CAM[src_tag][1] if src_tag in CAM else "")
+            cam = (own.get(tag) or "").strip() or (CAM[tag][1] if tag in CAM else "")
             if not cam:
                 continue
             cam = camera_sentence(cam, bad_cam)
-            mus = SILENT_MUSIC if silent else music
-            mus_short = SILENT_MUSIC if silent else (brief or {}).get("music") or music
-            text = prompt_tight(c, cam, action, brief, refs, here, aliases,
-                                PF, mus_short) \
-                if tag == "v4" else \
-                prompt_for(c, cam, action, bible, style, sound, mus, RL, RT, PF)
+            mus = SILENT_MUSIC if silent else brief["music"]
+            text = prompt_for(c, cam, action, brief, RF, here, aliases, PF, mus)
             open(os.path.join(song, "%02d_%s-%s.txt" % (n, sl, tag)),
                  "w", encoding="utf-8", newline="\n").write(text)
             longest[tag] = max(longest.get(tag, 0), len(text))
+            if len(text) > LIMIT:
+                oversize.append(("%02d" % n, tag, len(text), text))
             n_var += 1
         if own:
             per_scene_cams += 1
 
-        dsl.append("\n@SCENE %s-%s | %s%s\n%s"
-                   % (tc(0.0) if silent else tc(r["start"]),
-                      tc(dur) if silent else tc(r["end"]), c["title"],
-                      "   # no audio - render this one on its own" if silent else "",
-                      action))
         manifest.append([
             "%02d" % n, "-" if silent else tc(r["start"]),
             "-" if silent else tc(r["end"]), r.get("tl_frame", "-"),
@@ -643,9 +524,6 @@ def main():
             " ".join("%02d_%s-%s.txt" % (n, sl, t) for t in tags),
             c["lyrics"] or "(instrumental)"])
 
-    dsl.append("\n@TAIL\n" + tail + "\n")
-    open(os.path.join(song, "ALL_scenes.txt"), "w", encoding="utf-8",
-         newline="\n").write("\n".join(dsl))
     with open(os.path.join(song, "__SCENES.tsv"), "w", encoding="utf-8",
               newline="\n") as fh:
         for row in manifest:
@@ -696,9 +574,6 @@ def main():
     if os.path.isdir(adir) and not os.listdir(adir):
         os.rmdir(adir)
 
-    batch = write_batch_lists(song, rows, content,
-                              dict(CAM, v4=("short", "")) if brief else CAM)
-
     total = sum(float(r["duration"]) for r in rows)
     sung = [r for r in rows if str(r.get("start", "")).strip() not in ("", "-")]
     span = max(float(r["end"]) for r in sung) - min(float(r["start"]) for r in sung)
@@ -736,28 +611,16 @@ def main():
               "      camera differs. That is the point: they are three angles on ONE",
               "      moment, they share the single NN_title.mp3, and they can be cut",
               "      together inside the scene. They are not alternative takes.",
-              "",]
-    if brief:
-        readme += [
-              "  v4  THE SHORT BUILD, and an experiment. Same shot as v1, same camera,",
-              "      same references - but assembled from _source/brief.txt instead of",
-              "      the full bible and style, and carrying only the characters that are",
-              "      actually in the scene. Roughly 6 KB against v1's 30 KB.",
-              "      Every published H3 guide puts the prompt limit at 7,000 characters.",
-              "      If that limit is real for ComfyUI too, then in v1 the model never",
-              "      reaches the shot description at all - it stops inside the cast list",
-              "      and improvises the rest, which is what stray characters and",
-              "      vanishing scenery look like. UNTESTED. Render 01-v4 against 01-v1",
-              "      and compare before believing either of them.",
+              "",
+              "All three are built from _source/brief.txt and carry only the",
+              "characters the scene actually contains, so they stay inside the 7,000",
+              "characters MiniMax documents as the prompt length.",
               "",]
     readme += [
               "The -vN.txt files are finished H3 prompts: MiniMax's six sections, no",
               "markup, nothing to strip. Paste one in as the prompt exactly as it is.",
               "",
               "  __SCENES.tsv      frame count, timing and pairing for every scene",
-              "  __batch/          line-aligned lists for batching in ComfyUI",
-              "  ALL_scenes.txt    the same material in this kit's DSL, which is what",
-              "                    the ComfyUI storyboard node reads for a batch run",
               "", "References to load, in this order:", ""]
     readme += ["  " + l for l in rlines]
     chained = [(r, content[r["scene"]]) for r in rows
@@ -842,13 +705,23 @@ def main():
     if renamed:
         print("audio pairs : %d slices renamed to match their prompt" % renamed)
     print("prompts     : %d  (six sections each)" % n_var)
-    over = ", ".join("%s %d" % (k, v) for k, v in sorted(longest.items()) if v > 7000)
-    print("longest     : %s chars"
-          % ", ".join("%s %d" % kv for kv in sorted(longest.items())))
-    if over:
-        print("! over the 7000-character prompt length H3 documents: %s" % over)
-        print("  UNTESTED whether ComfyUI truncates there - see CLAUDE.md. v4 is the")
-        print("  short build; render it against v1 before restructuring anything.")
+    print("longest     : %s chars  (limit %d)"
+          % (", ".join("%s %d" % kv for kv in sorted(longest.items())), LIMIT))
+    if oversize:
+        print("! %d prompt(s) over the %d-character length H3 documents:"
+              % (len(oversize), LIMIT))
+        for scene, tag, n, text in sorted(oversize, key=lambda x: -x[2])[:8]:
+            print("    %s-%s  %d  (+%d)" % (scene, tag, n, n - LIMIT))
+            print("      " + "  ".join("%s %d" % kv for kv in section_sizes(text)))
+        shared = [("[style]", len(brief["style"])), ("[sound]", len(brief["sound"])),
+                  ("[music]", len(brief["music"]))]
+        print("  in every prompt : "
+              + "  ".join("%s %d" % kv for kv in shared))
+        print("  per subject     : "
+              + ", ".join("%s %d" % (k, len(v))
+                          for k, v in sorted(brief["subjects"].items())))
+        print("  Rewriting these is judgement, not arithmetic: run the `fit-prompts`")
+        print("  skill, which shortens the right block and rebuilds until it fits.")
     print("cameras     : %d scene(s) carry their own, %d fall back to the template"
           % (per_scene_cams, len(rows) - per_scene_cams))
     print("manifest    : __SCENES.tsv")
@@ -860,7 +733,7 @@ def main():
         print("cast        : per scene, from the words in the action")
         missing = []
         for i in refs["images"] + refs.get("videos", []):
-            if i["kind"] not in ABSENT:
+            if i["kind"] not in SUBJECT_KINDS:
                 continue
             got = drawn.get(i["tag"], [])
             ns = ", ".join("%02d" % n for n in got[:14]) + (" ..." if len(got) > 14 else "")
@@ -879,10 +752,6 @@ def main():
                      + (" ..." if len(empty) > 12 else "")))
             print("  Those prompts tell H3 that every character is absent. Name who")
             print("  is in the shot in the action, or give the scene a \"cast\" list.")
-    print("batch lists : __batch/  (%d groups: %s)"
-          % (len(batch), ", ".join("f%d-%s x%d" % b for b in batch[:4])
-             + (" ..." if len(batch) > 4 else "")))
-    print("dsl         : ALL_scenes.txt  (for the ComfyUI node)")
     if foreign:
         print("! %d scene(s) still read as German, not English shot language: %s"
               % (len(foreign), ", ".join(foreign[:12]) + (" ..." if len(foreign) > 12 else "")))

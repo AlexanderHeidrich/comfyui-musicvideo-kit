@@ -41,15 +41,15 @@ songs/<name>/                DELIVERABLE — flat and paired, nothing else
   NN_title-v2.txt            H3 prompt, no markup, paste-ready
   NN_title-v3.txt            same action, close/detail
   NN_title.mp3               that exact window of the song, shared by v1-v3
-  __batch/                   line-aligned prompt/audio lists, grouped by frames
-  ALL_scenes.txt             every scene in the DSL, for the ComfyUI node
+  <name>.json <name>-4x.json the render graph and the upscale pass
   _source/                   INPUTS — everything not meant to be copied
     song.mp3                 the track
     song.pdf                 the screenplay, any name (optional)
     drehbuch.txt             extracted or hand-written spine (optional)
     refs/                    reference images, named by schema (see its __README)
     lyrics.txt               the real lyrics, optionally [mm:ss] prefixed
-    style.txt style_examples.txt bible.txt tail.txt
+    brief.txt                the ONLY source of the prompts
+    style_examples.txt tail.txt
     content.json             one entry per scene
     transcript.* scenes.tsv refs.json     generated
 ```
@@ -88,20 +88,21 @@ Verified against `comfy_extras/nodes_minimax_h3.py`, not guessed.
   00:0X.XXX, the shot cuts to:` - the label first, then the time, per MiniMax's
   own guide. `[Shot 1]` opens the first shot and carries no timestamp. Dialogue stays verbatim in its
   original language. Concrete physical detail — never "cinematic", "epic".
-- **UNTESTED: the prompts are 4x over the documented length.** Every published H3
-  guide says prompts run to **7,000 characters**; a built scene is ~28,000,
-  because the whole bible goes into `subject_definitions` and the whole style
-  into `detailed_description`. At 7,000 the text stops inside the bible's cast
-  list — the summary, the ledger, the shot, the camera and the sound all sit
-  past it. If the ComfyUI path truncates the way the hosted API does, H3 has
-  never seen a shot description, which would explain references turning up in
-  scenes they are not in and scenery vanishing between cuts.
-  Not proven: the 7,000 is documented for the hosted API, and how
-  `nodes_minimax_h3.py` and the qwen3vl encoder handle a longer prompt has not
-  been measured. **Test before restructuring anything**: that is what **v4** is
-  - the short build, described under Variants below. Render `01-v4` against
-  `01-v1` and compare. If v4 wins, v1-v3 get built the same way and the long
-  blocks stop being pasted whole.
+- **Every prompt stays under 7,000 characters.** That is the length every
+  published H3 guide documents. It used to be ignored: a whole long-form bible
+  went into
+  `subject_definitions` and the whole style into `detailed_description`, and a
+  built scene ran ~28,000 characters with the shot description at ~19,000. If
+  the ComfyUI path truncates the way the hosted API does, H3 read a cast list
+  and nothing else — which is exactly what a reference turning up in every scene
+  looks like. Whether it truncates is still unproven, so the prompts are simply
+  built to fit: `_source/brief.txt` holds a short block per reference, a scene
+  carries only the subjects it contains, and `mvkit build` names any scene that
+  overruns - the `fit-prompts` skill is what then shortens it, because choosing
+  what to cut is judgement and a truncating script would cut the shot off the
+  end, which is the failure the limit exists to avoid. There is no long form any
+  more: `brief.txt` is the only source, and `bible.txt` / `style.txt` /
+  `ALL_scenes.txt` are gone from the pipeline entirely.
   Sources: rundiffusion.com/minimax-h3-prompt-guide, fal.ai/learn/devs/minimax-h3-prompting-guide.
 - **A reference not in the shot must be declared absent.** H3 draws what the
   ledger tells it to preserve, so `retention_analysis` carries a `weak_reference`
@@ -131,9 +132,9 @@ Verified against `comfy_extras/nodes_minimax_h3.py`, not guessed.
   negative_prompt. See `templates/cameras/__GLOSSARY.txt`.
 - **Scale is not in the references.** Every reference is a portrait filling its
   own frame, so H3 has nothing to size characters by and will draw them all the
-  same size - a frog as big as a man. The bible needs a SCALE section with real
-  measurements and the relations between them, and every shot that holds two
-  characters restates which is bigger.
+  same size - a frog as big as a man. Every `[subject]` block in `brief.txt`
+  carries real measurements and the relation to the other characters, and every
+  shot that holds two of them restates which is bigger.
 
 ## The screenplay spine
 
@@ -172,10 +173,12 @@ statisch" is a locked-off camera, not a continuation).
 A scene can carry more than two shots: `content.json` takes `shot1`, `shot2`,
 `shot3`, ... and `scenes.tsv` an `inner_cuts` list, one timestamp per join.
 
-`mvkit shotlist` writes the reference plan from bible + style: which images are
+`mvkit shotlist` writes the reference plan from `brief.txt`: which images are
 worth making, ranked by how many scenes each character is in, with generation
-prompts. It flags entries that derive a character from a `<Picture n>` that does
-not exist yet.
+prompts built from the `[style]` block so a sheet cannot fight the look. A
+`[subject]` written `{S} is ... shown in {P}` is a character and gets a sheet;
+one written `{P} is ...` is a location or board and is only listed. It flags
+entries that derive a character from a `<Picture n>` that does not exist yet.
 
 ## Verifying the timing
 
@@ -263,16 +266,16 @@ chosen by film-theory practice (never repeat v1's size, cross the axis, give one
 of them something the master cannot hold); `templates/cameras/__COVERAGE.txt` has
 the table.
 
-**v4 is not a fourth angle.** It is v1's shot and v1's camera, built SHORT: the
-six sections assembled from `_source/brief.txt` instead of the whole bible and
-style, carrying only the characters the scene actually contains, with the guide's
-`<Subject n> is ... shown in <Picture n>` binding. ~6 KB against v1's ~30 KB.
-It only exists when the song has a `_source/brief.txt`; that file has `[style]`,
+**All three are built from `_source/brief.txt`**, which is required: `[style]`,
 `[sound]`, `[music]` and one `[subject <ref slug>]` per reference, where `{S}`
-becomes the scene's live `<Subject n>` and `{P}` its `<Picture n>`. Keep it under
-7,000 characters - `mvkit build` prints the longest prompt per variant and warns
-past that. v4 exists to settle the length question above; if it wins, the others
-follow and brief.txt becomes the only source.
+becomes the scene's live `<Subject n>` and `{P}` its `<Picture n>`. A prompt
+carries only the subjects the scene contains, with the guide's `<Subject n> is
+... shown in <Picture n>` binding, and names the rest in a single
+`weak_reference` line in the ledger. That is what holds a scene near 6 KB
+instead of the 30 KB the old full build produced. `mvkit build` prints the
+longest prompt per variant and names every scene over 7,000 characters; the
+levers are that scene's action in content.json and the `[subject]` / `[style]`
+blocks, which are in every prompt.
 
 Cameras live per scene in `content.json` under `"cameras": {"v1": ..., "v2": ...,
 "v3": ...}`. A scene without that key falls back to `templates/cameras.txt` (or a
@@ -293,19 +296,17 @@ join when two screenplay scenes were merged; `cut_on_boundary` says which.
 
 ## Render side (ComfyUI)
 
-Ships `comfyui/custom_nodes/watching_hurricanes.py` — copy or symlink it into your own
-`ComfyUI/custom_nodes/`. One stdlib-only file providing four nodes, because core ComfyUI has no node that performs an HTTP
-request and none that reads a text file from disk:
+Ships `comfyui/custom_nodes/watching_hurricanes.py` — copy or symlink it into
+your own `ComfyUI/custom_nodes/`. One stdlib-only file with **one** node, because
+core ComfyUI has no node that reads a text file from disk:
 
-- `HurricaneSongFolder` — the one that matters: point it at `songs/<name>` and it
-  batches the whole song, reading `__SCENES.tsv` for the pairing and
-  `_source/refs.json` for the sheets. Outputs the finished prompt, the slice's
-  path, the frame count and `ref_1..ref_9`. Paths are STRINGs on purpose:
-  building an IMAGE or AUDIO needs torch, and the file has no dependencies.
-  Set `scene_index` to `increment`, batch count to `scene_count`, run once.
-- `HurricaneBuildSong` — shells out to `./mvkit` on the host, then behaves like
-  `HurricaneSongFolder`. ffmpeg and whisper stay outside ComfyUI. A convenience, not
-  the path to recommend: preparing a song is slow interactive work.
+- `HurricaneSongFolder` — point it at `songs/<name>` and it batches the whole
+  song, reading `__SCENES.tsv` for the pairing. Outputs the finished prompt, the
+  slice's path, the frame count, the scene count and a save prefix. Paths are
+  STRINGs on purpose: building an IMAGE or AUDIO needs torch, and the file has no
+  dependencies. Set `scene_index` to `increment`, batch count to `scene_count`,
+  run once. That is the whole render workflow — there is no HTTP path and nothing
+  to queue from the host.
 
 A second, independent file `comfyui/custom_nodes/watching_hurricanes_upscale.py`
 holds the pass afterwards — deliberately separate, sharing no code and with no H3
@@ -319,35 +320,26 @@ in it:
   node after the model**, so the output is 4x the render and hitting 4K exactly
   is the edit's job. A diffusion upscaler is the wrong tool here: it invents
   texture in flat fills, and invents it differently per frame.
-- `HurricaneStoryboardScene` — parses the DSL, picks scene N, outputs timing and frames
-- `HurricaneReferenceInventory` — computes the live `<Picture n>`/`<Video n>`/`<Audio n>`
-  tags from actual connections, mirroring H3's ordering
-- `HurricanePromptBuilder` — optional LM Studio pass (OpenAI-compatible
-  `/chat/completions`); with `use_llm = false` it emits a valid six-section
-  prompt from a deterministic template
 
-`mvkit build` writes `__workflow_upscale.json` into every song folder - the pass
-after rendering, complete and standalone. It does NOT generate a render graph:
+`mvkit build` writes `<song>-4x.json` into every song folder - the pass after
+rendering, complete and standalone. It does NOT generate a render graph:
 `MiniMaxH3ReferenceToVideo` returns `positive`/`LATENT`, so a working graph needs
 a UNET loader, CLIP and VAE loaders, a sampler, a VAEDecode *and* a
 VAEDecodeAudio, and a CreateVideo - ComfyUI ships that chain under Browse
 Templates and guessing at it is worthless.
 
 `mvkit workflows <song> --from <your workflow.json>` grafts the song folder into a
-graph that already renders. Given a UI-format save it edits that format directly
-(`wrap_ui`) so the layout and groups survive - the API format has neither, and
-round-tripping through it once threw the stock template's six groups away. It also
-writes `__workflow_song_api.json` for `mvkit queue` (`ui_to_api`, using the widget
-names the UI file itself carries). `mvkit layout` builds a layout from scratch for
-a graph that has already lost one. It keeps every node and setting and rewires only `prompt`, `length`,
-`ref_audios.ref_audio_0` and the `ref_images.ref_image_*` slots - note the
-namespaced input names, and that the ref slots are DYNAMIC, so it can only fill
-as many as the user connected before exporting. It warns when sheets are dropped.
-No absolute path is ever written: ComfyUI usually runs on another machine, so
-`song_path` is left empty and `find_abs_paths` makes the build fail rather than
-emit one. Three earlier generated graphs (`__wf_1_scene`, `__wf_2_folder`,
-`__wf_3_pipeline`) are deleted on sight - they wired a song folder correctly but
-had no sampler chain and could never run.
+graph that already renders. It takes the **saved** UI format only and edits it in
+place (`wrap_ui`) so the layout and groups survive; an API export is refused,
+because it has neither and is not the file you open again. `mvkit layout` builds a
+layout from scratch for a graph that has already lost one. The graft keeps every
+node and setting and rewires only `prompt`, `length`, `ref_audios.ref_audio_0`
+and the `ref_images.ref_image_*` slots - note the namespaced input names, and
+that the ref slots are DYNAMIC, so it can only fill as many as the user connected
+before saving. It warns when sheets are dropped. No absolute path is ever
+written: ComfyUI usually runs on another machine, so `song_path` is left empty
+and `find_abs_paths` makes the build fail rather than emit one. Earlier generated
+graphs and the old `-api.json` copies are deleted on sight.
 
 The weights, for reference: UNET `minimax_h3_ref2va_pruned_int8_convrot`, CLIP
 `qwen3vl_*_minimax_h3_*`, `vae` = `minimax_h3_video_vae_fp16`, `audio_vae` =
@@ -355,30 +347,13 @@ The weights, for reference: UNET `minimax_h3_ref2va_pruned_int8_convrot`, CLIP
 `minimax_h3_fl2va` is first-and-last-frame to video and is the model for scenes
 marked `chain` — ref2va cannot continue off a previous clip's last frame at all.
 
-`mvkit probe` alone just reports what is installed and which node to
-title what - two roles often sit on the H3 node itself and a node has one title. Splitting stays in the kit: ComfyUI never sees the pdf or
-the full mp3, only a built folder.
+`mvkit probe` reads a running server's `/object_info` and reports which nodes are
+actually installed - useful after a node-pack update, not part of the job.
+Splitting stays in the kit: ComfyUI never sees the pdf or the full mp3, only a
+built folder.
 
 Everything else in the workflow is stock comfy-core - but note that core has no
-text-file loader and `LoadAudio` only sees `ComfyUI/input`, so batching a folder
-needs VideoHelperSuite + WAS Node Suite, or `bin/queue_comfy.py` over the HTTP
-API. See `docs/comfyui-batch.md`; keep it in sync if the deliverable changes.
-
-## Storyboard DSL
-
-**This is the kit's own format, not a MiniMax convention.** It appears only in
-`ALL_scenes.txt`, which `HurricaneStoryboardScene` reads. The per-scene `NN_*.txt` files
-are finished six-section H3 prompts with no directives and no comments, because
-they are meant to be pasted straight in. Do not reintroduce markup there.
-
-Directives sit alone at the start of a line; `#` is a comment.
-
-```
-@BIBLE   constant frame, prepended to every scene
-@STYLE   constant look
-@SCENE mm:ss.sss-mm:ss.sss | title
-@TAIL    constant frame, appended to every scene
-```
-
-The `@SCENE` range is **absolute song time**. It sets the clip length *and* the
-slice of the track used as audio reference, which is what keeps picture on beat.
+text-file loader and `LoadAudio` only sees `ComfyUI/input`, which is why
+`HurricaneSongFolder` exists. Without it, batching a folder needs VideoHelperSuite
++ WAS Node Suite. See `docs/comfyui-batch.md`; keep it in sync if the deliverable
+changes.

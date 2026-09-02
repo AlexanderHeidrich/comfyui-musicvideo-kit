@@ -14,6 +14,8 @@ env: MVKIT_LLM_URL (default http://127.0.0.1:11434/v1/chat/completions)
 """
 import argparse, csv, json, os, re, sys, urllib.error, urllib.request
 
+from build_storyboards import read_brief
+
 KIT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 URL = os.environ.get("MVKIT_LLM_URL", "http://127.0.0.1:11434/v1/chat/completions")
 MODEL = os.environ.get("MVKIT_LLM_MODEL", "gemma3:4b")
@@ -130,8 +132,13 @@ def main():
             content = {}
 
     timed = timed_lyrics(os.path.join(src, "lyrics.txt"))
-    brief = read(src, "drafting.txt") or read(KIT, "templates", "drafting.txt")
-    bible, style = read(src, "bible.txt"), read(src, "style.txt")
+    guide = read(src, "drafting.txt") or read(KIT, "templates", "drafting.txt")
+    film = read_brief(src) or {}
+    style = film.get("style", "")
+    # the {S}/{P} placeholders bind a subject to an H3 slot and mean nothing here
+    cast = re.sub(r"\{[SP]\}", "it",
+                  "\n".join("%s - %s" % (k, v)
+                             for k, v in sorted(film.get("subjects", {}).items())))
     examples = read(src, "style_examples.txt")
 
     kept = drafted = failed = 0
@@ -161,7 +168,7 @@ def main():
                 "shot2. Write title, shot1 and shot2 in ENGLISH whatever language "
                 "the screenplay is in. Keep the lyric verbatim in its original "
                 "language - never translate it."
-                % (brief, style[:2000], bible[:2000],
+                % (guide, style, cast[:2000],
                    ("\n--- STYLE REFERENCES ---\n%s\n" % examples[:1200]) if examples else "",
                    r["duration"], lyrics or "(instrumental)",
                    " || ".join(desc) or "(not given)",

@@ -15,16 +15,19 @@ mkdir -p "$SRC/refs"
 cp "$AUDIO" "$SRC/song.$EXT"
 
 # blocks come from another song if you name one, otherwise from templates/
-if [ -f "$KIT/songs/$PICK/_source/style.txt" ]; then
+if [ -f "$KIT/songs/$PICK/_source/brief.txt" ]; then
   FROM="song '$PICK'"
-  for f in bible style tail; do cp "$KIT/songs/$PICK/_source/$f.txt" "$SRC/$f.txt"; done
-  [ -f "$KIT/songs/$PICK/_source/brief.txt" ] && cp "$KIT/songs/$PICK/_source/brief.txt" "$SRC/brief.txt"
+  cp "$KIT/songs/$PICK/_source/brief.txt" "$SRC/brief.txt"
+  [ -f "$KIT/songs/$PICK/_source/tail.txt" ] && cp "$KIT/songs/$PICK/_source/tail.txt" "$SRC/tail.txt"
 elif [ -f "$KIT/templates/styles/$PICK.txt" ]; then
   FROM="templates (style: $PICK)"
-  cp "$KIT/templates/styles/$PICK.txt" "$SRC/style.txt"
-  cp "$KIT/templates/bible/_TEMPLATE.txt" "$SRC/bible.txt"
-  cp "$KIT/templates/tail/default.txt"    "$SRC/tail.txt"
-  cp "$KIT/templates/brief.txt"           "$SRC/brief.txt"
+  # the style library stays in the kit: it is long-form raw material, and what
+  # the song needs is the ~900-character [style] block distilled out of it
+  { printf '# Style starting point: templates/styles/%s.txt\n' "$PICK"
+    printf '# Read that file and distil it into the [style] block below. Do not\n'
+    printf '# paste it whole - every prompt carries this block.\n\n'
+    cat "$KIT/templates/brief.txt"; } > "$SRC/brief.txt"
+  cp "$KIT/templates/tail/default.txt" "$SRC/tail.txt"
 else
   echo "no style '$PICK'. Available:"
   ls "$KIT/templates/styles" | sed 's/\.txt$//;s/^/  /'
@@ -42,7 +45,7 @@ cat > "$SRC/lyrics.txt" <<'EOF'
 EOF
 cat > "$SRC/style_examples.txt" <<'EOF'
 # Free notes on the look: shows, films, illustrators, eras, "like X but rougher".
-# Read by the drafting pass and DISTILLED into style.txt - it is not pasted into
+# Read by the drafting pass and DISTILLED into brief.txt's [style] - not pasted
 # the prompt, because brand and show names do not reproduce reliably. Concrete
 # craft descriptions do.
 EOF
@@ -66,11 +69,10 @@ scaffolded $DST  (blocks from $FROM)
 
   _source/song.$EXT
   _source/refs/            drop reference images here, see refs/__README.txt
-  _source/style.txt        the look - keep the RENDER CLEAN section
-  _source/style_examples.txt   free notes on the look, distilled into style.txt
-  _source/bible.txt        cast, world, rules - rewrite for this song
-  _source/brief.txt        the same, said short - builds the v4 prompts
-  _source/tail.txt         global audio block
+  _source/brief.txt        [style], [sound], [music] and one [subject] per
+                           reference - the ONLY thing the prompts are built from
+  _source/style_examples.txt   free notes on the look, distilled into [style]
+  _source/tail.txt         audio fallback, used only where brief.txt is silent
   _source/lyrics.txt       the real lyrics
   _source/content.json     empty - filled by \`mvkit draft\`
 

@@ -49,10 +49,10 @@ Creates every input slot:
 ```
 songs/federphibien/_source/
   song.mp3              your track
-  style.txt             the look, from templates/styles/90s-cartoon-dirty.txt
+  brief.txt             [style], [sound], [music] and one [subject] per
+                        reference - the only thing the prompts are built from
   style_examples.txt    free notes: "like Ren & Stimpy but rougher"
-  bible.txt             cast, world, rules  (a TODO skeleton)
-  tail.txt              global audio block
+  tail.txt              audio fallback, used where brief.txt is silent
   lyrics.txt            the real lyrics, optionally [mm:ss] prefixed
   content.json          {}
   refs/__README.txt     the reference naming schema
@@ -60,8 +60,8 @@ songs/federphibien/_source/
 
 ### 2. Drop in the screenplay and the references
 
-Not sure which references to make? `./mvkit shotlist <song>` reads the bible and
-the style and writes `_source/refs/__SHOTLIST.txt`: which images are worth
+Not sure which references to make? `./mvkit shotlist <song>` reads `brief.txt`
+and writes `_source/refs/__SHOTLIST.txt`: which images are worth
 generating for this song, ranked by how many scenes each character is actually
 in, with a ready-to-paste prompt for each built from the film's own style block.
 
@@ -135,8 +135,8 @@ local model:
 ./mvkit build federphibien
 ```
 
-Edit `_source/bible.txt`, `_source/style.txt`, `_source/tail.txt`,
-`_source/content.json` - never the generated files - and re-run `build`.
+Edit `_source/brief.txt` and `_source/content.json` - never the generated
+files - and re-run `build`.
 
 ### 5. Get it into ComfyUI
 
@@ -162,8 +162,9 @@ and hand it over:
 ./mvkit workflows federphibien --from video_minimax_h3_ref2va.json
 ```
 
-Either format works - a workflow saved from the menu is converted to API format
-on the way in. Everything you set stays: loaders, sampler, scheduler, LoRA
+Hand it the workflow **saved** from the menu, not an API export: the graft edits
+that format in place so your layout and groups survive, and it is the file you
+open again to render. Everything you set stays: loaders, sampler, scheduler, LoRA
 switches, resolution, the audio decode path, your Save node. Only four things are
 rewired - `prompt`, `length`, `ref_audios.ref_audio_0` and the
 `ref_images.ref_image_*` slots - each reference loader **titled with its live
@@ -182,7 +183,7 @@ mirrors where they go. Two independent files, stdlib only:
 
 | file | nodes |
 |---|---|
-| `watching_hurricanes.py` | Song Folder, Build Song, Storyboard Scene, Reference Inventory, Prompt Builder |
+| `watching_hurricanes.py` | Song Folder |
 | `watching_hurricanes_upscale.py` | Clip Folder |
 
 `./mvkit probe` asks a running server what it has and what to title what - useful
@@ -198,12 +199,6 @@ The reference sheets are not driven per scene, because they are identical in eve
 scene: their loaders keep their own filenames and are only retitled with their
 live tag. Only the prompt, the frame count and the audio slice change.
 
-Or drive it from outside with no node from this kit at all:
-
-```bash
-./mvkit queue federphibien workflow_api.json --variant v1 --dry-run
-```
-
 **Where the clips land.** Renders are not temporary - Save Video writes to
 `ComfyUI/output` and stays; it is Preview nodes that write to `temp` and get
 cleared. Hurricane Song Folder has a `save_prefix` output wired into
@@ -211,9 +206,9 @@ cleared. Hurricane Song Folder has a `save_prefix` output wired into
 `output/<song>/NN_slug-vN_00001.mp4` - grouped per song and named after the
 prompt that made them, which is what `mvkit concat` reads.
 
-**[docs/comfyui-batch.md](docs/comfyui-batch.md)** covers the node-pack route and
-why stock ComfyUI is not enough on its own; `__batch/` still ships the
-line-aligned prompt/audio lists grouped by frame count for it.
+**[docs/comfyui-batch.md](docs/comfyui-batch.md)** shows why stock ComfyUI is not
+enough on its own, and how to render a scene by hand if you will not install the
+node.
 
 ### 5b. Check the timing
 
@@ -324,9 +319,8 @@ songs/federphibien/
                        inner_cuts, continuity, audio, prompts, lyrics
   NN_title-v1.txt      a paste-ready six-section H3 prompt
   NN_title.mp3         the audio slice, shared by v1/v2/v3
-  __wf_1..5.json       starting ComfyUI graphs, regenerated on every build
-  __batch/             line-aligned lists for batching, grouped by frame count
-  ALL_scenes.txt       the same material in this kit's DSL, for the storyboard node
+  <song>.json          the render graph - yours, with this folder grafted in
+  <song>-4x.json       the upscale pass afterwards, regenerated on every build
   _source/             every input; nothing here is meant to be copied out
 ```
 
@@ -342,10 +336,6 @@ overlay is a full-frame clip of its own. `__READ_ME.txt` gets a COMPOSITING
 section naming which file is a plate, which is an inset or element, what loops and
 what freezes. Nothing is burned into a render, because the assembly happens in
 DaVinci.
-
-The `@BIBLE` / `@STYLE` / `@SCENE` / `@TAIL` markers are **this kit's DSL, not a
-MiniMax convention** - they only appear in `ALL_scenes.txt`, which is what the
-ComfyUI storyboard node reads. The per-scene files carry no markup at all.
 
 ## What is in a scene
 
@@ -384,7 +374,7 @@ templates/
     static-coverage.txt  moving-coverage.txt  rostrum-2d.txt
     handheld-doc.txt     anime-drama.txt
   styles/               look blocks: 90s-cartoon-dirty.txt, _TEMPLATE.txt
-  bible/  tail/         cast and audio skeletons
+  tail/                 the audio fallback skeleton
 ```
 
 Any song may override `cameras.txt`, `sections.txt` or `drafting.txt` by placing
@@ -447,7 +437,7 @@ WHISPER_MODEL_NAME=ggml-base.bin ./mvkit --docker transcribe mysong
 
 ## Grade artefacts stay out of the prompt
 
-`style.txt` explicitly forbids grain, video noise, VHS softness, scanlines,
+The `[style]` block explicitly forbids grain, video noise, VHS softness, scanlines,
 chroma bleed, gate weave, dust, halation and lens effects. The prompt describes
 the *craft* of the era instead - how the line was drawn, how the paint was laid,
 animation on twos, mouth charts, rostrum camera - never the condition of an old

@@ -11,9 +11,7 @@ RENDERING THIS FOLDER IN COMFYUI
   THE WORKFLOWS IN THIS FOLDER
 
     {song}.json        the render. YOUR H3 graph with this folder wired in, your
-                       layout and groups kept. UI format - open this one.
-    {song}-api.json    the same in API format, for `mvkit queue`. No layout,
-                       because that format has no positions at all.
+                       layout and groups kept. Open this one.
     {song}-4x.json     the upscale pass afterwards. No H3 in it.
 
     Nothing here invents a render graph. The H3 node returns `positive` and
@@ -113,34 +111,16 @@ RENDERING THIS FOLDER IN COMFYUI
     scene, so their loaders keep their own filenames and are only retitled with
     their live tag. Only the prompt, the frame count and the audio slice change.
 
-  THE OTHER WAY - drive it from outside
-
-    If you would rather not install anything, `mvkit queue` posts one job per
-    scene to ComfyUI's HTTP API and needs no node from this kit:
-
-      ./mvkit queue {song} wf_api.json --dry-run
-      ./mvkit queue {song} wf_api.json
-
-    Export the graph with Workflow -> Export (API), not the normal save, and
-    title the nodes it should drive PROMPT, AUDIO and LENGTH. `mvkit probe` tells
-    you which node to give which title - two roles often sit on the H3 node
-    itself, and a node has only one title, so it matters. The dry run prints what
-    it matched and what it would send; read it first.
-
-    Flags: --variant v2, --scenes 1-10,15, COMFY_HOST for another machine.
-
   WHY NOT ONE BATCH FOR EVERYTHING
 
     H3 only accepts lengths where frames % 17 == 5 and there is one `length` per
-    queue run, so in-graph batching needs one run per frame count. Both routes
-    above set the length per scene instead, which is why they manage the whole
-    song in one pass. __batch/ still holds the grouped lists if you want the
-    node-pack route; see docs/comfyui-batch.md.
+    queue run, so in-graph batching over a fixed list needs one run per frame
+    count. The Hurricane node sets the length per scene instead, which is why it
+    manages the whole song in one pass. See docs/comfyui-batch.md for why core
+    ComfyUI cannot do it alone.
 
   Scene 00 and any 90+ scene have no audio - the Vorspann and the compositing
-  elements. Both routes handle them: the audio input is simply left alone. They
-  are deliberately absent from __batch/, which pairs prompts with slices line by
-  line and cannot carry a clip that has no slice.
+  elements. They get a slice of silence so one graph still renders them all.
 
   UPSCALING, AFTERWARDS - __workflow_upscale.json
 

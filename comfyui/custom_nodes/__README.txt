@@ -13,13 +13,12 @@ A symlink is the better move while the kit is changing:
 
 TWO FILES, both independent - install either or both.
 
-watching_hurricanes.py - the storyboard side. Five nodes under the
+watching_hurricanes.py - the storyboard side. One node under the
 "Watching Hurricanes" category:
 
-  Hurricane Song Folder          point it at songs/<name> and it batches the whole song
-  Hurricane Storyboard Scene     the same from ALL_scenes.txt, block by block
-  Hurricane Reference Inventory   the live <Picture n>/<Video n>/<Audio n> tags
-  Hurricane Prompt Builder       assembles the six sections, optionally via a local LLM
+  Hurricane Song Folder   point it at songs/<name> and it batches the whole song:
+                          the prompt, the audio slice, the frame count and the
+                          save prefix for one scene per queue run
 
 watching_hurricanes_upscale.py - the pass afterwards. One node:
 

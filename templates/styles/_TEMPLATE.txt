@@ -1,6 +1,8 @@
-# A look block. Copy to <song>/_source/style.txt and rewrite. Describe the CRAFT
-# that produced the look, never the condition of the medium it was watched on.
-# Keep the RENDER CLEAN section - see templates/README.txt.
+# A long-form look block. Raw material: read it and distil it into the ~900
+# character [style] block of a song's _source/brief.txt - it is never copied into
+# a song whole, because that block sits in every prompt. Describe the CRAFT that
+# produced the look, never the condition of the medium it was watched on. Keep
+# the RENDER CLEAN section - see templates/__README.txt.
 
 <one sentence naming the technique, the medium and the decade>
 

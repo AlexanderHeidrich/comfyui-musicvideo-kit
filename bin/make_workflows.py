@@ -1,8 +1,7 @@
 #!/usr/bin/env python3
-"""Write the three starting ComfyUI workflows into a song folder.
+"""Write the ComfyUI workflows into a song folder.
 
-  make_workflows.py <song-dir> [--h3-class NAME] [--h3-images N]
-                    [--audio-class NAME] [--image-class NAME] [--save-class NAME]
+  make_workflows.py <song-dir> [--from your_workflow.json]
 
   __workflow_upscale.json  the pass after rendering: a folder of clips through a
                            4x line-art model. Complete and standalone.
@@ -15,8 +14,9 @@ guessed. Hand it one that works instead:
 
     make_workflows.py <song-dir> --from your_workflow.json
 
-A workflow saved from the ComfyUI menu is converted to API format on the way in,
-so either format is fine.
+That must be a workflow SAVED from the ComfyUI menu, not an API export: the graft
+edits the saved format in place so the layout and the groups survive, and the
+saved format is the one you open again to render.
 
 Stdlib only.
 """
@@ -62,21 +62,9 @@ def audio_slot(inputs):
 
 H3_CLASS = "MiniMaxH3ReferenceToVideo"   # confirmed against a running server
 H3_IMAGES = 9
-AUDIO_CLASS = "VHS_LoadAudio"
-AUDIO_FIELD = "audio_file"
-IMAGE_CLASS = "VHS_LoadImagePath"
-IMAGE_FIELD = "path"
-SAVE_CLASS = "SaveVideo"
 # One 4x line-art model, and whatever it produces is what gets written. No
 # rescaling in the graph: hitting 4K exactly is the edit's job.
 UPSCALE_MODEL = "RealESRGAN_x4plus_anime_6B.pth"
-# HurricaneSongFolder's outputs, in order. Referenced by name everywhere so
-# trimming the node does not silently rewire a graph to the wrong socket.
-SONG_OUTPUTS = ("prompt", "audio_path", "frames", "scene_count", "save_prefix")
-
-
-def song_out(name):
-    return SONG_OUTPUTS.index(name)
 VIDEO_LOAD = "VHS_LoadVideoPath"
 VIDEO_COMBINE = "VHS_VideoCombine"
 # Not a placeholder any more - the class name is confirmed. What IS incomplete is
@@ -85,7 +73,7 @@ VIDEO_COMBINE = "VHS_VideoCombine"
 # be guessed. `--from your_export.json` keeps yours.
 NOTE = ("this node conditions a sampler - it returns positive/LATENT, not a "
         "video. Attach your own model/sampler/VAEDecode chain, or better: "
-        "`mvkit workflows <song> --from your_api_export.json`")
+        "`mvkit workflows <song> --from your_saved_workflow.json`")
 
 
 ABS = re.compile(r"^(?:/(?:Users|home|Volumes|mnt|media)/|[A-Za-z]:[\\/]|\\\\)")
@@ -125,18 +113,6 @@ def read_refs(song):
     return out
 
 
-def save_node(a, prefix):
-    """Configured but NOT connected: its `video` input is left open because the
-    H3 node returns positive/LATENT, and wiring a save to a CONDITIONING output
-    would be worse than leaving it obviously unfinished. Attach the output of
-    your VAEDecode here. `filename_prefix` is already driven, which is the part
-    worth having: renders arrive grouped per song and named after their prompt.
-    """
-    return {"class_type": a.save_class,
-            "inputs": {"filename_prefix": prefix},
-            "_meta": {"title": "SAVE - connect your VAEDecode to `video`"}}
-
-
 # UI-only inputs: they exist so the browser can draw an upload button and are not
 # part of what /prompt accepts
 UI_ONLY = ("IMAGEUPLOAD", "AUDIOUPLOAD", "AUDIO_UI", "VIDEOUPLOAD")
@@ -146,114 +122,6 @@ UI_ONLY = ("IMAGEUPLOAD", "AUDIOUPLOAD", "AUDIO_UI", "VIDEOUPLOAD")
 # ever follows a numeric widget, so skipping it keeps the positional walk aligned.
 # Without this, KSampler's seed control shifts steps/cfg/sampler by one.
 CONTROL_VALUES = ("fixed", "increment", "decrement", "randomize")
-
-
-def ui_to_api(ui):
-    """Convert a saved UI workflow to the flat API format /prompt accepts.
-
-    Doable without asking a server, because the UI file names every input: each
-    entry in `inputs` carries a name, and the ones with a `widget` key take their
-    value from `widgets_values` positionally, in order. Muted and bypassed nodes
-    and notes are dropped.
-    """
-    src = {}
-    for l in ui.get("links", []):          # [id, from_node, from_slot, to, slot, type]
-        if isinstance(l, list) and len(l) >= 3:
-            src[l[0]] = (str(l[1]), l[2])
-    out = {}
-    for n in ui.get("nodes", []):
-        t = n.get("type", "")
-        if n.get("mode") in (2, 4) or t in ("Note", "MarkdownNote", "Reroute"):
-            continue
-        ins, widgets = {}, list(n.get("widgets_values") or [])
-        wi = 0
-        for i in (n.get("inputs") or []):
-            name, ityp = i.get("name"), (i.get("type") or "")
-            if i.get("widget"):
-                if wi < len(widgets):
-                    v = widgets[wi]
-                    if ityp.upper() not in UI_ONLY:
-                        ins[name] = v
-                    wi += 1
-                    if (ityp.upper() in ("INT", "FLOAT") and wi < len(widgets)
-                            and widgets[wi] in CONTROL_VALUES):
-                        wi += 1
-            if i.get("link") is not None and i["link"] in src:
-                ins[name] = list(src[i["link"]])
-        out[str(n["id"])] = {"class_type": t, "inputs": ins,
-                             "_meta": {"title": n.get("title") or t}}
-    return out
-
-
-# nodes that are an end in themselves; everything else only matters if it feeds one
-OUTPUT_CLASSES = re.compile(r"^(Save|Preview|VHS_VideoCombine|SaveAudio|SaveVideo)",
-                            re.I)
-
-
-def prune_unreachable(graph):
-    """Drop nodes that no longer reach an output, and say which.
-
-    Wrapping displaces whatever used to feed the H3 node - the prompt primitive,
-    the LoadImage nodes, the LoadAudio. ComfyUI would not execute them, but they
-    sit in the graph looking connected and are the first thing you misread when
-    you open it. Removing them is the difference between a graph you can read and
-    one you have to squint at.
-    """
-    outs = [nid for nid, n in graph.items()
-            if OUTPUT_CLASSES.match(n.get("class_type", ""))]
-    if not outs:
-        return graph, []                       # nothing recognisable to walk back from
-    keep, stack = set(), list(outs)
-    while stack:
-        nid = stack.pop()
-        if nid in keep or nid not in graph:
-            continue
-        keep.add(nid)
-        for v in (graph[nid].get("inputs") or {}).values():
-            if isinstance(v, list) and v and isinstance(v[0], str):
-                stack.append(v[0])
-    dropped = [(nid, graph[nid].get("class_type", "?"),
-                (graph[nid].get("_meta") or {}).get("title", ""))
-               for nid in sorted(graph, key=lambda x: int(x) if x.isdigit() else 0)
-               if nid not in keep]
-    return {k: v for k, v in graph.items() if k in keep}, dropped
-
-
-# UI-form socket definitions for the two nodes we insert. Written out rather than
-# lifted from some other graph, because a donor file can be missing or stale and a
-# node with `outputs: []` produces links that point at sockets that do not exist.
-SONG_NODE_DEF = {
-    "type": "HurricaneSongFolder", "flags": {}, "order": 0, "mode": 0,
-    "properties": {"Node name for S&R": "HurricaneSongFolder"},
-    "size": [300, 150],
-    "inputs": [
-        {"name": "song_path", "type": "STRING", "widget": {"name": "song_path"}},
-        {"name": "scene_index", "type": "INT", "widget": {"name": "scene_index"}},
-        {"name": "variant", "type": "COMBO", "widget": {"name": "variant"}},
-        {"name": "out_subfolder", "type": "STRING",
-         "widget": {"name": "out_subfolder"}},
-    ],
-    "outputs": [{"name": n, "localized_name": n, "type": t, "links": []}
-                for n, t in (("prompt", "STRING"), ("audio_path", "STRING"),
-                             ("frames", "INT"), ("scene_count", "INT"),
-                             ("save_prefix", "STRING"))],
-    "widgets_values": ["", 1, "increment", "v1", ""],
-}
-
-AUDIO_NODE_DEF = {
-    "type": "VHS_LoadAudio", "flags": {}, "order": 0, "mode": 0,
-    "properties": {"Node name for S&R": "VHS_LoadAudio"}, "size": [280, 80],
-    "inputs": [
-        {"name": "audio_file", "type": "STRING", "widget": {"name": "audio_file"}},
-        {"name": "seek_seconds", "type": "FLOAT", "widget": {"name": "seek_seconds"}},
-        {"name": "duration", "type": "FLOAT", "widget": {"name": "duration"}},
-    ],
-    "outputs": [{"name": "audio", "localized_name": "audio", "type": "AUDIO",
-                 "links": []},
-                {"name": "duration", "localized_name": "duration", "type": "FLOAT",
-                 "links": []}],
-    "widgets_values": ["", 0.0, 0.0],
-}
 
 
 def wrap_ui(ui, song, a):
@@ -320,7 +188,7 @@ def wrap_ui(ui, song, a):
 
     where = lambda i: nodes[i]["pos"] if i in nodes else [0, 0]
     song_n = place("HurricaneSongFolder", where(feeder("prompt")))
-    song_n["title"] = "SONG - set song_path"
+    song_n["title"] = "WATCHING HURRICANES - Song Folder (set song_path)"
     aud_n = place("VHS_LoadAudio", where(feeder(a_slot)) if a_slot else [0, 0])
     aud_n["title"] = "AUDIO - this scene's slice"
 
@@ -394,107 +262,6 @@ def wrap_ui(ui, song, a):
     return ui, report
 
 
-def find_h3_in(graph, h3_class):
-    """the H3 node inside a graph the user exported themselves"""
-    for nid, n in graph.items():
-        if n.get("class_type") == h3_class:
-            return nid
-    # fall back on shape: a prompt and a length is the H3 node in practice
-    for nid, n in graph.items():
-        ins = n.get("inputs", {})
-        if "prompt" in ins and "length" in ins:
-            return nid
-    return None
-
-
-def wrap(raw, song, a):
-    """Take a graph exported from ComfyUI and put our nodes around it.
-
-    Everything the user already set on their H3 node is kept - model, seed,
-    resolution, whatever it has. Only the four inputs a song folder actually
-    drives are rewired, and a save prefix is attached at the back.
-    """
-    g = dict(raw)
-    nid = find_h3_in(g, a.h3_class)
-    if not nid:
-        sys.exit("no H3 node in that workflow. Looked for class %r and for a node "
-                 "with both `prompt` and `length`. Is it the API export?" % a.h3_class)
-
-    def free(start):
-        n = start
-        while str(n) in g:
-            n += 1
-        return str(n)
-
-    src = free(9000)
-    g[src] = {"class_type": "HurricaneSongFolder",
-              "_meta": {"title": "SONG - set song_path to this folder on the "
-                                 "ComfyUI machine"},
-              "inputs": {"song_path": "", "scene_index": 1,
-                         "variant": "v1", "out_subfolder": ""}}
-    au = free(9001)
-    g[au] = {"class_type": a.audio_class, "_meta": {"title": "AUDIO"},
-             "inputs": {a.audio_field: [src, song_out("audio_path")]}}
-
-    ins = g[nid].setdefault("inputs", {})
-    ins["prompt"] = [src, song_out("prompt")]
-    ins["length"] = [src, song_out("frames")]
-    a_slot = audio_slot(ins)
-    if a_slot:
-        ins[a_slot] = [au, 0]
-
-    # The reference sheets are CONSTANT for the whole song - only the prompt, the
-    # length and the audio slice change per scene. So the loaders already feeding
-    # ref_image_* are correct and are left exactly as they are. They only get
-    # retitled with their live tag, so the graph says which image is <Picture 3>.
-    slots = image_slots(ins)
-    refs = read_refs(song)
-    retitled = 0
-    for i, slot in enumerate(slots):
-        link = ins.get(slot)
-        if not (isinstance(link, list) and link[0] in g):
-            continue
-        if i < len(refs):
-            g[link[0]].setdefault("_meta", {})["title"] = refs[i][1]
-            retitled += 1
-
-    # a save node the user already has keeps its settings, it only learns where
-    saved = [k for k, n in g.items() if "filename_prefix" in n.get("inputs", {})]
-    if saved:
-        for k in saved:
-            g[k]["inputs"]["filename_prefix"] = [src, song_out("save_prefix")]
-    else:
-        g[free(9200)] = save_node(a, [src, song_out("save_prefix")])
-
-    report = ["node %s (%s) kept its own settings: %s"
-              % (nid, g[nid]["class_type"],
-                 ", ".join("%s=%r" % (k, v) for k, v in sorted(ins.items())
-                           if not isinstance(v, list)) or "none")]
-    report.append("rewired: prompt, length, %s"
-                  % ("audio -> %s" % a_slot if a_slot else "NO audio slot found"))
-    report.append("reference sheets left alone (they are the same in every scene); "
-                  "%d loader(s) retitled with their live tag" % retitled)
-    connected = sum(1 for k in slots if isinstance(ins.get(k), list))
-    if connected < len(refs):
-        report.append("! %d sheets in _source/refs but only %d ref_image slot(s) are "
-                      "connected. Wire up the rest in ComfyUI and re-wrap, or those "
-                      "sheets never reach H3." % (len(refs), connected))
-    if any(t in ("CONDITIONING", "LATENT")
-           for t in (g[nid].get("_out_types") or ())):
-        report.append("that node conditions a sampler rather than returning a "
-                      "video; the rest of your chain is untouched")
-    report.append("saved via %s, filename_prefix now comes from save_prefix"
-                  % (", ".join(sorted(saved)) if saved else "a new SAVE node"))
-
-    g, dropped = prune_unreachable(g)
-    if dropped:
-        report.append("removed %d node(s) your graph no longer needs, because this "
-                      "folder feeds those inputs now:" % len(dropped))
-        for nid, cls, title in dropped:
-            report.append("    %-5s %-26s %s" % (nid, cls, title))
-    return g, report
-
-
 def wf_upscale(song, a):
     """The pass AFTER rendering, and there is no H3 in it.
 
@@ -511,7 +278,8 @@ def wf_upscale(song, a):
     """
     g = {}
     g["1"] = {"class_type": "HurricaneClipFolder",
-              "_meta": {"title": "CLIPS IN - set source_dir"},
+              "_meta": {"title": "WATCHING HURRICANES - Clip Folder "
+                                 "(set source_dir)"},
               "inputs": {"source_dir": "", "clip_index": 1,
                          "out_subfolder": "%s-2K" % os.path.basename(
                              os.path.abspath(song)),
@@ -545,7 +313,8 @@ WORKFLOWS = ((None, wf_upscale, "upscale a folder of renders, no H3 in it"),)
 
 # graphs generated before the H3 node's real shape was known. They wired a song
 # folder correctly but carried no sampler chain, so they could never run - the
-# render workflow now comes from wrapping one that already works.
+# render workflow now comes from grafting into one that already works. The
+# -api copies went with the HTTP queue; the graph you open is the saved format.
 LEGACY = ("__wf_1_scene.json", "__wf_2_folder.json", "__wf_3_pipeline.json",
           "__wf_5_upscale.json", "__wf_4_wrapped.json", "__workflow_api.json",
           "__workflow_song.json", "__workflow_song_api.json",
@@ -556,63 +325,34 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("song")
     ap.add_argument("--h3-class", default=H3_CLASS)
-    ap.add_argument("--h3-images", type=int, default=H3_IMAGES)
-    ap.add_argument("--audio-class", default=AUDIO_CLASS)
-    ap.add_argument("--audio-field", default=AUDIO_FIELD)
-    ap.add_argument("--image-class", default=IMAGE_CLASS)
-    ap.add_argument("--image-field", default=IMAGE_FIELD)
-    ap.add_argument("--save-class", default=SAVE_CLASS)
     ap.add_argument("--upscale-model", default=UPSCALE_MODEL)
     ap.add_argument("--video-load", default=VIDEO_LOAD)
     ap.add_argument("--video-combine", default=VIDEO_COMBINE)
 
-    ap.add_argument("--confirmed", action="store_true",
-                    help="the class names came from a live /object_info, not a guess")
     ap.add_argument("--from", dest="raw", metavar="RAW.json",
-                    help="wrap this graph instead of building one: your own H3 "
-                         "ref2vid export, with our nodes put around it")
+                    help="graft the song folder into this saved workflow instead "
+                         "of building one - your own H3 ref2vid graph, layout kept")
     ap.add_argument("--quiet", action="store_true")
     a = ap.parse_args()
 
     song = a.song.rstrip("/")
     if not os.path.isdir(song):
         sys.exit("no such song folder: %s" % song)
-    for old in LEGACY:
+    for old in LEGACY + (wf_names(song)["song"][:-5] + "-api.json",):
         if os.path.isfile(os.path.join(song, old)):
             os.remove(os.path.join(song, old))
     if a.raw:
         with open(a.raw, encoding="utf-8") as fh:
             raw = json.load(fh)
-        if "nodes" in raw and "last_node_id" in raw:
-            # UI format: graft into it and keep the layout, then also emit the
-            # API copy that `mvkit queue` needs
-            ui, report = wrap_ui(raw, song, a)
-            out_ui = os.path.join(song, wf_names(song)["song"])
-            with open(out_ui, "w", encoding="utf-8") as fh:
-                json.dump(ui, fh, indent=2)
-            print("grafted     : %s" % out_ui)
-            for line in report:
-                print("  %s" % line)
-            api = ui_to_api(json.loads(json.dumps(ui)))
-            bad = find_abs_paths(api)
-            with open(os.path.join(song, wf_names(song)["song"][:-5] + "-api.json"),
-                      "w", encoding="utf-8") as fh:
-                json.dump(api, fh, indent=2)
-            print("  api copy  : %s-api.json (%d nodes)"
-                  % (wf_names(song)["song"][:-5], len(api)))
-            for nid, k, v in bad:
-                print("  ! node %s.%s holds an absolute path (%s) - it came from "
-                      "your graph; check it works where ComfyUI runs" % (nid, k, v))
-            return
-        out = os.path.join(song, wf_names(song)["song"][:-5] + "-api.json")
-        g, report = wrap(raw, song, a)
-        for nid, k, v in find_abs_paths(g):
-            report.append("! node %s.%s still holds an absolute path (%s) - it came "
-                          "from your own graph, check it works where ComfyUI runs"
-                          % (nid, k, v))
-        with open(out, "w", encoding="utf-8") as fh:
-            json.dump(g, fh, indent=2)
-        print("wrapped     : %s" % out)
+        if "nodes" not in raw or "last_node_id" not in raw:
+            sys.exit("that is not a saved workflow. In ComfyUI use Workflow -> Save "
+                     "(or Export),\nnot Export (API): the API format carries no "
+                     "layout and no groups and\ncannot be opened in the editor.")
+        ui, report = wrap_ui(raw, song, a)
+        out_ui = os.path.join(song, wf_names(song)["song"])
+        with open(out_ui, "w", encoding="utf-8") as fh:
+            json.dump(ui, fh, indent=2)
+        print("grafted     : %s" % out_ui)
         for line in report:
             print("  %s" % line)
         return

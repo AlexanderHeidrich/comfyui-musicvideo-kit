@@ -1,10 +1,10 @@
-# The short build (v4). Optional: without this file no v4 is generated.
+# What every prompt is built from. REQUIRED - `mvkit build` stops without it.
 #
-# v4 is v1's shot and v1's camera, assembled from the blocks below instead of
-# the whole bible and style, and carrying only the characters that are actually
-# in the scene. Every published MiniMax H3 guide puts the prompt limit at 7,000
-# characters; a full v1 build is several times that. `mvkit build` prints the
-# longest prompt per variant and warns past 7,000.
+# v1, v2 and v3 are assembled from the blocks below, and each carries only the
+# characters that are actually in that scene. Every published MiniMax H3 guide
+# puts the prompt limit at 7,000 characters; `mvkit build` prints the longest
+# prompt per variant and names the scenes that go past it. This file is the only
+# source - there is no longer a separate bible.txt or style.txt.
 #
 # {S} becomes that scene's live <Subject n>, {P} its <Picture n> - never write
 # the numbers by hand, H3 renumbers when a slot is left unconnected.

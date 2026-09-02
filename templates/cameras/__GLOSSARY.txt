@@ -53,8 +53,8 @@ LENS FEEL - describe the result, not the hardware
 SCALE - the thing the model has no way to guess
   A reference image is a portrait: the subject fills its frame on a plain
   backdrop. Nothing in it says how big the animal is, so H3 sizes everything the
-  same and a frog comes out as big as a man. Size lives in the bible's SCALE
-  section, in real units, plus the relation between characters ("she is four
+  same and a frog comes out as big as a man. Size lives in each [subject] block
+  of brief.txt, in real units, plus the relation between characters ("she is four
   times his height"). Restate it in any shot that holds two of them, and in any
   wide where the subject should be a speck - "no wider than a few pixels" is a
   useful thing to say out loud.

@@ -3,15 +3,20 @@
 
   ref_shotlist.py <song-dir>
 
-Reads _source/bible.txt (the cast) and _source/style.txt (the look) and writes
-_source/refs/__SHOTLIST.txt: one block per reference, with the filename the
-naming schema expects and a ready-to-paste image prompt built from the film's own
-style, so the references cannot fight the style block.
+Reads _source/brief.txt - its [style] block and one [subject <slug>] per
+reference - and writes _source/refs/__SHOTLIST.txt: one block per reference, with
+the filename the naming schema expects and a ready-to-paste image prompt built
+from the film's own style, so the references cannot fight the style block.
+
+A subject written as `{S} is ... shown in {P}` is a character and gets a sheet;
+one written as `{P} is ...` is a location or a board and only gets listed.
 
 Counts how often each character actually appears, from content.json, so the
 ranking reflects this song rather than a guess.
 """
 import json, os, re, sys
+
+from build_storyboards import read_brief
 
 SLOT_RULE = """HOW MANY, AND IN WHICH SLOTS
 
@@ -48,34 +53,19 @@ BOARD = """  A colour and construction board, laid out as a flat grid on plain g
 """
 
 
-def strip_comments(t):
-    return "\n".join(l for l in t.splitlines() if not l.lstrip().startswith("#")).strip()
+def plain(text):
+    """a brief subject block as prose - {S}/{P} bind it to H3's slots and mean
+    nothing to an image generator"""
+    text = re.sub(r"\{S\}\s+is\s+", "", text)
+    text = re.sub(r",?\s*shown in \{P\}", "", text)
+    return " ".join(re.sub(r"\{[SP]\}", "this", text).split())
 
 
-def read(src, name):
-    p = os.path.join(src, name)
-    return strip_comments(open(p, encoding="utf-8").read()) if os.path.isfile(p) else ""
-
-
-def cast_of(bible):
-    """-> [(NAME, description)] from the CAST block. Continuation lines carry the
-    same indent as the entry that starts them, so only the NAME pattern splits."""
-    NAME = re.compile(r"^\s{1,6}([A-ZÄÖÜ][A-ZÄÖÜ' -]{2,})\s+-\s+(.*)$")
-    out, name, body = [], None, []
-    for line in bible.splitlines():
-        m = NAME.match(line)
-        if m:
-            if name:
-                out.append((name, " ".join(body).strip()))
-            name, body = m.group(1).strip(), [m.group(2)]
-        elif name and line.strip() and line.startswith(" "):
-            body.append(line.strip())
-        elif name and not line.startswith(" "):        # a new section closes it
-            out.append((name, " ".join(body).strip()))
-            name, body = None, []
-    if name:
-        out.append((name, " ".join(body).strip()))
-    return [(n, d) for n, d in out if len(d) > 60]
+def cast_of(brief):
+    """-> [(slug, description)] for the subjects that are characters"""
+    return [(slug, plain(body))
+            for slug, body in sorted(brief["subjects"].items())
+            if "{S}" in body]
 
 
 def counts(song, names):
@@ -99,12 +89,14 @@ def counts(song, names):
 def main():
     song = (sys.argv[1] if len(sys.argv) > 1 else ".").rstrip("/")
     src = os.path.join(song, "_source")
-    bible, style = read(src, "bible.txt"), read(src, "style.txt")
-    if not style:
-        sys.exit("no _source/style.txt - write the look first")
-    cast = cast_of(bible)
+    brief = read_brief(src)
+    if not brief or not brief.get("style"):
+        sys.exit("no _source/brief.txt with a [style] block - write the look first")
+    style = brief["style"]
+    cast = cast_of(brief)
     if not cast:
-        print("! no CAST entries found in bible.txt - listing the style board only")
+        print("! no [subject] block writes `{S} is ... shown in {P}`, so nothing")
+        print("  reads as a character - listing the style board only")
     hits = counts(song, [n for n, _ in cast])
     cast.sort(key=lambda nd: -hits.get(nd[0], 0))
 
@@ -119,7 +111,8 @@ def main():
         n = hits.get(name, 0)
         kind = "char"
         out += ["-" * 74,
-                "%02d_%s_%s.png" % (order, kind, re.sub(r"[^a-z0-9]+", "-", name.lower()).strip("-")),
+                "%02d_%s_%s.png" % (order, kind,
+                                    re.sub(r"[^a-z0-9]+", "-", name.lower()).strip("-")),
                 "  in %d of the song's scenes%s" % (n, "  <- core set" if i < 2 else ""),
                 "", "PROMPT", SHEET.rstrip(), "", "  " + style.split("\n\n")[0].replace("\n", "\n  "),
                 "", "  The character:", "  " + desc, ""]
@@ -128,8 +121,8 @@ def main():
             out += ["  NOTE: this entry derives the character from %s, which is a"
                     % ", ".join(tags),
                     "  reference that does not exist yet. Either generate that one first and",
-                    "  draw this from it, or rewrite the bible entry so it stands on its own",
-                    "  before using this prompt.", ""]
+                    "  draw this from it, or rewrite the [subject] block so it stands on",
+                    "  its own before using this prompt.", ""]
         order += 1
 
     out += ["-" * 74,
