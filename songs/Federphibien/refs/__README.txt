@@ -1,4 +1,7 @@
-Reference images and clips. The filename decides what the reference IS and in
+Reference images and clips. They sit at the top of the song folder, not in
+_source, because they are the one input you wire into ComfyUI by hand.
+
+The filename decides what the reference IS and in
 which order H3 loads it, so stick to the schema:
 
   [NN_]char_<slug>.png     a character           -> <Picture n>

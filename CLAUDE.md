@@ -18,7 +18,7 @@ new <name> <audio> [style]   scaffold songs/<name>/_source with every input slot
 drehbuch   <song>            _source/*.pdf     -> _source/drehbuch.txt
 transcribe <song>            audio             -> transcript.json/.tsv/.txt
 scenes     <song> [args]     drehbuch+transcript -> scenes.tsv (the timing spine)
-refs       <song>            _source/refs/     -> refs.json + the live H3 tags
+refs       <song>            refs/             -> refs.json + the live H3 tags
 split      <song>            song              -> scene_NN.mp3
 draft      <song> [--llm]    screenplay+lyrics -> content.json
 build      <song> [--all-sheets]  all blocks   -> the set-*/ deliverable
@@ -45,11 +45,13 @@ songs/<name>/                DELIVERABLE
     NN_title.mp3             that exact window of the song, shared by v1-v3
     <name>-set-NN_*.json     the graph for that set
   <name>-4x.json             the upscale pass
+  refs/                      reference sheets, named by schema (see its
+                             __README) - at the top because they are the one
+                             input you wire into ComfyUI by hand
   _source/                   INPUTS — everything not meant to be copied
     song.mp3                 the track
     song.pdf                 the screenplay, any name (optional)
     drehbuch.txt             extracted or hand-written spine (optional)
-    refs/                    reference images, named by schema (see its __README)
     lyrics.txt               the real lyrics, optionally [mm:ss] prefixed
     brief.txt                the ONLY source of the prompts
     style_examples.txt tail.txt
@@ -117,7 +119,7 @@ Verified against `comfy_extras/nodes_minimax_h3.py`, not guessed.
   `<Picture 5>`" still got it as its first frame. So presence decides the wiring,
   not just the text - see "Reference sets" below. Presence is derived from the
   words in the action;
-  `_source/refs/__ALIASES.txt` maps a reference slug to the English words that
+  `<song>/refs/__ALIASES.txt` maps a reference slug to the English words that
   mean it is on screen (`-phrase` blanks a phrase first, so "hen" does not match
   inside "hen house"), and a scene may override the guess with a `"cast"` list in
   content.json. `mvkit build` prints the per-scene cast and warns when a scene

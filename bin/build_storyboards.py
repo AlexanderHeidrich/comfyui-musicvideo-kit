@@ -157,11 +157,11 @@ SUBJECT_KINDS = {"char", "prop"}
 ARTICLES = {"der", "die", "das", "the", "a", "an"}
 
 
-def read_aliases(src):
-    """`_source/refs/__ALIASES.txt`: `<slug>: word, word` - the words that mean a
+def read_aliases(song):
+    """`<song>/refs/__ALIASES.txt`: `<slug>: word, word` - the words that mean a
     reference is in a shot. The slugs are whatever language the files are named
     in; the shot descriptions are English, so they rarely match on their own."""
-    path = os.path.join(src, "refs", "__ALIASES.txt")
+    path = os.path.join(song, "refs", "__ALIASES.txt")
     out = {}
     if os.path.isfile(path):
         for line in open(path, encoding="utf-8"):
@@ -574,7 +574,7 @@ def main():
     prefix = summary_prefix(refs)
     mute = dict(refs or {}, scene_audio_tag=None)
     prefix_q = summary_prefix(mute)
-    aliases = read_aliases(SRC)
+    aliases = read_aliases(song)
     brief = read_brief(SRC)
     if not brief:
         sys.exit("no %s/brief.txt - that file is what the prompts are built from.\n"
@@ -945,7 +945,7 @@ def main():
         if missing:
             print("! never detected in any scene: %s" % ", ".join(missing))
             print("  No scene will ever be handed those sheets. Add the English words")
-            print("  for them to _source/refs/__ALIASES.txt as `<slug>: word, word`.")
+            print("  for them to refs/__ALIASES.txt as `<slug>: word, word`.")
         empty = ["%02d" % n for n, here in cast if not here]
         if empty:
             print("! %d scene(s) name no character at all: %s"

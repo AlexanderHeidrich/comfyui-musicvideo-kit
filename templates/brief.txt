@@ -10,7 +10,7 @@
 # the numbers by hand, H3 renumbers when a slot is left unconnected.
 # A [subject <slug>] block is keyed by the reference's slug (the middle part of
 # its filename) and is only used in the scenes that reference is in, which
-# `_source/refs/refs.json` plus `_source/refs/__ALIASES.txt` decide.
+# `_source/refs.json` plus `refs/__ALIASES.txt` decide.
 
 [style]
 One paragraph of the look: medium, line, colour and finish, light, palette,

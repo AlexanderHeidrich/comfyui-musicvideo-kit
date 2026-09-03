@@ -22,7 +22,7 @@ whole intake and wiring for you - just say "storyboard this song".
 ```bash
 ./mvkit new mysong ~/Music/mysong.mp3 90s-cartoon-dirty
 cp ~/Downloads/Drehbuch.pdf songs/mysong/_source/     # optional, but do it
-cp ~/refs/*.png            songs/mysong/_source/refs/ # see refs/__README.txt
+cp ~/refs/*.png            songs/mysong/refs/         # see refs/__README.txt
 ./mvkit all mysong
 ```
 
@@ -61,14 +61,14 @@ songs/federphibien/_source/
 ### 2. Drop in the screenplay and the references
 
 Not sure which references to make? `./mvkit shotlist <song>` reads `brief.txt`
-and writes `_source/refs/__SHOTLIST.txt`: which images are worth
+and writes `refs/__SHOTLIST.txt`: which images are worth
 generating for this song, ranked by how many scenes each character is actually
 in, with a ready-to-paste prompt for each built from the film's own style block.
 
 ```bash
 cp ~/Downloads/Federphibien.pdf songs/federphibien/_source/
-cp ~/art/federphibium.png       songs/federphibien/_source/refs/01_char_federphibium.png
-cp ~/art/pond.png               songs/federphibien/_source/refs/02_loc_pond.png
+cp ~/art/federphibium.png       songs/federphibien/refs/01_char_federphibium.png
+cp ~/art/pond.png               songs/federphibien/refs/02_loc_pond.png
 ```
 
 Reference filenames carry their meaning and their load order:

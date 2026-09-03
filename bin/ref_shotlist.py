@@ -4,7 +4,7 @@
   ref_shotlist.py <song-dir>
 
 Reads _source/brief.txt - its [style] block and one [subject <slug>] per
-reference - and writes _source/refs/__SHOTLIST.txt: one block per reference, with
+reference - and writes <song>/refs/__SHOTLIST.txt: one block per reference, with
 the filename the naming schema expects and a ready-to-paste image prompt built
 from the film's own style, so the references cannot fight the style block.
 
@@ -141,7 +141,7 @@ def main():
             % (order + 1), "",
             "Locations worth painting are the ones several scenes share. Check",
             "__SCENES.tsv for which those are.", ""]
-    dst = os.path.join(src, "refs", "__SHOTLIST.txt")
+    dst = os.path.join(song, "refs", "__SHOTLIST.txt")
     os.makedirs(os.path.dirname(dst), exist_ok=True)
     open(dst, "w", encoding="utf-8", newline="\n").write("\n".join(out))
     print("cast found  : %s" % ", ".join("%s (%d scenes)" % (n, hits.get(n, 0))

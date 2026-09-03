@@ -30,8 +30,8 @@ optional parts. Use the user's language.
    biggest quality lever - with it the scene split follows the story instead of
    a metronome. If they have none, you will use `--uniform`.
 4. **References.** "Any reference images for the characters, the look, the
-   locations?" They go in `_source/refs/` under the naming schema in
-   `_source/refs/__README.txt`. At least one image or video is required - H3
+   locations?" They go in `<song>/refs/` under the naming schema in
+   `refs/__README.txt`. At least one image or video is required - H3
    rejects audio-only input.
 5. **The lyrics.** "Paste the real lyrics." The ASR transcript is wrong on sung
    material and is only used for timing. Optionally `[mm:ss]`-prefixed, which
@@ -41,7 +41,7 @@ optional parts. Use the user's language.
 
 ```bash
 ./mvkit new <name> <audio> [style-template]   # style-template from templates/styles/
-# put the screenplay pdf in songs/<name>/_source/ and the refs in _source/refs/
+# put the screenplay pdf in songs/<name>/_source/ and the sheets in <name>/refs/
 ./mvkit all <name>
 ```
 

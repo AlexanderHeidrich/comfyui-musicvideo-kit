@@ -104,7 +104,7 @@ def read_refs(song):
     out = []
     for i in data.get("images", []):
         # refs.json's `file` is ALREADY relative to the song folder
-        # ("_source/refs/01_....png"), so joining the refs dir again doubles it
+        # ("refs/01_....png"), so joining the refs dir again doubles it
         rel = i.get("file", "")
         out.append((i.get("tag", ""),
                     "%s %s (%s)" % (i.get("tag", ""), i.get("slug", ""),
@@ -114,7 +114,7 @@ def read_refs(song):
 
 
 def read_sets(song):
-    """-> [(folder, [sheet numbers])] for the per-set folders `mvkit build` wrote.
+    """-> [(folder, [sheet numbers], scene count)] for the per-set folders.
 
     Each of those folders is a song folder whose scenes all need the same sheets,
     which is what lets a graph carry only those sheets and wire them in one fixed
@@ -134,7 +134,7 @@ def read_sets(song):
         if not sheets or any(x != sheets[0] for x in sheets):
             sys.exit("%s/__SCENES.tsv does not name one set of sheets for all its "
                      "scenes - re-run `mvkit build`" % d)
-        out.append((d, sheets[0]))
+        out.append((d, sheets[0], len(sheets)))
     if not out:
         sys.exit("%s holds no set-* folder - run `mvkit build` first" % song)
     return out
@@ -187,7 +187,7 @@ UI_ONLY = ("IMAGEUPLOAD", "AUDIOUPLOAD", "AUDIO_UI", "VIDEOUPLOAD")
 CONTROL_VALUES = ("fixed", "increment", "decrement", "randomize")
 
 
-def wrap_ui(ui, song, a, sheets=None, where_to=""):
+def wrap_ui(ui, song, a, sheets=None, label=""):
     """Put the song folder into a UI workflow, keeping its layout and groups.
 
     The API format has no positions and no groups, so going through it throws the
@@ -257,8 +257,7 @@ def wrap_ui(ui, song, a, sheets=None, where_to=""):
 
     where = lambda i: nodes[i]["pos"] if i in nodes else [0, 0]
     song_n = place("HurricaneSongFolder", where(feeder("prompt")))
-    song_n["title"] = ("WATCHING HURRICANES - set song_path to %s" % where_to
-                       if where_to else
+    song_n["title"] = ("WATCHING HURRICANES - %s" % label if label else
                        "WATCHING HURRICANES - Song Folder (set song_path)")
     song_n["widgets_values"][4] = os.path.basename(os.path.abspath(song))
     aud_n = place("VHS_LoadAudio", where(feeder(a_slot)) if a_slot else [0, 0])
@@ -501,9 +500,16 @@ def main():
         # one graph per reference set, in that set's own folder: it carries only
         # the sheets those scenes contain, in the order their prompts number them
         sets = read_sets(song)
-        for folder, sheets in sets:
+        refs = read_refs(song)
+        for folder, sheets, scenes in sets:
+            # what the set holds, in words: the graph says which pictures it
+            # loads, this says whose they are and how many scenes use them
+            who = ", ".join(refs[n - 1][1].split("> ", 1)[-1].split(" (")[0]
+                            for n in sheets if n <= len(refs))
+            label = ("%s: %s | %d scene(s) | point song_path here"
+                     % (folder, who, scenes))
             ui, report = wrap_ui(json.loads(json.dumps(raw)), song, a, sheets,
-                                 folder)
+                                 label)
             out_ui = os.path.join(song, folder, set_graph_name(song, folder))
             with open(out_ui, "w", encoding="utf-8") as fh:
                 json.dump(ui, fh, indent=2)

@@ -11,7 +11,7 @@ DST="$KIT/songs/$NAME"; SRC="$DST/_source"
 [ -f "$AUDIO" ] || { echo "not found: $AUDIO"; exit 1; }
 
 EXT="${AUDIO##*.}"; case "$EXT" in "$AUDIO"|*/*) EXT=mp3 ;; esac
-mkdir -p "$SRC/refs"
+mkdir -p "$SRC" "$DST/refs"
 cp "$AUDIO" "$SRC/song.$EXT"
 
 # blocks come from another song if you name one, otherwise from templates/
@@ -49,8 +49,11 @@ cat > "$SRC/style_examples.txt" <<'EOF'
 # the prompt, because brand and show names do not reproduce reliably. Concrete
 # craft descriptions do.
 EOF
-cat > "$SRC/refs/__README.txt" <<'EOF'
-Reference images and clips. The filename decides what the reference IS and in
+cat > "$DST/refs/__README.txt" <<'EOF'
+Reference images and clips. They sit at the top of the song folder, not in
+_source, because they are the one input you wire into ComfyUI by hand.
+
+The filename decides what the reference IS and in
 which order H3 loads it, so stick to the schema:
 
   [NN_]char_<slug>.png     a character           -> <Picture n>
@@ -68,7 +71,7 @@ cat <<MSG
 scaffolded $DST  (blocks from $FROM)
 
   _source/song.$EXT
-  _source/refs/            drop reference images here, see refs/__README.txt
+  refs/                    drop reference images here, see refs/__README.txt
   _source/brief.txt        [style], [sound], [music] and one [subject] per
                            reference - the ONLY thing the prompts are built from
   _source/style_examples.txt   free notes on the look, distilled into [style]

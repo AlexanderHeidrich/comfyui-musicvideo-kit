@@ -8,7 +8,7 @@
 #   transcribe <song>          audio -> _source/transcript.*
 #   scenes     <song> [args]   -> _source/scenes.tsv. Uses drehbuch.txt when
 #                              there is one, else --uniform 10
-#   refs       <song>          read _source/refs/ -> _source/refs.json + H3 tags
+#   refs       <song>          read <song>/refs/ -> _source/refs.json + H3 tags
 #   shotlist   <song>          which reference images to make, and the prompts
 #   split      <song>          song -> scene_NN.mp3
 #   draft      <song> [--llm]  screenplay + lyrics -> _source/content.json
@@ -127,7 +127,7 @@ case "$CMD" in
       bash "$0" --native transcribe "$D"
     fi
     bash "$0" --native scenes "$D"
-    [ -d "$D/_source/refs" ] && bash "$0" --native refs "$D"
+    [ -d "$D/refs" ] && bash "$0" --native refs "$D"
     bash "$0" --native split "$D"
     bash "$0" --native draft "$D"
     bash "$0" --native build "$D" ;;

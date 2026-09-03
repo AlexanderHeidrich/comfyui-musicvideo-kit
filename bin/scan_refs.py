@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Read _source/refs/ and work out the H3 reference tags.
+"""Read <song>/refs/ and work out the H3 reference tags.
 
   scan_refs.py <song-dir>
 
@@ -26,7 +26,7 @@ NAME = re.compile(r"^(?:(\d+)[_-])?(%s)[_-](.+)$" % "|".join(KINDS), re.I)
 
 
 def scan(song):
-    refs = os.path.join(song, "_source", "refs")
+    refs = os.path.join(song, "refs")
     images, videos, skipped = [], [], []
     for f in sorted(os.listdir(refs)) if os.path.isdir(refs) else []:
         # __*.txt are this folder's own notes, not references
@@ -38,7 +38,7 @@ def scan(song):
             skipped.append(f)
             continue
         order, kind, slug = int(m.group(1) or 999), m.group(2).lower(), m.group(3)
-        item = {"file": "_source/refs/" + f, "kind": kind,
+        item = {"file": "refs/" + f, "kind": kind,
                 "slug": slug.replace("_", " ").replace("-", " ").strip(),
                 "order": order}
         (videos if ext.lower() in VID or kind == "video" else images).append(item)
