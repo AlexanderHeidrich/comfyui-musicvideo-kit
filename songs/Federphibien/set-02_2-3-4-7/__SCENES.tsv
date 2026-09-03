@@ -1,0 +1,11 @@
+scene	song_start	song_end	tl_frame	frames	duration	inner_cuts	continuity	audio	prompts	refs	lyrics
+23	01:21.667	01:26.833	2203	124	5.1667	-	-	23_into-the-down.mp3	23_into-the-down-v1.txt 23_into-the-down-v2.txt 23_into-the-down-v3.txt	2,3,4,7	Ich deck mich zu mit ihren Daunen
+24	01:24.167	01:29.333	2263	124	5.1667	-	hold	24_the-hen-shouts-him-down.mp3	24_the-hen-shouts-him-down-v1.txt 24_the-hen-shouts-him-down-v2.txt 24_the-hen-shouts-him-down-v3.txt	2,3,4,7	Ich halt sie aus, ihre verrückten Launen
+25	01:27.083	01:32.250	2333	124	5.1667	-	-	25_she-turns-her-head.mp3	25_she-turns-her-head-v1.txt 25_she-turns-her-head-v2.txt 25_she-turns-her-head-v3.txt	2,3,4,7	Sie dreht den Kopf …
+29	01:34.583	01:39.750	2513	124	5.1667	-	chain	29_she-walks-straight-past.mp3	29_she-walks-straight-past-v1.txt 29_she-walks-straight-past-v2.txt 29_she-walks-straight-past-v3.txt	2,3,4,7	(instrumental)
+30	01:35.833	01:41.000	2543	124	5.1667	-	-	30_her-walk.mp3	30_her-walk-v1.txt 30_her-walk-v2.txt 30_her-walk-v3.txt	2,3,4,7	Ihr Gang erinnert an Urzeit-Echsen
+34	01:50.000	01:55.167	2883	124	5.1667	-	-	34_she-stoops-down.mp3	34_she-stoops-down-v1.txt 34_she-stoops-down-v2.txt 34_she-stoops-down-v3.txt	2,3,4,7	Sie kommt näher, muss sich bücken.
+36	01:55.417	02:00.583	3013	124	5.1667	-	-	36_their-eyes-meet.mp3	36_their-eyes-meet-v1.txt 36_their-eyes-meet-v2.txt 36_their-eyes-meet-v3.txt	2,3,4,7	Jede Berührung schickt mich auf eine Reise
+39	02:07.292	02:12.458	3298	124	5.1667	-	-	39_running-for-the-door.mp3	39_running-for-the-door-v1.txt 39_running-for-the-door-v2.txt 39_running-for-the-door-v3.txt	2,3,4,7	die finden si…
+40	02:08.958	02:14.125	3338	124	5.1667	-	-	40_out-of-the-hen-house.mp3	40_out-of-the-hen-house-v1.txt 40_out-of-the-hen-house-v2.txt 40_out-of-the-hen-house-v3.txt	2,3,4,7	siiiiiihiiiisch
+42	02:15.625	02:22.208	3498	158	6.5833	-	-	42_stroking-her-feathers.mp3	42_stroking-her-feathers-v1.txt 42_stroking-her-feathers-v2.txt 42_stroking-her-feathers-v3.txt	2,3,4,7	Schleimige Federn große Augen

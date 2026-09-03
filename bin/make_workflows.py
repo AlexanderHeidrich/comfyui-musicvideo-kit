@@ -113,6 +113,69 @@ def read_refs(song):
     return out
 
 
+def read_sets(song):
+    """-> [(folder, [sheet numbers])] for the per-set folders `mvkit build` wrote.
+
+    Each of those folders is a song folder whose scenes all need the same sheets,
+    which is what lets a graph carry only those sheets and wire them in one fixed
+    order."""
+    out = []
+    for d in sorted(os.listdir(song)):
+        if not (d.startswith("set-") and os.path.isdir(os.path.join(song, d))):
+            continue
+        man = os.path.join(song, d, "__SCENES.tsv")
+        if not os.path.isfile(man):
+            continue
+        with open(man, encoding="utf-8") as fh:
+            rows = [l.rstrip("\n").split("\t") for l in fh if l.strip()]
+        col = rows[0].index("refs")
+        sheets = [[int(x) for x in re.split(r"[^0-9]+", r[col]) if x]
+                  for r in rows[1:]]
+        if not sheets or any(x != sheets[0] for x in sheets):
+            sys.exit("%s/__SCENES.tsv does not name one set of sheets for all its "
+                     "scenes - re-run `mvkit build`" % d)
+        out.append((d, sheets[0]))
+    if not out:
+        sys.exit("%s holds no set-* folder - run `mvkit build` first" % song)
+    return out
+
+
+OUTPUT_CLASSES = re.compile(r"^(Save|Preview|VHS_VideoCombine|SaveAudio|SaveVideo)",
+                            re.I)
+
+SONG_NODE_DEF = {
+    "type": "HurricaneSongFolder", "flags": {}, "order": 0, "mode": 0,
+    "properties": {"Node name for S&R": "HurricaneSongFolder"},
+    "size": [300, 150],
+    "inputs": [
+        {"name": "song_path", "type": "STRING", "widget": {"name": "song_path"}},
+        {"name": "scene_index", "type": "INT", "widget": {"name": "scene_index"}},
+        {"name": "variant", "type": "COMBO", "widget": {"name": "variant"}},
+        {"name": "out_subfolder", "type": "STRING",
+         "widget": {"name": "out_subfolder"}},
+    ],
+    "outputs": [{"name": n, "localized_name": n, "type": t, "links": []}
+                for n, t in (("prompt", "STRING"), ("audio_path", "STRING"),
+                             ("frames", "INT"), ("scene_count", "INT"),
+                             ("save_prefix", "STRING"))],
+    "widgets_values": ["", 1, "increment", "v1", ""],
+}
+
+AUDIO_NODE_DEF = {
+    "type": "VHS_LoadAudio", "flags": {}, "order": 0, "mode": 0,
+    "properties": {"Node name for S&R": "VHS_LoadAudio"}, "size": [280, 80],
+    "inputs": [
+        {"name": "audio_file", "type": "STRING", "widget": {"name": "audio_file"}},
+        {"name": "seek_seconds", "type": "FLOAT", "widget": {"name": "seek_seconds"}},
+        {"name": "duration", "type": "FLOAT", "widget": {"name": "duration"}},
+    ],
+    "outputs": [{"name": "audio", "localized_name": "audio", "type": "AUDIO",
+                 "links": []},
+                {"name": "duration", "localized_name": "duration", "type": "FLOAT",
+                 "links": []}],
+    "widgets_values": ["", 0.0, 0.0],
+}
+
 # UI-only inputs: they exist so the browser can draw an upload button and are not
 # part of what /prompt accepts
 UI_ONLY = ("IMAGEUPLOAD", "AUDIOUPLOAD", "AUDIO_UI", "VIDEOUPLOAD")
@@ -124,7 +187,7 @@ UI_ONLY = ("IMAGEUPLOAD", "AUDIOUPLOAD", "AUDIO_UI", "VIDEOUPLOAD")
 CONTROL_VALUES = ("fixed", "increment", "decrement", "randomize")
 
 
-def wrap_ui(ui, song, a):
+def wrap_ui(ui, song, a, sheets=None, where_to=""):
     """Put the song folder into a UI workflow, keeping its layout and groups.
 
     The API format has no positions and no groups, so going through it throws the
@@ -143,11 +206,17 @@ def wrap_ui(ui, song, a):
         sys.exit("no H3 node in that workflow (looked for %r and for a MiniMax node "
                  "with a `length` input)" % a.h3_class)
 
-    def feeder(name):
+    def feed(name):
+        """-> (link id, source node id, source socket) for one H3 input"""
         for i in (h3.get("inputs") or []):
             if i.get("name") == name and i.get("link") in links:
-                return links[i["link"]][1]
+                l = links[i["link"]]
+                return l[0], l[1], l[2]
         return None
+
+    def feeder(name):
+        f = feed(name)
+        return f[1] if f else None
 
     a_slot = audio_slot({i["name"]: 1 for i in (h3.get("inputs") or [])})
     displaced = {feeder("prompt"), feeder("length")}
@@ -188,7 +257,10 @@ def wrap_ui(ui, song, a):
 
     where = lambda i: nodes[i]["pos"] if i in nodes else [0, 0]
     song_n = place("HurricaneSongFolder", where(feeder("prompt")))
-    song_n["title"] = "WATCHING HURRICANES - Song Folder (set song_path)"
+    song_n["title"] = ("WATCHING HURRICANES - set song_path to %s" % where_to
+                       if where_to else
+                       "WATCHING HURRICANES - Song Folder (set song_path)")
+    song_n["widgets_values"][4] = os.path.basename(os.path.abspath(song))
     aud_n = place("VHS_LoadAudio", where(feeder(a_slot)) if a_slot else [0, 0])
     aud_n["title"] = "AUDIO - this scene's slice"
 
@@ -200,8 +272,10 @@ def wrap_ui(ui, song, a):
                  "node have drifted apart" % (n.get("type"), name))
 
     def connect(src, sname, dst, dname, typ):
+        wire(src, out_index(src, sname), dst, dname, typ)
+
+    def wire(src, si, dst, dname, typ):
         nonlocal lid
-        si = out_index(src, sname)
         for i in (dst.get("inputs") or []):
             if i.get("name") == dname:
                 i["link"] = lid
@@ -228,15 +302,49 @@ def wrap_ui(ui, song, a):
     for sv in saves:
         connect(song_n, "save_prefix", sv, "filename_prefix", "STRING")
 
-    # the sheets are constant per song: leave their loaders, retitle them
+    # The sheets stop feeding H3 directly. A picture H3 can see is a picture H3
+    # uses - the prompt cannot talk it out of one - so the router hands each
+    # scene only the sheets it contains, in the order the prompt numbers them.
     refs = read_refs(song)
     slots = image_slots({i["name"]: 1 for i in (h3.get("inputs") or [])})
-    retitled = 0
-    for k, slot in enumerate(slots):
-        src = feeder(slot)
-        if src in nodes and k < len(refs):
-            nodes[src]["title"] = refs[k][1]
-            retitled += 1
+    wired = [(slot, f) for slot, f in ((s_, feed(s_)) for s_ in slots)
+             if f and f[1] in nodes]
+    # sheet n is whatever feeds H3's nth image slot in the graph you saved, so the
+    # loaders have to be connected in the order __READ_ME.txt lists the sheets
+    if sheets is None:
+        # every sheet on every scene, straight into H3: the wiring as it was
+        for k, (slot, f) in enumerate(wired):
+            if k < len(refs):
+                nodes[f[1]]["title"] = refs[k][1]
+        kept, dropped = wired, []
+    else:
+        if max(sheets) > len(wired):
+            sys.exit("this set needs sheet %d, but only %d of H3's ref_image slots "
+                     "have an image connected in %s.\nConnect them all in ComfyUI, "
+                     "save the workflow again, and re-run this."
+                     % (max(sheets), len(wired), os.path.basename(a.raw)))
+        kept = [wired[n - 1] for n in sheets]
+        dropped = [w for w in wired if w not in kept]
+        stale = {f[0] for slot, f in wired}
+        for k, (slot, f) in enumerate(kept):
+            wire(nodes[f[1]], f[2], h3, slots[k], "IMAGE")
+            what = (refs[sheets[k] - 1][1].split("> ", 1)[-1]
+                    if sheets[k] <= len(refs) else "")
+            nodes[f[1]]["title"] = ("<Picture %d> - %s  [sheet %d]"
+                                    % (k + 1, what, sheets[k]))
+        # every slot past this set stays empty, and the loaders behind them go:
+        # a sheet H3 can see is a sheet H3 uses, whatever the prompt says
+        for slot in slots[len(kept):]:
+            for i in (h3.get("inputs") or []):
+                if i.get("name") == slot:
+                    i.pop("link", None)
+        ui["links"] = [l for l in ui["links"] if l[0] not in stale]
+        for n in ui["nodes"]:
+            for o in (n.get("outputs") or []):
+                o["links"] = [x for x in (o.get("links") or []) if x not in stale]
+        gone = {f[1] for slot, f in dropped
+                if not any(o.get("links") for o in (nodes[f[1]].get("outputs") or []))}
+        displaced |= gone
 
     keep = [n for n in ui["nodes"] if n["id"] not in displaced]
     ui["nodes"] = keep + [song_n, aud_n]
@@ -252,11 +360,17 @@ def wrap_ui(ui, song, a):
     ui["last_node_id"] = max(nid, ui.get("last_node_id", 0))
     ui["last_link_id"] = max(lid, ui.get("last_link_id", 0))
 
-    report = ["replaced %d node(s) that fed prompt/length/audio: %s"
+    report = ["%d node(s) gone - the prompt, length and audio feeders, plus the "
+              "sheet loaders this graph does not use: %s"
               % (len(displaced), ", ".join("%s %s" % (i, nodes[i].get("type"))
                                            for i in sorted(displaced) if i in nodes)),
-              "reference sheets left alone; %d loader(s) retitled with their tag"
-              % retitled,
+              ("%d sheet(s) wired as <Picture 1..%d>, %d loader(s) removed, "
+               "%d of H3's %d image slot(s) left empty"
+               % (len(kept), len(kept), len(dropped), len(slots) - len(kept),
+                  len(slots)))
+              if sheets is not None else
+              ("all %d reference sheet(s) left as they were, retitled with their "
+               "tag" % len(wired)),
               "save prefix driven on %d node(s)" % len(saves),
               "layout and %d group(s) kept" % len(ui.get("groups") or [])]
     return ui, report
@@ -306,7 +420,12 @@ def wf_upscale(song, a):
 # list: Federphibien.json renders, Federphibien-4x.json upscales
 def wf_names(song):
     name = os.path.basename(os.path.abspath(song))
-    return {"song": "%s.json" % name, "upscale": "%s-4x.json" % name}
+    return {"song": "%s.json" % name, "upscale": "%s-4x.json" % name,
+            "allsheets": "%s-allsheets.json" % name}
+
+
+def set_graph_name(song, folder):
+    return "%s-%s.json" % (os.path.basename(os.path.abspath(song)), folder)
 
 
 WORKFLOWS = ((None, wf_upscale, "upscale a folder of renders, no H3 in it"),)
@@ -332,15 +451,25 @@ def main():
     ap.add_argument("--from", dest="raw", metavar="RAW.json",
                     help="graft the song folder into this saved workflow instead "
                          "of building one - your own H3 ref2vid graph, layout kept")
+    ap.add_argument("--all-sheets", action="store_true",
+                    help="graft the pre-refsets wiring instead: every sheet on "
+                         "every scene. Needs `mvkit build --all-sheets` prompts.")
     ap.add_argument("--quiet", action="store_true")
     a = ap.parse_args()
 
     song = a.song.rstrip("/")
     if not os.path.isdir(song):
         sys.exit("no such song folder: %s" % song)
-    for old in LEGACY + (wf_names(song)["song"][:-5] + "-api.json",):
+    # the whole-song graph is gone: refsets/ holds one graph per set instead.
+    # -allsheets.json is not swept up - it is the pre-refsets wiring, on request.
+    for old in LEGACY + (wf_names(song)["song"],
+                         wf_names(song)["song"][:-5] + "-api.json"):
         if os.path.isfile(os.path.join(song, old)):
             os.remove(os.path.join(song, old))
+    # the graph you grafted from is kept, so a rebuild can re-graft on its own -
+    # `mvkit build` wipes refsets/ and everything in it, the set graphs included
+    kept = os.path.join(song, "_source", "workflow.json")
+    raw = None
     if a.raw:
         with open(a.raw, encoding="utf-8") as fh:
             raw = json.load(fh)
@@ -348,14 +477,46 @@ def main():
             sys.exit("that is not a saved workflow. In ComfyUI use Workflow -> Save "
                      "(or Export),\nnot Export (API): the API format carries no "
                      "layout and no groups and\ncannot be opened in the editor.")
-        ui, report = wrap_ui(raw, song, a)
-        out_ui = os.path.join(song, wf_names(song)["song"])
-        with open(out_ui, "w", encoding="utf-8") as fh:
-            json.dump(ui, fh, indent=2)
-        print("grafted     : %s" % out_ui)
-        for line in report:
-            print("  %s" % line)
-        return
+        if os.path.abspath(a.raw) != os.path.abspath(kept):
+            with open(kept, "w", encoding="utf-8") as fh:
+                json.dump(raw, fh, indent=2)
+            print("kept        : _source/workflow.json - every build re-grafts the "
+                  "set graphs from it")
+    elif os.path.isfile(kept):
+        with open(kept, encoding="utf-8") as fh:
+            raw = json.load(fh)
+    if raw is not None:
+        if a.all_sheets:
+            # the wiring as it was before the per-set graphs: every sheet on every
+            # scene. Only renderable against `mvkit build --all-sheets` prompts,
+            # which number every sheet of the song instead of the set's own.
+            ui, report = wrap_ui(raw, song, a)
+            out_ui = os.path.join(song, wf_names(song)["allsheets"])
+            with open(out_ui, "w", encoding="utf-8") as fh:
+                json.dump(ui, fh, indent=2)
+            print("grafted     : %s   (needs `mvkit build --all-sheets`)" % out_ui)
+            for line in report:
+                print("  %s" % line)
+            return
+        # one graph per reference set, in that set's own folder: it carries only
+        # the sheets those scenes contain, in the order their prompts number them
+        sets = read_sets(song)
+        for folder, sheets in sets:
+            ui, report = wrap_ui(json.loads(json.dumps(raw)), song, a, sheets,
+                                 folder)
+            out_ui = os.path.join(song, folder, set_graph_name(song, folder))
+            with open(out_ui, "w", encoding="utf-8") as fh:
+                json.dump(ui, fh, indent=2)
+            if a.raw:
+                print("grafted     : %s/%s" % (folder,
+                                                   os.path.basename(out_ui)))
+                print("  %s" % report[1])
+        if a.raw:
+            print("each graph  : %s" % report[0])
+            print("              %s, %s" % (report[2], report[3]))
+        else:
+            print("set graphs  : %d, re-grafted from _source/workflow.json"
+                  % len(sets))
 
     names = wf_names(song)
     for name, fn, what in WORKFLOWS:
@@ -370,8 +531,8 @@ def main():
             json.dump(g, fh, indent=2)
     if not a.quiet:
         print("workflows   : %s" % names["upscale"])
-        if not os.path.isfile(os.path.join(song, names["song"])):
-            print("              no render graph yet - wrap yours:")
+        if raw is None:
+            print("              no set graphs yet - graft yours once:")
             print("              ./mvkit workflows %s --from <your workflow.json>"
                   % os.path.basename(os.path.abspath(song)))
 

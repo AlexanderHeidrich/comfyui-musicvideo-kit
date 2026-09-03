@@ -1,0 +1,4 @@
+scene	song_start	song_end	tl_frame	frames	duration	inner_cuts	continuity	audio	prompts	refs	lyrics
+09	00:33.000	00:38.167	1035	124	5.1667	-	-	09_the-hen-pecking-grain.mp3	09_the-hen-pecking-grain-v1.txt 09_the-hen-pecking-grain-v2.txt 09_the-hen-pecking-grain-v3.txt	3,4,6	Sie sagt meine Augen sind zu groß
+11	00:38.542	00:43.708	1168	124	5.1667	-	hold	11_the-hen-turns-away.mp3	11_the-hen-turns-away-v1.txt 11_the-hen-turns-away-v2.txt 11_the-hen-turns-away-v3.txt	3,4,6	Sie hasst Amphibien, was ist da los
+90	-	-	-	226	9.4167	-	-	90_hen-profile-element.mp3	90_hen-profile-element-v1.txt 90_hen-profile-element-v2.txt 90_hen-profile-element-v3.txt	3,4,6	(instrumental)

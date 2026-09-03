@@ -27,13 +27,14 @@ watching_hurricanes_upscale.py - the pass afterwards. One node:
 It shares no code with the other file and there is no H3 in it. Kept separate so
 the upscale pass can be installed, changed or thrown away on its own.
 
-Only Hurricane Song Folder is needed for the normal job. The other three exist for
-building a prompt inside the graph instead of taking the finished one off disk.
+Point it at one of songs/<name>/set-*/, not at the song folder itself: each of
+those is a song folder whose scenes all need the same reference sheets, which is
+what lets a graph carry only those sheets. The song's __READ_ME.txt holds the
+work list of sets.
 
 Paths come out of these nodes as strings, because turning an image or an audio
 file into ComfyUI's own types needs torch and this file deliberately has no
-dependencies. Wire audio_path into a Load Audio (Path) and ref_1..ref_9 into
-image loaders that accept a path.
+dependencies. Wire audio_path into a Load Audio (Path).
 
 Which nodes to pick for the rest, and what your ComfyUI actually has installed:
 

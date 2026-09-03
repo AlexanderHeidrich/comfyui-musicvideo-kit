@@ -32,18 +32,22 @@ the tags written into the prompts stop matching.
 
 ```
 songs/Federphibien/
-  NN_title-v1.txt      a finished six-section H3 prompt. Paste as-is.
-  NN_title.mp3         the audio slice for that scene, shared by v1/v2/v3
-  __SCENES.tsv         scene, start, end, frames, duration, inner_cut, audio,
-                       prompts, lyrics  - one row per scene, tab separated
-  <song>.json          the render graph, yours with this folder grafted in
+  set-NN_<sheets>/     one folder per set of reference sheets - the scenes that
+                       need exactly those, and what renders them:
+    NN_title-v1.txt      a finished six-section H3 prompt. Paste as-is.
+    NN_title.mp3         the audio slice for that scene, shared by v1/v2/v3
+    __SCENES.tsv         scene, start, end, frames, duration, inner_cut, audio,
+                         prompts, refs, lyrics - one row per scene, tab separated
+    <song>-set-NN_*.json the render graph, yours with that set wired in
+  __SCENES.tsv         the same, for the whole song, saying which set each scene
+                       is in
   <song>-4x.json       the upscale pass afterwards
 ```
 
-`__SCENES.tsv` is the pairing, and `HurricaneSongFolder` reads it: one prompt,
-one slice and one frame count per scene, in one Run. That is the route this
-folder is built for, and `README.md` describes it. What follows is what to do if
-you will not install the node.
+A set folder's `__SCENES.tsv` is the pairing, and `HurricaneSongFolder` reads it:
+one prompt, one slice and one frame count per scene, one set per Run. That is the
+route these folders are built for, and `README.md` describes it. What follows is
+what to do if you will not install the node.
 
 ---
 

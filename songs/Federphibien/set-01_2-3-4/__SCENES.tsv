@@ -1,0 +1,12 @@
+scene	song_start	song_end	tl_frame	frames	duration	inner_cuts	continuity	audio	prompts	refs	lyrics
+10	00:36.458	00:41.625	1118	124	5.1667	-	-	10_the-hen-in-his-eyes.mp3	10_the-hen-in-his-eyes-v1.txt 10_the-hen-in-his-eyes-v2.txt 10_the-hen-in-his-eyes-v3.txt	2,3,4	[viel zu groß]
+26	01:28.333	01:33.500	2363	124	5.1667	-	-	26_reaching-behind-him.mp3	26_reaching-behind-him-v1.txt 26_reaching-behind-him-v2.txt 26_reaching-behind-him-v3.txt	2,3,4	... sie schaut mich an. Ich halt’s nicht aus.
+28	01:33.333	01:38.500	2483	124	5.1667	-	-	28_she-swallows-it.mp3	28_she-swallows-it-v1.txt 28_she-swallows-it-v2.txt 28_she-swallows-it-v3.txt	2,3,4	(instrumental)
+31	01:40.000	01:45.167	2643	124	5.1667	-	hold,chain	31_cartoon-hearts.mp3	31_cartoon-hearts-v1.txt 31_cartoon-hearts-v2.txt 31_cartoon-hearts-v3.txt	2,3,4	(instrumental)
+33	01:45.000	01:50.167	2763	124	5.1667	-	-	33_grain-on-his-back.mp3	33_grain-on-his-back-v1.txt 33_grain-on-his-back-v2.txt 33_grain-on-his-back-v3.txt	2,3,4	Ich leg mir Körner auf den Rücken
+35	01:52.917	01:58.083	2953	124	5.1667	-	hold,chain	35_she-pecks-him.mp3	35_she-pecks-him-v1.txt 35_she-pecks-him-v2.txt 35_she-pecks-him-v3.txt	2,3,4	Sie pickt zärtlich, ich quak leise
+37	01:58.958	02:04.833	3098	141	5.8750	-	-	37_the-hen-understands.mp3	37_the-hen-understands-v1.txt 37_the-hen-understands-v2.txt 37_the-hen-understands-v3.txt	2,3,4	Frosch und Huhn wie ungewöhnlich.
+38	02:04.583	02:09.750	3233	124	5.1667	-	-	38_onto-her-back.mp3	38_onto-her-back-v1.txt 38_onto-her-back-v2.txt 38_onto-her-back-v3.txt	2,3,4	Vogel und Amphibium
+41	02:10.417	02:16.292	3373	141	5.8750	-	-	41_imagine-our-children-again.mp3	41_imagine-our-children-again-v1.txt 41_imagine-our-children-again-v2.txt 41_imagine-our-children-again-v3.txt	2,3,4	Stell dir uns’re Kinder vooooor
+45	02:28.125	02:39.667	3798	277	11.5417	7.955	-	45_running-on.mp3	45_running-on-v1.txt 45_running-on-v2.txt 45_running-on-v3.txt	2,3,4	Nachkömmlinge von Frosch und Hennen
+47	02:46.250	02:51.417	4233	124	5.1667	-	hold	47_the-final-freeze.mp3	47_the-final-freeze-v1.txt 47_the-final-freeze-v2.txt 47_the-final-freeze-v3.txt	2,3,4	(instrumental)

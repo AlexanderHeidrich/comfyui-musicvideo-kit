@@ -1,0 +1,2 @@
+scene	song_start	song_end	tl_frame	frames	duration	inner_cuts	continuity	audio	prompts	refs	lyrics
+01	00:00.000	00:06.583	243	158	6.5833	-	chain	01_the-pond-from-above.mp3	01_the-pond-from-above-v1.txt 01_the-pond-from-above-v2.txt 01_the-pond-from-above-v3.txt	2,4,5,6	(instrumental)

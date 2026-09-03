@@ -96,7 +96,7 @@ which is these steps, each also runnable alone:
 ./mvkit refs       federphibien   # refs/            -> refs.json + the H3 tags
 ./mvkit split      federphibien   # song.mp3         -> scene_NN.mp3
 ./mvkit draft      federphibien   # screenplay+lyrics -> content.json
-./mvkit build      federphibien   # everything       -> the flat NN_*.txt files
+./mvkit build      federphibien   # everything       -> the set-*/ folders
 ./mvkit verify     federphibien   # measures the timing rather than trusting it
 ```
 
@@ -189,15 +189,29 @@ mirrors where they go. Two independent files, stdlib only:
 `./mvkit probe` asks a running server what it has and what to title what - useful
 after a node-pack update, not needed for the normal job.
 
-**Running the whole song is one press of Run.** Set `song_path`, set the control
-beside `scene_index` to `increment`, set the queue's **Batch count** to the number
-of scenes (the data rows in `__SCENES.tsv`), and press Run once - ComfyUI queues
-that many jobs and steps the index for you. Nothing to click in between. A batch
-count set too high raises rather than silently re-rendering the last scene.
+**A sheet the scene does not contain must not be connected.** A picture H3 can
+see is a picture H3 uses: "do not use `<Picture 5>`" in the prompt does not stop
+it turning up as the first frame. Since a saved graph cannot change how many links
+it has, the scenes are grouped by the set of sheets they need, and each set gets
+its own folder `set-NN_<sheets>/` and its own graph inside it. A prompt numbers the
+sheets of its own set, `<Picture 1>` first, and its graph loads them in exactly
+that order.
 
-The reference sheets are not driven per scene, because they are identical in every
-scene: their loaders keep their own filenames and are only retitled with their
-live tag. Only the prompt, the frame count and the audio slice change.
+**One set at a time.** Point `song_path` at `set-NN_.../`, set the control beside
+`scene_index` to `increment`, set the queue's **Batch count** to that folder's
+`scene_count`, press Run once, move to the next folder. `__READ_ME.txt` carries the
+work list. Each set folder is self-contained - prompts, mp3s and its own
+`__SCENES.tsv` - so moving on is one path change. A batch count set too high raises
+rather than silently re-rendering the last scene.
+
+The graph you grafted from is kept as `_source/workflow.json`, and every build
+re-grafts the set graphs from it - a build rewrites the set folders from scratch,
+so it has to.
+
+The wiring from before is still reachable: `mvkit build --all-sheets` writes the
+old prompts (every sheet on every scene, global numbering, absence stated in the
+ledger and believed) and `mvkit workflows <song> --from <graph> --all-sheets`
+grafts the graph that renders them.
 
 **Where the clips land.** Renders are not temporary - Save Video writes to
 `ComfyUI/output` and stays; it is Preview nodes that write to `temp` and get
@@ -313,13 +327,17 @@ order and feed the previous clip's last frame in as the next one's first frame.
 
 ```
 songs/federphibien/
-  __READ_ME.txt        what this folder is, in plain language, including a
-                       synopsis of the screenplay and how to render the folder
+  __READ_ME.txt        what this folder is, in plain language: a synopsis of the
+                       screenplay, how to render it, and the work list of sets
   __SCENES.tsv         scene, song_start, song_end, tl_frame, frames, duration,
-                       inner_cuts, continuity, audio, prompts, lyrics
-  NN_title-v1.txt      a paste-ready six-section H3 prompt
-  NN_title.mp3         the audio slice, shared by v1/v2/v3
-  <song>.json          the render graph - yours, with this folder grafted in
+                       inner_cuts, continuity, audio, prompts, refs, lyrics -
+                       audio and prompts say which set folder each scene is in
+  set-NN_<sheets>/     one folder per set of reference sheets, self-contained and
+                       ready to render: the scenes that need those sheets, their
+                       prompts, their mp3s and the graph that renders them
+    NN_title-v1.txt      a paste-ready six-section H3 prompt
+    NN_title.mp3         the audio slice, shared by v1/v2/v3
+    <song>-set-NN_*.json the graph, carrying only that set's sheets
   <song>-4x.json       the upscale pass afterwards, regenerated on every build
   _source/             every input; nothing here is meant to be copied out
 ```

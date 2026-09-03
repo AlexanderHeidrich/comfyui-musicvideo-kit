@@ -211,6 +211,39 @@ def word_pattern(term):
     return left + re.escape(term) + right
 
 
+def in_shot(item, here, aliases):
+    """whether this reference is connected at all for a shot. A character is in
+    it when the action names it; a place or a style board when it has no aliases
+    to miss with."""
+    if item["kind"] in SUBJECT_KINDS:
+        return item["tag"] in here
+    return item["tag"] in here or item["slug"].lower() not in aliases
+
+
+def scene_slots(refs, here, aliases, all_sheets=False):
+    """which reference images this scene hands H3, in slot order.
+
+    Only the sheets the shot contains are connected, so H3 numbers them 1..k and
+    the prompt uses those numbers, not refs.json's. Telling H3 in words to ignore
+    a picture it can see does not work - it turns up as the first frame - so the
+    only reliable way to keep a sheet out of a scene is not to connect it. The
+    scenes that share a set of sheets share a graph: see refsets/.
+
+    `all_sheets` is what the kit did before: every sheet on every scene, global
+    numbering, absence stated in the ledger and believed."""
+    imgs = (refs or {}).get("images", [])
+    src = [k for k, i in enumerate(imgs, 1)
+           if all_sheets or in_shot(i, here, aliases)]
+    local = {imgs[k - 1]["tag"]: "<Picture %d>" % n for n, k in enumerate(src, 1)}
+    for v in (refs or {}).get("videos", []):     # <Video n> is its own series
+        local[v["tag"]] = v["tag"]
+    return {"src": src, "local": local}
+
+
+SHORT_ABSENT = ("weak_reference - NOT in this shot. Do not draw it and do not let "
+                "its features reach anything else.")
+
+
 # Every published H3 guide puts the prompt limit at 7,000 characters, so a
 # prompt carries only the subjects the scene contains, bound the way the guide
 # binds them, and says in one line which references it is not using.
@@ -221,7 +254,6 @@ SHORT = {
     "loc": "partially_preserved - the layout, architecture and palette of that place.",
     "video": "weak_reference - movement and rhythm only.",
 }
-SHORT_ABSENT = "weak_reference - NOT in this shot. Do not draw it and do not let its features reach anything else."
 
 
 def read_brief(src):
@@ -251,33 +283,41 @@ def read_brief(src):
     return out
 
 
-def prompt_for(c, cam_block, action, brief, refs, here, aliases, prefix, music):
-    """one variant of one scene, built to fit inside the documented prompt length"""
+def prompt_for(c, cam_block, action, brief, refs, here, aliases, prefix, music,
+               slots):
+    """one variant of one scene, built to fit inside the documented prompt length.
+
+    The tags are `slots`, not refs.json: a scene only gets the sheets it contains
+    and H3 renumbers what it is handed."""
     items = (refs or {}).get("images", []) + (refs or {}).get("videos", [])
-    subs, defs, unused, ret = {}, [], [], []
+    loc = slots["local"]
+    subs, defs, ret = {}, [], []
     for i in items:
         if i["kind"] in SUBJECT_KINDS and i["tag"] in here:
             subs[i["tag"]] = "<Subject %d>" % (len(subs) + 1)
+    absent = []
     for i in items:
-        tag, slugk = i["tag"], i["slug"].lower()
-        text = brief["subjects"].get(slugk)
-        if tag in subs:
+        tag = loc.get(i["tag"])
+        if not tag:                     # not connected for this scene at all
+            continue
+        if not in_shot(i, here, aliases):
+            absent.append(tag)          # connected anyway: --all-sheets
+            continue
+        text = brief["subjects"].get(i["slug"].lower())
+        if i["tag"] in subs:
+            sub = subs[i["tag"]]
             text = text or "{S} is %s, shown in {P}." % i["slug"]
-            defs.append(text.replace("{S}", subs[tag]).replace("{P}", tag))
-            ret.append("%s (%s): %s" % (tag, subs[tag], SHORT[i["kind"]]))
-        elif i["kind"] in SUBJECT_KINDS:
-            unused.append(tag)
-        elif tag in here or slugk not in aliases:
+            defs.append(text.replace("{S}", sub).replace("{P}", tag))
+            ret.append("%s (%s): %s" % (tag, sub, SHORT[i["kind"]]))
+        else:
             # a place or a style board: no <Subject n>, and only the place this
             # shot is set in - the other one is 700 characters of nothing
             if text:
                 defs.append(text.replace("{P}", tag))
             ret.append("%s: %s" % (tag, SHORT.get(i["kind"], "partially_preserved.")))
-        else:
-            unused.append(tag)
-    if unused:
+    if absent:
         # only in the ledger: subject_definitions defines what IS there
-        ret.append("%s: %s" % (", ".join(unused), SHORT_ABSENT))
+        ret.append("%s: %s" % (", ".join(absent), SHORT_ABSENT))
     tag = (refs or {}).get("scene_audio_tag")
     if tag:
         ret.append("%s: partially_copy - reused as the audience-only score." % tag)
@@ -298,6 +338,102 @@ def prompt_for(c, cam_block, action, brief, refs, here, aliases, prefix, music):
     # no indent: the section name on its own line is the only delimiter, and two
     # spaces per line is ~120 characters of the 7,000 spent on nothing
     return "\n\n".join("%s\n%s" % (k, v.strip()) for k, v in body) + "\n"
+
+
+def reclaim_slices(song):
+    """Bring the audio slices home out of the set folders and drop those folders.
+
+    A rebuild can regroup the scenes, so the sets are written from scratch every
+    time; the slices are the one thing in them that `mvkit split` produced and
+    cannot be regenerated from the inputs alone."""
+    back = 0
+    for d in sorted(os.listdir(song)):
+        p = os.path.join(song, d)
+        if not (d.startswith("set-") and os.path.isdir(p)):
+            continue
+        for f in sorted(os.listdir(p)):
+            if f.endswith(".mp3") and not os.path.exists(os.path.join(song, f)):
+                os.replace(os.path.join(p, f), os.path.join(song, f))
+                back += 1
+        shutil.rmtree(p, ignore_errors=True)
+    return back
+
+
+def write_refsets(song, name, sets, refs):
+    """songs/<name>/set-* - one self-contained folder per reference set.
+
+    A per-set graph carries only the sheets that set contains, wired straight
+    into H3 in the order its prompts number them: nothing is padded, nothing is
+    connected that the scene does not use, and there is no mask to keep in step
+    with the graph. The price is one graph per set instead of one per song.
+
+    Each folder is a song folder in its own right - Hurricane Song Folder points
+    at it and batches that set - and carries its own manifest, its prompts and its
+    audio slices, so switching sets is dropping a different folder path into the
+    same node."""
+    order = sorted(sets.items(), key=lambda kv: (-len(kv[1]), kv[0]))
+    index = []
+    for k, (src, scenes) in enumerate(order, 1):
+        folder = "set-%02d_%s" % (k, "-".join(str(x) for x in src))
+        d = os.path.join(song, folder)
+        os.makedirs(d)
+        man = [list(MANIFEST_HEAD)]
+        for sc in scenes:
+            for fn, text in sc["prompts"]:
+                open(os.path.join(d, fn), "w", encoding="utf-8",
+                     newline="\n").write(text)
+            row = list(sc["row"])
+            mp3 = row[MANIFEST_HEAD.index("audio")]
+            if os.path.isfile(os.path.join(song, mp3)):
+                os.replace(os.path.join(song, mp3), os.path.join(d, mp3))
+            man.append(row)
+            # the song's own manifest says which folder that scene ended up in
+            for col in (MANIFEST_HEAD.index("prompts"), MANIFEST_HEAD.index("audio")):
+                sc["row"][col] = " ".join("%s/%s" % (folder, x)
+                                          for x in sc["row"][col].split())
+        with open(os.path.join(d, "__SCENES.tsv"), "w", encoding="utf-8",
+                  newline="\n") as fh:
+            for row in man:
+                fh.write("\t".join(row) + "\n")
+        index.append((folder, src, [sc["scene"] for sc in scenes]))
+
+    return index
+
+
+def refsets_readme(name, index):
+    lines = ["ONE FOLDER AND ONE GRAPH PER REFERENCE SET", "",
+             "Every scene in one of these folders is handed exactly the same",
+             "reference sheets, so a graph for it needs only those sheets and needs",
+             "them in one fixed order. That is the whole point: no sheet is",
+             "connected that the scene does not contain, and <Picture 1> in a",
+             "prompt is the first sheet the graph loads.",
+             "",
+             "You render a song by working through these folders, one graph each.",
+             "Each folder IS a song folder and carries everything it needs - the",
+             "prompts, the mp3s and its own __SCENES.tsv - so switching sets is",
+             "pointing song_path at the next folder. Set scene_index to increment",
+             "and the queue's batch count to that folder's scene_count.",
+             "", "The graphs are written by", "",
+             "    ./mvkit workflows %s --from <your saved workflow.json>" % name,
+             "", "which keeps your sampler, loaders and layout and throws out the",
+             "image loaders a set does not use.", "",
+             "WORK LIST - the graph in each folder is named after it", "",
+             "%-3s %-26s %-14s %-6s %s" % ("", "folder", "sheets", "scenes",
+                                           "which"), ""]
+    for k, (folder, src, scenes) in enumerate(index, 1):
+        lines.append("%-3s %-26s %-14s %-6d %s"
+                     % ("[ ]", folder, ",".join(str(x) for x in src),
+                        len(scenes), " ".join(scenes)))
+    lines += ["",
+              "`scenes` is the batch count for that folder, and the node's",
+              "scene_count output says the same thing - use that one.",
+              "",
+              "The sheet numbers are the ones listed above, in that order. A prompt",
+              "numbers them 1..n over its own set: in a set of sheets 2,4,7 the",
+              "prompts say <Picture 1>, <Picture 2>, <Picture 3>, and that set's",
+              "graph loads them in exactly that order. That is why a set folder and",
+              "its graph belong together and are not interchangeable."]
+    return lines
 
 
 def summary_prefix(refs):
@@ -394,6 +530,11 @@ def cuts_of(r):
 
 FPS = 24            # H3 renders at 24 fps regardless of the screenplay's own rate
 LIMIT = 7000        # the prompt length every published H3 guide documents
+H3_IMAGES = 9       # reference image slots the node has
+
+MANIFEST_HEAD = ("scene", "song_start", "song_end", "tl_frame", "frames",
+                 "duration", "inner_cuts", "continuity", "audio", "prompts",
+                 "refs", "lyrics")
 
 SECTIONS = ("subject_definitions", "summary", "retention_analysis",
             "detailed_description", "overall_soundscape", "non_diegetic_music")
@@ -410,7 +551,13 @@ SILENT_MUSIC = ("There is NO music in this clip. The song has not started yet. L
 
 
 def main():
-    song = sys.argv[1].rstrip("/") if len(sys.argv) > 1 else "."
+    args = [a for a in sys.argv[1:] if not a.startswith("--")]
+    flags = {a for a in sys.argv[1:] if a.startswith("--")}
+    unknown = flags - {"--all-sheets"}
+    if unknown:
+        sys.exit("unknown option(s): %s  (only --all-sheets)" % " ".join(unknown))
+    all_sheets = "--all-sheets" in flags
+    song = args[0].rstrip("/") if args else "."
     name = os.path.basename(os.path.abspath(song))
     SRC = os.path.join(song, "_source")
     R = lambda p: strip_comments(open(os.path.join(SRC, p), encoding="utf-8").read())
@@ -469,16 +616,32 @@ def main():
     for f in os.listdir(song):                      # clear previous generated output
         if re.match(r"^\d\d_.*-v\d\.txt$", f) or f in ("ALL_scenes.txt", "__SCENES.tsv"):
             os.remove(os.path.join(song, f))
-    for d in ("variants", "__batch"):        # __batch fed the node-pack route
+    for d in ("variants", "__batch", "refsets"):   # __batch fed the node-pack route
         shutil.rmtree(os.path.join(song, d), ignore_errors=True)
+    reclaimed = reclaim_slices(song)
+
+    # presence first, for every scene: the widest one decides how many ref_image
+    # slots the graph carries, and that number is what the local tags count to
+    heres = {}
+    for r in rows:
+        c = content[r["scene"]]
+        declared = c.get("cast")
+        heres[r["scene"]] = present_tags(
+            refs, c["title"] + " " + action_of(c, cuts_of(r)), aliases,
+            None if declared is None else {s.lower() for s in declared})
+    widest = max([len(scene_slots(refs, h, aliases, all_sheets)["src"])
+                  for h in heres.values()] or [0])
+    if widest > H3_IMAGES:
+        sys.exit("scene(s) need %d reference sheets at once; H3 takes %d.\n"
+                 "Split a scene or drop a sheet." % (widest, H3_IMAGES))
 
     per_scene_cams = 0
     oversize = []
     bad_cam = set()
     cast = []
     longest = {}
-    manifest = [["scene", "song_start", "song_end", "tl_frame", "frames", "duration",
-                 "inner_cuts", "continuity", "audio", "prompts", "lyrics"]]
+    manifest = [list(MANIFEST_HEAD)]
+    sets = {}
     n_var = 0
 
     for r in rows:
@@ -488,10 +651,9 @@ def main():
         cut = cuts[0] if cuts else 0.0
         action = action_of(c, cuts)
         sl = slug(c["title"])
-        declared = c.get("cast")
-        here = present_tags(refs, c["title"] + " " + action, aliases,
-                            None if declared is None
-                            else {s.lower() for s in declared})
+        here = heres[r["scene"]]
+        slots = scene_slots(refs, here, aliases, all_sheets)
+        set_prompts = []
         cast.append((n, here))
         RF, PF = (mute, prefix_q) if silent else (refs, prefix)
 
@@ -505,9 +667,10 @@ def main():
                 continue
             cam = camera_sentence(cam, bad_cam)
             mus = SILENT_MUSIC if silent else brief["music"]
-            text = prompt_for(c, cam, action, brief, RF, here, aliases, PF, mus)
-            open(os.path.join(song, "%02d_%s-%s.txt" % (n, sl, tag)),
-                 "w", encoding="utf-8", newline="\n").write(text)
+            text = prompt_for(c, cam, action, brief, RF, here, aliases, PF, mus,
+                              slots)
+            # the prompts live in the set folder that renders them, once
+            set_prompts.append(("%02d_%s-%s.txt" % (n, sl, tag), text))
             longest[tag] = max(longest.get(tag, 0), len(text))
             if len(text) > LIMIT:
                 oversize.append(("%02d" % n, tag, len(text), text))
@@ -522,12 +685,10 @@ def main():
             ",".join("%.3f" % x for x in cuts) or "-",
             r.get("continuity") or "-", "%02d_%s.mp3" % (n, sl),
             " ".join("%02d_%s-%s.txt" % (n, sl, t) for t in tags),
+            ",".join(str(k) for k in slots["src"]) or "-",
             c["lyrics"] or "(instrumental)"])
-
-    with open(os.path.join(song, "__SCENES.tsv"), "w", encoding="utf-8",
-              newline="\n") as fh:
-        for row in manifest:
-            fh.write("\t".join(row) + "\n")
+        sets.setdefault(tuple(slots["src"]), []).append(
+            {"scene": "%02d" % n, "row": manifest[-1], "prompts": set_prompts})
 
     # An element scene exists only in content.json, so split_audio never sees it
     # and it would be the one row of the manifest with no audio - which is exactly
@@ -574,6 +735,14 @@ def main():
     if os.path.isdir(adir) and not os.listdir(adir):
         os.rmdir(adir)
 
+    # the sets last: they take the prompts and the finished slices with them, and
+    # rewrite the song manifest to say which folder each scene now lives in
+    refsets = write_refsets(song, name, sets, refs) if refs else []
+    with open(os.path.join(song, "__SCENES.tsv"), "w", encoding="utf-8",
+              newline="\n") as fh:
+        for row in manifest:
+            fh.write("\t".join(row) + "\n")
+
     total = sum(float(r["duration"]) for r in rows)
     sung = [r for r in rows if str(r.get("start", "")).strip() not in ("", "-")]
     span = max(float(r["end"]) for r in sung) - min(float(r["start"]) for r in sung)
@@ -586,7 +755,9 @@ def main():
                                           for l in synopsis.splitlines()] + \
                   ["", "-" * 74, ""]
     readme += [
-              "Every scene is one MiniMax H3 render. Files are paired by prefix:", "",
+              "Every scene is one MiniMax H3 render. The scenes live in the set-*",
+              "folders, grouped by the reference sheets they need, and inside one of",
+              "those the files are paired by prefix:", "",
               "  NN_title.mp3      the exact window of the song for that scene",
               "  NN_title-v1.txt   the director's shot",
               "  NN_title-v2.txt   other angle, medium",
@@ -621,8 +792,19 @@ def main():
               "markup, nothing to strip. Paste one in as the prompt exactly as it is.",
               "",
               "  __SCENES.tsv      frame count, timing and pairing for every scene",
+              "                    of the whole song, and which set folder each one",
+              "                    is in",
               "", "References to load, in this order:", ""]
     readme += ["  " + l for l in rlines]
+    if refsets:
+        readme += ["",
+                   "  Those are the sheet numbers, not the tags a scene uses. A scene",
+                   "  carries only the sheets it contains - the `refs` column of",
+                   "  __SCENES.tsv says which - and H3 numbers what it is handed, so",
+                   "  <Picture 1> means something different from set to set.",
+                   "", "-" * 74, ""]
+        readme += refsets_readme(name, refsets)
+        readme += ["", "-" * 74, ""]
     chained = [(r, content[r["scene"]]) for r in rows
                if "chain" in (r.get("continuity") or "")]
     if chained:
@@ -726,6 +908,25 @@ def main():
           % (per_scene_cams, len(rows) - per_scene_cams))
     print("manifest    : __SCENES.tsv")
     if refs and refs.get("images"):
+        if reclaimed:
+            print("slices      : %d brought back out of the old set folders"
+                  % reclaimed)
+        if all_sheets:
+            print("ref sets    : --all-sheets, so every scene carries all %d sheets"
+                  % widest)
+            print("              and the tags are global. That is the pre-refsets")
+            print("              build, and %s-allsheets.json renders it." % name)
+        else:
+            print("ref sets    : %d, widest %d sheet(s). A scene carries only the"
+                  % (len(refsets), widest))
+            print("              sheets it contains, so its prompt numbers them")
+            print("              1..n over the set - the work list is __READ_ME.txt")
+        for folder, src, scs in refsets[:6]:
+            print("  %-26s %-14s %2d scene(s)"
+                  % (folder, ",".join(str(x) for x in src), len(scs)))
+        if len(refsets) > 6:
+            print("  ... %d more; the work list is in __READ_ME.txt"
+                  % (len(refsets) - 6))
         drawn = {}
         for n, here in cast:
             for t in here:
@@ -743,15 +944,15 @@ def main():
                 missing.append(i["slug"])
         if missing:
             print("! never detected in any scene: %s" % ", ".join(missing))
-            print("  Every scene will tell H3 not to draw them. Add the English words")
+            print("  No scene will ever be handed those sheets. Add the English words")
             print("  for them to _source/refs/__ALIASES.txt as `<slug>: word, word`.")
         empty = ["%02d" % n for n, here in cast if not here]
         if empty:
             print("! %d scene(s) name no character at all: %s"
                   % (len(empty), ", ".join(empty[:12])
                      + (" ..." if len(empty) > 12 else "")))
-            print("  Those prompts tell H3 that every character is absent. Name who")
-            print("  is in the shot in the action, or give the scene a \"cast\" list.")
+            print("  Those scenes are handed no character sheet at all. Name who is")
+            print("  in the shot in the action, or give the scene a \"cast\" list.")
     if foreign:
         print("! %d scene(s) still read as German, not English shot language: %s"
               % (len(foreign), ", ".join(foreign[:12]) + (" ..." if len(foreign) > 12 else "")))

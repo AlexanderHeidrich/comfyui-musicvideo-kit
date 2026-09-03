@@ -8,10 +8,31 @@ RENDERING THIS FOLDER IN COMFYUI
   arrives here is already paired: one prompt and one slice per scene, with the
   frame count each scene must be rendered at.
 
-  THE WORKFLOWS IN THIS FOLDER
+  YOU RENDER FROM THE set-* FOLDERS
 
-    {song}.json        the render. YOUR H3 graph with this folder wired in, your
-                       layout and groups kept. Open this one.
+    A picture H3 can see is a picture H3 uses. "Do not use <Picture 5>" in the
+    prompt does not stop it turning up as the first frame, so a sheet a scene does
+    not contain must not be connected at all - and a saved graph cannot change how
+    many links it has from scene to scene. So the scenes are grouped by the set of
+    sheets they need, and each set gets its own folder and its own graph:
+
+      set-NN_<sheets>/                  one folder per set, self-contained:
+        <this song>-set-NN_<sheets>.json  the graph, carrying only those sheets
+        __SCENES.tsv                      only that set's scenes
+        NN_title-v1/v2/v3.txt             their prompts
+        NN_title.mp3                      their slices
+
+    The work list at the end of this file says which set, how many scenes and
+    which scenes. Work through it folder by folder.
+
+    A prompt numbers the sheets of its own set - <Picture 1> is the first sheet
+    ITS graph loads, not sheet 1 of the song - so a folder and its graph belong
+    together and cannot be mixed with another set's.
+
+  THE WORKFLOWS
+
+    set-*/{song}-set-*.json   the renders, one per set. Open one, point
+                       song_path at the folder it sits in, run, move on.
     {song}-4x.json     the upscale pass afterwards. No H3 in it.
 
     Nothing here invents a render graph. The H3 node returns `positive` and
@@ -22,21 +43,30 @@ RENDERING THIS FOLDER IN COMFYUI
 
       ./mvkit workflows {song} --from <that file>
 
-    and it grafts this folder in: your loaders, sampler, scheduler, LoRA switches,
-    resolution and Save node all stay, and only four things get rewired -
-    `prompt`, `length`, `ref_audios.ref_audio_0` and your Save node's
-    `filename_prefix`. The reference sheets are left completely alone, because
-    they are identical in every scene of the song; their loaders only get retitled
-    with their live tag, e.g. "<Picture 3> das huhn (char)".
+    and it writes ONE GRAPH PER SET from it. Your loaders, sampler, scheduler,
+    LoRA switches, resolution and Save node all stay; rewired are `prompt`,
+    `length`, `ref_audios.ref_audio_0` and your Save node's `filename_prefix`, and
+    the image loaders a set does not need are removed. The rest are retitled with
+    the number the prompts use, e.g. "<Picture 2> - das huhn (char)  [sheet 3]".
 
-    ONE NODE, FOUR OUTPUTS. Hurricane Song Folder hands out only what changes from
-    scene to scene:
+    Connect the sheets in the order __READ_ME.txt lists them before you save: that
+    order is how the graft knows which loader is which sheet.
+
+    The graph you grafted from is kept as _source/workflow.json, and every
+    `mvkit build` re-grafts all the set graphs from it - which it has to, because
+    a build rewrites the set folders from scratch. Change your graph, save it,
+    run `mvkit workflows ... --from` once more.
+
+    ONE NODE. Hurricane Song Folder hands out what changes from scene to scene:
 
       prompt        the finished six-section prompt for this scene
       audio_path    this scene's slice, for a Load Audio (Path)
       frames        the frame count, straight onto H3's `length`
       scene_count   what to set the queue's batch count to
       save_prefix   "<song>/NN_slug-vN", so renders arrive named and grouped
+
+    The renders of every set land in the same output folder, named after the
+    scene, so the song comes back together on its own.
 
     NO ABSOLUTE PATHS ARE WRITTEN. ComfyUI usually runs somewhere else than this
     kit, so `song_path` is left EMPTY and the node is titled to say so. Set it once
@@ -49,8 +79,8 @@ RENDERING THIS FOLDER IN COMFYUI
     it took down the first job of a batch run. So the batch is simply every scene:
     no special cases, no bypassing.
 
-    For the next song you need not wrap again - copy this file and change
-    `song_path`.
+    For the next set you need not graft again - the graphs are already written.
+    Open the next one and point it at its own folder.
 
   WHICH WEIGHTS GO WHERE
 
@@ -86,15 +116,13 @@ RENDERING THIS FOLDER IN COMFYUI
 
   RUNNING THE WHOLE SONG - one press of Run
 
-    1. set `song_path` to where this folder lives on the ComfyUI machine
+    1. set `song_path` to where that SET folder lives on the ComfyUI machine
+       (set-NN_..., not this folder)
     2. click the arrows beside `scene_index` and set its control to `increment`
     3. set the queue's **Batch count** (the number next to Run, not a widget) to
-       the node's `scene_count` output. That is NOT the number of rows in
-       __SCENES.tsv: `include` defaults to "scenes with audio", which leaves out
-       scene 00 and anything numbered 90+ because they have no window of the song
-       and an audio loader wired to audio_path would throw on them. Those are
-       rendered separately - set `include` to "only scenes without audio" and
-       bypass the audio loader (Ctrl+B) for that short run.
+       that folder's `scene_count` output - the number of scenes in THAT SET, not
+       in the song. Every scene has audio, silence included, so there are no
+       special cases to leave out.
     4. press Run ONCE
 
     You see each result as it lands, not at the end. Every queued job is its own
@@ -107,20 +135,21 @@ RENDERING THIS FOLDER IN COMFYUI
     than a silent re-render of the last scene, so getting it wrong costs you a
     message and not a night.
 
-    The reference sheets are NOT driven per scene - they are the same in every
-    scene, so their loaders keep their own filenames and are only retitled with
-    their live tag. Only the prompt, the frame count and the audio slice change.
+    Within one set folder the reference sheets never change - that is what a set
+    is. Only the prompt, the frame count and the audio slice change from scene to
+    scene, which is exactly what the node hands out.
 
   WHY NOT ONE BATCH FOR EVERYTHING
 
     H3 only accepts lengths where frames % 17 == 5 and there is one `length` per
     queue run, so in-graph batching over a fixed list needs one run per frame
     count. The Hurricane node sets the length per scene instead, which is why it
-    manages the whole song in one pass. See docs/comfyui-batch.md for why core
+    manages a whole set in one pass. See docs/comfyui-batch.md for why core
     ComfyUI cannot do it alone.
 
-  Scene 00 and any 90+ scene have no audio - the Vorspann and the compositing
-  elements. They get a slice of silence so one graph still renders them all.
+  Scene 00 and any 90+ scene have no window of the song - the Vorspann and the
+  compositing elements. They get a slice of silence, so they render like any other
+  scene in whichever set they belong to.
 
   UPSCALING, AFTERWARDS - __workflow_upscale.json
 

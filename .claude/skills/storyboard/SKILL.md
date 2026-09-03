@@ -131,12 +131,17 @@ skill before handing over. The build only measures; that skill decides which tex
 to shorten and rewrites it.
 
 Report: scene count, the span of song covered, which scenes were padded or
-split, the reference tags, and where the deliverable is. Point at
-`songs/<name>/__READ_ME.txt`, and at `docs/comfyui-batch.md` if they ask how to
-render a whole song rather than one scene.
+split, the reference tags, how many reference sets the scenes fell into, and
+where the deliverable is. Point at `songs/<name>/__READ_ME.txt` - it carries the
+work list of `set-*/` folders, which is what the user renders - and at
+`docs/comfyui-batch.md` if they ask how to render a whole song rather than one
+scene.
 
-The generated `NN_*.txt` are finished six-section H3 prompts - no `#` comments,
-no markup, nothing to strip. Do not add any back.
+The generated `NN_*.txt` live in the `set-*/` folder that renders them and are
+finished six-section H3 prompts - no `#` comments, no markup, nothing to strip.
+Do not add any back. A prompt numbers the sheets of its own set, so `<Picture 1>`
+means different things in different sets; that is deliberate, because H3
+renumbers whatever it is actually handed.
 
 ## Rules that break renders if you get them wrong
 

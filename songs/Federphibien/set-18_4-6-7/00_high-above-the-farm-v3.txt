@@ -1,0 +1,65 @@
+subject_definitions
+<Picture 1> is a colour and construction board: read the palette, the line
+weight and the way shading grades inside the line off it. It is never a thing
+in the scene and is never drawn.
+
+<Picture 2> is the pond, a background painting in which nothing is a subject.
+Out from the water: a calm flat pale green wash skinned with duckweed, ripples
+as thin concentric ink rings; lily pads with red-brown outlines, dark green
+centres and one white glint each; cattails at both edges of frame as
+near-black silhouettes with no interior detail; a bank of dry mud cracked into
+plates; a band of tall pale grass; a leaning chicken-wire fence on rough
+posts, sagging, torn and worn under into a gap a frog can pass; behind it to
+the right the coop with its ridged corrugated tin roof; far off the farmhouse
+and cow barn, pale with distance. The pond is 3 m across, the farmyard 40 m,
+and it is 5 m from the bank to the hen house. The fence and the tin roof are
+in every shot that holds the far bank, at any distance, from any angle,
+including straight down.
+
+<Picture 3> is the hen house interior painting and nothing in it is a subject:
+tall walls of green-painted vertical timber boarding framed by heavy
+warm-brown posts and beams, one horizontal rail across the wall at a third of
+its height, an ochre bare-earth floor, a big heap of grey-white down banked
+against the left wall with loose feathers on the floor and drifting in the
+air, a straw nesting shelf high under the roof with eggs on it, two black
+cables strung across with one bare bulb hanging off a sagging one, and a
+doorway to the right in a brown timber frame filled with flat blown-out
+daylight. Never corrugated tin inside. 3.5 m to the ridge, so the wall runs
+far above the hen and the hen far above the frog.
+
+summary
+[reference generation] Before the song. The air at the altitude of a low-flying aircraft, out over open summer farmland.
+
+retention_analysis
+<Picture 1>: attribute_transfer - palette, line weight and shading only. Never drawn.
+<Picture 2>: partially_preserved - the layout, architecture and palette of that place.
+<Picture 3>: partially_preserved - the layout, architecture and palette of that place.
+
+detailed_description
+Hand-drawn 2D television animation: clean bold black ink outlines over flat
+colour, softly airbrushed darker toward the rim of each form and where forms
+overlap. No hard-edged cel shadow shapes, no watercolour bloom. One hard white
+glint on every wet rounded surface. High-key - the black line is the only real
+dark. A clear bright summer day, warm sunlight from one fixed direction high
+and left, short soft warm shadows, clean blue sky with scattered high
+fair-weather cloud, no overcast and no rain.
+Palette: leaf green over pale green-white water, sage and olive land, dusty
+liver brown, straw, cream. Red only on a comb and a wattle. Limited animation on twos
+with strong held poses. Faint paper tooth under the paint.
+Output clean and sharp: no film grain, video noise, VHS softness, scanlines,
+chroma bleed, gate weave, dust, vignetting, bloom, lens effects or on-screen text.
+
+[Shot 1] Insert on one cloud top passing, close enough that its flat lit shoulder and cool underside fill most of the frame, with the field pattern small and sharp through the gap beside it. The camera holds a static shot.
+
+Before the song. The air at the altitude of a low-flying aircraft, out over open summer farmland. Scattered white fair-weather clouds stand at this height and below, drifting slowly past, their tops flat-lit and their undersides a cool grey-green, and the land shows through the gaps between them: fields in pale sage and olive rectangles, a dirt track ruled across them, hedge lines, one row of trees. In one of those gaps sits a single farm, small enough to cover with a thumbnail - the farmhouse, the cow barn, the chicken coop with its ridged corrugated tin roof, the chicken-wire fence ruled right around the yard, and at the bottom corner of the yard a pond barely three metres across, a dark green oval the size of a lentil at this distance. Nothing on the farm is large enough to read from up here: no animal and no person resolves, and nothing down there moves. The clouds keep passing, the farm stays where it is, and the ground never comes any closer.
+
+overall_soundscape
+A working summer farm, quiet and constant under everything: wet plops, crickets,
+the low mutter of hens off frame, corrugated tin ticking in the heat, one distant
+tractor that never arrives. Flies. No cartoon sound effects of any kind - no
+boings, no slide whistles, no comedy impacts. The frog's croaks and the hen's
+clucks are recorded-real, never performed. Never louder than the vocal.
+
+non_diegetic_music
+There is NO music in this clip. The song has not started yet. Leave
+the track empty and let the location sound above carry it alone.

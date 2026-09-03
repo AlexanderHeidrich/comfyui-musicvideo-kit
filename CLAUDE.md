@@ -21,7 +21,7 @@ scenes     <song> [args]     drehbuch+transcript -> scenes.tsv (the timing spine
 refs       <song>            _source/refs/     -> refs.json + the live H3 tags
 split      <song>            song              -> scene_NN.mp3
 draft      <song> [--llm]    screenplay+lyrics -> content.json
-build      <song>            all blocks        -> the flat NN_*.txt deliverable
+build      <song> [--all-sheets]  all blocks   -> the set-*/ deliverable
 all        <song>            every step above, in order
 concat <dir> [out]           join rendered clips
 llm-up / llm-down            local drafting model (ollama + gemma3:4b, Docker)
@@ -34,14 +34,17 @@ doctor                       what is installed, which engine will run
 mvkit  mvkit.cmd  Makefile  Dockerfile  docker-compose.yml
 bin/            the steps. _lib.sh resolves ffmpeg/python/whisper per platform
 templates/      everything tunable without code - see templates/__README.txt
-songs/<name>/                DELIVERABLE — flat and paired, nothing else
-  __READ_ME.txt              generated; what the user reads
-  __SCENES.tsv               frames, timing and pairing per scene
-  NN_title-v1.txt            scene NN, wide master - a finished six-section
-  NN_title-v2.txt            H3 prompt, no markup, paste-ready
-  NN_title-v3.txt            same action, close/detail
-  NN_title.mp3               that exact window of the song, shared by v1-v3
-  <name>.json <name>-4x.json the render graph and the upscale pass
+songs/<name>/                DELIVERABLE
+  __READ_ME.txt              generated; what the user reads, incl. the work list
+  __SCENES.tsv               frames, timing, pairing and set folder per scene
+  set-NN_<sheets>/           one folder per set of reference sheets, and the
+                             thing you actually render - see "Reference sets"
+    NN_title-v1.txt          scene NN, wide master - a finished six-section
+    NN_title-v2.txt          H3 prompt, no markup, paste-ready
+    NN_title-v3.txt          same action, close/detail
+    NN_title.mp3             that exact window of the song, shared by v1-v3
+    <name>-set-NN_*.json     the graph for that set
+  <name>-4x.json             the upscale pass
   _source/                   INPUTS — everything not meant to be copied
     song.mp3                 the track
     song.pdf                 the screenplay, any name (optional)
@@ -55,7 +58,12 @@ songs/<name>/                DELIVERABLE — flat and paired, nothing else
 ```
 
 Never hand-edit the generated files. Edit `_source/*` and re-run `mvkit build`.
-`songs/*` is gitignored: the folder is the user's deliverable, not repo content.
+Song folders ARE versioned - refs, style and screenplay are work, not build
+output. Only rendered video is ignored (`.gitignore`).
+
+A build rewrites the set folders from scratch. The audio slices are the one thing
+in them that cannot be regenerated from the inputs, so `reclaim_slices()` moves
+them back to the song folder first and the fresh sets take them again.
 
 ## Hard constraints from MiniMax H3
 
@@ -104,16 +112,18 @@ Verified against `comfy_extras/nodes_minimax_h3.py`, not guessed.
   more: `brief.txt` is the only source, and `bible.txt` / `style.txt` /
   `ALL_scenes.txt` are gone from the pipeline entirely.
   Sources: rundiffusion.com/minimax-h3-prompt-guide, fal.ai/learn/devs/minimax-h3-prompting-guide.
-- **A reference not in the shot must be declared absent.** H3 draws what the
-  ledger tells it to preserve, so `retention_analysis` carries a `weak_reference`
-  line for every character that is not in this scene, saying not to draw it and
-  not to let its features reach another character - "give every reference a clear
-  role" is the guide's own rule. Presence is derived from the words in the action;
+- **A reference not in the shot must not be connected.** Words do not undo a
+  connected picture: with all sheets wired in, a scene that said "do not use
+  `<Picture 5>`" still got it as its first frame. So presence decides the wiring,
+  not just the text - see "Reference sets" below. Presence is derived from the
+  words in the action;
   `_source/refs/__ALIASES.txt` maps a reference slug to the English words that
   mean it is on screen (`-phrase` blanks a phrase first, so "hen" does not match
   inside "hen house"), and a scene may override the guess with a `"cast"` list in
   content.json. `mvkit build` prints the per-scene cast and warns when a scene
-  names no character at all.
+  names no character at all. `mvkit build --all-sheets` is the old behaviour -
+  every sheet on every scene, global tags, absence stated in a `weak_reference`
+  line and believed - kept only so a render made that way can be reproduced.
 - **English descriptions, verbatim lyrics.** Every title, summary and shot
   description is written in English however the screenplay was written; H3
   follows English shot language far more reliably. Lyrics and dialogue stay
@@ -250,6 +260,34 @@ Show and brand names ("like Ren & Stimpy") belong in `_source/style_examples.txt
 or in `#` comments, which are stripped before the text reaches the model. They
 do not reproduce reliably; concrete craft descriptions do.
 
+## Reference sets
+
+The wiring is per set of sheets, not per song and not per scene. A saved ComfyUI
+graph cannot change how many links it has, `ExecutionBlocker` blocks the consumer
+rather than dropping an input, and there is no way to hand H3 "nothing" on an
+`IMAGE` slot - so the number of connected reference images is fixed for a whole
+graph. Scenes that need the same sheets therefore share a graph:
+
+- `scene_slots()` in build_storyboards works out which sheets a scene contains
+  (`in_shot()`: a character when the action names it, a place or a board unless
+  its aliases miss) and numbers them **locally**, `<Picture 1>` first. H3
+  renumbers whatever it is handed, so those are the numbers it will use.
+- `write_refsets()` groups the scenes by that tuple and writes one folder per
+  group, biggest first: `set-NN_<sheet numbers>/` with that group's prompts, its
+  audio slices and its own `__SCENES.tsv`. Each folder is a song folder in its
+  own right - `HurricaneSongFolder` points straight at it - and the song's
+  `__READ_ME.txt` carries the work list.
+- `mvkit workflows <song> --from <graph>` writes one graph per set into its
+  folder, keeping only the image loaders that set needs and wiring them into
+  `ref_image_0..k-1` in the set's own order. Sheet *n* is whatever fed H3's *n*th
+  image slot in the graph you saved, so **the loaders must be connected in the
+  order `__READ_ME.txt` lists the sheets** before you save.
+- The source graph is kept as `_source/workflow.json` and every build re-grafts
+  from it, because a build rewrites the set folders from scratch.
+
+Federphibien: 49 scenes, 7 sheets, 18 sets, widest 5. Do not "simplify" this back
+into one graph with all sheets connected - that is the bug it replaces.
+
 ## Variants convention
 
 `NN_slug-v1/-v2/-v3.txt` are **coverage of one moment, not alternative scenes**:
@@ -270,8 +308,8 @@ the table.
 `[sound]`, `[music]` and one `[subject <ref slug>]` per reference, where `{S}`
 becomes the scene's live `<Subject n>` and `{P}` its `<Picture n>`. A prompt
 carries only the subjects the scene contains, with the guide's `<Subject n> is
-... shown in <Picture n>` binding, and names the rest in a single
-`weak_reference` line in the ledger. That is what holds a scene near 6 KB
+... shown in <Picture n>` binding, and the sheets it does not contain are simply
+not in the prompt and not in the graph. That is what holds a scene near 6 KB
 instead of the 30 KB the old full build produced. `mvkit build` prints the
 longest prompt per variant and names every scene over 7,000 characters; the
 levers are that scene's action in content.json and the `[subject]` / `[style]`
@@ -300,8 +338,8 @@ Ships `comfyui/custom_nodes/watching_hurricanes.py` — copy or symlink it into
 your own `ComfyUI/custom_nodes/`. One stdlib-only file with **one** node, because
 core ComfyUI has no node that reads a text file from disk:
 
-- `HurricaneSongFolder` — point it at `songs/<name>` and it batches the whole
-  song, reading `__SCENES.tsv` for the pairing. Outputs the finished prompt, the
+- `HurricaneSongFolder` — point it at one `songs/<name>/set-*/` and it batches
+  that set, reading its `__SCENES.tsv` for the pairing. Outputs the finished prompt, the
   slice's path, the frame count, the scene count and a save prefix. Paths are
   STRINGs on purpose: building an IMAGE or AUDIO needs torch, and the file has no
   dependencies. Set `scene_index` to `increment`, batch count to `scene_count`,
@@ -328,18 +366,22 @@ a UNET loader, CLIP and VAE loaders, a sampler, a VAEDecode *and* a
 VAEDecodeAudio, and a CreateVideo - ComfyUI ships that chain under Browse
 Templates and guessing at it is worthless.
 
-`mvkit workflows <song> --from <your workflow.json>` grafts the song folder into a
-graph that already renders. It takes the **saved** UI format only and edits it in
-place (`wrap_ui`) so the layout and groups survive; an API export is refused,
-because it has neither and is not the file you open again. `mvkit layout` builds a
-layout from scratch for a graph that has already lost one. The graft keeps every
-node and setting and rewires only `prompt`, `length`, `ref_audios.ref_audio_0`
-and the `ref_images.ref_image_*` slots - note the namespaced input names, and
-that the ref slots are DYNAMIC, so it can only fill as many as the user connected
-before saving. It warns when sheets are dropped. No absolute path is ever
+`mvkit workflows <song> --from <your workflow.json>` grafts a graph that already
+renders, once per reference set. It takes the **saved** UI format only and edits
+it in place (`wrap_ui`) so the layout and groups survive; an API export is
+refused, because it has neither and is not the file you open again. `mvkit layout`
+builds a layout from scratch for a graph that has already lost one. The graft
+keeps every node and setting and rewires only `prompt`, `length`,
+`ref_audios.ref_audio_0`, the Save node's `filename_prefix` and the
+`ref_images.ref_image_*` slots - note the namespaced input names, and that the
+ref slots are DYNAMIC, so it can only use as many as the user connected before
+saving. Loaders a set does not need are removed, the rest are retitled with the
+number that set's prompts use. `--all-sheets` grafts the pre-set wiring instead,
+which only matches a `mvkit build --all-sheets` folder. No absolute path is ever
 written: ComfyUI usually runs on another machine, so `song_path` is left empty
 and `find_abs_paths` makes the build fail rather than emit one. Earlier generated
-graphs and the old `-api.json` copies are deleted on sight.
+graphs, the whole-song `<song>.json` and the old `-api.json` copies are deleted on
+sight.
 
 The weights, for reference: UNET `minimax_h3_ref2va_pruned_int8_convrot`, CLIP
 `qwen3vl_*_minimax_h3_*`, `vae` = `minimax_h3_video_vae_fp16`, `audio_vae` =

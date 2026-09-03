@@ -1,0 +1,4 @@
+scene	song_start	song_end	tl_frame	frames	duration	inner_cuts	continuity	audio	prompts	refs	lyrics
+04	00:15.500	00:20.667	615	124	5.1667	-	-	04_rolling-onto-his-back.mp3	04_rolling-onto-his-back-v1.txt 04_rolling-onto-his-back-v2.txt 04_rolling-onto-his-back-v3.txt	2,4,6,7	(instrumental)
+14	00:46.750	00:56.167	1365	226	9.4167	2.833,5.958	hold	14_in-love-with-a-chicken.mp3	14_in-love-with-a-chicken-v1.txt 14_in-love-with-a-chicken-v2.txt 14_in-love-with-a-chicken-v3.txt	2,4,6,7	Bin argh verknallt in ein Huhn. / Uns’re Welten, weit auseinander. / Doch bestimmt nur für einander.
+27	01:31.042	01:36.208	2428	124	5.1667	-	-	27_the-ring.mp3	27_the-ring-v1.txt 27_the-ring-v2.txt 27_the-ring-v3.txt	2,4,6,7	Nimm mich zum Mann

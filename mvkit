@@ -12,12 +12,12 @@
 #   shotlist   <song>          which reference images to make, and the prompts
 #   split      <song>          song -> scene_NN.mp3
 #   draft      <song> [--llm]  screenplay + lyrics -> _source/content.json
-#   build      <song>          blocks + content.json -> flat NN_*.txt
+#   build      <song> [--all-sheets]  blocks + content.json -> set-*/ folders
 #   all        <song>          every step above, in order
 #   layout     <song> [wf.json]  group and lay out a saved workflow so it is
 #                                readable; writes songs/<song>/<song>.json
-#   workflows  <song> [--from saved.json]  write the upscale graph, or graft the
-#                                          song folder into your own saved graph
+#   workflows  <song> [--from saved.json]  write the upscale graph, and graft one
+#                                          render graph per set-*/ folder
 #   probe                      ask a running ComfyUI which nodes it actually has
 #   concat     <dir> [out]     join rendered clips
 #   llm-up / llm-down          start or stop the local drafting model
@@ -114,8 +114,8 @@ case "$CMD" in
     D="$(song_dir "${1:-}")"; A="$(song_audio "$D")"
     bash bin/split_audio.sh "$A" "$D/_source/scenes.tsv" "$D" ;;
   build)
-    D="$(song_dir "${1:-}")"
-    py bin/build_storyboards.py "$D" ;;
+    D="$(song_dir "${1:-}")"; shift || true
+    py bin/build_storyboards.py "$D" "$@" ;;
   all)
     D="$(song_dir "${1:-}")"
     if [ ! -f "$D/_source/drehbuch.txt" ] && ls "$D"/_source/*.pdf >/dev/null 2>&1; then

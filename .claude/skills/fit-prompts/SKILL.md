@@ -80,5 +80,6 @@ Everything stays **English** except lyrics. Concrete physical detail, never
 Repeat until the report has no `!` line about length. Then say what you cut and
 where, per scene or per block - the user has to recognise their own film in it.
 
-Do not edit `songs/<song>/NN_*.txt`. They are regenerated on every build, and an
+Do not edit the generated `NN_*.txt` in the `set-*/` folders. They are rewritten
+on every build, and an
 edit there is gone by the next run.

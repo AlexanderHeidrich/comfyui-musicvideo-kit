@@ -1,0 +1,3 @@
+scene	song_start	song_end	tl_frame	frames	duration	inner_cuts	continuity	audio	prompts	refs	lyrics
+03	00:12.375	00:17.542	540	124	5.1667	-	-	03_hauling-out-of-the-water.mp3	03_hauling-out-of-the-water-v1.txt 03_hauling-out-of-the-water-v2.txt 03_hauling-out-of-the-water-v3.txt	2,4,5,6,7	(instrumental)
+08	00:29.792	00:34.958	958	124	5.1667	-	-	08_the-hen-house-in-the-distance.mp3	08_the-hen-house-in-the-distance-v1.txt 08_the-hen-house-in-the-distance-v2.txt 08_the-hen-house-in-the-distance-v3.txt	2,4,5,6,7	(instrumental)
