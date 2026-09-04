@@ -11,6 +11,11 @@ from there, and the graphs name the sheets by bare filename on purpose
 so they keep working on whatever machine ComfyUI runs on. Without that
 copy, every loader comes up empty.
 
+AND copy comfyui/custom_nodes/watching_hurricanes.py over the one in
+your ComfyUI/custom_nodes/, then restart it. The graphs wire that
+node's outputs by index, so an older copy shifts every link past the
+change: `mvkit probe` compares the two and says so.
+
 Each set-*/ folder is a song folder in its own right: open its graph,
 put that folder's own path into HurricaneSongFolder's song_path - it
 is left empty on purpose, because no absolute path is ever written

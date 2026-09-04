@@ -21,6 +21,7 @@ saved format is the one you open again to render.
 Stdlib only.
 """
 import argparse
+import importlib.util
 import json
 import os
 import re
@@ -143,6 +144,26 @@ def read_sets(song):
 OUTPUT_CLASSES = re.compile(r"^(Save|Preview|VHS_VideoCombine|SaveAudio|SaveVideo)",
                             re.I)
 
+NODE_FILE = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+                         "comfyui", "custom_nodes", "watching_hurricanes.py")
+
+
+def song_node_outputs():
+    """-> [(name, type)] for the song node, read from the node file itself.
+
+    A saved graph wires outputs by INDEX, so a socket list written down twice
+    drifts, and then every link past the change lands one socket off. The node
+    file is stdlib-only, so importing it costs nothing.
+    """
+    spec = importlib.util.spec_from_file_location("wh_song_node", NODE_FILE)
+    if not spec or not spec.loader:
+        sys.exit("cannot read the node definition at %s" % NODE_FILE)
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    cls = mod.NODE_CLASS_MAPPINGS["HurricaneSongFolder"]
+    return list(zip(cls.RETURN_NAMES, cls.RETURN_TYPES))
+
+
 SONG_NODE_DEF = {
     "type": "HurricaneSongFolder", "flags": {}, "order": 0, "mode": 0,
     "properties": {"Node name for S&R": "HurricaneSongFolder"},
@@ -155,8 +176,7 @@ SONG_NODE_DEF = {
          "widget": {"name": "out_subfolder"}},
     ],
     "outputs": [{"name": n, "localized_name": n, "type": t, "links": []}
-                for n, t in (("prompt", "STRING"), ("frames", "INT"),
-                             ("scene_count", "INT"), ("save_prefix", "STRING"))],
+                for n, t in song_node_outputs()],
     "widgets_values": ["", 1, "increment", "v1", ""],
 }
 

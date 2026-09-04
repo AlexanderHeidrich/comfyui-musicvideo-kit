@@ -32,9 +32,10 @@ those is a song folder whose scenes all need the same reference sheets, which is
 what lets a graph carry only those sheets. The song's __READ_ME.txt holds the
 work list of sets.
 
-Paths come out of these nodes as strings, because turning an image or an audio
-file into ComfyUI's own types needs torch and this file deliberately has no
-dependencies. Wire audio_path into a Load Audio (Path).
+Paths come out of these nodes as strings, because turning a file into ComfyUI's
+own types needs torch and these files deliberately have no dependencies. No
+audio comes out of either node: H3 is given no audio reference at all, and the
+song is laid under the picture in the edit.
 
 Which nodes to pick for the rest, and what your ComfyUI actually has installed:
 

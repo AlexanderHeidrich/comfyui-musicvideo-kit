@@ -181,11 +181,13 @@ ComfyUI runs on — which means the refs must be copied into `ComfyUI/input/` by
 hand or every loader comes up empty. `song_path` is left empty for the same
 reason and is filled in per set folder.
 
-**`LoadImage` only reads `ComfyUI/input/`.** The grafted graphs name the sheets
-by bare filename, deliberately, so they survive being opened on whatever machine
-ComfyUI runs on — which means the refs must be copied into `ComfyUI/input/` by
-hand or every loader comes up empty. `song_path` is left empty for the same
-reason and is filled in per set folder.
+**The installed node has to be the kit's node.** The set graphs wire
+`HurricaneSongFolder`'s outputs by index, so an older copy in
+`ComfyUI/custom_nodes/` shifts every link past the change. Dropping `audio_path`
+is what did it once: `frames` moved to slot 1, so `length` was fed a STRING —
+ComfyUI says *"Connected nodes are using incompatible input and output types"* —
+and `filename_prefix` was fed `scene_count`, naming the renders after a number.
+`mvkit probe` compares the loaded sockets against the node file and says so.
 
 `mvkit workflows <song> --from <saved.json>` grafts a graph that already renders,
 once per set. It takes the **saved** UI format only and edits it in place so the

@@ -17,11 +17,13 @@ import sys
 import urllib.error
 import urllib.request
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from make_workflows import song_node_outputs  # noqa: E402
+
 HOST = os.environ.get("COMFY_HOST", "http://127.0.0.1:8188")
 
-# candidates for the parts core ComfyUI cannot do, best first
-AUDIO_BY_PATH = ("VHS_LoadAudio", "VHS_LoadAudioUpload", "LoadAudioPath",
-                 "Load Audio (Path)", "WAS_Load_Audio")
+# candidates for the parts core ComfyUI cannot do, best first. No audio loader
+# among them: H3 gets no audio reference, the song goes under the picture later.
 INT_PRIMITIVE = ("PrimitiveInt", "INTConstant", "Int", "PrimitiveNode")
 # only these take a path; core LoadImage is a dropdown over ComfyUI/input
 IMAGE_LOADER = ("LoadImageFromPath", "VHS_LoadImagePath", "Image Load")
@@ -124,8 +126,6 @@ def report(info, host):
         print()
     print("The parts core ComfyUI cannot do:")
     for what, names, why in (
-            ("audio by path", AUDIO_BY_PATH,
-             "core LoadAudio only lists files in ComfyUI/input, as a dropdown"),
             ("settable int", INT_PRIMITIVE, "to drive `length` per scene"),
             ("image by path", IMAGE_LOADER, "for the reference sheets"),
             ("write the clip", VIDEO_SAVE, "to get a file out")):
@@ -145,6 +145,28 @@ def report(info, host):
         print("  HurricaneSongFolder is the one that matters: it turns a song")
         print("  folder into a batch. Copy comfyui/custom_nodes/watching_hurricanes.py")
         print("  into your ComfyUI/custom_nodes/ and restart.")
+    else:
+        stale_song_node(info["HurricaneSongFolder"])
+
+
+def stale_song_node(spec):
+    """Does the loaded node have the sockets the graphs were wired against?
+
+    Graphs wire outputs by index, so an older copy in custom_nodes/ shifts every
+    link past the change: `length` fed a STRING ("incompatible input and output
+    types"), `filename_prefix` fed scene_count.
+    """
+    live = list(zip(spec.get("output_name") or (), spec.get("output") or ()))
+    ours = song_node_outputs()
+    if live == ours:
+        return
+    print("  ! the loaded copy is not this kit's:")
+    print("      loaded: %s" % ", ".join("%s:%s" % o for o in live))
+    print("      ours  : %s" % ", ".join("%s:%s" % o for o in ours))
+    print("    Every set graph wires these by index, so a graph opened against")
+    print("    that copy lands on the wrong sockets. Copy")
+    print("    comfyui/custom_nodes/watching_hurricanes.py into your")
+    print("    ComfyUI/custom_nodes/ and restart ComfyUI.")
 
 
 def main():

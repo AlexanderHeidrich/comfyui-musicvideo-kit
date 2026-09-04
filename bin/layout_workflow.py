@@ -20,8 +20,7 @@ import sys
 
 # left to right, in the order the signal actually flows
 COLUMNS = (
-    ("SONG FOLDER", "#3f5159", (
-        r"^Hurricane", r"^VHS_LoadAudio$", r"^LoadAudioPath$")),
+    ("SONG FOLDER", "#3f5159", (r"^Hurricane",)),
     ("MODELS", "#443f59", (
         r"Loader$", r"^UNETLoader$", r"^CLIPLoader$", r"^VAELoader$",
         r"^CheckpointLoader", r"^Lora")),
