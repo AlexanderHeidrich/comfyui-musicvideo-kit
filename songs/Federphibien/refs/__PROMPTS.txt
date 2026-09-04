@@ -1,120 +1,171 @@
 FEDERPHIBIEN - MIDJOURNEY PROMPTS FOR THE REFERENCE IMAGES
 ==========================================================================
 
-This folder is the rougher variant - THIS IS THE ONE YOU PICKED.
-
-Save each result into this folder under the filename in its heading, then run:
-  ./mvkit refs <this song> && ./mvkit build <this song>
+Save each result into this folder under the filename in its heading.
 
 Generate them IN THIS ORDER. The frog and the hen are the Federphibium taken
 apart, so make that one first and keep it on screen for the other two - that is
 what makes the three look related.
 
-THE LOOK, in one paragraph. One frame grab sets it: a pond surface seen from
-just above, lily pads drawn with a bold clean BLACK outline, a flat green base
-inside each softly airbrushed darker toward the rim, one hard white glint on
-every pad, floating on pale near-white green water that is almost empty, with
-the ripples drawn as thin concentric rings. That is the target: black ink over
-flat-plus-airbrush paint, high-key and calm - not loose watercolour, not flat
-hard-edged cel shadow shapes either. Palette dusty and cool around that fresh
-green: sage, olive, dusty liver brown, straw, cream, a lilac-grey overcast sky,
-red only on a comb. Depth by haze - the far hedge paler and flatter, near
-foliage a near-black silhouette. Paper tooth stays faint, under the paint.
-
 Add your own --v flag; the version changes too often to hard-code here.
+
+THE LOOK - REWRITTEN TO MATCH THE SHEETS YOU ALREADY HAVE
+--------------------------------------------------------------------------
+The old text here asked for "clean bold black ink over flat airbrushed colour",
+and the --no list forbade watercolour blooms, a sketchy outline and a brown
+outline. Your existing sheets are exactly those three things, and you like them.
+So the description below is of the pictures on disk, not of the intention.
+
+Loose hand-painted watercolour and gouache washes on cold-press paper, the tooth
+of the paper visible through every wash. Colour pools and grades softly inside
+each shape, a little uneven, sometimes drifting past the line. Over the paint a
+thin dry dark brown-black ink contour of clearly varying weight, slightly ragged
+and broken where the brush lifted, with short hatching strokes for feathers and
+for the shaded side of a form. One soft pale highlight on each rounded wet
+surface, never a hard white dot. Warm muted palette: sage and olive green, warm
+ochre and tan, cream, brick red on a comb, pale blue-grey. Values sit in the
+middle - nothing is pure white, nothing is pure black. Background a soft
+neutral grey-green wash, empty, with the faintest suggestion of a ground plane
+and a soft shadow beneath the figure. Children's picture-book illustration,
+calm and unhurried - not television cel animation, not vector, not digital.
+
+FOUR VIEWS PER CHARACTER - AND WHY THE LAYOUT KEEPS FAILING
+--------------------------------------------------------------------------
+The old character prompts made ONE portrait, front on. H3 had therefore never
+seen the frog's back, and every shot written "from behind the frog" came back as
+a side-on total instead - it drew the only view it had. Each character now gets
+front, side, back and top on one sheet: one picture slot, not four, and the form
+both published H3 guides recommend.
+
+Midjourney is bad at this and you will fight it. It has no persistent 3D model of
+the character - every view is a fresh interpretation of the same words, and its
+training data is overwhelmingly front-facing, so back and top views drift the
+most. Expect to hand-pick from 10-20 generations rather than keeping the first.
+
+**Aspect ratio is what controls the spacing.** Views that overlap or drift apart
+are a ratio problem, not a wording problem: the pixel budget is fixed, so the
+frame shape decides how much room each panel gets. Work it out from the figure:
+
+V8 goes up to 14:1, so a wide row is available - the 2:1 ceiling you read about
+elsewhere is a V7 limit. Match the layout to the shape of the animal, because the
+pixel budget is constant and each panel should be the shape of what stands in it:
+
+  - The frog and the Federphibium SIT SQUAT and are wider than they are tall, so
+    each panel wants to be landscape. Use a 2x2 grid at --ar 4:3: four landscape
+    quadrants, and the top-down view sits naturally in one of them.
+  - The hen and the researcher STAND and are taller than they are wide, so each
+    panel wants to be portrait. Use one row of four at --ar 5:2, which gives each
+    view a tall narrow panel - the classic turnaround strip.
+
+Both give each view a full quarter of the frame, which is as many pixels per view
+as one generation can offer.
+
+These prompts are written for MIDJOURNEY V8. Three things differ from every
+character-sheet guide you will find online, because almost all of them are V7:
+
+  --style raw  does not exist in V8. It is  --raw .
+  --cref       does not exist in V8 at all. It was a V6 / Niji 6 control.
+  --q          does not exist in V8 either.
+
+--oref (Omni Reference) is the usual answer to the missing --cref, but it
+silently runs your prompt in V7 and you lose V8 rendering entirely. Do not use it
+here. On V8 consistency comes from stacking what V8 does support:
+
+  --sref <url of the current sheet>   --sw 100   holds the watercolour look
+  --seed <fixed number>                          reproducible starting point
+  Personalization (V8.2)                         closest thing to --cref
+  identical wording between the four sheets      the cheapest lever of all
+
+Upload the current PNG somewhere to get a URL for --sref. Raise --sw toward 300
+if the look drifts, lower it toward 50 if the reference starts dictating the pose
+instead of the paint.
+
+If the layout still will not behave, stop fighting it: render each view as its
+own image with the same --cref and the same --seed, changing only the view name,
+then paste the four together in any image editor. That is the workflow the
+turnaround guides actually recommend, and the composite is what H3 reads.
+
+Rules that matter more than they look:
+  - NO TEXT, no labels, no view names, no arrows, no height bars. H3 draws
+    whatever is in the picture, lettering included.
+  - No second character for scale comparison, for the same reason. Scale is
+    handled in the prompt text, where it already works.
+  - Keep the background an empty soft wash. A wall, a floor or a horizon gets
+    read as an environment and carried into the shots.
+  - Say the layout explicitly - "two by two grid, one view per quadrant, evenly
+    spaced, not overlapping". Vague sheets are where the drift starts.
 
 --------------------------------------------------------------------------
 01_char_federphibium.png
   the title creature - GENERATE THIS FIRST
-character sheet, hand-drawn 2D cartoon in the manner of a European television animation special, single
-creature full body sitting squat on the ground facing viewer, hybrid of frog and
-chicken, fat potbellied sage green frog body with soft mottled olive patches and a
-large pale cream belly, bright red chicken comb on the head, small red two-lobed
-wattle under a short yellow-orange beak, large round white eyes each with a small
-black dot pupil set high and wide, frog legs and frog feet with long toes ending in
-small yellow claws, two small useless tufts of cream-white feathers at the flanks, clean bold black hand-drawn ink outline with slight wobble closing every shape, interiors a flat base colour softly airbrushed darker toward the rim, one hard white glint on the damp skin, desaturated overcast palette of sage olive dusty liver brown straw and cream, faint paper tooth, high-key pale values, plain pale grey backdrop
---style raw --ar 4:5 --no text, letters, labels, watermark, signature, border, frame, 3d render, photorealistic, vector art, hard-edged cel shadow shapes, blotchy watercolour blooms, sketchy broken searching outline, brown or coloured outline, heavy paper grain, sterile vector edges, bright saturated primaries, neon, muddy dark values
+character model sheet laid out as a two by two grid, one view per quadrant, evenly spaced and not overlapping, the same creature drawn four times at identical size and identical lighting, top left front view facing the viewer, top right side view facing right, bottom left rear view seen from directly behind, bottom right a top-down view looking straight down from above,
+a fat potbellied hybrid of frog and chicken sitting squat on the ground like a toad, enormous round pale cream belly filling most of the body, sage green back and limbs with soft olive mottling, frog legs folded up at either side of the belly with long toes splayed flat on the ground ending in small yellow claws, front hands resting on the ground, an upright bright brick-red chicken comb of five points on top of the head, a small yellow-orange beak with a red two-lobed wattle beneath it, two huge round white eyes set high and wide on top of the skull each with a small black dot pupil and a heavy dark ink lid line, a small useless tuft of cream-white feathers at each flank where a wing would be,
+from behind a broad rounded sage green back with the red comb standing clear above the silhouette and a cream feather tuft sticking out at each side, from directly above a wide round body with the comb a red ridge along the centre line and the legs folded out to both sides,
+loose watercolour and gouache washes on cold-press paper with the paper tooth showing through, thin dry ragged dark brown-black ink contour of varying weight with short hatching strokes for shading, soft pale highlight on the damp skin, warm muted palette of sage olive cream ochre and brick red, mid values, soft empty neutral grey-green wash background, children's picture-book illustration
+--raw --ar 4:3 --no text, letters, labels, view names, arrows, height chart, watermark, signature, border, frame, panel dividers, 3d render, cgi, photorealistic, vector art, sterile clean vector edges, flat airbrushed digital colour, hard-edged cel shadow shapes, bright saturated primaries, neon, pure black, pure white, background scenery, wall, floor, horizon line, second character, inconsistent design between views --stylize 100
 
 --------------------------------------------------------------------------
 02_char_der-frosch.png
-  in 42 of the 47 scenes - the important one
-character sheet, hand-drawn 2D cartoon in the manner of a European television animation special, single
-cartoon pond frog full body sitting squat facing viewer, potbellied grey-green body
-with soft mottled olive patches and a large pale cream belly, large round white eyes
-each with a small black dot pupil set high and wide, wide flat mouth drawn as one
-shallow curve, smooth skin not warty, long toes with small yellow claws, permanently damp
-skin, no comb no wattle no beak no feathers, earnest lovesick expression, clean bold black hand-drawn ink outline with slight wobble closing every shape, interiors a flat base colour softly airbrushed darker toward the rim, one hard white glint on the wet skin, desaturated overcast palette of sage olive dusty liver brown straw and cream, faint paper tooth, high-key pale values, plain pale grey backdrop
---style raw --ar 4:5 --no text, letters, labels, watermark, signature, border, frame, 3d render, photorealistic, vector art, hard-edged cel shadow shapes, blotchy watercolour blooms, sketchy broken searching outline, brown or coloured outline, heavy paper grain, sterile vector edges, bright saturated primaries, neon, muddy dark values, chicken parts, comb, wattle, beak
+  in nearly every scene - the important one
+character model sheet laid out as one horizontal row of four evenly spaced panels of equal width, not overlapping, the same character drawn four times at identical size and identical lighting, left to right front view facing the viewer, side view facing right, rear view seen from directly behind, and a top-down view looking straight down from above,
+a plump cartoon pond frog sitting squat on the ground, wider than he is tall, enormous round pale cream belly filling most of the body, grey-green back and limbs with soft olive mottling, smooth skin not warty, rear legs folded up at either side of the belly with long toes splayed flat on the ground ending in small pale yellow claws, front hands resting on the ground in front of him, two huge round white eyes set high and wide on top of the skull each with a small black dot pupil and a heavy dark ink lid line, domed well above the skull so they break the silhouette from every angle, a wide closed mouth drawn as one long calm curve, no comb no wattle no beak no feathers, earnest lovesick expression,
+from behind a smooth grey-green dome with the two eye domes just breaking the top of the silhouette and no visible neck, showing the mottled back and the folded haunches and the long rear toes splayed outward, from directly above a broad rounded oval with the eyes at the front edge and the rear legs folded out to both sides,
+loose watercolour and gouache washes on cold-press paper with the paper tooth showing through, thin dry ragged dark brown-black ink contour of varying weight with short hatching strokes for shading, soft pale highlight on the wet skin, warm muted palette of sage olive cream and warm grey, mid values, soft empty neutral grey-green wash background, children's picture-book illustration
+--raw --ar 4:3 --no text, letters, labels, view names, arrows, height chart, watermark, signature, border, frame, panel dividers, 3d render, cgi, photorealistic, vector art, sterile clean vector edges, flat airbrushed digital colour, hard-edged cel shadow shapes, bright saturated primaries, neon, pure black, pure white, background scenery, wall, floor, horizon line, second character, inconsistent design between views, chicken parts, comb, wattle, beak --stylize 100
 
 --------------------------------------------------------------------------
 03_char_das-huhn.png
-  in 34 of the 47 scenes
-character sheet, hand-drawn 2D cartoon in the manner of a European television animation special, single warm
-sandy-tan farmyard hen full body standing in profile and again facing viewer,
-bright red comb and dark red wattle, yellow-orange beak, cream breast and belly, scaly yellow legs with claws, large
-round white eyes each with a small black dot pupil, completely ordinary and slightly haughty, no humanisation no
-eyelashes no blush, clean bold black hand-drawn ink outline with slight wobble closing every shape, interiors a flat base colour softly airbrushed darker toward the rim along the feathers, desaturated overcast palette of sandy tan straw cream and dull red, faint paper tooth, high-key pale values, plain pale grey backdrop
---style raw --ar 4:5 --no text, letters, labels, watermark, signature, border, frame, 3d render, photorealistic, vector art, hard-edged cel shadow shapes, blotchy watercolour blooms, sketchy broken searching outline, brown or coloured outline, heavy paper grain, sterile vector edges, bright saturated primaries, neon, muddy dark values, cute, eyelashes, big lashes
-
---------------------------------------------------------------------------
-04_style_board.png
-  loaded in every scene - holds the look
-colour and construction board for a hand-drawn 2D animated television special, grid layout on plain pale grey,
-row of ten muted swatches in sage green olive dusty liver brown straw cream and
-cool lilac-grey, three ink strokes showing a clean bold black hand-drawn line with a
-slight wobble, one patch of flat colour airbrushed smoothly light to dark, one rounded shape shown twice side by side, once as a flat base colour airbrushed darker at the rim with one hard white glint
-and once as an unshaded outline, one
-strip showing near and far treatment of the same hedge, the far one paler and
-hazier, no characters
---style raw --ar 3:2 --no text, letters, labels, watermark, signature, border, frame, 3d render, photorealistic, vector art, hard-edged cel shadow shapes, blotchy watercolour blooms, sketchy broken searching outline, brown or coloured outline, heavy paper grain, sterile vector edges, bright saturated primaries, neon, muddy dark values, numbers, captions
+  in about two thirds of the scenes
+character model sheet laid out as one horizontal row of four evenly spaced panels of equal width, not overlapping, the same character drawn four times at identical size and identical lighting, left to right front view facing the viewer, side view facing right, rear view seen from directly behind, and a top-down view looking straight down from above,
+an ordinary plump farmyard hen standing on two thin scaly yellow-orange legs, body carried fairly upright in a soft pear shape, breast full and rounded, tail low and coming to a short point, warm tan and ochre plumage with darker brown wing feathers drawn in short ink hatching and a pale cream breast and belly, an upright brick-red comb of five points, a small dark red two-lobed wattle, a short orange-yellow beak, round white eyes with a small black dot pupil set on the sides of the head, completely ordinary and slightly haughty, no humanisation, no eyelashes, no blush,
+from behind a rounded tan body with the folded wings meeting at the spine and the pointed tail low, the red comb just visible over the top of the head, from directly above a tan teardrop with the comb and beak at the narrow front end and the tail at the wide rear,
+loose watercolour and gouache washes on cold-press paper with the paper tooth showing through, thin dry ragged dark brown-black ink contour of varying weight with short hatching strokes through the plumage, warm muted palette of tan ochre cream and brick red, mid values, soft empty neutral grey-green wash background, children's picture-book illustration
+--raw --ar 5:2 --no text, letters, labels, view names, arrows, height chart, watermark, signature, border, frame, panel dividers, 3d render, cgi, photorealistic, vector art, sterile clean vector edges, flat airbrushed digital colour, hard-edged cel shadow shapes, bright saturated primaries, neon, pure black, pure white, background scenery, wall, floor, horizon line, second character, inconsistent design between views, cute, eyelashes, big lashes --stylize 100
 
 --------------------------------------------------------------------------
 05_char_der-forscher.png
-  4 scenes, always seen from behind
-character sheet, hand-drawn 2D cartoon in the manner of a European television animation special, middle-aged
-field naturalist seen from behind, full body, face not visible, khaki trousers,
-plain shirt with rolled sleeves, straw hat, black camera strap around the neck,
-hardbound notebook and pencil in hand, unhurried and absorbed, clean bold black hand-drawn ink outline with slight wobble closing every shape, interiors a flat base colour softly airbrushed darker toward the rim, desaturated palette of khaki straw and cream, faint paper tooth, high-key pale values, plain pale grey backdrop
---style raw --ar 4:5 --no text, letters, labels, watermark, signature, border, frame, 3d render, photorealistic, vector art, hard-edged cel shadow shapes, blotchy watercolour blooms, sketchy broken searching outline, brown or coloured outline, heavy paper grain, sterile vector edges, bright saturated primaries, neon, muddy dark values, face, front view, modern camera, dslr, slr
+  a handful of scenes, and the face stays hidden
+character model sheet laid out as one horizontal row of four evenly spaced panels of equal width, not overlapping, the same character drawn four times at identical size and identical lighting, left to right rear view seen from directly behind, side view facing right with the head bowed over a notebook and the hat brim low across the face, front view with the head bowed so deeply that the flat brim of the straw hat covers the face completely, and a top-down view looking straight down on the hat from above,
+a tall slim adult man standing, khaki-olive trousers, a pale cream shirt with the sleeves rolled to the elbow, a wide flat-brimmed straw hat, a small dark green hardbound notebook held open in one hand and a pencil in the other, an old black leather folding plate camera hanging at the chest on a broad flat black strap running diagonally over one shoulder and reading as a solid dark block never a soft bag, unhurried and absorbed, no facial features visible in any of the four views,
+loose watercolour and gouache washes on cold-press paper with the paper tooth showing through, thin dry dark brown ink contour of varying weight, warm muted palette of khaki olive cream straw and black, mid values, soft empty neutral grey-green wash background, children's picture-book illustration
+--raw --ar 5:2 --no text, letters, labels, view names, arrows, height chart, watermark, signature, border, frame, panel dividers, 3d render, cgi, photorealistic, vector art, sterile clean vector edges, flat airbrushed digital colour, hard-edged cel shadow shapes, bright saturated primaries, neon, pure black, pure white, background scenery, wall, floor, horizon line, second character, inconsistent design between views, face, facial features, eyes, nose, mouth, modern camera, dslr, slr --stylize 100
+
+--------------------------------------------------------------------------
+04_style_board.png
+  loaded in every scene - holds the look. NOT a turnaround.
+colour and construction board for a hand-painted picture-book animation, laid out on a faint grid over soft off-white paper, a long row of rounded swatches across the top in sage green olive warm ochre tan cream and pale blue-grey, three tapered dark brown-black ink strokes showing the dry ragged line at three weights, one loose soft-edged watercolour blot, one rounded shape shown twice side by side, once painted with a graded wash and a soft pale highlight and short hatching down its shaded side, once as the bare ink outline alone, and along the bottom one strip of hedge painted in two depths, the far one paler and flatter, no characters
+--raw --ar 3:2 --no text, letters, labels, numbers, captions, watermark, signature, border, frame, 3d render, cgi, photorealistic, vector art, sterile clean vector edges, bright saturated primaries, neon, characters, animals
 
 --------------------------------------------------------------------------
 06_loc_pond.png
-  optional - the pond scenes
-background painting for a hand-drawn 2D animated television special, no characters, murky pale green farm pond
-in the near foreground at the bottom edge of a chicken yard, duckweed and a scatter
-of outlined lily pads on the water each with a bold black outline, a flat green centre airbrushed darker at the rim and one hard white glint, thin hand-drawn concentric ripple rings on pale near-white green water, dry mud bank cracked into plates
-behind it, leaning chicken-wire fence with a worn gap under it, corrugated tin coop
-with a ridged roof beyond the fence, tall cattails and reeds standing into frame at
-both edges as a foreground layer, distant hedge pale and hazy, flat lilac-grey
-overcast sky, clean black hand-drawn outline on the scenery, thinner than a character line, flat base colours softly airbrushed darker toward the rim, faint paper tooth, high-key pale values, a step duller than a foreground character
---style raw --ar 16:9 --no text, letters, labels, watermark, signature, border, frame, 3d render, photorealistic, vector art, hard-edged cel shadow shapes, blotchy watercolour blooms, sketchy broken searching outline, brown or coloured outline, heavy paper grain, sterile vector edges, bright saturated primaries, neon, muddy dark values, characters, animals
+  the pond scenes - a background painting, NOT a turnaround
+background painting for a hand-painted picture-book animation, no characters, a murky pale green farm pond in the near foreground at the bottom edge of a chicken yard, duckweed and a scatter of lily pads on the water each with a soft graded green wash and a pale highlight, thin hand-drawn concentric ripple rings, a dry mud bank cracked into plates behind it, a leaning chicken-wire fence on rough posts with a worn gap under it, a corrugated tin coop with a ridged roof beyond the fence, tall cattails and reeds standing into frame at both edges as a dark foreground layer, a distant hedge pale and hazy, a flat pale sky, loose watercolour and gouache washes on cold-press paper with the tooth showing through, thin dry dark brown-black ink line on the scenery finer than a character line, warm muted palette, mid values, a step duller than a foreground character
+--raw --ar 16:9 --no text, letters, labels, watermark, signature, border, frame, 3d render, cgi, photorealistic, vector art, sterile clean vector edges, flat airbrushed digital colour, hard-edged cel shadow shapes, bright saturated primaries, neon, pure black, pure white, characters, animals
 
 --------------------------------------------------------------------------
 07_loc_henhouse-interior.png
-  optional - scenes 23 to 38
-background painting for a hand-drawn 2D animated television special, no characters, interior of a corrugated
-tin chicken coop, heap of white and grey down and loose feathers on the floor, rough
-wooden walls and a nesting shelf, one bare bulb on a sagging cable, doorway at one
-end with pale flat daylight beyond, dust and floating down in the air, clean black hand-drawn outline on the scenery, thinner than a character line, flat base colours softly airbrushed darker toward the rim, faint paper tooth, high-key pale values, desaturated straw brown and cool grey palette, a step duller than a foreground character
---style raw --ar 16:9 --no text, letters, labels, watermark, signature, border, frame, 3d render, photorealistic, vector art, hard-edged cel shadow shapes, blotchy watercolour blooms, sketchy broken searching outline, brown or coloured outline, heavy paper grain, sterile vector edges, bright saturated primaries, neon, muddy dark values, characters, animals
+  the henhouse scenes - a background painting, NOT a turnaround
+background painting for a hand-painted picture-book animation, no characters, the interior of a chicken coop, tall walls of green-painted vertical timber boarding framed by heavy warm-brown posts and beams, one horizontal rail across the wall at a third of its height, an ochre bare-earth floor, a big heap of grey-white down banked against the left wall with loose feathers on the floor and drifting in the air, a straw nesting shelf high under the roof with eggs on it, two black cables strung across with one bare bulb hanging off a sagging one, a doorway to the right in a brown timber frame filled with flat blown-out daylight, never corrugated tin inside, loose watercolour and gouache washes on cold-press paper with the tooth showing through, thin dry dark brown-black ink line on the scenery finer than a character line, warm muted palette of green timber warm brown ochre and grey-white, mid values, a step duller than a foreground character
+--raw --ar 16:9 --no text, letters, labels, watermark, signature, border, frame, 3d render, cgi, photorealistic, vector art, sterile clean vector edges, flat airbrushed digital colour, hard-edged cel shadow shapes, bright saturated primaries, neon, pure black, pure white, characters, animals
 
 --------------------------------------------------------------------------
-LOADING THEM IN COMFYUI
+WIRING THEM IN COMFYUI
 --------------------------------------------------------------------------
 
-Seven images plus the scene mp3 is eight of H3's twelve media inputs, so they all
-fit. Fill the picture slots IN THIS ORDER and never leave an earlier one empty -
+Do NOT load every sheet into every scene. A connected reference turns up on
+screen whether the prompt asks for it or not: with all sheets wired in, a scene
+that said "do not use <Picture 5>" still got it as its first frame, and the pond
+sheet is why a proposal written for the henhouse kept happening in a puddle.
+Connect only the sheets a scene actually contains.
+
+That is what the set-NN_* folders are for. Each is a group of scenes needing the
+same sheets, and `mvkit workflows` writes it a graph with exactly those loaders
+connected. The folder name lists the sheet numbers; __READ_ME.txt lists them in
+the order the loaders must be wired.
+
 H3 numbers <Picture n> over the slots actually connected, so a gap shifts every
-tag after it and the prompts stop matching:
+tag after it. Within one set, wire the loaders in the order that set names them,
+starting at ref_image_0, leaving no slot empty in between.
 
-  slot 1  01_char_federphibium     always
-  slot 2  02_char_der-frosch       always
-  slot 3  03_char_das-huhn         always
-  slot 4  04_style_board           always
-  slot 5  05_char_der-forscher     only scenes 19, 20, 43, 44
-  slot 6  06_loc_pond              only the pond scenes
-  slot 7  07_loc_henhouse-interior only scenes 23 to 38
-
-Slots 1-4 are the constant core. Leaving 5-7 out does not move their tags.
-Simplest workable setup: load all seven everywhere and accept the extra
-references; then nothing can shift at all.
+Set `ref_image_size` on the H3 node to `max`, not `match`. With four views on one
+sheet, `match` scales each view down to roughly 270 px and H3 starts guessing.
