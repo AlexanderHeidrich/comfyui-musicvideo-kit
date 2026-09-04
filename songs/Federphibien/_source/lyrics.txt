@@ -1,5 +1,0 @@
-# The real lyrics, one line per sung line. The ASR transcript is wrong on sung
-# material and is only used for timing - this file is what reaches the model.
-# Prefix a line with [mm:ss] and it is placed on the scene covering that time:
-#   [00:18] Ich sitze traurig am Rand vom Teich
-# Without timestamps the lyric is taken from the screenplay's quoted lines.

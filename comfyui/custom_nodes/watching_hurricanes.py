@@ -6,9 +6,14 @@ nothing to install.
   HurricaneSongFolder   point it at songs/<name>, set scene_index to `increment`
                         and the queue's batch count to scene_count, press Run once
 
-It hands out the four things that change from scene to scene and nothing else.
-The reference sheets are NOT among them: they are identical in every scene of a
-song, so the LoadImage nodes that already point at them are correct as they are.
+It hands out the three things that change from scene to scene and nothing else.
+The reference sheets are NOT among them: within one set folder they are the same
+for every scene, so the LoadImage nodes that already point at them are correct.
+
+There is no audio here. H3 is given no audio reference at all: reference audio is
+a timbre anchor, not playback, and handing it a slice carrying the same words as
+the prompt is what produced clips that sang the wrong lyrics. The song is laid
+under the picture in the edit instead.
 
 The upscale pass lives in watching_hurricanes_upscale.py, separately.
 """
@@ -21,7 +26,7 @@ CATEGORY = "Watching Hurricanes"
 
 
 def read_song_folder(song):
-    """-> [{scene, title, frames, audio, prompts}] from __SCENES.tsv.
+    """-> [{scene, title, frames, prompts}] from __SCENES.tsv.
 
     That file is the authority on pairing: it already says which prompt files and
     which slice belong to each scene, so nothing here re-derives it.
@@ -41,14 +46,12 @@ def read_song_folder(song):
     out = []
     for r in rows:
         d = dict(zip(head, r))
-        audio = (d.get("audio") or "-").strip()
         pf = [f for f in (d.get("prompts") or "").split() if f.endswith(".txt")]
         out.append({
             "scene": d.get("scene", "?"),
             "title": re.sub(r"^\d+_|-v\d+\.txt$", "", pf[0]).replace("-", " ")
                      if pf else "",
             "frames": int(d.get("frames") or 0),
-            "audio": "" if audio in ("", "-") else os.path.join(song, audio),
             "prompts": {f.rsplit("-", 1)[-1][:-4]: os.path.join(song, f)
                         for f in pf},
         })
@@ -65,14 +68,14 @@ class HurricaneSongFolder:
     batch count set too high would otherwise re-render the last scene for as long
     as the queue lasts.
 
-    audio_path is a path string, not an AUDIO - building one needs torch and this
-    file deliberately has no dependencies. Wire it into a Load Audio (Path).
+    frames is always 243 (10.125 s) as the kit builds it, but it is read from the
+    file rather than assumed, so a hand-edited row still works.
     """
 
     CATEGORY = CATEGORY
     FUNCTION = "run"
-    RETURN_TYPES = ("STRING", "STRING", "INT", "INT", "STRING")
-    RETURN_NAMES = ("prompt", "audio_path", "frames", "scene_count", "save_prefix")
+    RETURN_TYPES = ("STRING", "INT", "INT", "STRING")
+    RETURN_NAMES = ("prompt", "frames", "scene_count", "save_prefix")
 
     @classmethod
     def INPUT_TYPES(cls):
@@ -111,23 +114,11 @@ class HurricaneSongFolder:
         with open(pf, encoding="utf-8") as fh:
             prompt = fh.read()
 
-        if not sc["audio"]:
-            raise FileNotFoundError(
-                "scene %s has no audio slice in __SCENES.tsv. Re-run `mvkit split` "
-                "and `mvkit build`: scenes with no window of the song get a slice "
-                "of silence so every scene stays renderable by one graph."
-                % sc["scene"])
-        if not os.path.isfile(sc["audio"]):
-            raise FileNotFoundError(
-                "%s is missing. __SCENES.tsv names it for scene %s, so either the "
-                "folder was copied without its mp3s or `mvkit split` has not run."
-                % (sc["audio"], sc["scene"]))
-
         base = (out_subfolder.strip().strip("/") or
                 os.path.basename(os.path.abspath(os.path.expanduser(
                     song_path.strip()))))
         prefix = "%s/%s" % (base, os.path.basename(pf)[:-4])
-        return (prompt, sc["audio"], sc["frames"], len(scenes), prefix)
+        return (prompt, sc["frames"], len(scenes), prefix)
 
 
 NODE_CLASS_MAPPINGS = {"HurricaneSongFolder": HurricaneSongFolder}

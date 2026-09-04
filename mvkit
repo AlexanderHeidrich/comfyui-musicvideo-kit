@@ -1,46 +1,37 @@
 #!/usr/bin/env bash
-# One entry point for the pipeline, native or in Docker.
+# One entry point for the pipeline.
 #
 #   ./mvkit <command> [args]
 #
-#   new        <name> <audio>  scaffold songs/<name>
-#   drehbuch   <song>          _source/*.pdf -> _source/drehbuch.txt
-#   transcribe <song>          audio -> _source/transcript.*
-#   scenes     <song> [args]   -> _source/scenes.tsv. Uses drehbuch.txt when
-#                              there is one, else --uniform 10
-#   refs       <song>          read <song>/refs/ -> _source/refs.json + H3 tags
-#   shotlist   <song>          which reference images to make, and the prompts
-#   split      <song>          song -> scene_NN.mp3
-#   draft      <song> [--llm]  screenplay + lyrics -> _source/content.json
-#   build      <song> [--all-sheets]  blocks + content.json -> set-*/ folders
-#   all        <song>          every step above, in order
-#   layout     <song> [wf.json]  group and lay out a saved workflow so it is
-#                                readable; writes songs/<song>/<song>.json
+#   new        <name> <audio>   scaffold songs/<name>
+#   drehbuch   <song>           _source/*.pdf -> _source/drehbuch.txt
+#   pack       <song>           _source/scenes.json -> the set-*/ deliverable
 #   workflows  <song> [--from saved.json]  write the upscale graph, and graft one
 #                                          render graph per set-*/ folder
-#   probe                      ask a running ComfyUI which nodes it actually has
-#   concat     <dir> [out]     join rendered clips
-#   llm-up / llm-down          start or stop the local drafting model
-#   verify     <song>          check the grid, the seconds and the audio slices
-#   doctor                     what is installed, which engine will run
+#   layout     <song> [wf.json] group and lay out a saved workflow so it is
+#                               readable again
+#   probe                       ask a running ComfyUI which nodes it actually has
+#   concat     <dir> [out]      join rendered clips
+#   doctor                      what is installed, which engine will run
+#
+# The prompts are written by an agent into _source/scenes.json, not generated
+# here - see .claude/skills/storyboard/SKILL.md. `pack` only files them.
 #
 # Engine: --native / --docker, or MVKIT_ENGINE=native|docker.
-# Default is native when ffmpeg and whisper-cli are on PATH, Docker otherwise.
 set -euo pipefail
 KIT="$(cd "$(dirname "$0")" && pwd)"
 cd "$KIT"
 . bin/_lib.sh
 
 ENGINE="${MVKIT_ENGINE:-auto}"
-UNIFORM="${UNIFORM:-10}"
 case "${1:-}" in
   --native) ENGINE=native; shift ;;
   --docker) ENGINE=docker; shift ;;
 esac
 CMD="${1:-help}"; [ $# -gt 0 ] && shift || true
 
-have_native() { command -v ffmpeg >/dev/null 2>&1 && \
-  { command -v "${WHISPER_BIN:-whisper-cli}" >/dev/null 2>&1 || command -v main >/dev/null 2>&1; }; }
+# Nothing in the kit needs whisper any more, and only `concat` needs ffmpeg.
+have_native() { command -v python3 >/dev/null 2>&1 || command -v python >/dev/null 2>&1; }
 
 compose() {
   if docker compose version >/dev/null 2>&1; then docker compose "$@"
@@ -55,12 +46,7 @@ fi
 if [ "$ENGINE" = docker ] && [ "$CMD" != doctor ] && [ "$CMD" != help ]; then
   MVKIT_UID="$(id -u 2>/dev/null || echo 1000)"
   MVKIT_GID="$(id -g 2>/dev/null || echo 1000)"
-  # reuse an existing host model cache instead of downloading 1.6 GB again
-  if [ -z "${MVKIT_MODELS:-}" ]; then
-    if [ -d "$(model_dir)" ]; then MVKIT_MODELS="$(model_dir)"; else
-      MVKIT_MODELS=./.cache/whisper; mkdir -p "$MVKIT_MODELS"; fi
-  fi
-  export MVKIT_UID MVKIT_GID MVKIT_MODELS
+  export MVKIT_UID MVKIT_GID
   compose run --rm mvkit bash ./mvkit --native "$CMD" "$@"
   exit $?
 fi
@@ -71,66 +57,18 @@ song_dir() {                       # accept a name or a path
   case "$s" in */*) echo "$s" ;; *) echo "songs/$s" ;; esac
 }
 
-song_audio() {                     # first plausible track in _source/
-  local d="$1" f
-  for f in "$d"/_source/song.mp3 "$d"/_source/song.* "$d"/_source/*.mp3 \
-           "$d"/_source/*.wav "$d"/_source/*.m4a "$d"/_source/*.flac; do
-    case "$f" in *.tsv|*.txt|*.json) continue ;; esac
-    [ -f "$f" ] && { echo "$f"; return 0; }
-  done
-  echo "no audio in $d/_source/ - put your track there as song.mp3" >&2
-  return 1
-}
-
 py() { need_python; $PY "$@"; }
 
 case "$CMD" in
-  transcribe)
-    D="$(song_dir "${1:-}")"; A="$(song_audio "$D")"
-    bash bin/transcribe.sh "$A" "$D/_source" ;;
   drehbuch)
     D="$(song_dir "${1:-}")"
     P="$(ls "$D"/_source/*.pdf 2>/dev/null | head -1 || true)"
     [ -n "$P" ] || { echo "no pdf in $D/_source/ - put the screenplay there, or write"; \
                      echo "_source/drehbuch.txt by hand"; exit 1; }
     py bin/pdf_text.py "$P" "$D/_source/drehbuch.txt" ;;
-  scenes)
+  pack)
     D="$(song_dir "${1:-}")"; shift || true
-    if [ $# -eq 0 ]; then
-      if [ -f "$D/_source/drehbuch.txt" ]; then set -- --drehbuch "$D/_source/drehbuch.txt"
-      else set -- --uniform "$UNIFORM"; fi
-    fi
-    py bin/make_scenes.py "$D/_source/transcript.json" "$D/_source/scenes.tsv" "$@" ;;
-  refs)
-    D="$(song_dir "${1:-}")"
-    py bin/scan_refs.py "$D" ;;
-  shotlist)
-    D="$(song_dir "${1:-}")"
-    py bin/ref_shotlist.py "$D" ;;
-  draft)
-    D="$(song_dir "${1:-}")"; shift || true
-    py bin/draft_content.py "$D" "$@" ;;
-  split)
-    D="$(song_dir "${1:-}")"; A="$(song_audio "$D")"
-    bash bin/split_audio.sh "$A" "$D/_source/scenes.tsv" "$D" ;;
-  build)
-    D="$(song_dir "${1:-}")"; shift || true
-    py bin/build_storyboards.py "$D" "$@" ;;
-  all)
-    D="$(song_dir "${1:-}")"
-    if [ ! -f "$D/_source/drehbuch.txt" ] && ls "$D"/_source/*.pdf >/dev/null 2>&1; then
-      bash "$0" --native drehbuch "$D"
-    fi
-    if [ -f "$D/_source/transcript.json" ]; then
-      echo ">> reusing $D/_source/transcript.json (delete it to re-transcribe)"
-    else
-      bash "$0" --native transcribe "$D"
-    fi
-    bash "$0" --native scenes "$D"
-    [ -d "$D/refs" ] && bash "$0" --native refs "$D"
-    bash "$0" --native split "$D"
-    bash "$0" --native draft "$D"
-    bash "$0" --native build "$D" ;;
+    py bin/pack_sets.py "$D" "$@" ;;
   new)     bash bin/new_song.sh "$@" ;;
   layout)
     D="$(song_dir "${1:-}")"; shift || true
@@ -142,26 +80,13 @@ case "$CMD" in
   probe)
     py bin/comfy_probe.py "$@" ;;
   concat)  bash bin/concat.sh "$@" ;;
-  llm-up)
-    MODEL="${MVKIT_LLM_MODEL:-gemma3:4b}"
-    compose --profile llm up -d llm
-    echo ">> pulling $MODEL (once, ~3 GB)"
-    compose exec -T llm ollama pull "$MODEL"
-    echo "ready: mvkit draft <song> --llm" ;;
-  llm-down) compose --profile llm down ;;
-  verify)
-    D="$(song_dir "${1:-}")"
-    py bin/verify_timing.py "$D" ;;
   doctor)
     echo "os          : $MVKIT_OS"
-    for c in ffmpeg ffprobe python3 python whisper-cli whisper main docker; do
+    for c in ffmpeg ffprobe python3 python docker; do
       printf "%-12s: %s\n" "$c" "$(command -v "$c" 2>/dev/null || echo '-')"
     done
     printf "%-12s: %s\n" "compose" "$(docker compose version 2>/dev/null | head -1 || echo '-')"
-    printf "%-12s: %s\n" "model dir" "$(model_dir)"
-    ls "$(model_dir)" 2>/dev/null | sed 's/^/              /' || echo "              (empty)"
     printf "%-12s: %s\n" "engine" "$ENGINE"
-    printf "%-12s: %s\n" "llm" "${MVKIT_LLM_URL:-http://127.0.0.1:11434/v1/chat/completions}"
     echo
     echo "songs:"
     for d in songs/*/; do [ -d "$d" ] && echo "  ${d%/}"; done ;;

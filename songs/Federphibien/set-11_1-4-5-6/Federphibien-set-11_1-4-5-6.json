@@ -1,8 +1,8 @@
 {
   "id": "e3f2b845-8f2c-4b5a-9caf-eac1029d3e7e",
   "revision": 0,
-  "last_node_id": 157,
-  "last_link_id": 312,
+  "last_node_id": 156,
+  "last_link_id": 310,
   "nodes": [
     {
       "id": 115,
@@ -1238,7 +1238,7 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            308
+            306
           ]
         },
         {
@@ -1248,7 +1248,7 @@
           "links": []
         }
       ],
-      "title": "<Picture 1> - federphibium (char)  [sheet 1]",
+      "title": "<Picture 1> -   [sheet 1]",
       "properties": {
         "Node name for S&R": "LoadImageFederphibium",
         "cnr_id": "comfy-core",
@@ -1302,7 +1302,7 @@
           "name": "ref_images.ref_image_0",
           "shape": 7,
           "type": "IMAGE",
-          "link": 308
+          "link": 306
         },
         {
           "label": "ref_image_1",
@@ -1310,7 +1310,7 @@
           "name": "ref_images.ref_image_1",
           "shape": 7,
           "type": "IMAGE",
-          "link": 309
+          "link": 307
         },
         {
           "label": "ref_image_2",
@@ -1318,7 +1318,7 @@
           "name": "ref_images.ref_image_2",
           "shape": 7,
           "type": "IMAGE",
-          "link": 310
+          "link": 308
         },
         {
           "label": "ref_image_3",
@@ -1326,7 +1326,7 @@
           "name": "ref_images.ref_image_3",
           "shape": 7,
           "type": "IMAGE",
-          "link": 311
+          "link": 309
         },
         {
           "label": "ref_image_4",
@@ -1375,8 +1375,7 @@
           "localized_name": "ref_audios.ref_audio_0",
           "name": "ref_audios.ref_audio_0",
           "shape": 7,
-          "type": "AUDIO",
-          "link": 306
+          "type": "AUDIO"
         },
         {
           "label": "ref_audio_1",
@@ -1457,8 +1456,8 @@
         "",
         1344,
         768,
-        124,
-        "match"
+        243,
+        "max"
       ],
       "widgets_values_named": {
         "prompt": "",
@@ -1496,7 +1495,7 @@
           "widget": {
             "name": "filename_prefix"
           },
-          "link": 307
+          "link": 305
         },
         {
           "localized_name": "format",
@@ -1587,7 +1586,7 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            310
+            308
           ]
         },
         {
@@ -1597,7 +1596,7 @@
           "links": []
         }
       ],
-      "title": "<Picture 3> - der forscher (char)  [sheet 5]",
+      "title": "<Picture 3> -   [sheet 5]",
       "properties": {
         "Node name for S&R": "LoadImage"
       },
@@ -1648,7 +1647,7 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            309
+            307
           ]
         },
         {
@@ -1658,7 +1657,7 @@
           "links": []
         }
       ],
-      "title": "<Picture 2> - board (style)  [sheet 4]",
+      "title": "<Picture 2> -   [sheet 4]",
       "properties": {
         "Node name for S&R": "LoadImage"
       },
@@ -1709,7 +1708,7 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            311
+            309
           ]
         },
         {
@@ -1719,7 +1718,7 @@
           "links": []
         }
       ],
-      "title": "<Picture 4> - pond (loc)  [sheet 6]",
+      "title": "<Picture 4> -   [sheet 6]",
       "properties": {
         "Node name for S&R": "LoadImage"
       },
@@ -1784,14 +1783,6 @@
           ]
         },
         {
-          "name": "audio_path",
-          "localized_name": "audio_path",
-          "type": "STRING",
-          "links": [
-            305
-          ]
-        },
-        {
           "name": "frames",
           "localized_name": "frames",
           "type": "INT",
@@ -1810,7 +1801,7 @@
           "localized_name": "save_prefix",
           "type": "STRING",
           "links": [
-            307
+            305
           ]
         }
       ],
@@ -1826,71 +1817,7 @@
         -1490,
         6520
       ],
-      "title": "WATCHING HURRICANES - set-11_1-4-5-6: federphibium, board, der forscher, pond | 1 scene(s) | point song_path here"
-    },
-    {
-      "type": "VHS_LoadAudio",
-      "flags": {},
-      "order": 0,
-      "mode": 0,
-      "properties": {
-        "Node name for S&R": "VHS_LoadAudio"
-      },
-      "size": [
-        280,
-        80
-      ],
-      "inputs": [
-        {
-          "name": "audio_file",
-          "type": "STRING",
-          "widget": {
-            "name": "audio_file"
-          },
-          "link": 305
-        },
-        {
-          "name": "seek_seconds",
-          "type": "FLOAT",
-          "widget": {
-            "name": "seek_seconds"
-          }
-        },
-        {
-          "name": "duration",
-          "type": "FLOAT",
-          "widget": {
-            "name": "duration"
-          }
-        }
-      ],
-      "outputs": [
-        {
-          "name": "audio",
-          "localized_name": "audio",
-          "type": "AUDIO",
-          "links": [
-            306
-          ]
-        },
-        {
-          "name": "duration",
-          "localized_name": "duration",
-          "type": "FLOAT",
-          "links": []
-        }
-      ],
-      "widgets_values": [
-        "",
-        0.0,
-        0.0
-      ],
-      "id": 156,
-      "pos": [
-        215.71421323163054,
-        5958.541285948659
-      ],
-      "title": "AUDIO - this scene's slice"
+      "title": "WATCHING HURRICANES - set-11_1-4-5-6:  | 1 scene(s) | point song_path here"
     }
   ],
   "links": [
@@ -2129,7 +2056,7 @@
     [
       304,
       155,
-      2,
+      1,
       136,
       18,
       "INT"
@@ -2137,29 +2064,13 @@
     [
       305,
       155,
-      1,
-      156,
-      0,
-      "STRING"
-    ],
-    [
-      306,
-      156,
-      0,
-      136,
-      13,
-      "AUDIO"
-    ],
-    [
-      307,
-      155,
-      4,
+      3,
       92,
       1,
       "STRING"
     ],
     [
-      308,
+      306,
       137,
       0,
       136,
@@ -2167,7 +2078,7 @@
       "IMAGE"
     ],
     [
-      309,
+      307,
       149,
       0,
       136,
@@ -2175,7 +2086,7 @@
       "IMAGE"
     ],
     [
-      310,
+      308,
       150,
       0,
       136,
@@ -2183,7 +2094,7 @@
       "IMAGE"
     ],
     [
-      311,
+      309,
       151,
       0,
       136,

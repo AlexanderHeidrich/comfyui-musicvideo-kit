@@ -1,7 +1,0 @@
-scene	song_start	song_end	tl_frame	frames	duration	inner_cuts	continuity	audio	prompts	refs	lyrics
-02	00:06.458	00:13.042	398	158	6.5833	-	-	02_swimming-toward-the-farm.mp3	02_swimming-toward-the-farm-v1.txt 02_swimming-toward-the-farm-v2.txt 02_swimming-toward-the-farm-v3.txt	2,4,6	(instrumental)
-05	00:18.583	00:23.750	689	124	5.1667	-	-	05_sitting-sad-by-the-pond.mp3	05_sitting-sad-by-the-pond-v1.txt 05_sitting-sad-by-the-pond-v2.txt 05_sitting-sad-by-the-pond-v3.txt	2,4,6	Ich sitze traurig am Rand vom Teich
-06	00:21.208	00:26.375	752	124	5.1667	-	-	06_wet-skin-in-sunlight.mp3	06_wet-skin-in-sunlight-v1.txt 06_wet-skin-in-sunlight-v2.txt 06_wet-skin-in-sunlight-v3.txt	2,4,6	Meine Haut ist glibschig und trotzdem weich
-12	00:42.917	00:48.083	1273	124	5.1667	-	chain	12_back-to-the-frog.mp3	12_back-to-the-frog-v1.txt 12_back-to-the-frog-v2.txt 12_back-to-the-frog-v3.txt	2,4,6	(instrumental)
-16	00:55.708	01:07.958	1580	294	12.2500	5.500	-	16_hopping-through-the-grass.mp3	16_hopping-through-the-grass-v1.txt 16_hopping-through-the-grass-v2.txt 16_hopping-through-the-grass-v3.txt	2,4,6	(instrumental)
-21	01:16.250	01:21.417	2073	124	5.1667	-	-	21_skidding-onto-the-gravel.mp3	21_skidding-onto-the-gravel-v1.txt 21_skidding-onto-the-gravel-v2.txt 21_skidding-onto-the-gravel-v3.txt	2,4,6	(instrumental)

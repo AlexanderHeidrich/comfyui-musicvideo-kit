@@ -1,0 +1,67 @@
+subject_definitions
+<Subject 1> is THE HEN, shown in <Picture 1>: an ordinary plump farmyard hen, 45 cm to the top of
+her comb and 50 cm beak to tail - four to five times the frog's height. Standing
+beside her he reaches her hock and no higher, and she must fold her neck right to
+the ground to bring her beak to him. She stands on two thin scaly yellow-orange
+legs, body carried fairly upright in a soft pear shape, breast full, tail low and
+coming to a short point. Warm tan and ochre plumage with darker brown wing
+feathers and a pale cream breast. Upright brick-red comb, small dark red wattle,
+short orange-yellow beak, the same white eyes with dot pupils as the frog. No
+eyelashes, no blush, no anthropomorphism. Noble, haughty, indifferent.
+
+<Picture 2> is a colour and construction board: read the palette, the line weight and the
+way the wash grades inside the line off it. It is never a thing in the scene and
+is never drawn.
+
+<Picture 3> is the pond and the yard around it, a background painting in which nothing is
+a subject. A calm flat pale green water surface skinned with duckweed, ripples as
+thin concentric ink rings; lily pads with red-brown outlines, dark green centres
+and one soft highlight each; cattails at both edges of frame as near-black
+silhouettes; a bank of dry mud cracked into plates; a band of tall pale grass; a
+leaning chicken-wire fence on rough posts, sagging and worn under into a gap a
+frog can pass; behind it to the right the coop with its ridged corrugated tin
+roof; far off the farmhouse and cow barn, pale with distance. Palette here: leaf
+green over pale green-white water, sage and olive land, dusty liver brown, straw,
+cream, a clear bright sky. The pond is 3 m across, the farmyard 40 m, and it is
+5 m from the bank to the hen house. The fence and the tin roof are in every shot
+that holds the far bank, at any distance, from any angle, including straight down.
+
+summary
+[reference generation] The hen finishes pecking, lifts her head, looks toward the pond, turns away in contempt and walks off.
+
+retention_analysis
+<Picture 1> (<Subject 1>): partially_preserved - design, proportions and colour model exactly, in the view this shot needs.
+<Picture 2>: attribute_transfer - palette, line weight and the way the wash grades inside the line. Never drawn.
+<Picture 3>: fully_preserved - this is the set. Every shot stays inside it.
+
+detailed_description
+Hand-painted picture-book animation. Loose watercolour and gouache washes on
+cold-press paper, the tooth of the paper showing through every wash; colour
+pools and grades softly inside each shape and sometimes drifts past the line.
+Over the paint a thin dry dark brown-black ink contour of clearly varying
+weight, slightly ragged where the brush lifted, with short hatching strokes for
+feathers and for the shaded side of a form. One soft pale highlight on each
+rounded wet surface, never a hard white dot. Values sit in the middle: nothing
+is pure white, nothing is pure black. Limited animation on twos with strong held
+poses.
+Output clean and sharp: no film grain, video noise, VHS softness, scanlines,
+chroma bleed, gate weave, dust, vignetting, bloom, lens effects or on-screen
+text.
+
+The scene is the pond and the farmyard around it, exactly as painted in <Picture 3>: flat pale green water, the cracked mud bank, the leaning chicken-wire fence and the coop with its ridged tin roof beyond it. Bright summer daylight from high and left.
+
+[Shot 1] The camera holds at her side as she turns and leaves. The hen pecks, then raises her head and holds it. She looks across toward the water. Then she turns away without interest and walks off in her stiff hen's walk until she has left the picture.
+
+[Shot 2] At 00:06.000, the shot cuts to: her legs and the dust as she walks out of the picture.
+
+overall_soundscape
+A working summer farm, quiet and constant under everything: wet plops, crickets,
+the low mutter of hens off frame, corrugated tin ticking in the heat, one distant
+tractor that never arrives. Flies. No cartoon sound effects of any kind - no
+boings, no slide whistles, no comedy impacts. Any croak or cluck is
+recorded-real, never performed.
+
+non_diegetic_music
+No music of any kind. No song, no score, no stings, no risers, no instruments.
+No singing and no voice: nobody speaks and nobody sings, and no character's
+mouth forms words. Ambient sound only.

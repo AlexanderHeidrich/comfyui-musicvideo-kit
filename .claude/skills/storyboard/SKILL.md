@@ -1,165 +1,119 @@
 ---
 name: storyboard
-description: Turn a song into per-scene MiniMax H3 storyboards in this repo. Use when the user wants to build a music video, add or rebuild a song under songs/, convert a Drehbuch/screenplay into scenes, write the brief and content blocks, or fix an existing storyboard. Handles the intake of mp3, screenplay, references, lyrics and style notes.
+description: Turn a song into per-scene MiniMax H3 storyboards in this repo. Use when the user wants to build a music video, add or rebuild a song under songs/, convert a Drehbuch/screenplay into scenes, write the prompts, or fix an existing storyboard. Handles the intake of mp3, screenplay, references and style notes.
 ---
 
 # Storyboard a song
 
-You are wiring inputs into `songs/<name>/_source/` and then running the pipeline.
-The scripts do the timing; you do the writing. Never hand-edit generated files.
+**You write the prompts. The scripts only file them.** There is no template
+merger any more: `_source/scenes.json` holds the finished six-section text for
+every scene and variant, frozen, and `mvkit pack` copies it into the set folders
+and checks it. If you find yourself wanting a script to assemble a prompt out of
+`brief.txt` at build time, that is the thing this kit was rebuilt to remove.
 
-Read `CLAUDE.md` in the repo root first - it carries the H3 frame-grid rules and
-the traps. Read `templates/__README.txt` for what is configurable.
+Read `CLAUDE.md` first - it carries the H3 constraints and the traps.
 
-## 1. Intake - ask before doing anything
+## Before you change anything about quality
 
-Ask for all of it in one message, mark what is optional, and do not block on the
-optional parts. Use the user's language.
+Verify against the web first: MiniMax's docs, ComfyUI's docs, or a published
+prompt guide. Do not change reference handling, prompt structure or anything
+touching adherence on intuition, and say which source you used. The repo's own
+notes have drifted from reality more than once.
 
-1. **The song.** "Where is the mp3?" On macOS you cannot read pre-existing files
-   in `~/Downloads` - ask them to `cp` it somewhere else, or try the copy first
-   and only ask if it fails.
-2. **The style.** "Describe the look, and name whatever it reminds you of -
-   shows, films, illustrators, an era." Their examples go verbatim into
-   `_source/style_examples.txt`; you distil them into the `[style]` block of
-   `_source/brief.txt` - about 900 characters, because that block sits in every
-   prompt. `templates/styles/` holds long-form look blocks to read and condense;
-   offer them: `ls templates/styles/`.
-3. **The screenplay.** "Do you have a Drehbuch? A pdf or text file that says,
-   per frame range or per second range, what happens?" This is the single
-   biggest quality lever - with it the scene split follows the story instead of
-   a metronome. If they have none, you will use `--uniform`.
-4. **References.** "Any reference images for the characters, the look, the
-   locations?" They go in `<song>/refs/` under the naming schema in
-   `refs/__README.txt`. At least one image or video is required - H3
-   rejects audio-only input.
-5. **The lyrics.** "Paste the real lyrics." The ASR transcript is wrong on sung
-   material and is only used for timing. Optionally `[mm:ss]`-prefixed, which
-   places each line on its scene automatically.
+## 1. Intake
 
-## 2. Scaffold and run the mechanical part
+Ask for it all in one message, in the user's language, and do not block on the
+optional parts.
 
-```bash
-./mvkit new <name> <audio> [style-template]   # style-template from templates/styles/
-# put the screenplay pdf in songs/<name>/_source/ and the sheets in <name>/refs/
-./mvkit all <name>
-```
+1. **The song.** An mp3 in `_source/`. It is never read by the pipeline - it is
+   what the user lays under the picture in DaVinci.
+2. **The screenplay.** A pdf or text file that says, per frame range, what
+   happens. This is the whole spine. `./mvkit drehbuch <song>` extracts a pdf
+   with the stdlib; scanned pdfs come back empty.
+3. **The look.** What it should look like, and what it reminds them of. Their
+   words go verbatim into `_source/style_examples.txt`; you condense them into
+   the `[style]` block of `_source/brief.txt`.
+4. **References.** Character sheets and location paintings in `<song>/refs/`,
+   named per `refs/__README.txt`. Characters want a **turnaround** - front,
+   side, back, top on one image - or H3 has never seen the character's back and
+   will answer "from behind" with whatever view it has. `refs/__PROMPTS.txt`
+   holds the generation prompts.
 
-`all` does: pdf -> `drehbuch.txt`, transcribe, scenes, refs, split, draft, build.
-It always produces something renderable, so run it early and iterate.
+Lyrics are not an input any more. Nothing sings.
 
-Check its output before writing prose:
-- `coverage_pct` and `uncovered` in `transcript.json`
-- the warnings from the scenes step - padded scenes, split scenes, scenes
-  dropped before 0 s, and how far the last scene runs past the song
-- the tag table from the refs step. Never hardcode `<Picture 1>`; use what it
-  prints.
+## 2. Split the screenplay into scenes
 
-## 3. Write the blocks
+One scene per screenplay frame range, one to one. Every scene is **243 frames
+(10.125 s)** - the node's length is set once and never touched.
 
-Edit only these, then re-run `./mvkit build <name>`:
+- A beat under 5 s does not get stretched. It gets a **second setup of the same
+  moment** inside the clip, as `[Shot 2] At 00:05.000, the shot cuts to:`. Under
+  2 s, give it a third at 00:07.000. The second setup is the same moment from
+  another axis, never the next action, or the clip runs away from the story.
+- A beat over 10 s: if the screenplay names several actions ("Mehrere Cuts",
+  two distinct things happening), split it into two scenes. If it describes one
+  continuous thing, keep it whole and let the action compress.
+- The point is coverage. The user cuts it himself and wants choice.
 
-- `_source/brief.txt` - REQUIRED, and the only one of these that reaches H3.
-  `[style]`, `[sound]`, `[music]` and one `[subject <ref slug>]` per reference,
-  where `{S}` becomes the scene's live `<Subject n>` and `{P}` its `<Picture n>`.
-  A prompt carries only the subjects that scene contains, which is what keeps it
-  inside H3's documented 7,000 characters. Keep each subject block near 500
-  characters and `[style]` near 900; `mvkit build` names any scene that overruns.
-  Write a `[subject]` as `{S} is NAME, shown in {P}: ...` for a character and as
-  `{P} is ...` for a location or board - `mvkit shotlist` reads that difference,
-  and only a character gets a sheet. State what NOT to take from a reference (its
-  rendering, any lettering or border). Keep the RENDER CLEAN sentence in
-  `[style]`: the user adds period artefacts later in DaVinci and baked-in ones
-  cannot be removed. There is no bible.txt and no style.txt any more - this file
-  is the whole authoring surface.
-- `_source/tail.txt` - the audio fallback, used only where brief.txt has no
-  `[sound]` or `[music]`.
-- `_source/content.json` - one entry per scene. `mvkit draft` seeds it from the
-  screenplay; rewrite the entries into real shot language per
-  `templates/drafting.txt`.
-  **Write every title and description in English**, whatever language the
-  screenplay and the user are in - H3 follows English shot language far more
-  reliably. The `lyrics` field is the exception: verbatim, in its original
-  language, never translated or tidied. So is any sung or spoken line quoted
-  inside a shot.
-  **Keep framing out of the action.** The camera block supplies it, and the same
-  action text is reused by v1/v2/v3 verbatim, so "close-up" in the action
-  contradicts two of the three. Staging that is part of the story - a focus
-  rack, one character looming - does belong there.
-  `mvkit build` warns about both: scenes that still read as German, and actions
-  that name a framing.
+## 3. Write `_source/scenes.json`
 
-### Cameras
-
-**v1 is the director's shot, not yours.** If the screenplay states a framing,
-v1 restates it. `scenes.tsv` carries what was asked for in its `framing` column;
-`mvkit build` warns about any scene where v1 ignores it. Write the three per
-scene in `content.json`:
+One entry per scene:
 
 ```json
-"cameras": {"v1": "[Static shot] Over the frog's shoulder, at the waterline ...",
-            "v2": "[Static shot] The answering angle from ahead of him ...",
-            "v3": "[Static shot] Close on his face just above the water ..."}
+{ "scene": 30, "beat": [2185, 2240], "frames": 243,
+  "title": "the ring in the leaf box",
+  "location": "henhouse interior",
+  "sheets": ["der frosch", "board", "henhouse interior"],
+  "prompts": { "v1": "<full six-section text>", "v2": "...", "v3": "..." } }
 ```
 
-v2 and v3 are yours: coverage by film-theory practice - never repeat v1's shot
-size, cross the axis rather than nudge it, and let one of them carry what the
-master cannot. `templates/cameras/__COVERAGE.txt` has the table per v1 type, and
-`__GLOSSARY.txt` the vocabulary, the amplitude and speed modifiers, and the
-scale rule. The brackets are this kit's shorthand only - H3 dropped Hailuo 02's
-bracket commands and reads camera motion as a sentence, so `mvkit build`
-translates them on the way out.
+`sheets` is **declared, not guessed**. A connected reference turns up on screen
+whether the prompt asks for it or not, so this list decides the wiring. Name only
+what is in the shot.
 
-For a song with no screenplay, a whole-film set is enough:
-`cp templates/cameras/rostrum-2d.txt templates/cameras.txt` (or into the song's
-`_source/cameras.txt` to keep it local).
+The prompt rules, all of them load-bearing:
 
-## 3b. References, when there are none yet
+- The six sections in order: `subject_definitions`, `summary`,
+  `retention_analysis`, `detailed_description`, `overall_soundscape`,
+  `non_diegetic_music`. `summary` opens with `[reference generation]`.
+- **A location sentence is mandatory**, in `detailed_description`, after the
+  style block and before `[Shot 1]`, naming the set and its `<Picture n>`. A
+  scene with no stated place gets invented one, and the style block's palette
+  decides which.
+- **`[style]` holds the look and nothing else.** Every palette word tied to a
+  place lives in that place's `[location]` block. This is why proposals written
+  for the hen house kept happening in a pond.
+- **Neither `summary` nor the action may name a framing.** Both are byte
+  identical across v1/v2/v3; only the camera sentence differs. "Close-up" in
+  either contradicts two of the three variants.
+- Camera as motion type + amplitude + speed in plain English inside the shot -
+  "The camera pushes in with small amplitude at slow speed." Never `[Push in]`.
+  One dominant move per clip.
+- No `<Audio>` reference anywhere, no lyrics, no singing. `non_diegetic_music`
+  asks for no music, no song, no voice. Reference audio is a timbre anchor, not
+  playback - handing H3 a slice carrying the prompt's own words is what produced
+  clips singing the wrong lyrics.
+- English throughout. Under 7,000 characters; `mvkit pack` fails otherwise.
+- Every scene that holds two characters restates which is bigger. The sheets
+  carry no scale.
 
-Run `./mvkit shotlist <song>`. It ranks what to generate by how often each
-character actually appears and writes the prompts. Tell the user the core set is
-the two most-present characters plus a style board, loaded into every scene so
-their tags never move, with at most one scene-specific reference after them.
+Writing 51 scenes by hand means retyping the same blocks 51 times. Use a one-off
+helper in the scratchpad to expand them, but **the output must be frozen full
+text in scenes.json** - hand-editable, diffable, and never reassembled at build
+time.
 
-Without any references, continuity rests on chaining: check `__READ_ME.txt` for
-the scenes marked `chain` and make sure the user knows to render those in order.
+## 4. Pack and wire
 
-## 4. Hand over
+```bash
+./mvkit pack <song>
+./mvkit workflows <song> --from <song>/_source/workflow.json
+```
 
-If `mvkit build` reports prompts over 7,000 characters, run the **`fit-prompts`**
-skill before handing over. The build only measures; that skill decides which text
-to shorten and rewrites it.
+`pack` groups scenes by their sheet tuple into `set-NN_*/` folders, numbers the
+sheets the way H3 will, writes each set's `__SCENES.tsv` and `__READ_ME.txt`, and
+fails on a prompt over 7,000 characters. `workflows` grafts one graph per set,
+keeping only the loaders that set needs. Check its report: loader count per set
+must equal the sheet count.
 
-Report: scene count, the span of song covered, which scenes were padded or
-split, the reference tags, how many reference sets the scenes fell into, and
-where the deliverable is. Point at `songs/<name>/__READ_ME.txt` - it carries the
-work list of `set-*/` folders, which is what the user renders - and at
-`docs/comfyui-batch.md` if they ask how to render a whole song rather than one
-scene.
-
-The generated `NN_*.txt` live in the `set-*/` folder that renders them and are
-finished six-section H3 prompts - no `#` comments, no markup, nothing to strip.
-Do not add any back. A prompt numbers the sheets of its own set, so `<Picture 1>`
-means different things in different sets; that is deliberate, because H3
-renumbers whatever it is actually handed.
-
-## Rules that break renders if you get them wrong
-
-- Length is only valid where `frames % 17 == 5`, trained 124-362, and H3 rounds
-  UP. The scenes step is the only thing allowed to choose durations.
-- Max ~15 s per generation. One scene = one render.
-- 9 images, 3 videos, 3 standalone audio, 12 media total. Reference tags
-  renumber over what is actually connected, and a reference video's own
-  soundtrack claims an `<Audio>` number before any standalone audio.
-- Six sections in order: subject_definitions, summary, retention_analysis,
-  detailed_description, overall_soundscape, non_diegetic_music. `[Shot 1]`
-  opens the first shot with no timestamp; later shots are
-  `[Shot N] At 00:0X.XXX, the shot cuts to:` - label first, then the time.
-- Scale is not in the references. Every reference is a portrait filling its own
-  frame, so without measurements in the `[subject]` blocks H3 draws a frog the
-  size of a man. Give real measurements, the relation between characters, and how small
-  the subject must be in a wide. Write it into the action wherever two
-  characters share a frame.
-- Concrete physical detail. Never "cinematic", "epic", "beautiful".
-- v1/v2/v3 are coverage of one moment: the ACTION text is byte-identical across
-  them and only the camera block differs. Preserve that.
+In ComfyUI, point `HurricaneSongFolder` at one set folder, `scene_index` to
+increment, batch count to `scene_count`, run once.

@@ -1,2 +1,2 @@
-scene	song_start	song_end	tl_frame	frames	duration	inner_cuts	continuity	audio	prompts	refs	lyrics
-19	01:07.500	01:12.667	1863	124	5.1667	-	-	19_dead-in-the-water.mp3	19_dead-in-the-water-v1.txt 19_dead-in-the-water-v2.txt 19_dead-in-the-water-v3.txt	1,4,5,6	die nicht zum fliegen oder schwimmen taugen
+scene	frames	prompts	refs	title
+22	243	22_dead-hybrids-on-the-water-v1.txt 22_dead-hybrids-on-the-water-v2.txt 22_dead-hybrids-on-the-water-v3.txt	1-4-5-6	dead hybrids on the water

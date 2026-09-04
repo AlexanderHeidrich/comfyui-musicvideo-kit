@@ -1,50 +1,52 @@
-scene	song_start	song_end	tl_frame	frames	duration	inner_cuts	continuity	audio	prompts	refs	lyrics
-00	-	-	0	243	10.1250	-	-	set-18_4-6-7/00_high-above-the-farm.mp3	set-18_4-6-7/00_high-above-the-farm-v1.txt set-18_4-6-7/00_high-above-the-farm-v2.txt set-18_4-6-7/00_high-above-the-farm-v3.txt	4,6,7	(instrumental)
-01	00:00.000	00:06.583	243	158	6.5833	-	chain	set-16_2-4-5-6/01_the-pond-from-above.mp3	set-16_2-4-5-6/01_the-pond-from-above-v1.txt set-16_2-4-5-6/01_the-pond-from-above-v2.txt set-16_2-4-5-6/01_the-pond-from-above-v3.txt	2,4,5,6	(instrumental)
-02	00:06.458	00:13.042	398	158	6.5833	-	-	set-03_2-4-6/02_swimming-toward-the-farm.mp3	set-03_2-4-6/02_swimming-toward-the-farm-v1.txt set-03_2-4-6/02_swimming-toward-the-farm-v2.txt set-03_2-4-6/02_swimming-toward-the-farm-v3.txt	2,4,6	(instrumental)
-03	00:12.375	00:17.542	540	124	5.1667	-	-	set-07_2-4-5-6-7/03_hauling-out-of-the-water.mp3	set-07_2-4-5-6-7/03_hauling-out-of-the-water-v1.txt set-07_2-4-5-6-7/03_hauling-out-of-the-water-v2.txt set-07_2-4-5-6-7/03_hauling-out-of-the-water-v3.txt	2,4,5,6,7	(instrumental)
-04	00:15.500	00:20.667	615	124	5.1667	-	-	set-04_2-4-6-7/04_rolling-onto-his-back.mp3	set-04_2-4-6-7/04_rolling-onto-his-back-v1.txt set-04_2-4-6-7/04_rolling-onto-his-back-v2.txt set-04_2-4-6-7/04_rolling-onto-his-back-v3.txt	2,4,6,7	(instrumental)
-05	00:18.583	00:23.750	689	124	5.1667	-	-	set-03_2-4-6/05_sitting-sad-by-the-pond.mp3	set-03_2-4-6/05_sitting-sad-by-the-pond-v1.txt set-03_2-4-6/05_sitting-sad-by-the-pond-v2.txt set-03_2-4-6/05_sitting-sad-by-the-pond-v3.txt	2,4,6	Ich sitze traurig am Rand vom Teich
-06	00:21.208	00:26.375	752	124	5.1667	-	-	set-03_2-4-6/06_wet-skin-in-sunlight.mp3	set-03_2-4-6/06_wet-skin-in-sunlight-v1.txt set-03_2-4-6/06_wet-skin-in-sunlight-v2.txt set-03_2-4-6/06_wet-skin-in-sunlight-v3.txt	2,4,6	Meine Haut ist glibschig und trotzdem weich
-07	00:23.792	00:30.375	814	158	6.5833	-	-	set-06_2-4/07_licking-his-own-eye.mp3	set-06_2-4/07_licking-his-own-eye-v1.txt set-06_2-4/07_licking-his-own-eye-v2.txt set-06_2-4/07_licking-his-own-eye-v3.txt	2,4	Die Fliegen schwirren um mein Gesicht, ich könnt' sie fressen aber Hunger hab ich nicht
-08	00:29.792	00:34.958	958	124	5.1667	-	-	set-07_2-4-5-6-7/08_the-hen-house-in-the-distance.mp3	set-07_2-4-5-6-7/08_the-hen-house-in-the-distance-v1.txt set-07_2-4-5-6-7/08_the-hen-house-in-the-distance-v2.txt set-07_2-4-5-6-7/08_the-hen-house-in-the-distance-v3.txt	2,4,5,6,7	(instrumental)
-09	00:33.000	00:38.167	1035	124	5.1667	-	-	set-05_3-4-6/09_the-hen-pecking-grain.mp3	set-05_3-4-6/09_the-hen-pecking-grain-v1.txt set-05_3-4-6/09_the-hen-pecking-grain-v2.txt set-05_3-4-6/09_the-hen-pecking-grain-v3.txt	3,4,6	Sie sagt meine Augen sind zu groß
-10	00:36.458	00:41.625	1118	124	5.1667	-	-	set-01_2-3-4/10_the-hen-in-his-eyes.mp3	set-01_2-3-4/10_the-hen-in-his-eyes-v1.txt set-01_2-3-4/10_the-hen-in-his-eyes-v2.txt set-01_2-3-4/10_the-hen-in-his-eyes-v3.txt	2,3,4	[viel zu groß]
-11	00:38.542	00:43.708	1168	124	5.1667	-	hold	set-05_3-4-6/11_the-hen-turns-away.mp3	set-05_3-4-6/11_the-hen-turns-away-v1.txt set-05_3-4-6/11_the-hen-turns-away-v2.txt set-05_3-4-6/11_the-hen-turns-away-v3.txt	3,4,6	Sie hasst Amphibien, was ist da los
-12	00:42.917	00:48.083	1273	124	5.1667	-	chain	set-03_2-4-6/12_back-to-the-frog.mp3	set-03_2-4-6/12_back-to-the-frog-v1.txt set-03_2-4-6/12_back-to-the-frog-v2.txt set-03_2-4-6/12_back-to-the-frog-v3.txt	2,4,6	(instrumental)
-13	00:44.167	00:49.333	1303	124	5.1667	-	-	set-08_2-4-7/13_i-am-a-frog.mp3	set-08_2-4-7/13_i-am-a-frog-v1.txt set-08_2-4-7/13_i-am-a-frog-v2.txt set-08_2-4-7/13_i-am-a-frog-v3.txt	2,4,7	Ich bin ein Frosch! Was soll ich tun?
-14	00:46.750	00:56.167	1365	226	9.4167	2.833,5.958	hold	set-04_2-4-6-7/14_in-love-with-a-chicken.mp3	set-04_2-4-6-7/14_in-love-with-a-chicken-v1.txt set-04_2-4-6-7/14_in-love-with-a-chicken-v2.txt set-04_2-4-6-7/14_in-love-with-a-chicken-v3.txt	2,4,6,7	Bin argh verknallt in ein Huhn. / Uns’re Welten, weit auseinander. / Doch bestimmt nur für einander.
-15	00:55.708	01:01.583	1580	141	5.8750	-	-	set-09_1-3-4-6/15_imagine-our-children.mp3	set-09_1-3-4-6/15_imagine-our-children-v1.txt set-09_1-3-4-6/15_imagine-our-children-v2.txt set-09_1-3-4-6/15_imagine-our-children-v3.txt	1,3,4,6	Stell dir unsre Kinder vooooor
-16	00:55.708	01:07.958	1580	294	12.2500	5.500	-	set-03_2-4-6/16_hopping-through-the-grass.mp3	set-03_2-4-6/16_hopping-through-the-grass-v1.txt set-03_2-4-6/16_hopping-through-the-grass-v2.txt set-03_2-4-6/16_hopping-through-the-grass-v3.txt	2,4,6	(instrumental)
-17	01:01.458	01:06.625	1718	124	5.1667	-	-	set-12_1-4-7/17_slimy-feathers.mp3	set-12_1-4-7/17_slimy-feathers-v1.txt set-12_1-4-7/17_slimy-feathers-v2.txt set-12_1-4-7/17_slimy-feathers-v3.txt	1,4,7	Schleimige Federn …
-18	01:03.542	01:08.708	1768	124	5.1667	-	-	set-10_1-4/18_great-big-eyes.mp3	set-10_1-4/18_great-big-eyes-v1.txt set-10_1-4/18_great-big-eyes-v2.txt set-10_1-4/18_great-big-eyes-v3.txt	1,4	... große Auuuugen [so große Augen!]
-19	01:07.500	01:12.667	1863	124	5.1667	-	-	set-11_1-4-5-6/19_dead-in-the-water.mp3	set-11_1-4-5-6/19_dead-in-the-water-v1.txt set-11_1-4-5-6/19_dead-in-the-water-v2.txt set-11_1-4-5-6/19_dead-in-the-water-v3.txt	1,4,5,6	die nicht zum fliegen oder schwimmen taugen
-20	01:10.417	01:16.292	1933	141	5.8750	-	-	set-17_4-5-7/20_the-researcher-s-notebook.mp3	set-17_4-5-7/20_the-researcher-s-notebook-v1.txt set-17_4-5-7/20_the-researcher-s-notebook-v2.txt set-17_4-5-7/20_the-researcher-s-notebook-v3.txt	4,5,7	Federphibien soll man sie nennen. Nachkömmlinge von Frosch und Hennen
-21	01:16.250	01:21.417	2073	124	5.1667	-	-	set-03_2-4-6/21_skidding-onto-the-gravel.mp3	set-03_2-4-6/21_skidding-onto-the-gravel-v1.txt set-03_2-4-6/21_skidding-onto-the-gravel-v2.txt set-03_2-4-6/21_skidding-onto-the-gravel-v3.txt	2,4,6	(instrumental)
-22	01:18.625	01:23.792	2130	124	5.1667	-	-	set-06_2-4/22_up-the-chicken-ladder.mp3	set-06_2-4/22_up-the-chicken-ladder-v1.txt set-06_2-4/22_up-the-chicken-ladder-v2.txt set-06_2-4/22_up-the-chicken-ladder-v3.txt	2,4	(instrumental)
-23	01:21.667	01:26.833	2203	124	5.1667	-	-	set-02_2-3-4-7/23_into-the-down.mp3	set-02_2-3-4-7/23_into-the-down-v1.txt set-02_2-3-4-7/23_into-the-down-v2.txt set-02_2-3-4-7/23_into-the-down-v3.txt	2,3,4,7	Ich deck mich zu mit ihren Daunen
-24	01:24.167	01:29.333	2263	124	5.1667	-	hold	set-02_2-3-4-7/24_the-hen-shouts-him-down.mp3	set-02_2-3-4-7/24_the-hen-shouts-him-down-v1.txt set-02_2-3-4-7/24_the-hen-shouts-him-down-v2.txt set-02_2-3-4-7/24_the-hen-shouts-him-down-v3.txt	2,3,4,7	Ich halt sie aus, ihre verrückten Launen
-25	01:27.083	01:32.250	2333	124	5.1667	-	-	set-02_2-3-4-7/25_she-turns-her-head.mp3	set-02_2-3-4-7/25_she-turns-her-head-v1.txt set-02_2-3-4-7/25_she-turns-her-head-v2.txt set-02_2-3-4-7/25_she-turns-her-head-v3.txt	2,3,4,7	Sie dreht den Kopf …
-26	01:28.333	01:33.500	2363	124	5.1667	-	-	set-01_2-3-4/26_reaching-behind-him.mp3	set-01_2-3-4/26_reaching-behind-him-v1.txt set-01_2-3-4/26_reaching-behind-him-v2.txt set-01_2-3-4/26_reaching-behind-him-v3.txt	2,3,4	... sie schaut mich an. Ich halt’s nicht aus.
-27	01:31.042	01:36.208	2428	124	5.1667	-	-	set-04_2-4-6-7/27_the-ring.mp3	set-04_2-4-6-7/27_the-ring-v1.txt set-04_2-4-6-7/27_the-ring-v2.txt set-04_2-4-6-7/27_the-ring-v3.txt	2,4,6,7	Nimm mich zum Mann
-28	01:33.333	01:38.500	2483	124	5.1667	-	-	set-01_2-3-4/28_she-swallows-it.mp3	set-01_2-3-4/28_she-swallows-it-v1.txt set-01_2-3-4/28_she-swallows-it-v2.txt set-01_2-3-4/28_she-swallows-it-v3.txt	2,3,4	(instrumental)
-29	01:34.583	01:39.750	2513	124	5.1667	-	chain	set-02_2-3-4-7/29_she-walks-straight-past.mp3	set-02_2-3-4-7/29_she-walks-straight-past-v1.txt set-02_2-3-4-7/29_she-walks-straight-past-v2.txt set-02_2-3-4-7/29_she-walks-straight-past-v3.txt	2,3,4,7	(instrumental)
-30	01:35.833	01:41.000	2543	124	5.1667	-	-	set-02_2-3-4-7/30_her-walk.mp3	set-02_2-3-4-7/30_her-walk-v1.txt set-02_2-3-4-7/30_her-walk-v2.txt set-02_2-3-4-7/30_her-walk-v3.txt	2,3,4,7	Ihr Gang erinnert an Urzeit-Echsen
-31	01:40.000	01:45.167	2643	124	5.1667	-	hold,chain	set-01_2-3-4/31_cartoon-hearts.mp3	set-01_2-3-4/31_cartoon-hearts-v1.txt set-01_2-3-4/31_cartoon-hearts-v2.txt set-01_2-3-4/31_cartoon-hearts-v3.txt	2,3,4	(instrumental)
-32	01:42.083	01:47.250	2693	124	5.1667	-	-	set-08_2-4-7/32_throwing-the-grain.mp3	set-08_2-4-7/32_throwing-the-grain-v1.txt set-08_2-4-7/32_throwing-the-grain-v2.txt set-08_2-4-7/32_throwing-the-grain-v3.txt	2,4,7	Das macht mich rollig, ich will sie sexen
-33	01:45.000	01:50.167	2763	124	5.1667	-	-	set-01_2-3-4/33_grain-on-his-back.mp3	set-01_2-3-4/33_grain-on-his-back-v1.txt set-01_2-3-4/33_grain-on-his-back-v2.txt set-01_2-3-4/33_grain-on-his-back-v3.txt	2,3,4	Ich leg mir Körner auf den Rücken
-34	01:50.000	01:55.167	2883	124	5.1667	-	-	set-02_2-3-4-7/34_she-stoops-down.mp3	set-02_2-3-4-7/34_she-stoops-down-v1.txt set-02_2-3-4-7/34_she-stoops-down-v2.txt set-02_2-3-4-7/34_she-stoops-down-v3.txt	2,3,4,7	Sie kommt näher, muss sich bücken.
-35	01:52.917	01:58.083	2953	124	5.1667	-	hold,chain	set-01_2-3-4/35_she-pecks-him.mp3	set-01_2-3-4/35_she-pecks-him-v1.txt set-01_2-3-4/35_she-pecks-him-v2.txt set-01_2-3-4/35_she-pecks-him-v3.txt	2,3,4	Sie pickt zärtlich, ich quak leise
-36	01:55.417	02:00.583	3013	124	5.1667	-	-	set-02_2-3-4-7/36_their-eyes-meet.mp3	set-02_2-3-4-7/36_their-eyes-meet-v1.txt set-02_2-3-4-7/36_their-eyes-meet-v2.txt set-02_2-3-4-7/36_their-eyes-meet-v3.txt	2,3,4,7	Jede Berührung schickt mich auf eine Reise
-37	01:58.958	02:04.833	3098	141	5.8750	-	-	set-01_2-3-4/37_the-hen-understands.mp3	set-01_2-3-4/37_the-hen-understands-v1.txt set-01_2-3-4/37_the-hen-understands-v2.txt set-01_2-3-4/37_the-hen-understands-v3.txt	2,3,4	Frosch und Huhn wie ungewöhnlich.
-38	02:04.583	02:09.750	3233	124	5.1667	-	-	set-01_2-3-4/38_onto-her-back.mp3	set-01_2-3-4/38_onto-her-back-v1.txt set-01_2-3-4/38_onto-her-back-v2.txt set-01_2-3-4/38_onto-her-back-v3.txt	2,3,4	Vogel und Amphibium
-39	02:07.292	02:12.458	3298	124	5.1667	-	-	set-02_2-3-4-7/39_running-for-the-door.mp3	set-02_2-3-4-7/39_running-for-the-door-v1.txt set-02_2-3-4-7/39_running-for-the-door-v2.txt set-02_2-3-4-7/39_running-for-the-door-v3.txt	2,3,4,7	die finden si…
-40	02:08.958	02:14.125	3338	124	5.1667	-	-	set-02_2-3-4-7/40_out-of-the-hen-house.mp3	set-02_2-3-4-7/40_out-of-the-hen-house-v1.txt set-02_2-3-4-7/40_out-of-the-hen-house-v2.txt set-02_2-3-4-7/40_out-of-the-hen-house-v3.txt	2,3,4,7	siiiiiihiiiisch
-41	02:10.417	02:16.292	3373	141	5.8750	-	-	set-01_2-3-4/41_imagine-our-children-again.mp3	set-01_2-3-4/41_imagine-our-children-again-v1.txt set-01_2-3-4/41_imagine-our-children-again-v2.txt set-01_2-3-4/41_imagine-our-children-again-v3.txt	2,3,4	Stell dir uns’re Kinder vooooor
-42	02:15.625	02:22.208	3498	158	6.5833	-	-	set-02_2-3-4-7/42_stroking-her-feathers.mp3	set-02_2-3-4-7/42_stroking-her-feathers-v1.txt set-02_2-3-4-7/42_stroking-her-feathers-v2.txt set-02_2-3-4-7/42_stroking-her-feathers-v3.txt	2,3,4,7	Schleimige Federn große Augen
-43	02:21.667	02:26.833	3643	124	5.1667	-	-	set-14_2-3-4-5-6/43_the-researcher-stands-up.mp3	set-14_2-3-4-5-6/43_the-researcher-stands-up-v1.txt set-14_2-3-4-5-6/43_the-researcher-stands-up-v2.txt set-14_2-3-4-5-6/43_the-researcher-stands-up-v3.txt	2,3,4,5,6	Die nicht zum fliegen oder schwimmen taugen
-44	02:24.792	02:29.958	3718	124	5.1667	-	-	set-13_2-3-4-5/44_photographing-them.mp3	set-13_2-3-4-5/44_photographing-them-v1.txt set-13_2-3-4-5/44_photographing-them-v2.txt set-13_2-3-4-5/44_photographing-them-v3.txt	2,3,4,5	Federphibien soll man sie nennen
-45	02:28.125	02:39.667	3798	277	11.5417	7.955	-	set-01_2-3-4/45_running-on.mp3	set-01_2-3-4/45_running-on-v1.txt set-01_2-3-4/45_running-on-v2.txt set-01_2-3-4/45_running-on-v3.txt	2,3,4	Nachkömmlinge von Frosch und Hennen
-46	02:39.083	02:44.250	4061	124	5.1667	-	-	set-15_2-3-4-6/46_into-the-sunset.mp3	set-15_2-3-4-6/46_into-the-sunset-v1.txt set-15_2-3-4-6/46_into-the-sunset-v2.txt set-15_2-3-4-6/46_into-the-sunset-v3.txt	2,3,4,6	(instrumental)
-47	02:46.250	02:51.417	4233	124	5.1667	-	hold	set-01_2-3-4/47_the-final-freeze.mp3	set-01_2-3-4/47_the-final-freeze-v1.txt set-01_2-3-4/47_the-final-freeze-v2.txt set-01_2-3-4/47_the-final-freeze-v3.txt	2,3,4	(instrumental)
-90	-	-	-	226	9.4167	-	-	set-05_3-4-6/90_hen-profile-element.mp3	set-05_3-4-6/90_hen-profile-element-v1.txt set-05_3-4-6/90_hen-profile-element-v2.txt set-05_3-4-6/90_hen-profile-element-v3.txt	3,4,6	(instrumental)
+scene	set	title	location	refs
+1	set-08_4-6	titles from flying height	pond	4-6
+2	set-01_2-4-6	the drone descends	pond	2-4-6
+3	set-01_2-4-6	swimming for the bank	pond	2-4-6
+4	set-01_2-4-6	hauling out	pond	2-4-6
+5	set-01_2-4-6	rolling onto his back	pond	2-4-6
+6	set-01_2-4-6	the glassy stare	pond	2-4-6
+7	set-01_2-4-6	skin in the sun	pond	2-4-6
+8	set-01_2-4-6	licking his own eye	pond	2-4-6
+9	set-01_2-4-6	he looks at the coop	pond	2-4-6
+10	set-06_3-4-6	the hen pecking grain	pond	3-4-6
+11	set-03_2-3-4-6	the hen in his eyes	pond	2-3-4-6
+12	set-06_3-4-6	she turns away	pond	3-4-6
+13	set-01_2-4-6	focus back to the frog	pond	2-4-6
+14	set-01_2-4-6	he hits the ground	pond	2-4-6
+15	set-03_2-3-4-6	fist on his heart	pond	2-3-4-6
+16	set-03_2-3-4-6	a tear at the corner	pond	2-3-4-6
+17	set-01_2-4-6	he wipes it and sets off	pond	2-4-6
+18	set-01_2-4-6	the hopping loop plate	pond	2-4-6
+19	set-12_1-3-4	the hen crocheting		1-3-4
+20	set-07_1-4	slimy feathers		1-4
+21	set-07_1-4	the big eyes		1-4
+22	set-11_1-4-5-6	dead hybrids on the water	pond	1-4-5-6
+23	set-05_4-5-6	the notebook page	pond	4-5-6
+24	set-01_2-4-6	skidding onto the gravel	pond	2-4-6
+25	set-01_2-4-6	up the chicken ladder	pond	2-4-6
+26	set-02_2-3-4-7	landing in the down	henhouse interior	2-3-4-7
+27	set-02_2-3-4-7	she bellows at him	henhouse interior	2-3-4-7
+28	set-02_2-3-4-7	she lowers her head	henhouse interior	2-3-4-7
+29	set-02_2-3-4-7	reaching behind him	henhouse interior	2-3-4-7
+30	set-04_2-4-7	the ring in the leaf box	henhouse interior	2-4-7
+31	set-09_3-4-7	she swallows it	henhouse interior	3-4-7
+32	set-02_2-3-4-7	she walks past him	henhouse interior	2-3-4-7
+33	set-02_2-3-4-7	he turns and watches her go	henhouse interior	2-3-4-7
+34	set-04_2-4-7	cartoon hearts	henhouse interior	2-4-7
+35	set-04_2-4-7	he finds the grain	henhouse interior	2-4-7
+36	set-02_2-3-4-7	grain on his back	henhouse interior	2-3-4-7
+37	set-02_2-3-4-7	she stoops to him	henhouse interior	2-3-4-7
+38	set-02_2-3-4-7	she pecks him once	henhouse interior	2-3-4-7
+39	set-02_2-3-4-7	the background goes black	henhouse interior	2-3-4-7
+40	set-02_2-3-4-7	her pupils narrow	henhouse interior	2-3-4-7
+41	set-02_2-3-4-7	onto her back	henhouse interior	2-3-4-7
+42	set-02_2-3-4-7	running for the door	henhouse interior	2-3-4-7
+43	set-03_2-3-4-6	out into the light	pond	2-3-4-6
+44	set-03_2-3-4-6	they look at each other	pond	2-3-4-6
+45	set-03_2-3-4-6	stroking her feathers	pond	2-3-4-6
+46	set-10_2-3-4-5-6	the researcher jumps up	pond	2-3-4-5-6
+47	set-05_4-5-6	he photographs them	pond	4-5-6
+48	set-03_2-3-4-6	the jump over the puddle	pond	2-3-4-6
+49	set-03_2-3-4-6	he snatches a fly	pond	2-3-4-6
+50	set-03_2-3-4-6	into the sunset	pond	2-3-4-6
+51	set-03_2-3-4-6	the freeze frame	pond	2-3-4-6

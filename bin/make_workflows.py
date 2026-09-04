@@ -155,25 +155,9 @@ SONG_NODE_DEF = {
          "widget": {"name": "out_subfolder"}},
     ],
     "outputs": [{"name": n, "localized_name": n, "type": t, "links": []}
-                for n, t in (("prompt", "STRING"), ("audio_path", "STRING"),
-                             ("frames", "INT"), ("scene_count", "INT"),
-                             ("save_prefix", "STRING"))],
+                for n, t in (("prompt", "STRING"), ("frames", "INT"),
+                             ("scene_count", "INT"), ("save_prefix", "STRING"))],
     "widgets_values": ["", 1, "increment", "v1", ""],
-}
-
-AUDIO_NODE_DEF = {
-    "type": "VHS_LoadAudio", "flags": {}, "order": 0, "mode": 0,
-    "properties": {"Node name for S&R": "VHS_LoadAudio"}, "size": [280, 80],
-    "inputs": [
-        {"name": "audio_file", "type": "STRING", "widget": {"name": "audio_file"}},
-        {"name": "seek_seconds", "type": "FLOAT", "widget": {"name": "seek_seconds"}},
-        {"name": "duration", "type": "FLOAT", "widget": {"name": "duration"}},
-    ],
-    "outputs": [{"name": "audio", "localized_name": "audio", "type": "AUDIO",
-                 "links": []},
-                {"name": "duration", "localized_name": "duration", "type": "FLOAT",
-                 "links": []}],
-    "widgets_values": ["", 0.0, 0.0],
 }
 
 # UI-only inputs: they exist so the browser can draw an upload button and are not
@@ -241,7 +225,7 @@ def wrap_ui(ui, song, a, sheets=None, label=""):
     nid = max(nodes) + 1
     lid = max(links) + 1 if links else 1
 
-    DEFS = {"HurricaneSongFolder": SONG_NODE_DEF, "VHS_LoadAudio": AUDIO_NODE_DEF}
+    DEFS = {"HurricaneSongFolder": SONG_NODE_DEF}
 
     def place(kind, pos):
         nonlocal nid
@@ -260,9 +244,6 @@ def wrap_ui(ui, song, a, sheets=None, label=""):
     song_n["title"] = ("WATCHING HURRICANES - %s" % label if label else
                        "WATCHING HURRICANES - Song Folder (set song_path)")
     song_n["widgets_values"][4] = os.path.basename(os.path.abspath(song))
-    aud_n = place("VHS_LoadAudio", where(feeder(a_slot)) if a_slot else [0, 0])
-    aud_n["title"] = "AUDIO - this scene's slice"
-
     def out_index(n, name):
         for k, o in enumerate(n.get("outputs") or []):
             if o.get("name") == name:
@@ -292,9 +273,9 @@ def wrap_ui(ui, song, a, sheets=None, label=""):
 
     connect(song_n, "prompt", h3, "prompt", "STRING")
     connect(song_n, "frames", h3, "length", "INT")
-    connect(song_n, "audio_path", aud_n, "audio_file", "STRING")
-    if a_slot:
-        connect(aud_n, "audio", h3, a_slot, "AUDIO")
+    # No audio reference is wired at all. H3 treats reference audio as a timbre
+    # anchor and re-sings the prompt over it, which is what produced clips
+    # carrying the wrong lyrics; the song is laid under the picture in the edit.
     saves = [n for n in nodes.values()
              if OUTPUT_CLASSES.match(n.get("type", ""))
              and any(i.get("name") == "filename_prefix" for i in (n.get("inputs") or []))]
@@ -346,7 +327,7 @@ def wrap_ui(ui, song, a, sheets=None, label=""):
         displaced |= gone
 
     keep = [n for n in ui["nodes"] if n["id"] not in displaced]
-    ui["nodes"] = keep + [song_n, aud_n]
+    ui["nodes"] = keep + [song_n]
     alive = {n["id"] for n in ui["nodes"]}
     ui["links"] = [l for l in ui["links"] if l[1] in alive and l[3] in alive]
     live_links = {l[0] for l in ui["links"]}

@@ -1,0 +1,60 @@
+subject_definitions
+<Subject 1> is THE FEDERPHIBIUM, shown in <Picture 1>, and it exists only inside a daydream: a
+fat potbellied sage-green frog body sitting squat like a toad, about 12 cm to the
+top of the comb, with a large pale cream belly and mottled olive patches. An
+upright brick-red chicken comb on its head, a red two-lobed wattle under a small
+yellow-orange beak. Frog legs and frog feet, long toes ending in small yellow
+claws, and two small useless tufts of cream-white feathers at the flanks where
+wings would be. Large white eyes with small black dot pupils.
+
+<Subject 2> is THE HEN, shown in <Picture 2>: an ordinary plump farmyard hen, 45 cm to the top of
+her comb and 50 cm beak to tail - four to five times the frog's height. Standing
+beside her he reaches her hock and no higher, and she must fold her neck right to
+the ground to bring her beak to him. She stands on two thin scaly yellow-orange
+legs, body carried fairly upright in a soft pear shape, breast full, tail low and
+coming to a short point. Warm tan and ochre plumage with darker brown wing
+feathers and a pale cream breast. Upright brick-red comb, small dark red wattle,
+short orange-yellow beak, the same white eyes with dot pupils as the frog. No
+eyelashes, no blush, no anthropomorphism. Noble, haughty, indifferent.
+
+<Picture 3> is a colour and construction board: read the palette, the line weight and the
+way the wash grades inside the line off it. It is never a thing in the scene and
+is never drawn.
+
+summary
+[reference generation] A daydream: the hen sits on a chair and crochets while three small Federphibien play on the floor in front of her with tadpole soft toys.
+
+retention_analysis
+<Picture 1> (<Subject 1>): partially_preserved - design, proportions and colour model exactly, in the view this shot needs.
+<Picture 2> (<Subject 2>): partially_preserved - design, proportions and colour model exactly, in the view this shot needs.
+<Picture 3>: attribute_transfer - palette, line weight and the way the wash grades inside the line. Never drawn.
+
+detailed_description
+Hand-painted picture-book animation. Loose watercolour and gouache washes on
+cold-press paper, the tooth of the paper showing through every wash; colour
+pools and grades softly inside each shape and sometimes drifts past the line.
+Over the paint a thin dry dark brown-black ink contour of clearly varying
+weight, slightly ragged where the brush lifted, with short hatching strokes for
+feathers and for the shaded side of a form. One soft pale highlight on each
+rounded wet surface, never a hard white dot. Values sit in the middle: nothing
+is pure white, nothing is pure black. Limited animation on twos with strong held
+poses.
+Output clean and sharp: no film grain, video noise, VHS softness, scanlines,
+chroma bleed, gate weave, dust, vignetting, bloom, lens effects or on-screen
+text.
+
+The scene is a daydream and has no real place: the characters are on a plain warm cream ground that fades out at the edges, with nothing painted behind them.
+
+[Shot 1] The camera holds wide on the whole group, still. The hen sits upright on a plain wooden chair, working a crochet hook with small steady movements. In front of her three small Federphibien sit on the ground, pushing soft toys shaped like tadpoles about between them. Nobody hurries and nobody looks up.
+
+overall_soundscape
+A working summer farm, quiet and constant under everything: wet plops, crickets,
+the low mutter of hens off frame, corrugated tin ticking in the heat, one distant
+tractor that never arrives. Flies. No cartoon sound effects of any kind - no
+boings, no slide whistles, no comedy impacts. Any croak or cluck is
+recorded-real, never performed.
+
+non_diegetic_music
+No music of any kind. No song, no score, no stings, no risers, no instruments.
+No singing and no voice: nobody speaks and nobody sings, and no character's
+mouth forms words. Ambient sound only.
