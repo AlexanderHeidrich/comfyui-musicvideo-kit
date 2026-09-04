@@ -376,6 +376,53 @@ def wrap_ui(ui, song, a, sheets=None, label=""):
     return ui, report
 
 
+SONG_CLASSES = ("HurricaneSongFolder", "MVSongFolder")
+
+
+def check_links(ui):
+    """-> [complaints] about links that name a socket which is not there.
+
+    ComfyUI reads a link's origin as an index into the upstream node's
+    RETURN_TYPES, so a slot past the end throws inside its validator: "<node>
+    failed during validation: tuple index out of range". Cheap to check here,
+    baffling to debug there.
+    """
+    N = {n["id"]: n for n in ui.get("nodes") or []}
+    ours = [{"name": n, "type": t} for n, t in song_node_outputs()]
+    bad = []
+    for l in ui.get("links") or []:
+        lid, src, so, dst, di = l[0], l[1], l[2], l[3], l[4]
+        if src not in N or dst not in N:
+            bad.append("link %s hangs in the air" % lid)
+            continue
+        # for our own node the node file is the authority, not what the saved
+        # graph remembers: that is the drift this whole check is about
+        outs = (ours if N[src].get("type") in SONG_CLASSES
+                else N[src].get("outputs") or [])
+        ins = N[dst].get("inputs") or []
+        if so >= len(outs):
+            bad.append("link %s takes output %d of %s, which has %d"
+                       % (lid, so, N[src]["type"], len(outs)))
+        elif di >= len(ins):
+            bad.append("link %s feeds input %d of %s, which has %d"
+                       % (lid, di, N[dst]["type"], len(ins)))
+        elif outs[so].get("type") != ins[di].get("type"):
+            bad.append("link %s: %s.%s is %s, %s.%s wants %s"
+                       % (lid, N[src]["type"], outs[so].get("name"),
+                          outs[so].get("type"), N[dst]["type"],
+                          ins[di].get("name"), ins[di].get("type")))
+    return bad
+
+
+def write_graph(path, ui):
+    bad = check_links(ui)
+    if bad:
+        sys.exit("%s would not validate in ComfyUI:\n%s"
+                 % (os.path.basename(path), "\n".join("  " + b for b in bad)))
+    with open(path, "w", encoding="utf-8") as fh:
+        json.dump(ui, fh, indent=2)
+
+
 def wf_upscale(song, a):
     """The pass AFTER rendering, and there is no H3 in it.
 
@@ -486,14 +533,18 @@ def main():
         with open(kept, encoding="utf-8") as fh:
             raw = json.load(fh)
     if raw is not None:
+        # the template is only ever grafted from, never rendered - but ComfyUI
+        # restores whatever workflow was last open, so say when this one is the
+        # graph that no longer validates
+        for b in check_links(raw)[:3]:
+            print("stale       : _source/workflow.json - %s" % b)
         if a.all_sheets:
             # the wiring as it was before the per-set graphs: every sheet on every
             # scene. Only renderable against `mvkit build --all-sheets` prompts,
             # which number every sheet of the song instead of the set's own.
             ui, report = wrap_ui(raw, song, a)
             out_ui = os.path.join(song, wf_names(song)["allsheets"])
-            with open(out_ui, "w", encoding="utf-8") as fh:
-                json.dump(ui, fh, indent=2)
+            write_graph(out_ui, ui)
             print("grafted     : %s   (needs `mvkit build --all-sheets`)" % out_ui)
             for line in report:
                 print("  %s" % line)
@@ -512,8 +563,7 @@ def main():
             ui, report = wrap_ui(json.loads(json.dumps(raw)), song, a, sheets,
                                  label)
             out_ui = os.path.join(song, folder, set_graph_name(song, folder))
-            with open(out_ui, "w", encoding="utf-8") as fh:
-                json.dump(ui, fh, indent=2)
+            write_graph(out_ui, ui)
             if a.raw:
                 print("grafted     : %s/%s" % (folder,
                                                    os.path.basename(out_ui)))
