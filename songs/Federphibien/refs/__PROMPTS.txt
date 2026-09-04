@@ -51,12 +51,13 @@ elsewhere is a V7 limit. Match the layout to the shape of the animal, because th
 pixel budget is constant and each panel should be the shape of what stands in it:
 
   - The frog and the Federphibium SIT SQUAT and are wider than they are tall.
-    One row of four at --ar 4:3. That is what actually produced the frog sheet
-    on disk, and it is worth trusting over the arithmetic: the reasoning here
-    said four squat figures in a row would need about 5:1 and should go in a 2x2
-    grid instead, but Midjourney simply sizes the figures down to fit the row
-    and leaves the space above and below them empty. Four clean views, evenly
-    spaced.
+    One row of four at --ar 4:3, which is what produced the frog sheet. The
+    arithmetic here said otherwise - four squat figures in a row would want
+    about 5:1, so they should go in a 2x2 grid instead - and the frog sheet
+    disproves it: Midjourney simply sizes the figures down to fit the row and
+    leaves the space above and below them empty. A 2x2 grid at the same ratio
+    also comes out clean, so a good grid is worth keeping if you get one; the
+    ratio is what matters, not the arrangement.
   - The hen and the researcher STAND and are taller than they are wide, so each
     panel wants more height. One row of four at --ar 5:2 - the classic
     turnaround strip. Untested: the frog is the only one confirmed so far.
