@@ -50,12 +50,16 @@ V8 goes up to 14:1, so a wide row is available - the 2:1 ceiling you read about
 elsewhere is a V7 limit. Match the layout to the shape of the animal, because the
 pixel budget is constant and each panel should be the shape of what stands in it:
 
-  - The frog and the Federphibium SIT SQUAT and are wider than they are tall, so
-    each panel wants to be landscape. Use a 2x2 grid at --ar 4:3: four landscape
-    quadrants, and the top-down view sits naturally in one of them.
+  - The frog and the Federphibium SIT SQUAT and are wider than they are tall.
+    One row of four at --ar 4:3. That is what actually produced the frog sheet
+    on disk, and it is worth trusting over the arithmetic: the reasoning here
+    said four squat figures in a row would need about 5:1 and should go in a 2x2
+    grid instead, but Midjourney simply sizes the figures down to fit the row
+    and leaves the space above and below them empty. Four clean views, evenly
+    spaced.
   - The hen and the researcher STAND and are taller than they are wide, so each
-    panel wants to be portrait. Use one row of four at --ar 5:2, which gives each
-    view a tall narrow panel - the classic turnaround strip.
+    panel wants more height. One row of four at --ar 5:2 - the classic
+    turnaround strip. Untested: the frog is the only one confirmed so far.
 
 Both give each view a full quarter of the frame, which is as many pixels per view
 as one generation can offer.
@@ -92,13 +96,13 @@ Rules that matter more than they look:
     handled in the prompt text, where it already works.
   - Keep the background an empty soft wash. A wall, a floor or a horizon gets
     read as an environment and carried into the shots.
-  - Say the layout explicitly - "two by two grid, one view per quadrant, evenly
-    spaced, not overlapping". Vague sheets are where the drift starts.
+  - Say the layout explicitly - "one horizontal row of four evenly spaced panels
+    of equal width, not overlapping". Vague sheets are where drift starts.
 
 --------------------------------------------------------------------------
 01_char_federphibium.png
   the title creature - GENERATE THIS FIRST
-character model sheet laid out as a two by two grid, one view per quadrant, evenly spaced and not overlapping, the same creature drawn four times at identical size and identical lighting, top left front view facing the viewer, top right side view facing right, bottom left rear view seen from directly behind, bottom right a top-down view looking straight down from above,
+character model sheet laid out as one horizontal row of four evenly spaced panels of equal width, not overlapping, the same creature drawn four times at identical size and identical lighting, left to right front view facing the viewer, side view facing right, rear view seen from directly behind, and a top-down view looking straight down from above,
 a fat potbellied hybrid of frog and chicken sitting squat on the ground like a toad, enormous round pale cream belly filling most of the body, sage green back and limbs with soft olive mottling, frog legs folded up at either side of the belly with long toes splayed flat on the ground ending in small yellow claws, front hands resting on the ground, an upright bright brick-red chicken comb of five points on top of the head, a small yellow-orange beak with a red two-lobed wattle beneath it, two huge round white eyes set high and wide on top of the skull each with a small black dot pupil and a heavy dark ink lid line, a small useless tuft of cream-white feathers at each flank where a wing would be,
 from behind a broad rounded sage green back with the red comb standing clear above the silhouette and a cream feather tuft sticking out at each side, from directly above a wide round body with the comb a red ridge along the centre line and the legs folded out to both sides,
 loose watercolour and gouache washes on cold-press paper with the paper tooth showing through, thin dry ragged dark brown-black ink contour of varying weight with short hatching strokes for shading, soft pale highlight on the damp skin, warm muted palette of sage olive cream ochre and brick red, mid values, soft empty neutral grey-green wash background, children's picture-book illustration
