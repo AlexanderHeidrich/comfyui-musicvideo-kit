@@ -14,7 +14,7 @@ summary
 [reference generation] The Federphibium's feather tufts are wet and stuck together, with a thread of slime hanging off them.
 
 retention_analysis
-<Picture 1> (<Subject 1>): partially_preserved - design, proportions and colour model exactly, in the view this shot needs.
+<Subject 1> (appears in [Shot 1], [Shot 2], [Shot 3]): partially_preserved - design, proportions and colour model exactly, in the view this shot needs.
 
 detailed_description
 Hand-painted picture-book animation. Loose watercolour and gouache washes on

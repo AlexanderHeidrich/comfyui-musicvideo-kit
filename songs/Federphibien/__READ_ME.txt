@@ -26,64 +26,54 @@ WIRE THE LOADERS IN THE ORDER LISTED. H3 numbers <Picture n> over the
 slots actually connected, so a gap shifts every tag after it and the
 prompts stop matching.
 
-set-01_2-4-6   (14 scenes)
+set-01_2-6   (14 scenes)
     ref_image_0   <Picture 1>  02_char_der-frosch.png
-    ref_image_1   <Picture 2>  04_style_board.png
-    ref_image_2   <Picture 3>  06_loc_pond.png
+    ref_image_1   <Picture 2>  06_loc_pond.png
 
-set-02_2-3-4-7   (13 scenes)
+set-02_2-3-7   (13 scenes)
     ref_image_0   <Picture 1>  02_char_der-frosch.png
     ref_image_1   <Picture 2>  03_char_das-huhn.png
-    ref_image_2   <Picture 3>  04_style_board.png
-    ref_image_3   <Picture 4>  07_loc_henhouse-interior.png
-
-set-03_2-3-4-6   (10 scenes)
-    ref_image_0   <Picture 1>  02_char_der-frosch.png
-    ref_image_1   <Picture 2>  03_char_das-huhn.png
-    ref_image_2   <Picture 3>  04_style_board.png
-    ref_image_3   <Picture 4>  06_loc_pond.png
-
-set-04_2-4-7   (3 scenes)
-    ref_image_0   <Picture 1>  02_char_der-frosch.png
-    ref_image_1   <Picture 2>  04_style_board.png
     ref_image_2   <Picture 3>  07_loc_henhouse-interior.png
 
-set-05_4-5-6   (2 scenes)
-    ref_image_0   <Picture 1>  04_style_board.png
-    ref_image_1   <Picture 2>  05_char_der-forscher.png
+set-03_2-3-6   (10 scenes)
+    ref_image_0   <Picture 1>  02_char_der-frosch.png
+    ref_image_1   <Picture 2>  03_char_das-huhn.png
     ref_image_2   <Picture 3>  06_loc_pond.png
 
-set-06_3-4-6   (2 scenes)
+set-04_2-7   (3 scenes)
+    ref_image_0   <Picture 1>  02_char_der-frosch.png
+    ref_image_1   <Picture 2>  07_loc_henhouse-interior.png
+
+set-05_3-6   (2 scenes)
     ref_image_0   <Picture 1>  03_char_das-huhn.png
-    ref_image_1   <Picture 2>  04_style_board.png
-    ref_image_2   <Picture 3>  06_loc_pond.png
+    ref_image_1   <Picture 2>  06_loc_pond.png
+
+set-06_5-6   (2 scenes)
+    ref_image_0   <Picture 1>  05_char_der-forscher.png
+    ref_image_1   <Picture 2>  06_loc_pond.png
 
 set-07_1   (2 scenes)
     ref_image_0   <Picture 1>  01_char_federphibium.png
 
-set-08_4-6   (1 scene)
-    ref_image_0   <Picture 1>  04_style_board.png
-    ref_image_1   <Picture 2>  06_loc_pond.png
-
-set-09_3-4-7   (1 scene)
+set-08_3-7   (1 scene)
     ref_image_0   <Picture 1>  03_char_das-huhn.png
-    ref_image_1   <Picture 2>  04_style_board.png
-    ref_image_2   <Picture 3>  07_loc_henhouse-interior.png
+    ref_image_1   <Picture 2>  07_loc_henhouse-interior.png
 
-set-10_2-3-4-5-6   (1 scene)
+set-09_2-3-5-6   (1 scene)
     ref_image_0   <Picture 1>  02_char_der-frosch.png
     ref_image_1   <Picture 2>  03_char_das-huhn.png
-    ref_image_2   <Picture 3>  04_style_board.png
-    ref_image_3   <Picture 4>  05_char_der-forscher.png
-    ref_image_4   <Picture 5>  06_loc_pond.png
-
-set-11_1-4-5-6   (1 scene)
-    ref_image_0   <Picture 1>  01_char_federphibium.png
-    ref_image_1   <Picture 2>  04_style_board.png
     ref_image_2   <Picture 3>  05_char_der-forscher.png
     ref_image_3   <Picture 4>  06_loc_pond.png
 
-set-12_1-3   (1 scene)
+set-10_1-3   (1 scene)
     ref_image_0   <Picture 1>  01_char_federphibium.png
     ref_image_1   <Picture 2>  03_char_das-huhn.png
+
+set-11_1-5-6   (1 scene)
+    ref_image_0   <Picture 1>  01_char_federphibium.png
+    ref_image_1   <Picture 2>  05_char_der-forscher.png
+    ref_image_2   <Picture 3>  06_loc_pond.png
+
+set-12_6   (1 scene)
+    ref_image_0   <Picture 1>  06_loc_pond.png
 

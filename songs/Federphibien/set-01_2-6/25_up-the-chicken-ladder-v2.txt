@@ -1,0 +1,63 @@
+subject_definitions
+<Subject 1> is THE FROG, shown in <Picture 1>: a common European pond frog, 8 cm nose to rump
+and 10 cm sitting up - the length of a man's thumb, and he fits in a cupped human
+hand. He sits squat and is wider than he is tall, with a big round pale cream
+belly. Grey-green skin, not warty, with soft olive mottling. Large white eyes set
+high and wide on top of the skull, each with a small black dot pupil, domed above
+the skull line so they break his silhouette from every angle. A wide mouth drawn
+as one long calm curve. Damp, with a soft pale highlight where the light catches
+him. Introverted, hopelessly in love, entirely sincere.
+
+<Subject 2> is the pond and the yard around it, built from the separate element
+studies in <Picture 2> - a sheet of parts on bare paper, not a view of the place,
+so its layout is never reproduced. A calm flat pale green water surface, ripples as thin
+concentric ink rings; lily pads outlined in dark ink with pale green centres;
+tall cattails standing into frame at both edges as near-black silhouettes with
+brown seed heads; a bank of dry mud cracked into plates; a band of tall pale
+straw-coloured grass; a leaning square-mesh wire fence on rough leaning posts,
+worn under into a gap a frog can pass; beyond it to the right the coop, a long
+grey-green weatherboard shed with a ridged roof; and on the horizon a low pale
+hedge line with nothing built beyond it. Palette here: leaf green over pale
+green-white water, sage and olive land, dusty liver brown, straw, cream, and a
+high pale washed-out sky. The pond is 3 m across, the farmyard 40 m, and it is
+5 m from the bank to the hen house. The fence and the coop roof are in every shot
+that holds the far bank, at any distance, from any angle, including straight down.
+
+summary
+[reference generation] The frog runs up the chicken ladder and disappears through the hole at the top.
+
+retention_analysis
+<Subject 1> (appears in [Shot 1], [Shot 2]): partially_preserved - design, proportions and colour model exactly, in the view this shot needs.
+<Subject 2> (appears in [Shot 1], [Shot 2]): fully_preserved - this is the set. Every shot stays inside it.
+
+detailed_description
+Hand-painted picture-book animation. Loose watercolour and gouache washes on
+cold-press paper, the tooth of the paper showing through every wash; colour
+pools and grades softly inside each shape and sometimes drifts past the line.
+Over the paint a thin dry dark brown-black ink contour of clearly varying
+weight, slightly ragged where the brush lifted, with short hatching strokes for
+feathers and for the shaded side of a form. One soft pale highlight on each
+rounded wet surface, never a hard white dot. Values sit in the middle: nothing
+is pure white, nothing is pure black. Limited animation on twos with strong held
+poses.
+Output clean and sharp: no film grain, video noise, VHS softness, scanlines,
+chroma bleed, gate weave, dust, vignetting, bloom, lens effects or on-screen
+text.
+
+The scene is <Subject 2>, the pond and the farmyard around it: flat pale green water, the cracked mud bank, the leaning chicken-wire fence and the coop with its ridged tin roof beyond it. Bright summer daylight from high and left.
+
+[Shot 1] The camera tilts up with him with small amplitude at slow speed. The frog runs up the sloped board to the coop in quick hops without breaking rhythm, reaches the opening at the top and goes straight through it. The board is left empty.
+
+[Shot 2] At 00:05.500, the shot cuts to: the empty opening he has just gone through.
+
+overall_soundscape
+A working summer farm, quiet and constant under everything: wet plops, crickets,
+the low mutter of hens off frame, corrugated tin ticking in the heat, one distant
+tractor that never arrives. Flies. No cartoon sound effects of any kind - no
+boings, no slide whistles, no comedy impacts. Any croak or cluck is
+recorded-real, never performed.
+
+non_diegetic_music
+No music of any kind. No song, no score, no stings, no risers, no instruments.
+No singing and no voice: nobody speaks and nobody sings, and no character's
+mouth forms words. Ambient sound only.

@@ -1,6 +1,13 @@
 # The only source of the prompts. {S} becomes this scene's <Subject n>, {P} its
 # <Picture n>. A block is only used in the scenes it is actually in.
 #
+# EVERY block is a <Subject n>, locations included. H3's spec reserves a
+# standalone <Picture n> entry for an image that IS a frame - first frame,
+# keyframe, last frame - and says an image that only defines a character, scene
+# or style must be cited inside its <Subject n> instead. The locations used to
+# be standalone <Picture n> entries, which is why H3 kept pasting the pond in as
+# the opening frame.
+#
 # [style] is in EVERY prompt, so it holds the look and nothing else. Anything
 # tied to a place lives in that place's [location] block instead - the old
 # [style] carried "pale green-white water" into every scene and is why a
@@ -79,8 +86,9 @@ view is construction only and is never what a shot uses. He never reacts, never
 speaks, and the animals never notice him.
 
 [location pond]
-{P} is the pond and the yard around it, a background painting in which nothing is
-a subject. A calm flat pale green water surface, ripples as thin
+{S} is the pond and the yard around it, built from the separate element
+studies in {P} - a sheet of parts on bare paper, not a view of the place,
+so its layout is never reproduced. A calm flat pale green water surface, ripples as thin
 concentric ink rings; lily pads outlined in dark ink with pale green centres;
 tall cattails standing into frame at both edges as near-black silhouettes with
 brown seed heads; a bank of dry mud cracked into plates; a band of tall pale
@@ -94,8 +102,9 @@ high pale washed-out sky. The pond is 3 m across, the farmyard 40 m, and it is
 that holds the far bank, at any distance, from any angle, including straight down.
 
 [location henhouse interior]
-{P} is the hen house interior, a background painting in which nothing is a
-subject: tall walls of green-painted vertical timber boarding framed by heavy
+{S} is the hen house interior, built from the separate element
+studies in {P} - a sheet of parts on bare paper, not a view of the
+place, so its layout is never reproduced: tall walls of green-painted vertical timber boarding framed by heavy
 warm-brown posts and beams, one horizontal rail across the wall at a third of its
 height, an ochre bare-earth floor, a big heap of grey-white down banked against
 the left wall with loose feathers on the floor and drifting in the air, a straw
@@ -108,7 +117,7 @@ and the hen far above the frog.
 
 [location daydream]
 The daydream has no reference sheet, so it needs a background in words or the
-board becomes one. The scene is a daydream seen through cloud, a background
+nearest connected picture becomes one. The scene is a daydream seen through cloud, a background
 painting in which nothing is a subject: the characters are on a soft warm cream
 ground with no horizon and no floor line, and banks of white and pale grey-blue
 watercolour cloud stand in from all four edges, drifting slowly inward and
@@ -118,8 +127,3 @@ left without an ink contour. Behind the characters there is cloud and cream and
 nothing else: no pond, no water, no fence, no coop, no hen house, no walls, no
 floor and no furniture the action does not name. Light is flat and even and
 comes from everywhere at once. Palette here: white, pale grey-blue, warm cream.
-
-[subject board]
-{P} is a colour and construction board: read the palette, the line weight and the
-way the wash grades inside the line off it. It is never a thing in the scene and
-is never drawn.

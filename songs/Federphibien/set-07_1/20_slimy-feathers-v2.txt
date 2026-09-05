@@ -14,7 +14,7 @@ summary
 [reference generation] The Federphibium's feather tufts are wet and stuck together, with a thread of slime hanging off them.
 
 retention_analysis
-<Picture 1> (<Subject 1>): partially_preserved - design, proportions and colour model exactly, in the view this shot needs.
+<Subject 1> (appears in [Shot 1], [Shot 2], [Shot 3]): partially_preserved - design, proportions and colour model exactly, in the view this shot needs.
 
 detailed_description
 Hand-painted picture-book animation. Loose watercolour and gouache washes on
@@ -41,7 +41,7 @@ nothing else: no pond, no water, no fence, no coop, no hen house, no walls, no
 floor and no furniture the action does not name. Light is flat and even and
 comes from everywhere at once. Palette here: white, pale grey-blue, warm cream.
 
-[Shot 1] The camera holds on the flank and the hanging thread. The Federphibium sits still. The little cream feather tufts at its flanks are soaked and clinging together, and a thread of slime runs off the lowest of them and hangs.
+[Shot 1] The camera holds a static shot on the flank and the hanging thread. The Federphibium sits still. The little cream feather tufts at its flanks are soaked and clinging together, and a thread of slime runs off the lowest of them and hangs.
 
 [Shot 2] At 00:04.000, the shot cuts to: the wet tufts at the other flank, the same slime on them.
 
