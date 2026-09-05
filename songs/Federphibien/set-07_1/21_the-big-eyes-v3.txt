@@ -17,15 +17,18 @@ retention_analysis
 <Subject 1> (appears in [Shot 1], [Shot 2]): partially_preserved - design, proportions and colour model exactly, in the view this shot needs.
 
 detailed_description
-Hand-painted picture-book animation. Loose watercolour and gouache washes on
-cold-press paper, the tooth of the paper showing through every wash; colour
-pools and grades softly inside each shape and sometimes drifts past the line.
-Over the paint a thin dry dark brown-black ink contour of clearly varying
-weight, slightly ragged where the brush lifted, with short hatching strokes for
-feathers and for the shaded side of a form. One soft pale highlight on each
-rounded wet surface, never a hard white dot. Values sit in the middle: nothing
-is pure white, nothing is pure black. Limited animation on twos with strong held
-poses.
+Pen and watercolour on cold-press paper, in the manner of a children's picture
+book. A fine, even dark brown ink line drawn with a pen and not a brush, holding
+its weight all the way round, with dense short hatching strokes following the
+direction of feather or form wherever something is shaded. Inside the line, loose
+transparent washes that pool and grade softly and sometimes drift past it, the
+tooth of the paper showing through every one of them. One soft pale highlight on
+each rounded wet surface, never a hard white dot. A soft cast shadow under
+anything standing on the ground. Warm muted palette: grey-green and olive, warm
+tan and ochre, cream and bone, brick red only on a comb. Values sit in the
+middle: nothing is pure white, nothing is pure black. Calm and unhurried, never
+zany, never television cel animation and never vector. Limited animation on twos
+with strong held poses.
 Output clean and sharp: no film grain, video noise, VHS softness, scanlines,
 chroma bleed, gate weave, dust, vignetting, bloom, lens effects or on-screen
 text.

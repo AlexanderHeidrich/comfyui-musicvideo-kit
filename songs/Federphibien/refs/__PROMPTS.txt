@@ -9,25 +9,28 @@ what makes the three look related.
 
 Add your own --v flag; the version changes too often to hard-code here.
 
-THE LOOK - REWRITTEN TO MATCH THE SHEETS YOU ALREADY HAVE
+THE LOOK - THE SHEETS ON DISK ARE THE AUTHORITY
 --------------------------------------------------------------------------
-The old text here asked for "clean bold black ink over flat airbrushed colour",
-and the --no list forbade watercolour blooms, a sketchy outline and a brown
-outline. Your existing sheets are exactly those three things, and you like them.
-So the description below is of the pictures on disk, not of the intention.
+Not this text, and not the Drehbuch's header. The Drehbuch offers two directions,
+"90er Jahre Cartoon (Biber Bruder, Doug, Ren & Stimpy), eher rau" and "Unten am
+Fluss"; the sheets are the second one, and that is the decision. Nothing in this
+film is zany. If a word below and a sheet disagree, the sheet is right and the
+word gets corrected - which has already happened twice: the text used to claim
+gouache and "a dry ragged brush contour of clearly varying weight", and the
+sheets have neither. They are transparent watercolour under an even pen line.
 
-Loose hand-painted watercolour and gouache washes on cold-press paper, the tooth
-of the paper visible through every wash. Colour pools and grades softly inside
-each shape, a little uneven, sometimes drifting past the line. Over the paint a
-thin dry dark brown-black ink contour of clearly varying weight, slightly ragged
-and broken where the brush lifted, with short hatching strokes for feathers and
-for the shaded side of a form. One soft pale highlight on each rounded wet
-surface, never a hard white dot. Warm muted palette: sage and olive green, warm
-ochre and tan, cream, brick red on a comb, pale blue-grey. Values sit in the
-middle - nothing is pure white, nothing is pure black. Background a soft
-neutral grey-green wash, empty, with the faintest suggestion of a ground plane
-and a soft shadow beneath the figure. Children's picture-book illustration,
-calm and unhurried - not television cel animation, not vector, not digital.
+Pen and watercolour on cold-press paper, the tooth of the paper visible through
+every wash. A fine, even dark brown ink line drawn with a pen and not a brush,
+holding its weight all the way round, with dense short hatching strokes following
+the direction of feather or form wherever something is shaded. Inside the line,
+loose transparent washes that pool and grade softly, a little uneven, sometimes
+drifting past it. One soft pale highlight on each rounded wet surface, never a
+hard white dot. Warm muted palette: sage and olive green, warm ochre and tan,
+cream and bone, brick red only on a comb, pale blue-grey. Values sit in the
+middle - nothing is pure white, nothing is pure black. Background a soft neutral
+grey-green wash, empty, with the faintest suggestion of a ground plane and a soft
+shadow beneath the figure. Children's picture-book illustration, calm and
+unhurried - not television cel animation, not vector, not digital.
 
 FOUR VIEWS PER CHARACTER - AND WHY THE LAYOUT KEEPS FAILING
 --------------------------------------------------------------------------
@@ -129,7 +132,7 @@ loose watercolour and gouache washes on cold-press paper with the paper tooth sh
 --raw --ar 5:2 --no text, letters, labels, view names, arrows, height chart, watermark, signature, border, frame, panel dividers, 3d render, cgi, photorealistic, vector art, sterile clean vector edges, flat airbrushed digital colour, hard-edged cel shadow shapes, bright saturated primaries, neon, pure black, pure white, background scenery, wall, floor, horizon line, second character, inconsistent design between views, cute, eyelashes, big lashes --stylize 100
 
 --------------------------------------------------------------------------
-05_char_der-forscher.png
+04_char_der-forscher.png
   a handful of scenes, and the face stays hidden
 character model sheet laid out as one horizontal row of four evenly spaced panels of equal width, not overlapping, the same character drawn four times at identical size and identical lighting, left to right rear view seen from directly behind, side view facing right with the head bowed over a notebook and the hat brim low across the face, front view with the head bowed so deeply that the flat brim of the straw hat covers the face completely, and a top-down view looking straight down on the hat from above,
 a tall slim adult man standing, khaki-olive trousers, a pale cream shirt with the sleeves rolled to the elbow, a wide flat-brimmed straw hat, a small dark green hardbound notebook held open in one hand and a pencil in the other, an old black leather folding plate camera hanging at the chest on a broad flat black strap running diagonally over one shoulder and reading as a solid dark block never a soft bag, unhurried and absorbed, no facial features visible in any of the four views,
@@ -137,19 +140,13 @@ loose watercolour and gouache washes on cold-press paper with the paper tooth sh
 --raw --ar 5:2 --no text, letters, labels, view names, arrows, height chart, watermark, signature, border, frame, panel dividers, 3d render, cgi, photorealistic, vector art, sterile clean vector edges, flat airbrushed digital colour, hard-edged cel shadow shapes, bright saturated primaries, neon, pure black, pure white, background scenery, wall, floor, horizon line, second character, inconsistent design between views, face, facial features, eyes, nose, mouth, modern camera, dslr, slr --stylize 100
 
 --------------------------------------------------------------------------
-04_style_board.png
-  loaded in every scene - holds the look. NOT a turnaround.
-colour and construction board for a hand-painted picture-book animation, laid out on a faint grid over soft off-white paper, a long row of rounded swatches across the top in sage green olive warm ochre tan cream and pale blue-grey, three tapered dark brown-black ink strokes showing the dry ragged line at three weights, one loose soft-edged watercolour blot, one rounded shape shown twice side by side, once painted with a graded wash and a soft pale highlight and short hatching down its shaded side, once as the bare ink outline alone, and along the bottom one strip of hedge painted in two depths, the far one paler and flatter, no characters
---raw --ar 3:2 --no text, letters, labels, numbers, captions, watermark, signature, border, frame, 3d render, cgi, photorealistic, vector art, sterile clean vector edges, bright saturated primaries, neon, characters, animals
-
---------------------------------------------------------------------------
-06_loc_pond.png
+05_loc_pond.png
   the pond scenes - a background painting, NOT a turnaround
 background painting for a hand-painted picture-book animation, no characters, a murky pale green farm pond in the near foreground at the bottom edge of a chicken yard, duckweed and a scatter of lily pads on the water each with a soft graded green wash and a pale highlight, thin hand-drawn concentric ripple rings, a dry mud bank cracked into plates behind it, a leaning chicken-wire fence on rough posts with a worn gap under it, a corrugated tin coop with a ridged roof beyond the fence, tall cattails and reeds standing into frame at both edges as a dark foreground layer, a distant hedge pale and hazy, a flat pale sky, loose watercolour and gouache washes on cold-press paper with the tooth showing through, thin dry dark brown-black ink line on the scenery finer than a character line, warm muted palette, mid values, a step duller than a foreground character
 --raw --ar 16:9 --no text, letters, labels, watermark, signature, border, frame, 3d render, cgi, photorealistic, vector art, sterile clean vector edges, flat airbrushed digital colour, hard-edged cel shadow shapes, bright saturated primaries, neon, pure black, pure white, characters, animals
 
 --------------------------------------------------------------------------
-07_loc_henhouse-interior.png
+06_loc_henhouse-interior.png
   the henhouse scenes - a background painting, NOT a turnaround
 background painting for a hand-painted picture-book animation, no characters, the interior of a chicken coop, tall walls of green-painted vertical timber boarding framed by heavy warm-brown posts and beams, one horizontal rail across the wall at a third of its height, an ochre bare-earth floor, a big heap of grey-white down banked against the left wall with loose feathers on the floor and drifting in the air, a straw nesting shelf high under the roof with eggs on it, two black cables strung across with one bare bulb hanging off a sagging one, a doorway to the right in a brown timber frame filled with flat blown-out daylight, never corrugated tin inside, loose watercolour and gouache washes on cold-press paper with the tooth showing through, thin dry dark brown-black ink line on the scenery finer than a character line, warm muted palette of green timber warm brown ochre and grey-white, mid values, a step duller than a foreground character
 --raw --ar 16:9 --no text, letters, labels, watermark, signature, border, frame, 3d render, cgi, photorealistic, vector art, sterile clean vector edges, flat airbrushed digital colour, hard-edged cel shadow shapes, bright saturated primaries, neon, pure black, pure white, characters, animals
@@ -175,3 +172,20 @@ starting at ref_image_0, leaving no slot empty in between.
 
 Set `ref_image_size` on the H3 node to `max`, not `match`. With four views on one
 sheet, `match` scales each view down to roughly 270 px and H3 starts guessing.
+
+RETIRED: 04_style_board.png
+--------------------------------------------------------------------------
+The colour and construction board is gone from refs/ and from every graph. It
+never had a role in a shot, its palette is in [style] and in each [location] in
+words, and a connected picture with no job gets used as scenery - in two sets it
+even sat on ref_image_0. H3's spec is explicit that an image which only defines a
+style must be cited inside a <Subject n> and never given a standalone <Picture n>
+entry, and a standalone entry is what a board invites. If you ever want it back,
+it is in the git history. Its generation prompt was:
+
+  04_style_board.png
+    loaded in every scene - holds the look. NOT a turnaround.
+  colour and construction board for a hand-painted picture-book animation, laid out on a faint grid over soft off-white paper, a long row of rounded swatches across the top in sage green olive warm ochre tan cream and pale blue-grey, three tapered dark brown-black ink strokes showing the dry ragged line at three weights, one loose soft-edged watercolour blot, one rounded shape shown twice side by side, once painted with a graded wash and a soft pale highlight and short hatching down its shaded side, once as the bare ink outline alone, and along the bottom one strip of hedge painted in two depths, the far one paler and flatter, no characters
+  --raw --ar 3:2 --no text, letters, labels, numbers, captions, watermark, signature, border, frame, 3d render, cgi, photorealistic, vector art, sterile clean vector edges, bright saturated primaries, neon, characters, animals
+
+  --------------------------------------------------------------------------

@@ -1,0 +1,78 @@
+subject_definitions
+<Subject 1> is THE FROG, shown in <Picture 1>: a common European pond frog, 8 cm nose to rump
+and 10 cm sitting up - the length of a man's thumb, and he fits in a cupped human
+hand. He sits squat and is wider than he is tall, with a big round pale cream
+belly. Grey-green skin, not warty, with soft olive mottling. Large white eyes set
+high and wide on top of the skull, each with a small black dot pupil, domed above
+the skull line so they break his silhouette from every angle. A wide mouth drawn
+as one long calm curve. Damp, with a soft pale highlight where the light catches
+him. Introverted, hopelessly in love, entirely sincere.
+
+<Subject 2> is THE HEN, shown in <Picture 2>: an ordinary plump farmyard hen, 45 cm to the top of
+her comb and 50 cm beak to tail - four to five times the frog's height. Standing
+beside her he reaches her hock and no higher, and she must fold her neck right to
+the ground to bring her beak to him. She stands on two thin scaly yellow-orange
+legs, body carried fairly upright in a soft pear shape, breast full and rounded,
+the tail carried up and fanned into a short point. Warm tan and ochre plumage
+throughout, the folded wing picked out in fine dark hatching rather than a
+darker colour, and a pale cream breast and belly. Upright brick-red comb, small dark red wattle,
+short orange-yellow beak, the same white eyes with dot pupils as the frog. No
+eyelashes, no blush, no anthropomorphism. Noble, haughty, indifferent.
+
+<Subject 3> is the pond and the yard around it, built from the separate element
+studies in <Picture 3> - a sheet of parts on bare paper, not a view of the place,
+so its layout is never reproduced. A calm flat pale green water surface, ripples as thin
+concentric ink rings; lily pads outlined in dark ink with pale green centres;
+tall cattails standing into frame at both edges as near-black silhouettes with
+brown seed heads; a bank of dry mud cracked into plates; a band of tall pale
+straw-coloured grass; a leaning square-mesh wire fence on rough leaning posts,
+worn under into a gap a frog can pass; beyond it to the right the coop, a long
+grey-green weatherboard shed with a ridged roof; and on the horizon a low pale
+hedge line with nothing built beyond it. Palette here: leaf green over pale
+green-white water, sage and olive land, dusty liver brown, straw, cream, and a
+high pale washed-out sky. The pond is 3 m across, the farmyard 40 m, and it is
+5 m from the bank to the hen house. The fence and the coop roof are in every shot
+that holds the far bank, at any distance, from any angle, including straight down.
+
+summary
+[reference generation] The pair run away up a long rise toward the low sun, never looking back. They lose their colour against the light until only two silhouettes are left on the crest.
+
+retention_analysis
+<Subject 1> (appears in [Shot 1], [Shot 2]): partially_preserved - design, proportions and colour model exactly, in the view this shot needs.
+<Subject 2> (appears in [Shot 1], [Shot 2]): partially_preserved - design, proportions and colour model exactly, in the view this shot needs.
+<Subject 3> (appears in [Shot 1], [Shot 2]): fully_preserved - this is the set. Every shot stays inside it.
+
+detailed_description
+Pen and watercolour on cold-press paper, in the manner of a children's picture
+book. A fine, even dark brown ink line drawn with a pen and not a brush, holding
+its weight all the way round, with dense short hatching strokes following the
+direction of feather or form wherever something is shaded. Inside the line, loose
+transparent washes that pool and grade softly and sometimes drift past it, the
+tooth of the paper showing through every one of them. One soft pale highlight on
+each rounded wet surface, never a hard white dot. A soft cast shadow under
+anything standing on the ground. Warm muted palette: grey-green and olive, warm
+tan and ochre, cream and bone, brick red only on a comb. Values sit in the
+middle: nothing is pure white, nothing is pure black. Calm and unhurried, never
+zany, never television cel animation and never vector. Limited animation on twos
+with strong held poses.
+Output clean and sharp: no film grain, video noise, VHS softness, scanlines,
+chroma bleed, gate weave, dust, vignetting, bloom, lens effects or on-screen
+text.
+
+The scene is <Subject 3>, the pond and the farmyard around it, at the end of the day: the cracked mud, the leaning chicken-wire fence and the coop with its ridged tin roof, and beyond them the ground lifting into one long shallow rise. The sun sits low just above the crest of that rise, so everything between it and us stands in flat backlight and reads as shape rather than colour.
+
+[Shot 1] The camera holds a static shot on the crest alone, the two silhouettes small against the light. The hen runs up a long shallow rise with the frog on her back, going away from us and not once looking back. The low sun stands just above the crest ahead of them and throws the whole rise into flat backlight. As they climb they lose their colour and go dark against it, until at the top the pair read as two flat shapes with nothing but light behind them.
+
+[Shot 2] At 00:05.000, the shot cuts to: the same run from closer in and still directly behind them, near enough now to read the hen's stride and the frog's grip on her back, the crest and the low sun still ahead.
+
+overall_soundscape
+A working summer farm, quiet and constant under everything: wet plops, crickets,
+the low mutter of hens off frame, corrugated tin ticking in the heat, one distant
+tractor that never arrives. Flies. No cartoon sound effects of any kind - no
+boings, no slide whistles, no comedy impacts. Any croak or cluck is
+recorded-real, never performed.
+
+non_diegetic_music
+No music of any kind. No song, no score, no stings, no risers, no instruments.
+No singing and no voice: nobody speaks and nobody sings, and no character's
+mouth forms words. Ambient sound only.

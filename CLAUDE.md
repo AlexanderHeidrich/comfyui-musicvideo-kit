@@ -44,6 +44,7 @@ songs/<name>/                DELIVERABLE
     __SCENES.tsv             what HurricaneSongFolder reads
   <name>-4x.json             the upscale pass
   refs/                      reference sheets, named by schema — the one input
+                             AND the authority for the look
                              you wire into ComfyUI by hand
   _source/                   INPUTS
     song.mp3                 the track. The pipeline never reads it; it goes
@@ -117,6 +118,22 @@ before changing anything here.
   nothing to size characters by. Every `[subject]` carries real measurements, and
   every shot holding two characters restates which is bigger.
 
+## The reference sheets are the style authority
+
+Not the notes, and not the Drehbuch's header. The Drehbuch offers two directions
+— "90er Jahre Cartoon (Biber Brüder, Doug, Ren & Stimpy), eher rau" or "Unten am
+Fluss" — and the sheets on disk are unambiguously the second: pen and watercolour
+on cold-press paper, an even fine brown ink line, transparent washes, a warm
+muted palette, calm and melancholy. **That is the decision.** Nothing in this
+film is zany.
+
+So when a sheet and a written description disagree, the sheet is right and the
+description gets corrected. That has already happened twice: `[style]` claimed
+gouache and "a thin dry dark brown-black ink contour of clearly varying weight,
+slightly ragged where the brush lifted", and the sheets have neither — they are
+transparent watercolour under an even pen line, with dense short hatching for
+feathers. Look at the sheets before you write a word about the look.
+
 ## The four mistakes this kit was rebuilt to stop making
 
 **1. Reference audio is a timbre anchor, not playback.** H3 does not play a
@@ -127,6 +144,10 @@ the same prompt produced clips singing the wrong words. **There is now no audio
 reference anywhere**, no slices, no `lyrics.txt`, no transcript, and
 `non_diegetic_music` asks for no music, no song and no voice. The song goes under
 the picture in the edit. Nothing sings, so nothing is out of sync.
+
+The Drehbuch asks for the frog to sing four of them ("Frosch sagt die Wörter",
+"singt", frames 1060–1337). He does not, and that is decided, not pending: no
+prompt in the film moves a mouth. The song runs over him while he is silent.
 
 **2. A reference not in the shot must not be connected.** Words do not undo a
 connected picture: with all sheets wired, a scene saying "do not use
@@ -188,6 +209,23 @@ correct either. Each is a real deviation with a reason.
   singing (mistake 1), and `N/A` is untested here.
 - **`summary` uses plain prose, not the labels.** The spec wants the defined
   `<Subject n>` labels in it.
+
+## The ending
+
+Scene 50 and 51 are the one place where the internal cuts are a sequence rather
+than coverage of one moment. 50 runs the pair away up the rise from the distance
+the researcher sits at, then cuts closer and still directly behind them; 51 holds
+the last jump through the ground glass of a folding plate camera, blows the frame
+out on the flash, and lands on a photographic print of exactly that held
+silhouette. The freeze frame the Drehbuch asks for is therefore the researcher's
+photograph, which closes the film on the thing he has been doing since scene 23.
+
+The print has a wide white border and reads as a Polaroid, but it is a plate
+print: the researcher carries an old black folding plate camera, so an actual
+Polaroid would contradict his own sheet and scene 47.
+
+Scene 50's beat was widened to 3818–3990 to close a 100-frame hole the Drehbuch
+itself leaves between the sunset run and the freeze frame.
 
 ## Variants convention
 

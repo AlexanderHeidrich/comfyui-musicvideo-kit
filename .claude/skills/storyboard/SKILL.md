@@ -88,6 +88,11 @@ The prompt rules, all of them load-bearing:
   style block and before `[Shot 1]`, naming the set's `<Subject n>`. A scene
   with no stated place gets invented one, and the style block's palette decides
   which.
+- **The reference sheets are the style authority**, not `[style]` and not the
+  Drehbuch's header. Look at them before writing about the look; if a word and a
+  sheet disagree, correct the word. For Federphibien the sheets are pen and
+  watercolour, calm and melancholy - not the "90er Jahre Cartoon, eher rau" the
+  Drehbuch header also offers.
 - **`[style]` holds the look and nothing else.** Every palette word tied to a
   place lives in that place's `[location]` block. This is why proposals written
   for the hen house kept happening in a pond.
