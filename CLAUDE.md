@@ -62,6 +62,10 @@ Never hand-edit the generated files. Edit `_source/scenes.json` and re-run
 
 ## Hard constraints from MiniMax H3
 
+The authority is MiniMax's own spec, not a blog: `skills/h3-prompt-writing/
+references/ref-en.txt` and `base-en.txt` in `MiniMax-AI/MiniMax-H3`. Read those
+before changing anything here.
+
 - **Frame grid.** `length` is only valid where `frames % 17 == 5`, trained range
   124–362, and H3 rounds up. This kit uses **243 frames = 10.125 s for every
   scene**; the node's length is set once and never touched.
@@ -72,20 +76,43 @@ Never hand-edit the generated files. Edit `_source/scenes.json` and re-run
   `__READ_ME.txt` lists them, starting at `ref_image_0`, leaving no gap.
 - **Limits.** 9 reference images, 3 videos, 3 standalone audio, 12 media total.
   Audio alone is not valid input.
+- **`<Subject n>` is content, `<Picture n>` is a frame.** The spec: `<Picture n>`
+  is "a reference image used as a concrete target frame or shot-planning anchor",
+  and "if an image is used only to define a character, scene, costume, or style,
+  do not create a standalone picture entry — instead, cite the image source
+  inside the corresponding `<Subject n>` definition." Environments and styles are
+  subjects; the spec's own example writes `<Subject 1> is the coffee-shop
+  environment in <Picture 1>`. **Every sheet in this kit is a `<Subject n>`.** A
+  standalone `<Picture n>` entry is how you order a first frame, and writing the
+  locations that way is what made H3 paste the pond in as frame one.
+- **Task type follows from that.** `[reference generation]` means no image is a
+  concrete frame. An image that IS the first frame makes it
+  `[keyframe completion]` — which is the tool for hard continuity across a cut,
+  and the only reason to write a standalone `<Picture n>`.
 - **Prompt shape.** Six sections in order: `subject_definitions`, `summary`,
   `retention_analysis`, `detailed_description`, `overall_soundscape`,
-  `non_diegetic_music`. `summary` opens with a bracketed task type.
-  `retention_analysis` is a reference ledger carrying H3's fixed markers
+  `non_diegetic_music`. `summary` opens with a bracketed task type and uses the
+  labels it defined. `retention_analysis` carries one line per label, keyed on
+  the label with the shots it appears in, and H3's fixed markers
   (`fully_preserved` / `partially_preserved` / `attribute_transfer` /
-  `weak_reference`) — not a look brief. The style belongs in
-  `detailed_description` before `[Shot 1]`. Internal cuts are
+  `weak_reference`) — not a look brief:
+  `<Subject 1> (appears in [Shot 1], [Shot 2]): partially_preserved - …`. The
+  style belongs in `detailed_description` before `[Shot 1]`. Internal cuts are
   `[Shot N] At 00:0X.XXX, the shot cuts to:`; `[Shot 1]` carries no timestamp.
-- **Every prompt stays under 7,000 characters.** `mvkit pack` fails otherwise,
-  rather than truncating — a truncating script would cut the shot off the end,
-  which is the failure the limit exists to avoid.
-- **Camera moves are natural English, not bracket commands.** `[Push in]` is
+- **Every prompt stays under 7,000 characters** — the official API limit.
+  `mvkit pack` fails otherwise, rather than truncating: a truncating script would
+  cut the shot off the end, which is the failure the limit exists to avoid. Some
+  hosted front-ends cap lower (Runway at 6,000), so a prompt over that is
+  local-render only.
+- **Camera moves are natural English from a fixed vocabulary.** `[Push in]` is
   Hailuo 02 grammar; H3 wants motion type + amplitude + speed as a sentence
-  inside the shot. One dominant move per clip. There is no negative_prompt.
+  inside the shot. The motion types are a closed list — Zoom In/Out, Push In/Pull
+  Out, Pan, Truck, Tilt, Pedestal, Arc Shot, Tracking Shot, Static Shot, Shake,
+  POV, Roll — and the only amplitude and speed values are `with small/large
+  amplitude` and `at slow/fast speed`. Medium amplitude and normal speed are the
+  omitted defaults, so do not write them. Anything else (dollies, drifts,
+  descends, travels) is off-vocabulary. One dominant move per clip. There is no
+  negative_prompt.
 - **Scale is not in the references.** Every sheet is its own frame, so H3 has
   nothing to size characters by. Every `[subject]` carries real measurements, and
   every shot holding two characters restates which is bigger.
@@ -111,7 +138,7 @@ their sheet tuple so each graph connects exactly what its scenes contain.
 which.** `[style]` once carried "pale green-white water", so a proposal written
 for the hen house happened in a pond. `[style]` now holds the look and nothing
 else; every place-bound palette word lives in that place's `[location]` block;
-and a location sentence naming the set and its `<Picture n>` is mandatory before
+and a location sentence naming the set's `<Subject n>` is mandatory before
 `[Shot 1]`.
 
 **4. Neither the summary nor the action may name a framing.** Both are byte
@@ -120,11 +147,47 @@ either contradicts two of the three. It also breaks the other way: an action
 saying "the hen's head fills the space in front of him" describes what only a
 side view shows, and defeats a camera asking for the frog's back.
 
-Related: a character sheet must be a **turnaround** — front, side, back, top on
-one image. A single front portrait is why "from behind" never worked; H3 had
-never seen the frog's back. `refs/__PROMPTS.txt` holds the generation prompts and
-the Midjourney v8 parameters (`--raw`, not `--style raw`; `--cref` and `--q` do
-not exist in v8; `--oref` silently downgrades the render to v7).
+Related: **no reference sheet may look like a frame.** A character sheet is a
+**turnaround** — front, side, back, top on one image; a single front portrait is
+why "from behind" never worked, because H3 had never seen the frog's back. A
+location sheet is an **element board** — the water, the fence, the coop, the
+palette as separate studies on bare paper — never a finished background painting.
+A finished painting is one viewpoint, so any other angle gets invented; worse, in
+16:9 it is indistinguishable from a first frame. Both `[location]` blocks say the
+sheet's layout is never reproduced. The community's OrbitSheets node builds the
+same thing out of H3 itself, from locked-off static views cut together, on the
+observation that H3 does not drift *inside* one generation.
+
+That is also the answer to continuity across a cut. Two angles in one 10 s
+generation (`[Shot 1]` / `[Shot 2]`) are the same render, so the place cannot
+drift between them. Two separate renders share nothing but the sheets — which is
+why the sheets have to carry every angle. For a hard match between adjacent
+clips, feed the last frame of one as the first frame of the next and switch that
+prompt to `[keyframe completion]`. The set graphs pin `RandomNoise` to `fixed`
+so v1/v2/v3 of a moment at least start from the same noise.
+
+`refs/__PROMPTS.txt` holds the generation prompts and the Midjourney v8
+parameters (`--raw`, not `--style raw`; `--cref` and `--q` do not exist in v8;
+`--oref` silently downgrades the render to v7).
+
+## Where this kit knowingly leaves the spec
+
+Recorded so nobody "fixes" them by accident, and so nobody defends them as
+correct either. Each is a real deviation with a reason.
+
+- **The style opening is 127 words in 7 sentences.** The spec wants the style
+  established "in one or two English sentences" before `[Shot 1]`. Shortening it
+  changes the look of every frame in the film, so it stays until someone tests
+  a shorter one.
+- **`detailed_description` runs ~260 words.** The spec says 350–500 for
+  generation tasks; we are thin, not fat. The fix is more action and the
+  `<Subject n>` labels used inside the shots, which the spec also asks for and
+  which no prompt here does yet.
+- **`non_diegetic_music` spells out "no music, no song, no voice".** The spec
+  says to write `N/A` when there is none. The long form is what stopped things
+  singing (mistake 1), and `N/A` is untested here.
+- **`summary` uses plain prose, not the labels.** The spec wants the defined
+  `<Subject n>` labels in it.
 
 ## Variants convention
 
@@ -196,6 +259,14 @@ layout and groups survive. It rewires `prompt`, `length`, the Save node's
 set does not need and retitles the rest. No absolute path is ever written:
 ComfyUI usually runs elsewhere, so `song_path` is left empty and `find_abs_paths`
 fails the build rather than emit one.
+
+It also sets two defaults the template ships the wrong way round: `RandomNoise`
+goes to `fixed`, because v1/v2/v3 of a moment differ only in the camera sentence
+and a fresh seed is the one variable that should not move, and the
+`Boolean (Enable Lightning LoRA)` primitive goes to `True`, because the 4-step
+turbo LoRA is wired in and shipping it off means every graph renders the slow
+path. Both are set on the grafted graph, so re-running `mvkit workflows` keeps
+them.
 
 Weights: UNET `minimax_h3_ref2va_pruned_int8_convrot`, CLIP
 `qwen3vl_*_minimax_h3_*`, `vae` = `minimax_h3_video_vae_fp16`, `audio_vae` =

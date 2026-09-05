@@ -75,11 +75,19 @@ The prompt rules, all of them load-bearing:
 
 - The six sections in order: `subject_definitions`, `summary`,
   `retention_analysis`, `detailed_description`, `overall_soundscape`,
-  `non_diegetic_music`. `summary` opens with `[reference generation]`.
+  `non_diegetic_music`. `summary` opens with `[reference generation]` - which is
+  the right task type precisely because no image here is a concrete frame.
+- **Every sheet is a `<Subject n>`, locations included**, citing its image
+  inside the definition: `<Subject 3> is the pond ... in <Picture 3>`. A
+  standalone `<Picture n>` entry means "this image IS a frame" in H3's grammar,
+  and writing the locations that way is what made it paste the pond in as frame
+  one. `retention_analysis` is keyed the same way, one line per subject with the
+  shots it appears in: `<Subject 1> (appears in [Shot 1], [Shot 2]):
+  partially_preserved - ...`.
 - **A location sentence is mandatory**, in `detailed_description`, after the
-  style block and before `[Shot 1]`, naming the set and its `<Picture n>`. A
-  scene with no stated place gets invented one, and the style block's palette
-  decides which.
+  style block and before `[Shot 1]`, naming the set's `<Subject n>`. A scene
+  with no stated place gets invented one, and the style block's palette decides
+  which.
 - **`[style]` holds the look and nothing else.** Every palette word tied to a
   place lives in that place's `[location]` block. This is why proposals written
   for the hen house kept happening in a pond.
@@ -88,12 +96,20 @@ The prompt rules, all of them load-bearing:
   either contradicts two of the three variants.
 - Camera as motion type + amplitude + speed in plain English inside the shot -
   "The camera pushes in with small amplitude at slow speed." Never `[Push in]`.
+  The motion type comes from H3's closed list - Zoom In/Out, Push In/Pull Out,
+  Pan, Truck, Tilt, Pedestal, Arc Shot, Tracking Shot, Static Shot, Shake, POV,
+  Roll - and the only amplitude and speed values are small/large and slow/fast.
+  Medium amplitude and normal speed are the omitted defaults; do not write them.
   One dominant move per clip.
 - No `<Audio>` reference anywhere, no lyrics, no singing. `non_diegetic_music`
   asks for no music, no song, no voice. Reference audio is a timbre anchor, not
   playback - handing H3 a slice carrying the prompt's own words is what produced
   clips singing the wrong lyrics.
-- English throughout. Under 7,000 characters; `mvkit pack` fails otherwise.
+- English throughout. Under 7,000 characters (the API limit); `mvkit pack` fails
+  otherwise.
+- Reference sheets must not look like frames: characters as turnarounds,
+  locations as element boards on bare paper, never a finished 16:9 background
+  painting. The spec and the grammar both treat a complete image as a frame.
 - Every scene that holds two characters restates which is bigger. The sheets
   carry no scale.
 

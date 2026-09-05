@@ -190,6 +190,9 @@ UI_ONLY = ("IMAGEUPLOAD", "AUDIOUPLOAD", "AUDIO_UI", "VIDEOUPLOAD")
 # Without this, KSampler's seed control shifts steps/cfg/sampler by one.
 CONTROL_VALUES = ("fixed", "increment", "decrement", "randomize")
 
+# Seed nodes whose control_after_generate we pin to "fixed" in every set graph.
+NOISE_CLASSES = ("RandomNoise", "KSampler", "KSamplerAdvanced")
+
 
 def wrap_ui(ui, song, a, sheets=None, label=""):
     """Put the song folder into a UI workflow, keeping its layout and groups.
@@ -360,6 +363,22 @@ def wrap_ui(ui, song, a, sheets=None, label=""):
     ui["last_node_id"] = max(nid, ui.get("last_node_id", 0))
     ui["last_link_id"] = max(lid, ui.get("last_link_id", 0))
 
+    # v1/v2/v3 are one moment from three cameras and differ only in the camera
+    # sentence, so a fresh seed per run is the one variable we do not want moving.
+    seeds = [n for n in ui["nodes"] if n["type"] in NOISE_CLASSES
+             and len(n.get("widgets_values") or []) > 1
+             and n["widgets_values"][1] in CONTROL_VALUES]
+    for n in seeds:
+        n["widgets_values"][1] = "fixed"
+
+    # the 4-step turbo LoRA is the point of having it wired; the template ships
+    # it switched off, which means every graft would render the slow path
+    lightning = [n for n in ui["nodes"] if n["type"] == "PrimitiveBoolean"
+                 and "lightning" in (n.get("title") or "").lower()
+                 and n.get("widgets_values")]
+    for n in lightning:
+        n["widgets_values"][0] = True
+
     report = ["%d node(s) gone - the prompt, length and audio feeders, plus the "
               "sheet loaders this graph does not use: %s"
               % (len(displaced), ", ".join("%s %s" % (i, nodes[i].get("type"))
@@ -372,6 +391,8 @@ def wrap_ui(ui, song, a, sheets=None, label=""):
               ("all %d reference sheet(s) left as they were, retitled with their "
                "tag" % len(wired)),
               "save prefix driven on %d node(s)" % len(saves),
+              "%d seed node(s) pinned to fixed" % len(seeds),
+              "%d lightning LoRA switch(es) enabled" % len(lightning),
               "layout and %d group(s) kept" % len(ui.get("groups") or [])]
     return ui, report
 
