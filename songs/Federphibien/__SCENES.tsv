@@ -17,9 +17,9 @@ scene	set	title	location	refs
 16	set-03_2-3-4-6	a tear at the corner	pond	2-3-4-6
 17	set-01_2-4-6	he wipes it and sets off	pond	2-4-6
 18	set-01_2-4-6	the hopping loop plate	pond	2-4-6
-19	set-12_1-3-4	the hen crocheting		1-3-4
-20	set-07_1-4	slimy feathers		1-4
-21	set-07_1-4	the big eyes		1-4
+19	set-12_1-3	the hen crocheting	daydream	1-3
+20	set-07_1	slimy feathers	daydream	1
+21	set-07_1	the big eyes	daydream	1
 22	set-11_1-4-5-6	dead hybrids on the water	pond	1-4-5-6
 23	set-05_4-5-6	the notebook page	pond	4-5-6
 24	set-01_2-4-6	skidding onto the gravel	pond	2-4-6

@@ -21,17 +21,12 @@ darker colour, and a pale cream breast and belly. Upright brick-red comb, small 
 short orange-yellow beak, the same white eyes with dot pupils as the frog. No
 eyelashes, no blush, no anthropomorphism. Noble, haughty, indifferent.
 
-<Picture 3> is a colour and construction board: read the palette, the line weight and the
-way the wash grades inside the line off it. It is never a thing in the scene and
-is never drawn.
-
 summary
 [reference generation] A daydream: the hen sits on a chair and crochets while three small Federphibien play on the floor in front of her with tadpole soft toys.
 
 retention_analysis
 <Picture 1> (<Subject 1>): partially_preserved - design, proportions and colour model exactly, in the view this shot needs.
 <Picture 2> (<Subject 2>): partially_preserved - design, proportions and colour model exactly, in the view this shot needs.
-<Picture 3>: attribute_transfer - palette, line weight and the way the wash grades inside the line. Never drawn.
 
 detailed_description
 Hand-painted picture-book animation. Loose watercolour and gouache washes on
@@ -47,9 +42,18 @@ Output clean and sharp: no film grain, video noise, VHS softness, scanlines,
 chroma bleed, gate weave, dust, vignetting, bloom, lens effects or on-screen
 text.
 
-The scene is a daydream and has no real place: the characters are on a plain warm cream ground that fades out at the edges, with nothing painted behind them.
+The scene is a daydream seen through cloud, a background painting in which
+nothing is a subject: the characters are on a soft warm cream ground with no
+horizon and no floor line, and banks of white and pale grey-blue watercolour
+cloud stand in from all four edges, drifting slowly inward and thinning to
+clear cream in the middle of the frame where the action is. The cloud is
+painted in the same wash as everything else, its edges feathered and left
+without an ink contour. Behind the characters there is cloud and cream and
+nothing else: no pond, no water, no fence, no coop, no hen house, no walls, no
+floor and no furniture the action does not name. Light is flat and even and
+comes from everywhere at once. Palette here: white, pale grey-blue, warm cream.
 
-[Shot 1] The camera holds wide on the whole group, still. The hen sits upright on a plain wooden chair, working a crochet hook with small steady movements. In front of her three small Federphibien sit on the ground, pushing soft toys shaped like tadpoles about between them. Nobody hurries and nobody looks up.
+[Shot 1] The camera holds on the three young and their toys. The hen sits upright on a plain wooden chair, working a crochet hook with small steady movements. In front of her three small Federphibien sit on the ground, pushing soft toys shaped like tadpoles about between them. Nobody hurries and nobody looks up.
 
 overall_soundscape
 A working summer farm, quiet and constant under everything: wet plops, crickets,

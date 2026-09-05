@@ -2,7 +2,7 @@
   "id": "e3f2b845-8f2c-4b5a-9caf-eac1029d3e7e",
   "revision": 0,
   "last_node_id": 156,
-  "last_link_id": 309,
+  "last_link_id": 308,
   "nodes": [
     {
       "id": 115,
@@ -1378,8 +1378,7 @@
           "localized_name": "ref_images.ref_image_2",
           "name": "ref_images.ref_image_2",
           "shape": 7,
-          "type": "IMAGE",
-          "link": 308
+          "type": "IMAGE"
         },
         {
           "label": "ref_image_3",
@@ -1609,67 +1608,6 @@
       }
     },
     {
-      "id": 149,
-      "type": "LoadImage",
-      "pos": [
-        -1049.6870555872697,
-        6350.213023663212
-      ],
-      "size": [
-        282.798828125,
-        314
-      ],
-      "flags": {},
-      "order": 17,
-      "mode": 0,
-      "inputs": [
-        {
-          "localized_name": "image",
-          "name": "image",
-          "type": "COMBO",
-          "widget": {
-            "name": "image"
-          }
-        },
-        {
-          "localized_name": "choose file to upload",
-          "name": "upload",
-          "type": "IMAGEUPLOAD",
-          "widget": {
-            "name": "upload"
-          }
-        }
-      ],
-      "outputs": [
-        {
-          "localized_name": "IMAGE",
-          "name": "IMAGE",
-          "type": "IMAGE",
-          "links": [
-            308
-          ]
-        },
-        {
-          "localized_name": "MASK",
-          "name": "MASK",
-          "type": "MASK",
-          "links": []
-        }
-      ],
-      "title": "<Picture 3> -   [sheet 4]",
-      "properties": {
-        "Node name for S&R": "LoadImage"
-      },
-      "widgets_values": [
-        "04_style_board.png",
-        "image"
-      ],
-      "widgets_values_named": {
-        "image": "04_style_board.png",
-        "upload": "image"
-      }
-    },
-    {
       "type": "HurricaneSongFolder",
       "flags": {},
       "order": 0,
@@ -1755,7 +1693,7 @@
         -1490,
         6520
       ],
-      "title": "WATCHING HURRICANES - set-12_1-3-4:  | 1 scene(s) | point song_path here"
+      "title": "WATCHING HURRICANES - set-12_1-3:  | 1 scene(s) | point song_path here"
     }
   ],
   "links": [
@@ -2021,14 +1959,6 @@
       0,
       136,
       4,
-      "IMAGE"
-    ],
-    [
-      308,
-      149,
-      0,
-      136,
-      5,
       "IMAGE"
     ]
   ],

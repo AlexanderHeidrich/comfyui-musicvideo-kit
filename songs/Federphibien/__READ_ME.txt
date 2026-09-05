@@ -58,9 +58,8 @@ set-06_3-4-6   (2 scenes)
     ref_image_1   <Picture 2>  04_style_board.png
     ref_image_2   <Picture 3>  06_loc_pond.png
 
-set-07_1-4   (2 scenes)
+set-07_1   (2 scenes)
     ref_image_0   <Picture 1>  01_char_federphibium.png
-    ref_image_1   <Picture 2>  04_style_board.png
 
 set-08_4-6   (1 scene)
     ref_image_0   <Picture 1>  04_style_board.png
@@ -84,8 +83,7 @@ set-11_1-4-5-6   (1 scene)
     ref_image_2   <Picture 3>  05_char_der-forscher.png
     ref_image_3   <Picture 4>  06_loc_pond.png
 
-set-12_1-3-4   (1 scene)
+set-12_1-3   (1 scene)
     ref_image_0   <Picture 1>  01_char_federphibium.png
     ref_image_1   <Picture 2>  03_char_das-huhn.png
-    ref_image_2   <Picture 3>  04_style_board.png
 
