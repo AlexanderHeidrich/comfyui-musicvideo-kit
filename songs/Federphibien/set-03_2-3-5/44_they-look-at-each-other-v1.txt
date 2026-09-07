@@ -26,7 +26,7 @@ concentric ink rings; lily pads outlined in dark ink with pale green centres;
 tall cattails standing into frame at both edges as near-black silhouettes with
 brown seed heads; a bank of dry mud cracked into plates; a band of tall pale
 straw-coloured grass; a leaning square-mesh wire fence on rough leaning posts,
-worn under into a gap a frog can pass; beyond it to the right the coop, a long
+worn under into a gap a frog can pass; beyond it the coop, a long
 grey-green weatherboard shed with a ridged roof; and on the horizon a low pale
 hedge line with nothing built beyond it. Palette here: leaf green over pale
 green-white water, sage and olive land, dusty liver brown, straw, cream, and a
@@ -60,6 +60,8 @@ chroma bleed, gate weave, dust, vignetting, bloom, lens effects or on-screen
 text.
 
 The scene is <Subject 3>, the pond and the farmyard around it: flat pale green water, the cracked mud bank, the leaning chicken-wire fence and the coop with its ridged tin roof beyond it. Bright summer daylight from high and left.
+
+Screen geometry, the same in every shot at the pond: the water is on the right and the yard, the leaning fence and the coop on the left. The two of them are on one and the same side of the water with none of it between them, and they are leaving the coop behind, so they cross the picture from left to right - the reverse of the frog's way there.
 
 [Shot 1] A medium shot. The camera tracks with them close and front on at fast speed. The dust thrown up behind them still hangs across the whole picture and thins away as they carry on. The hen runs on. The frog is up on her back beside her neck. The two of them are looking at each other rather than at where they are going. Behind them the yard and the dust go past in a smear.
 

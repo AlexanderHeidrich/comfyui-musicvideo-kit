@@ -206,6 +206,26 @@ so v1/v2/v3 of a moment at least start from the same noise.
 parameters (`--raw`, not `--style raw`; `--cref` and `--q` do not exist in v8;
 `--oref` silently downgrades the render to v7).
 
+## Screen direction
+
+H3 picks a side per render, so two setups of one moment refuse to cut. Every
+prompt therefore carries a screen-geometry paragraph after the location
+sentence, byte-identical across v1/v2/v3 and naming only what that scene
+actually connects. The axis is written down once in `_source/brief.txt` under
+`[staging]`: at the pond, water right and coop left, both animals on the coop's
+own bank with no water between them, travel to the coop right to left and away
+from it left to right; in the hen house, frog on the right in the down, hen on
+the left, doorway out of frame past the frog.
+
+No `[location]` block names a left or a right any more. An element board is not
+a viewpoint, so a wall it draws on the left is not a wall on the left of frame,
+and the henhouse block's "left wall" plus "doorway to the right" contradicted
+the staging in every shot that used them.
+
+And the mirror image of mistake 2: **a character in the shot needs his sheet
+connected.** Scene 31 had the hen peck the ring out of nothing, because the frog
+holding it was not wired; it now runs in the frog+hen+house set.
+
 ## Where this kit knowingly leaves the spec
 
 Recorded so nobody "fixes" them by accident, and so nobody defends them as

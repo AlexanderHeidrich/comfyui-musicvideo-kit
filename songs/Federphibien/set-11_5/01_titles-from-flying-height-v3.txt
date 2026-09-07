@@ -1,0 +1,54 @@
+subject_definitions
+<Subject 1> is the pond and the yard around it, built from the separate element
+studies in <Picture 1> - a sheet of parts on bare paper, not a view of the place,
+so its layout is never reproduced. A calm flat pale green water surface, ripples as thin
+concentric ink rings; lily pads outlined in dark ink with pale green centres;
+tall cattails standing into frame at both edges as near-black silhouettes with
+brown seed heads; a bank of dry mud cracked into plates; a band of tall pale
+straw-coloured grass; a leaning square-mesh wire fence on rough leaning posts,
+worn under into a gap a frog can pass; beyond it the coop, a long
+grey-green weatherboard shed with a ridged roof; and on the horizon a low pale
+hedge line with nothing built beyond it. Palette here: leaf green over pale
+green-white water, sage and olive land, dusty liver brown, straw, cream, and a
+high pale washed-out sky. The pond is 3 m across, the farmyard 40 m, and it is
+5 m from the bank to the hen house. The fence and the coop roof are in every shot
+that holds the far bank, at any distance, from any angle, including straight down.
+
+summary
+[reference generation] An unhurried drift over farmland between scattered summer cloud. A single farm appears small in a gap and settles in the middle of the picture. No character is readable at this height.
+
+retention_analysis
+<Subject 1> (appears in [Shot 1]): fully_preserved - this is the set. Every shot stays inside it.
+
+detailed_description
+Pen and watercolour on cold-press paper, in the manner of a children's picture
+book. A fine, even dark brown ink line drawn with a pen and not a brush, holding
+its weight all the way round, with dense short hatching strokes following the
+direction of feather or form wherever something is shaded. Inside the line, loose
+transparent washes that pool and grade softly and sometimes drift past it, the
+tooth of the paper showing through every one of them. One soft pale highlight on
+each rounded wet surface, never a hard white dot. A soft cast shadow under
+anything standing on the ground. Warm muted palette: grey-green and olive, warm
+tan and ochre, cream and bone, brick red only on a comb. Values sit in the
+middle: nothing is pure white, nothing is pure black. Calm and unhurried, never
+zany, never television cel animation and never vector. Limited animation on twos
+with strong held poses.
+Output clean and sharp: no film grain, video noise, VHS softness, scanlines,
+chroma bleed, gate weave, dust, vignetting, bloom, lens effects or on-screen
+text.
+
+The scene is the farmland seen from flying height, the country <Subject 1> sits in: fields and tracks as a flat pattern far below, scattered summer cloud drifting between the camera and the ground.
+
+[Shot 1] A wide shot. The camera holds a static shot and lets one bank of cloud pass through the frame. Cloud tops pass beneath. Fields and tracks lie far below as a flat pattern. One farm comes up in a gap between clouds and settles in the middle of the picture. The height never changes and nothing descends. At the end the ground lies squarely below, seen straight down, and the picture is calm and open with room across it.
+
+overall_soundscape
+A working summer farm, quiet and constant under everything: wet plops, crickets,
+the low mutter of hens off frame, corrugated tin ticking in the heat, one distant
+tractor that never arrives. Flies. No cartoon sound effects of any kind - no
+boings, no slide whistles, no comedy impacts. Any croak or cluck is
+recorded-real, never performed.
+
+non_diegetic_music
+No music of any kind. No song, no score, no stings, no risers, no instruments.
+No singing and no voice: nobody speaks and nobody sings, and no character's
+mouth forms words. Ambient sound only.

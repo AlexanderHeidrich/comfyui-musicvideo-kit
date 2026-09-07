@@ -189,3 +189,221 @@ it is in the git history. Its generation prompt was:
   --raw --ar 3:2 --no text, letters, labels, numbers, captions, watermark, signature, border, frame, 3d render, cgi, photorealistic, vector art, sterile clean vector edges, bright saturated primaries, neon, characters, animals
 
   --------------------------------------------------------------------------
+
+==========================================================================
+WHAT STILL HAS TO BE DRAWN BY HAND - CHATGPT PROMPTS
+==========================================================================
+
+The six sheets above cover the four characters and the two places. They do not
+cover a prop that appears in no sheet, a creature that appears only as a baby,
+lettering, or two bodies touching - and those are exactly the shots H3 will
+invent badly. Nine images are worth making before the first render.
+
+Make them in ChatGPT (GPT Image), not in Midjourney: it takes an uploaded sheet
+as a style reference in the same conversation, it holds a described layout, and
+it can write legible handwriting - which is the whole point of two of them.
+There are no --flags; say the aspect ratio and the "no text" rule in words.
+
+Open the conversation by uploading 02_char_der-frosch.png and 03_char_das-huhn.png
+and saying: "This is the style and these are the characters. Match the paper, the
+even brown pen line, the transparent washes and the palette exactly in
+everything that follows." Then paste one prompt per image.
+
+TWO KINDS, AND THEY ARE WIRED DIFFERENTLY
+--------------------------------------------------------------------------
+A SHEET (A1-A5) is a <Subject n> like every other sheet: parts on bare paper,
+never a finished view, and it goes into scenes.json's `sheets` list for the
+scenes that contain it. Adding one regroups the sets, so re-run `mvkit pack`
+and `mvkit workflows` afterwards.
+
+A FIRST FRAME (B1-B4) is the one legitimate standalone <Picture n> in this kit.
+It is a finished 16:9 frame, it is wired first, and the prompt that uses it must
+switch its summary from [reference generation] to [keyframe completion] and add
+a standalone <Picture n> entry naming it as the first frame. That scene then has
+a sheet tuple of its own and gets its own set folder. Do not wire one into a set
+that other scenes share - a connected picture turns up whether the prompt asks
+for it or not, and this one is a frame.
+
+Note while you are in here: the 05_ and 06_ prompts above still describe a
+"background painting". The sheets on disk are element boards, which is what the
+kit wants; the wording never caught up. Do not regenerate them from that text.
+
+A1  07_prop_leaf-box-ring.png          scenes 30, 31
+--------------------------------------------------------------------------
+The engagement ring and the box he keeps it in exist in no sheet at all, and
+scene 31 is the hen taking it out of his hands.
+
+  A prop study sheet on bare off-white cold-press watercolour paper, four
+  separate small studies with plenty of empty paper between them and no frames,
+  no panels and no ground: a small box folded out of two fresh water-lily leaves
+  shown closed, the same box shown open with a plain polished gold band standing
+  upright in it catching one hard point of light, the gold band alone lying
+  flat, and the two folded leaves alone opened out flat to show how they are
+  folded. Pen and watercolour: an even fine dark brown ink line holding its
+  weight all the way round, loose transparent washes inside it, the tooth of the
+  paper showing through. Palette leaf green, warm gold ochre, cream. Mid values,
+  nothing pure white and nothing pure black. Landscape, roughly 3:2. No text, no
+  labels, no arrows, no hands, no characters, no background.
+
+A2  08_char_federphibium-kueken.png    scene 19
+--------------------------------------------------------------------------
+The daydream has three baby Federphibien playing on the floor. Only the adult
+is on disk, and H3 will otherwise render three adults or three chicks.
+
+  A character model sheet on bare off-white cold-press watercolour paper: one
+  horizontal row of four evenly spaced panels of equal width, not overlapping,
+  the same baby creature drawn four times at identical size and identical
+  lighting - front view facing the viewer, side view facing right, rear view
+  from directly behind, top-down view from straight above. A chick-sized
+  hybrid of frog and chicken, round and squat and soft, a big pale cream belly,
+  downy sage-green fuzz over the back rather than smooth skin, two huge round
+  white eyes with small black dot pupils set high and wide on the skull, a soft
+  unformed pinkish comb barely raised, a tiny yellow-orange beak, small useless
+  cream feather tufts at the flanks, short splayed frog toes. Clumsy and
+  cheerful. Pen and watercolour: an even fine dark brown ink line, transparent
+  washes, dense short hatching on the down, paper tooth showing through. Warm
+  muted palette of sage, cream, ochre and pale brick. Soft empty background.
+  Landscape, roughly 4:3. No text, no labels, no arrows, no height chart, no
+  second character, no toys, no background scenery, no floor line.
+
+A3  09_prop_notizblock.png             scene 23
+--------------------------------------------------------------------------
+The notebook page carries a drawing AND handwriting. H3 cannot write, so this
+one is hand-made or the shot is unusable. This is the one image where legible
+lettering is wanted.
+
+  A single open page of a small field notebook, seen flat from straight above,
+  filling the frame: faint blue-grey ruled lines on warm cream paper, a little
+  foxed at the edges. On it, drawn in the manner of a late-19th-century
+  scientific plate in fine brown ink with pale watercolour: a lateral study of a
+  plump farmyard hen at the top left, a lateral study of a squat pond frog at
+  the top right, and below them a larger three-quarter study of the hybrid of
+  the two - a potbellied frog-bodied creature with an upright brick-red comb, a
+  small beak and huge round white eyes. Under the drawings, one line of neat
+  legible fountain-pen handwriting in brown ink reading exactly: Huhn + Frosch =
+  Federphibium. Small pencilled measurement ticks beside each study, no other
+  writing anywhere. Landscape, roughly 4:3. No modern typography, no printed
+  type, no captions, no page numbers, no border, no hands, no desk, no
+  background.
+
+A4  10_pair_frosch-auf-huhn.png        scenes 41-51
+--------------------------------------------------------------------------
+The single highest-value image in the film: eleven scenes have the frog riding
+the hen, and no sheet shows two bodies touching. Without it H3 guesses where he
+sits, how big he is on her, and what her back does under him - differently every
+render, across the whole last third.
+
+  A character model sheet on bare off-white cold-press watercolour paper: one
+  horizontal row of three evenly spaced panels of equal width, not overlapping,
+  the same pair drawn three times at identical size and identical lighting -
+  side view facing right, rear view from directly behind, and a three-quarter
+  front view. A plump grey-green pond frog with a big pale cream belly and huge
+  round white eyes with dot pupils sits low between the shoulders of an ordinary
+  plump tan-and-ochre farmyard hen, just behind her neck, his hands gripping her
+  feathers on either side and his splayed rear toes tucked in against her back.
+  He is small on her: the whole frog is about a fifth of her body length, and
+  the top of his head sits well below the top of her comb. Her feathers part
+  and compress a little where he sits. Both are calm and still, standing, not
+  running. Pen and watercolour: an even fine dark brown ink line, transparent
+  washes, dense short hatching through the plumage, paper tooth showing through.
+  Warm muted palette of sage, olive, tan, ochre, cream, brick red only on the
+  comb. Soft empty background. Landscape, roughly 5:2. No text, no labels, no
+  arrows, no motion lines, no dust, no hearts, no background scenery, no ground
+  line.
+
+A5  11_loc_pond-extras.png             scenes 22, 25, 46, 48, 50
+--------------------------------------------------------------------------
+Four things the pond element board does not have: the chicken ladder and the
+opening it leads to, the researcher's folding chair, a puddle, and the long
+shallow rise the film ends on. Every one of them is currently invented.
+
+  An element study sheet on bare off-white cold-press watercolour paper, five
+  separate studies with plenty of empty paper between them, no frames, no
+  panels, no shared ground and no horizon: a sloped wooden chicken ladder, a
+  plank with thin battens nailed across it, leaning at about forty degrees;
+  a small square opening in grey-green weatherboard with a plain brown timber
+  frame, dark inside; a wooden folding chair with a faded canvas seat, seen from
+  behind and empty; a shallow puddle of muddy water lying in a track, seen from
+  a low angle, its surface still; and one long shallow grassy rise running away
+  to a bare crest with an empty pale sky above it and nothing built on it. Pen
+  and watercolour: an even fine dark brown ink line finer than a character line,
+  transparent washes, paper tooth showing through. Warm muted palette of straw,
+  sage, ochre, dusty brown, weathered grey-green. Landscape, roughly 3:2. No
+  text, no labels, no characters, no animals.
+
+B1  first frame for scene 26           landing in the down
+--------------------------------------------------------------------------
+The scale shot. 8 cm against 45 cm, from behind the frog, is the hardest thing
+in the henhouse and it sets up thirteen scenes. Give H3 the first frame and it
+only has to animate.
+
+  A finished frame from a hand-painted picture-book animation, 16:9 landscape.
+  Inside a hen house: green-painted vertical timber boarding, heavy warm-brown
+  posts, an ochre bare-earth floor, a bare bulb on a sagging black cable. We are
+  low and directly behind a small plump grey-green pond frog, at his own height,
+  so we see his smooth rounded back, his folded haunches and the two eye domes
+  breaking the top of his silhouette. He is sunk to the shoulders in a big heap
+  of grey-white down with loose feathers in the air around him. He is on the
+  right of the picture. Beyond him and to the left an ordinary plump tan-and-
+  ochre farmyard hen stands drawn up to her full height, filling the frame above
+  him and running out of the top of it - she is four to five times his height
+  and he reaches no higher than her hock. Pen and watercolour: an even fine dark
+  brown ink line, transparent washes, dense short hatching in the plumage, paper
+  tooth showing through. Warm muted palette, mid values, nothing pure white or
+  pure black. Calm, not zany. No text, no border, no film grain, no lens
+  effects.
+
+B2  first frame for scene 11           the hen in his eyes
+--------------------------------------------------------------------------
+A reflection inside an eye is the shot H3 is least likely to get on its own,
+and it is the emotional hinge of the first half.
+
+  A finished frame from a hand-painted picture-book animation, 16:9 landscape.
+  Very close on both eyes of a plump grey-green pond frog: two huge round white
+  domed eyes set high and wide, each with a small black dot pupil and a heavy
+  dark ink lid line, damp, with one soft pale highlight on each. Reflected small
+  and clear in the wet of both eyes, an ordinary plump tan-and-ochre farmyard
+  hen with an upright brick-red comb, standing in a sunlit yard, her head down
+  to the ground. The reflection is small, sharp and unmistakable; the eyes fill
+  the frame and do not blink. Behind and below, soft and out of focus, a little
+  of his grey-green mottled skin and dry cracked mud. Pen and watercolour: an
+  even fine dark brown ink line, transparent washes, paper tooth showing
+  through. Warm muted palette, mid values. No text, no border, no film grain,
+  no lens effects.
+
+B3  first frame for scene 22           dead hybrids on the water
+--------------------------------------------------------------------------
+Belly-up dead animals are outside anything the sheets show, and this is the one
+image in the film that has to land as sad rather than funny.
+
+  A finished frame from a hand-painted picture-book animation, 16:9 landscape,
+  seen from a low side angle just above the water. A calm flat pale green farm
+  pond with duckweed and a few lily pads and thin concentric ink ripple rings.
+  Floating on it, three or four small potbellied frog-and-chicken hybrids, dead,
+  each turned onto its back with the pale cream belly up and the limbs slack and
+  spread, a small brick-red comb just breaking the surface beside each one, huge
+  round white eyes closed. They drift apart, not arranged. Beyond them a dry
+  cracked mud bank, a leaning square-mesh wire fence on rough posts, and dark
+  cattails standing into the frame at the edges. Still, quiet, no violence and
+  no blood. Pen and watercolour: an even fine dark brown ink line, transparent
+  washes, paper tooth showing through. Warm muted palette, mid values. No text,
+  no border, no film grain, no lens effects.
+
+B4  first frame for scene 51 shot 3    the print the film ends on
+--------------------------------------------------------------------------
+The last image of the film, and a picture inside a picture. It is also the one
+shot where a wrong guess is unfixable in the edit.
+
+  A finished frame from a hand-painted picture-book animation, 16:9 landscape,
+  looking straight down at a plain pale surface. On it, lying still and a little
+  askew, one photographic print: a wide clean white border around a small
+  picture. Inside the picture, in warm sepia-grey, two black silhouettes against
+  a low sun on the crest of a long shallow rise - an ordinary farmyard hen at
+  the top of a jump with all feet off the ground, and a small squat frog lifted
+  clear just above her back, both read as flat shapes with the light behind
+  them, the comb and the two eye domes just legible in the outline. The print is
+  a plate print, its edges slightly soft, faintly foxed at one corner. Nothing
+  else on the surface. Pen and watercolour: an even fine dark brown ink line,
+  transparent washes, paper tooth showing through. Warm muted palette, mid
+  values. No text, no writing, no date stamp, no logo, no hands, no border
+  around the frame itself, no film grain, no lens effects.

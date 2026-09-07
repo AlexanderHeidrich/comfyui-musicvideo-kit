@@ -103,7 +103,7 @@ concentric ink rings; lily pads outlined in dark ink with pale green centres;
 tall cattails standing into frame at both edges as near-black silhouettes with
 brown seed heads; a bank of dry mud cracked into plates; a band of tall pale
 straw-coloured grass; a leaning square-mesh wire fence on rough leaning posts,
-worn under into a gap a frog can pass; beyond it to the right the coop, a long
+worn under into a gap a frog can pass; beyond it the coop, a long
 grey-green weatherboard shed with a ridged roof; and on the horizon a low pale
 hedge line with nothing built beyond it. Palette here: leaf green over pale
 green-white water, sage and olive land, dusty liver brown, straw, cream, and a
@@ -117,9 +117,9 @@ studies in {P} - a sheet of parts on bare paper, not a view of the
 place, so its layout is never reproduced: tall walls of green-painted vertical timber boarding framed by heavy
 warm-brown posts and beams, one horizontal rail across the wall at a third of its
 height, an ochre bare-earth floor, a big heap of grey-white down banked against
-the left wall with loose feathers on the floor and drifting in the air, a straw
+one wall with loose feathers on the floor and drifting in the air, a straw
 nesting shelf high under the roof with eggs on it, two black cables strung across
-with one bare bulb hanging off a sagging one, and a doorway to the right in a
+with one bare bulb hanging off a sagging one, and a doorway in a
 brown timber frame filled with flat blown-out daylight. Palette here: green
 timber, warm brown, ochre earth, grey-white down. Never corrugated tin inside,
 never water, never a pond. 3.5 m to the ridge, so the wall runs far above the hen
@@ -137,3 +137,23 @@ left without an ink contour. Behind the characters there is cloud and cream and
 nothing else: no pond, no water, no fence, no coop, no hen house, no walls, no
 floor and no furniture the action does not name. Light is flat and even and
 comes from everywhere at once. Palette here: white, pale grey-blue, warm cream.
+
+[staging]
+The axis, so shots of one place cut together. It goes into every prompt as its
+own paragraph after the location sentence, byte-identical across v1/v2/v3, and
+it names only what is actually connected in that scene.
+
+At the pond: water right, yard and leaning fence and coop left. Both animals are
+on the coop's own bank, never with water between them - the Drehbuch has the hen
+look TOWARD the pond, not across it. Going to the coop crosses right to left,
+which is the Drehbuch's own pin for the frog ("Frosch rechts, Blickrichtung
+links", frames 1122-1190). Leaving it afterwards crosses left to right.
+
+In the hen house: the frog came in through the door travelling right to left, so
+he sits on the right in the down with the doorway out of frame past him, and the
+hen stands over him on the left. Leaving for the door crosses left to right.
+From behind him she is centred beyond him; from in front of him the doorway is.
+
+Which is why no [location] block names a left or a right any more: an element
+board is not a viewpoint, so a wall it puts on the left is not a wall on the
+left of the frame.

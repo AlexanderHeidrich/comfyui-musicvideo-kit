@@ -1,4 +1,4 @@
-Federphibien - 51 scenes in 12 reference sets
+Federphibien - 51 scenes in 11 reference sets
 ==========================================================================
 
 Every clip is 243 frames (10.125 s). Set the H3 node's length to 243
@@ -24,6 +24,13 @@ from there, and the graphs name the sheets by bare filename on purpose
 so they keep working on whatever machine ComfyUI runs on. Without that
 copy, every loader comes up empty.
 
+NOT EVERY SHOT SURVIVES ON THE SHEETS ALONE. refs/__PROMPTS.txt ends
+with a work list of the images still to be drawn by hand - the props
+and the creatures no sheet covers, and the shots worth handing H3 a
+finished first frame instead. Read it before you queue anything: the
+sheets on that list change which sets exist, and a first frame makes
+its scene a set of its own.
+
 AND copy comfyui/custom_nodes/watching_hurricanes.py over the one in
 your ComfyUI/custom_nodes/, then restart it. The graphs wire that
 node's outputs by index, so an older copy shifts every link past the
@@ -39,14 +46,14 @@ WIRE THE LOADERS IN THE ORDER LISTED. H3 numbers <Picture n> over the
 slots actually connected, so a gap shifts every tag after it and the
 prompts stop matching.
 
-set-01_2-5   (14 scenes)
-    ref_image_0   <Picture 1>  02_char_der-frosch.png
-    ref_image_1   <Picture 2>  05_loc_pond.png
-
-set-02_2-3-6   (13 scenes)
+set-01_2-3-6   (14 scenes)
     ref_image_0   <Picture 1>  02_char_der-frosch.png
     ref_image_1   <Picture 2>  03_char_das-huhn.png
     ref_image_2   <Picture 3>  06_loc_henhouse-interior.png
+
+set-02_2-5   (14 scenes)
+    ref_image_0   <Picture 1>  02_char_der-frosch.png
+    ref_image_1   <Picture 2>  05_loc_pond.png
 
 set-03_2-3-5   (10 scenes)
     ref_image_0   <Picture 1>  02_char_der-frosch.png
@@ -68,25 +75,21 @@ set-06_4-5   (2 scenes)
 set-07_1   (2 scenes)
     ref_image_0   <Picture 1>  01_char_federphibium.png
 
-set-08_3-6   (1 scene)
-    ref_image_0   <Picture 1>  03_char_das-huhn.png
-    ref_image_1   <Picture 2>  06_loc_henhouse-interior.png
-
-set-09_2-3-4-5   (1 scene)
+set-08_2-3-4-5   (1 scene)
     ref_image_0   <Picture 1>  02_char_der-frosch.png
     ref_image_1   <Picture 2>  03_char_das-huhn.png
     ref_image_2   <Picture 3>  04_char_der-forscher.png
     ref_image_3   <Picture 4>  05_loc_pond.png
 
-set-10_1-3   (1 scene)
+set-09_1-3   (1 scene)
     ref_image_0   <Picture 1>  01_char_federphibium.png
     ref_image_1   <Picture 2>  03_char_das-huhn.png
 
-set-11_1-4-5   (1 scene)
+set-10_1-4-5   (1 scene)
     ref_image_0   <Picture 1>  01_char_federphibium.png
     ref_image_1   <Picture 2>  04_char_der-forscher.png
     ref_image_2   <Picture 3>  05_loc_pond.png
 
-set-12_5   (1 scene)
+set-11_5   (1 scene)
     ref_image_0   <Picture 1>  05_loc_pond.png
 
