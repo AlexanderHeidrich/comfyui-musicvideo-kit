@@ -49,9 +49,9 @@ text.
 
 The scene is <Subject 2>, the pond and the farmyard around it: flat pale green water, the cracked mud bank, the leaning chicken-wire fence and the coop with its ridged tin roof beyond it. Bright summer daylight from high and left.
 
-[Shot 1] The camera holds a static shot a little above him, looking down. The frog is desperate and out of answers. He swings one fist down and strikes the grassy ground with it, then again, more weakly.
+[Shot 1] A medium shot. The camera holds a static shot a little above him, looking down. The frog is desperate and out of answers. He swings one fist down and strikes the grassy ground with it, then again, more weakly.
 
-[Shot 2] At 00:05.000, the shot cuts to: the fist coming down into the grass.
+[Shot 2] At 00:05.000, the shot cuts to: an extreme close-up of the fist coming down into the grass.
 
 overall_soundscape
 A working summer farm, quiet and constant under everything: wet plops, crickets,

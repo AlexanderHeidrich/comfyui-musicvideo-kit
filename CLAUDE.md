@@ -120,8 +120,12 @@ before changing anything here.
   low on her legs` names a motion type and no size at all. The spec puts the size
   first, in the shot's opening clause, with the label: `[Shot 1] A medium shot
   establishes <Subject 1>, the coffee shop…` and `At 00:03.000, the shot cuts to
-  a close-up of <Subject 4>`. Scene 12 is the only prompt in the film that does
-  it; the other 150 name no size, which is why framing has not been landing.
+  a close-up of <Subject 4>`. Every prompt in the film now opens its shot with a
+  labelled size from a closed list — extreme wide / wide / medium-wide / medium /
+  medium close-up / close-up / extreme close-up — as its own short sentence
+  before the untouched camera sentence, and every internal cut carries one too.
+  The size sentence is deliberately separate from the action: writing the framing
+  into the shared prose is mistake 4 below.
 - **Scale is not in the references.** Every sheet is its own frame, so H3 has
   nothing to size characters by. Every `[subject]` carries real measurements, and
   every shot holding two characters restates which is bigger.
@@ -214,7 +218,7 @@ correct either. Each is a real deviation with a reason.
 - **`detailed_description` runs ~260 words.** The spec says 350–500 for
   generation tasks; we are thin, not fat. The fix is more action and the
   `<Subject n>` labels used inside the shots, which the spec also asks for and
-  which no prompt here does yet.
+  which only scene 12 does.
 - **`non_diegetic_music` spells out "no music, no song, no voice".** The spec
   says to write `N/A` when there is none. The long form is what stopped things
   singing (mistake 1), and `N/A` is untested here.

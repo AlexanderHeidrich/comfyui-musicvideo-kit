@@ -61,11 +61,11 @@ text.
 
 The scene is <Subject 3>, the pond and the farmyard around it, at the end of the day: the cracked mud, the leaning chicken-wire fence and the coop with its ridged tin roof, and beyond them the ground lifting into one long shallow rise. The sun sits low just above the crest of that rise, so everything between it and us stands in flat backlight and reads as shape rather than colour.
 
-[Shot 1] The camera holds a static shot through the ground glass of an old folding plate camera, a bright rectangle of picture in a dark surround. On the crest ahead the hen leaves the ground in one last jump and the frog lifts clear of her back at the top of it, both of them off the ground together and both black against the low sun. The picture stops dead on them and holds, with nothing moving in it at all.
+[Shot 1] A wide shot. The camera holds a static shot through the ground glass of an old folding plate camera, a bright rectangle of picture in a dark surround. On the crest ahead the hen leaves the ground in one last jump and the frog lifts clear of her back at the top of it, both of them off the ground together and both black against the low sun. The picture stops dead on them and holds, with nothing moving in it at all.
 
 [Shot 2] At 00:05.500, the shot cuts to: one hard white flash that washes the whole frame out to flat white.
 
-[Shot 3] At 00:07.000, the shot cuts to: a photographic print of that same held jump, a small picture inside a wide white border, lying still and a little askew on a plain surface, the two silhouettes on the crest exactly as they stopped. Nothing in it moves.
+[Shot 3] At 00:07.000, the shot cuts to: a close-up of a photographic print of that same held jump, a small picture inside a wide white border, lying still and a little askew on a plain surface, the two silhouettes on the crest exactly as they stopped. Nothing in it moves.
 
 overall_soundscape
 A working summer farm, quiet and constant under everything: wet plops, crickets,

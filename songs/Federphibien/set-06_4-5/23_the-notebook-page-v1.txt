@@ -51,7 +51,7 @@ text.
 
 The scene is <Subject 2>, the pond and the farmyard around it: flat pale green water, the cracked mud bank, the leaning chicken-wire fence and the coop with its ridged tin roof beyond it. Bright summer daylight from high and left.
 
-[Shot 1] The camera holds a static shot over the notebook, looking down, still. A hand flattens the open page of a green notebook. The page carries a careful ink drawing of a hen and a frog side by side in the style of an old scientific plate, and beneath it a handwritten note reading Huhn + Frosch = Federphibium.
+[Shot 1] A close-up. The camera holds a static shot over the notebook, looking down, still. A hand flattens the open page of a green notebook. The page carries a careful ink drawing of a hen and a frog side by side in the style of an old scientific plate, and beneath it a handwritten note reading Huhn + Frosch = Federphibium.
 
 overall_soundscape
 A working summer farm, quiet and constant under everything: wet plops, crickets,
