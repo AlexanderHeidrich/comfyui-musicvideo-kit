@@ -73,7 +73,7 @@ text.
 
 The scene is <Subject 4>, the pond and the farmyard around it: flat pale green water, the cracked mud bank, the leaning chicken-wire fence and the coop with its ridged tin roof beyond it. Bright summer daylight from high and left.
 
-Screen geometry, the same in every shot at the pond: seen from the side, the water is on the right and the yard, the leaning fence and the coop on the left. The two of them are leaving the coop behind, so they cross from left to right - the reverse of the frog's way there. The man's chair stands on that same bank with his back to the water, so their route runs in front of him.
+Screen geometry, the same in every shot at the pond: seen from the side, the water is on the right and the yard, the leaning fence and the coop on the left. The two of them are leaving the coop behind, so they cross from left to right - the reverse of the frog's way there. Their route runs along the bank between the man's chair and the water, so from behind him they pass beyond him.
 
 [Shot 1] An extreme close-up. The camera holds a static shot on his hand catching the chair. The pair run on and lose definition as the man on the bank comes clear instead. He is sitting on his folding chair with his back to us, drawing. Then he comes up out of the chair all at once and catches hold of it with one hand to stop it going over.
 

@@ -37,7 +37,7 @@ high pale washed-out sky. The pond is 3 m across, the farmyard 40 m, and it is
 that holds the far bank, at any distance, from any angle, including straight down.
 
 summary
-[reference generation] Federphibien drift dead on the pond, eyes shut and tongues hanging out of their beaks. On the coop's own bank a man sits on a folding chair with his back turned.
+[reference generation] Federphibien drift dead on the pond, eyes shut and tongues hanging out of their beaks. On the same bank a man sits on a folding chair facing the water, head down over a notebook.
 
 retention_analysis
 <Subject 1> (appears in [Shot 1], [Shot 2]): attribute_transfer - design, proportions and colour model only. The sheet shows it upright, alive and open-eyed, and this shot uses none of that pose.
@@ -63,9 +63,9 @@ text.
 
 The scene is <Subject 3>, the pond and the farmyard around it: flat pale green water, the cracked mud bank, the leaning chicken-wire fence and the coop with its ridged tin roof beyond it. Bright summer daylight from high and left.
 
-Screen geometry, the same in every shot at the pond: seen from the side, the water is on the right and the yard, the leaning fence and the coop on the left. The man's folding chair stands on the coop's own bank, the same side of the water as everyone else in this film, and he sits with his back to the water and the yard in front of him - so a camera behind him is out over the water, and what he watches crosses the picture in front of him.
+Screen geometry, the same in every shot at the pond: seen from the side, the water is on the right and the yard, the leaning fence and the coop on the left. The man's folding chair stands on the coop's own bank, never across the water from anyone, and he sits facing the water with the yard behind him.
 
-[Shot 1] A medium shot. The camera pushes in just above the surface, small amplitude at slow speed, passing near enough to one body to read the shut lids and the tongue lying on the water. Five or six Federphibien drift on the flat green water, dead. Each lies back uppermost and low in the water, the mottled olive back and the soaked cream feather tufts just breaking the surface, the frog legs splayed out and hanging slack below with the toes trailing. The head has lolled over to one side, both eyes are shut - smooth closed lids over the domes high on the skull, no white and no black pupil anywhere - the brick-red comb has flopped flat and gone dark with water, and the tongue hangs out of the open beak and lies along the surface. Nothing about them moves under its own power: they turn slowly as the water carries them and drift apart, and thin ink rings spread from each body. On the coop's own bank a man sits on a folding chair with his back to us, not moving. He is soft and unclear at first and then settles.
+[Shot 1] A medium shot. The camera pushes in just above the surface, small amplitude at slow speed, passing near enough to one body to read the shut lids and the tongue lying on the water. Five or six Federphibien drift on the flat green water, dead. Each lies back uppermost and low in the water, the mottled olive back and the soaked cream feather tufts just breaking the surface, the frog legs splayed out and hanging slack below with the toes trailing. The head has lolled over to one side, both eyes are shut - smooth closed lids over the domes high on the skull, no white and no black pupil anywhere - the brick-red comb has flopped flat and gone dark with water, and the tongue hangs out of the open beak and lies along the surface. Nothing about them moves under its own power: they turn slowly as the water carries them and drift apart, and thin ink rings spread from each body. On the same bank a man sits on a folding chair facing the water, head down over a notebook, not moving. He is soft and unclear at first and then settles.
 
 [Shot 2] At 00:05.500, the shot cuts to: a medium shot of two of the bodies seen from straight above, backs uppermost on the flat water, the legs hanging down into the green and one tongue lying out across the surface.
 

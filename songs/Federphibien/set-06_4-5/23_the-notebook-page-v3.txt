@@ -51,7 +51,7 @@ text.
 
 The scene is <Subject 2>, the pond and the farmyard around it: flat pale green water, the cracked mud bank, the leaning chicken-wire fence and the coop with its ridged tin roof beyond it. Bright summer daylight from high and left.
 
-Screen geometry, the same in every shot at the pond: seen from the side, the water is on the right and the yard, the leaning fence and the coop on the left. The man's folding chair stands on the coop's own bank, the same side of the water as everyone else in this film, and he sits with his back to the water and the yard in front of him - so a camera behind him is out over the water, and what he watches crosses the picture in front of him.
+Screen geometry, the same in every shot at the pond: seen from the side, the water is on the right and the yard, the leaning fence and the coop on the left. The man's folding chair stands on the coop's own bank, never across the water from anyone, and he sits facing the water with the yard behind him.
 
 [Shot 1] An extreme close-up. The camera pushes in slowly on the written note with small amplitude at slow speed. A hand flattens the open page of a green notebook. The page carries a careful ink drawing of a hen and a frog side by side in the style of an old scientific plate, and beneath it a handwritten note reading Huhn + Frosch = Federphibium.
 

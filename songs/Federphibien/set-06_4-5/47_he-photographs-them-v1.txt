@@ -51,7 +51,7 @@ text.
 
 The scene is <Subject 2>, the pond and the farmyard around it: flat pale green water, the cracked mud bank, the leaning chicken-wire fence and the coop with its ridged tin roof beyond it. Bright summer daylight from high and left.
 
-Screen geometry, the same in every shot at the pond: seen from the side, the water is on the right and the yard, the leaning fence and the coop on the left. The man's folding chair stands on the coop's own bank, the same side of the water as everyone else in this film, and he sits with his back to the water and the yard in front of him - so a camera behind him is out over the water, and what he watches crosses the picture in front of him.
+Screen geometry, the same in every shot at the pond: seen from the side, the water is on the right and the yard, the leaning fence and the coop on the left. The man's folding chair stands on the coop's own bank, never across the water from anyone, and he sits facing the water with the yard behind him. Anything crossing the picture runs along the bank between his chair and the water, so from behind him it passes beyond him.
 
 [Shot 1] A medium-wide shot. The camera holds a static shot behind him, still. The man brings the black folding plate camera up from his chest and works it fast, taking one exposure after another. His back stays to us throughout and the hat brim hides everything of his head.
 
