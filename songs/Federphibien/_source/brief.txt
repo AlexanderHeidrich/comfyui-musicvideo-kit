@@ -145,7 +145,10 @@ it names only what is actually connected in that scene.
 
 At the pond: water right, yard and leaning fence and coop left. Both animals are
 on the coop's own bank, never with water between them - the Drehbuch has the hen
-look TOWARD the pond, not across it. Going to the coop crosses right to left,
+look TOWARD the pond, not across it. The researcher's folding chair is on that
+same bank, the water in front of him and the coop behind him, and the pair's
+route runs between his chair and the water - so from behind him they cross in
+front of him. Going to the coop crosses right to left,
 which is the Drehbuch's own pin for the frog ("Frosch rechts, Blickrichtung
 links", frames 1122-1190). Leaving it afterwards crosses left to right.
 

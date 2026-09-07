@@ -212,10 +212,11 @@ H3 picks a side per render, so two setups of one moment refuse to cut. Every
 prompt therefore carries a screen-geometry paragraph after the location
 sentence, byte-identical across v1/v2/v3 and naming only what that scene
 actually connects. The axis is written down once in `_source/brief.txt` under
-`[staging]`: at the pond, water right and coop left, both animals on the coop's
-own bank with no water between them, travel to the coop right to left and away
-from it left to right; in the hen house, frog on the right in the down, hen on
-the left, doorway out of frame past the frog.
+`[staging]`: at the pond, water right and coop left, both animals and the
+researcher's chair on the coop's own bank with no water between any of them,
+travel to the coop right to left and away from it left to right; in the hen
+house, frog on the right in the down, hen on the left, doorway out of frame
+past the frog.
 
 No `[location]` block names a left or a right any more. An element board is not
 a viewpoint, so a wall it draws on the left is not a wall on the left of frame,
