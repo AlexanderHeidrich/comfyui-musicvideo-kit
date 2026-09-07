@@ -115,6 +115,13 @@ before changing anything here.
   omitted defaults, so do not write them. Anything else (dollies, drifts,
   descends, travels) is off-vocabulary. One dominant move per clip. There is no
   negative_prompt.
+- **Shot size is not a camera move.** That closed list says how the camera moves,
+  never how much of the subject is in frame, so `The camera holds a static shot
+  low on her legs` names a motion type and no size at all. The spec puts the size
+  first, in the shot's opening clause, with the label: `[Shot 1] A medium shot
+  establishes <Subject 1>, the coffee shop…` and `At 00:03.000, the shot cuts to
+  a close-up of <Subject 4>`. Scene 12 is the only prompt in the film that does
+  it; the other 150 name no size, which is why framing has not been landing.
 - **Scale is not in the references.** Every sheet is its own frame, so H3 has
   nothing to size characters by. Every `[subject]` carries real measurements, and
   every shot holding two characters restates which is bigger.
@@ -167,7 +174,10 @@ and a location sentence naming the set's `<Subject n>` is mandatory before
 identical across v1/v2/v3 — only the camera sentence differs — so "close-up" in
 either contradicts two of the three. It also breaks the other way: an action
 saying "the hen's head fills the space in front of him" describes what only a
-side view shows, and defeats a camera asking for the frog's back.
+side view shows, and defeats a camera asking for the frog's back. The rule is
+about the contradiction, not the word: where all three variants are close —
+scene 12 — the summary names the framing on purpose, and adding a wide variant
+later means rewriting it.
 
 Related: **no reference sheet may look like a frame.** A character sheet is a
 **turnaround** — front, side, back, top on one image; a single front portrait is

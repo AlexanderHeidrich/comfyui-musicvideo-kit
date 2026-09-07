@@ -26,7 +26,7 @@ high pale washed-out sky. The pond is 3 m across, the farmyard 40 m, and it is
 that holds the far bank, at any distance, from any angle, including straight down.
 
 summary
-[reference generation] The hen finishes pecking, lifts her head, looks toward the pond, turns away in contempt and walks off.
+[reference generation] Close on the hen's face: she lifts her head, looks out across the water at the far bank, rolls her eyes and walks out of the picture.
 
 retention_analysis
 <Subject 1> (appears in [Shot 1], [Shot 2]): partially_preserved - design, proportions and colour model exactly, in the view this shot needs.
@@ -51,9 +51,9 @@ text.
 
 The scene is <Subject 2>, the pond and the farmyard around it: flat pale green water, the cracked mud bank, the leaning chicken-wire fence and the coop with its ridged tin roof beyond it. Bright summer daylight from high and left.
 
-[Shot 1] The camera holds a static shot behind her at ground level. The hen pecks, then raises her head and holds it. She looks across toward the water. Then she turns away without interest and walks off in her stiff hen's walk until she has left the picture.
+[Shot 1] A close-up frames <Subject 1> head-on from across the water at her own eye level, her head and neck filling the frame, and the camera holds it as a static shot. The hen lifts her head from the ground and holds still, looking out across the water at the far bank. She holds the look without hurrying. Then her pupils roll up and away from it, she turns her head, and she walks out of the picture in her stiff hen's walk.
 
-[Shot 2] At 00:06.000, the shot cuts to: her legs and the dust as she walks out of the picture.
+[Shot 2] At 00:06.000, the shot cuts to: a low close-up of <Subject 1>'s legs and the dust as she walks out of the picture.
 
 overall_soundscape
 A working summer farm, quiet and constant under everything: wet plops, crickets,
