@@ -36,6 +36,7 @@ doctor                     what is installed
 songs/<name>/                DELIVERABLE
   __READ_ME.txt              generated; the work list and the loader order
   __SCENES.tsv               scene -> set, title, location, sheets
+  __TIMELINE.tsv             the edit list: timecode, hold, track, render file
   set-NN_<sheets>/           one folder per set of reference sheets
     NN_title-v1.txt          a finished six-section H3 prompt, paste-ready
     NN_title-v2.txt          same action, different camera

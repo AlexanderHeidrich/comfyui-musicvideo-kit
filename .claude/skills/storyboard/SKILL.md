@@ -131,8 +131,9 @@ time.
 ```
 
 `pack` groups scenes by their sheet tuple into `set-NN_*/` folders, numbers the
-sheets the way H3 will, writes each set's `__SCENES.tsv` and `__READ_ME.txt`, and
-fails on a prompt over 7,000 characters. `workflows` grafts one graph per set,
+sheets the way H3 will, writes each set's `__SCENES.tsv`, the song's
+`__READ_ME.txt` and `__TIMELINE.tsv`, and fails on a prompt over 7,000
+characters. `workflows` grafts one graph per set,
 keeping only the loaders that set needs. Check its report: loader count per set
 must equal the sheet count.
 

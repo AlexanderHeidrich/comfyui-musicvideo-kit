@@ -5,6 +5,19 @@ Every clip is 243 frames (10.125 s). Set the H3 node's length to 243
 once; it never changes. There is no audio reference and no audio in
 these folders - lay the song under the picture in the edit.
 
+__TIMELINE.tsv is the edit list: one row per scene with the
+timecode it starts at, how long it holds (dur_s - mostly less
+than the 10.125 s rendered, so trim), the track, and the render
+the clip comes from. It is laid out at 24 fps off the Drehbuch's
+own frame numbers, so the film starts at 00:00:00:00 and DROP
+THE MP3 AT 00:00:10:00 - the frames before that are the
+Vorspann. A V2 row is a layer over the V1 clip underneath it,
+not a cut.
+
+ComfyUI appends its own counter, so the render column names a
+prefix: set-NN_x/07_slug-v1 lands as 07_slug-v1_00001_.mp4, and
+-v2/-v3 are the same moment from another angle.
+
 BEFORE ANYTHING ELSE: copy every png in this song's refs/ folder into
 your ComfyUI/input/ directory. ComfyUI's LoadImage only ever reads
 from there, and the graphs name the sheets by bare filename on purpose

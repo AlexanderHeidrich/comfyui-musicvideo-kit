@@ -20,6 +20,7 @@ import shutil
 import sys
 
 MAX_PROMPT = 7000               # every published H3 guide states this
+FPS = 24                        # the Drehbuch's own basis; 243 frames = 10.125 s
 SECTIONS = ["subject_definitions", "summary", "retention_analysis",
             "detailed_description", "overall_soundscape", "non_diegetic_music"]
 FRAMING = re.compile(r"\b(close-?up|wide shot|medium shot|extreme close|"
@@ -50,6 +51,42 @@ def read_refs(song):
     if not out:
         die("no reference images in %s - see refs/__README.txt for the naming" % d)
     return out
+
+
+def timecode(frame):
+    f = int(round(frame))
+    return "%02d:%02d:%02d:%02d" % (f // (FPS * 3600), f // (FPS * 60) % 60,
+                                    f // FPS % 60, f % FPS)
+
+
+def write_timeline(song, rows):
+    """(scene, set, render, beat, frames, title) -> __TIMELINE.tsv.
+
+    Laid out off the Drehbuch's own frame numbers from the earliest beat, so the
+    Vorspann's negative frames land at the head and the music starts where frame
+    0 does. A beat sitting inside a longer one is a layer, not a cut - the
+    daydreams play over the hopping loop plate - so it gets track V2.
+    """
+    if any(len(r[3] or []) != 2 for r in rows):
+        return None, ["  ! a scene has no beat [start, end] in scenes.json, so "
+                      "no __TIMELINE.tsv was written"]
+    zero = min(r[3][0] for r in rows)
+    warn, lines = [], ["\t".join(["scene", "tc", "start_s", "dur_s", "track",
+                                  "set", "render", "title"])]
+    for n, folder, render, beat, frames, title in sorted(rows):
+        held = beat[1] - beat[0]
+        inside = any(o[0] != n and o[3][0] <= beat[0] and beat[1] <= o[3][1]
+                     and (o[3][1] - o[3][0]) > held for o in rows)
+        lines.append("\t".join([
+            str(n), timecode(beat[0] - zero), "%.3f" % ((beat[0] - zero) / FPS),
+            "%.3f" % (held / FPS), "V2" if inside else "V1", folder, render,
+            title]))
+        if held > frames:
+            warn.append("  ! scene %d holds %.3f s but renders %.3f s - loop or "
+                        "hold it in the edit" % (n, held / FPS, frames / FPS))
+    with open(os.path.join(song, "__TIMELINE.tsv"), "w", encoding="utf-8") as fh:
+        fh.write("\n".join(lines) + "\n")
+    return timecode(-zero), warn
 
 
 def check(scene, variant, text, refs_used):
@@ -127,7 +164,7 @@ def main():
         if old.startswith("set-") and os.path.isdir(os.path.join(song, old)):
             shutil.rmtree(os.path.join(song, old))
 
-    index, rows = [], []
+    index, rows, tl = [], [], []
     order = sorted(groups.items(), key=lambda kv: (-len(kv[1]), kv[0]))
     for i, (key, members) in enumerate(order, 1):
         nums = "-".join("%d" % refs[s][0] for s in key)
@@ -148,6 +185,9 @@ def main():
             lines.append("\t".join([str(n), str(sc.get("frames") or 243),
                                     " ".join(files), nums, title]))
             rows.append((n, folder, title, sc.get("location") or "", nums))
+            tl.append((n, folder,
+                       "%s/%s" % (folder, files[0][:-4]) if files else "",
+                       sc.get("beat") or [], int(sc.get("frames") or 243), title))
         with open(os.path.join(path, "__SCENES.tsv"), "w", encoding="utf-8") as fh:
             fh.write("\n".join(lines) + "\n")
         index.append((folder, key, len(members)))
@@ -157,8 +197,11 @@ def main():
         for r in sorted(rows):
             fh.write("\t".join(str(x) for x in r) + "\n")
 
+    music_tc, tl_warnings = write_timeline(song, tl)
+    warnings += tl_warnings
+
     with open(os.path.join(song, "__READ_ME.txt"), "w", encoding="utf-8") as fh:
-        fh.write(readme(name, index, refs, len(scenes)))
+        fh.write(readme(name, index, refs, len(scenes), music_tc))
 
     print("%s: %d scenes in %d sets" % (name, len(scenes), len(index)))
     for folder, key, count in index:
@@ -171,12 +214,25 @@ def main():
         print("\n".join(warnings))
 
 
-def readme(name, index, refs, total):
+def readme(name, index, refs, total, music_tc):
     out = ["%s - %d scenes in %d reference sets" % (name, total, len(index)),
            "=" * 74, "",
            "Every clip is 243 frames (10.125 s). Set the H3 node's length to 243",
            "once; it never changes. There is no audio reference and no audio in",
-           "these folders - lay the song under the picture in the edit.", "",
+           "these folders - lay the song under the picture in the edit.", ""]
+    if music_tc:
+        out += ["__TIMELINE.tsv is the edit list: one row per scene with the",
+                "timecode it starts at, how long it holds (dur_s - mostly less",
+                "than the 10.125 s rendered, so trim), the track, and the render",
+                "the clip comes from. It is laid out at %s fps off the Drehbuch's" % FPS,
+                "own frame numbers, so the film starts at 00:00:00:00 and DROP",
+                "THE MP3 AT %s - the frames before that are the" % music_tc,
+                "Vorspann. A V2 row is a layer over the V1 clip underneath it,",
+                "not a cut.", "",
+                "ComfyUI appends its own counter, so the render column names a",
+                "prefix: set-NN_x/07_slug-v1 lands as 07_slug-v1_00001_.mp4, and",
+                "-v2/-v3 are the same moment from another angle.", ""]
+    out += [
            "BEFORE ANYTHING ELSE: copy every png in this song's refs/ folder into",
            "your ComfyUI/input/ directory. ComfyUI's LoadImage only ever reads",
            "from there, and the graphs name the sheets by bare filename on purpose",
