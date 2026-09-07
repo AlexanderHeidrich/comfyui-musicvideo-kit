@@ -383,13 +383,38 @@ def wrap_ui(ui, song, a, sheets=None, label=""):
     for n in seeds:
         n["widgets_values"][1] = "fixed"
 
-    # the 4-step turbo LoRA is the point of having it wired; the template ships
-    # it switched off, which means every graft would render the slow path
+    # The 4-step turbo LoRA stays OFF. Both distillation authors call 4 steps
+    # usable only for static shots and slow pans, micro-detail falls off below
+    # 6, and small fast objects smear and trail - which is exactly how the flies
+    # came back in fragments. This film is 51 scenes of motion, so it renders the
+    # undistilled path.
     lightning = [n for n in ui["nodes"] if n["type"] == "PrimitiveBoolean"
                  and "lightning" in (n.get("title") or "").lower()
                  and n.get("widgets_values")]
     for n in lightning:
-        n["widgets_values"][0] = True
+        n["widgets_values"][0] = False
+
+    # ...and that path gets 25 steps, not the template's 20: ComfyUI's own H3
+    # page says to raise it "for example to 25" for better motion quality, and
+    # it is the only documented knob left - sampler, scheduler and guider are
+    # already what the official reference-to-video template ships.
+    stepped = []
+    now = {l[0]: l for l in ui.get("links", [])}
+    for sw in ui["nodes"]:
+        if sw["type"] not in SWITCH_CLASSES or "step" not in (sw.get("title") or "").lower():
+            continue
+        for i in (sw.get("inputs") or []):
+            if i.get("name") != "on_false" or i.get("link") is None:
+                continue
+            up = nodes.get(now[i["link"]][1]) if i["link"] in now else None
+            if up and up.get("widgets_values"):
+                up["widgets_values"][0] = BASE_STEPS
+                stepped.append(up)
+    # the scheduler's own steps widget is inert while that input is linked, but
+    # it is what a person reads off the node, so it says the same number
+    for n in ui["nodes"]:
+        if n["type"] == "BasicScheduler" and len(n.get("widgets_values") or []) > 1:
+            n["widgets_values"][1] = BASE_STEPS
 
     report = ["%d node(s) gone - the prompt, length and audio feeders, plus the "
               "sheet loaders this graph does not use: %s"
@@ -404,10 +429,14 @@ def wrap_ui(ui, song, a, sheets=None, label=""):
                "tag" % len(wired)),
               "save prefix driven on %d node(s)" % len(saves),
               "%d seed node(s) pinned to fixed" % len(seeds),
-              "%d lightning LoRA switch(es) enabled" % len(lightning),
+              "%d lightning LoRA switch(es) turned off, %d step count(s) set to %d"
+              % (len(lightning), len(stepped), BASE_STEPS),
               "layout and %d group(s) kept" % len(ui.get("groups") or [])]
     return ui, report
 
+
+BASE_STEPS = 25
+SWITCH_CLASSES = ("ComfySwitchNode", "ImpactSwitch", "Switch any [Crystools]")
 
 SONG_CLASSES = ("HurricaneSongFolder", "MVSongFolder")
 

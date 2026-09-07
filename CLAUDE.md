@@ -308,6 +308,12 @@ so it is `$pipestatus[1]`, not `$PIPESTATUS[0]`.
 There is no audio output. Set `scene_index` to `increment`, batch count to
 `scene_count`, run once.
 
+The upscale pass does not fix any of this. `RealESRGAN_x4plus_anime_6B` is
+single-image super-resolution run per frame: it has no temporal model, so a
+fragment that wanders across three frames comes back as three crisply upscaled
+fragments, and it cannot know a half-drawn fly was meant to be a whole one. It
+sharpens what is there. Artifacts are fixed at generation or not at all.
+
 `comfyui/custom_nodes/watching_hurricanes_upscale.py` holds the pass afterwards,
 deliberately separate: `HurricaneClipFolder` walks rendered clips in name order.
 `<song>-4x.json` wires one 4x line-art model (`RealESRGAN_x4plus_anime_6B`) with
@@ -350,13 +356,25 @@ set does not need and retitles the rest. No absolute path is ever written:
 ComfyUI usually runs elsewhere, so `song_path` is left empty and `find_abs_paths`
 fails the build rather than emit one.
 
-It also sets two defaults the template ships the wrong way round: `RandomNoise`
-goes to `fixed`, because v1/v2/v3 of a moment differ only in the camera sentence
-and a fresh seed is the one variable that should not move, and the
-`Boolean (Enable Lightning LoRA)` primitive goes to `True`, because the 4-step
-turbo LoRA is wired in and shipping it off means every graph renders the slow
-path. Both are set on the grafted graph, so re-running `mvkit workflows` keeps
-them.
+It also sets three sampling defaults on the grafted graph, so re-running
+`mvkit workflows` keeps them:
+
+- **`RandomNoise` goes to `fixed`.** v1/v2/v3 of a moment differ only in the
+  camera sentence, so a fresh seed is the one variable that should not move.
+- **`Boolean (Enable Lightning LoRA)` goes to `False`.** The 4-step turbo LoRA
+  is wired in and stays off. Both distillation authors call 4 steps usable for
+  static shots and slow pans only; micro-detail falls off below 6 steps, and
+  small fast objects smear and trail. That is what came back as fragmented
+  flies. This film is 51 scenes of motion, so it pays the time. It was set to
+  `True` until 2026-09-07 — if you ever flip it back, 6-8 steps, not 4.
+- **The base path's step count goes to 25**, not the template's 20: ComfyUI's
+  own H3 page says to raise it "for example to 25" for better motion quality.
+  That is the only documented knob left. `res_multistep`, `simple` and
+  `BasicGuider` are already exactly what the official reference-to-video
+  template ships — the turbo guides' `er_sde` / `sa_solver` advice is about the
+  distilled path and does not apply here.
+
+A clip now costs roughly six times what it did. That is the trade.
 
 Weights: UNET `minimax_h3_ref2va_pruned_int8_convrot`, CLIP
 `qwen3vl_*_minimax_h3_*`, `vae` = `minimax_h3_video_vae_fp16`, `audio_vae` =

@@ -36,6 +36,13 @@ your ComfyUI/custom_nodes/, then restart it. The graphs wire that
 node's outputs by index, so an older copy shifts every link past the
 change: `mvkit probe` compares the two and says so.
 
+THE GRAPHS RENDER THE SLOW PATH ON PURPOSE. The 4-step turbo LoRA is
+wired in but switched OFF, and the sampler runs 25 steps. Four steps is
+documented as usable for static shots and slow pans only: micro-detail
+falls off below six, and small fast things smear and trail - which is
+what fragmented the flies. This film is 51 scenes of motion. A clip
+takes roughly six times as long now; that is the trade, not a mistake.
+
 Each set-*/ folder is a song folder in its own right: open its graph,
 put that folder's own path into HurricaneSongFolder's song_path - it
 is left empty on purpose, because no absolute path is ever written
