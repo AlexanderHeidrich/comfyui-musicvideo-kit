@@ -214,9 +214,10 @@ sentence, byte-identical across v1/v2/v3 and naming only what that scene
 actually connects. The axis is written down once in `_source/brief.txt` under
 `[staging]`: at the pond, water right and coop left, both animals and the
 researcher's chair on the coop's own bank with no water between any of them,
-travel to the coop right to left and away from it left to right; in the hen
-house, frog on the right in the down, hen on the left, doorway out of frame
-past the frog.
+his back to the water so every camera behind him is out over the pond, travel
+to the coop right to left and away from it left to right; in the hen house,
+frog on the right in the down, hen on the left, doorway out of frame past the
+frog.
 
 No `[location]` block names a left or a right any more. An element board is not
 a viewpoint, so a wall it draws on the left is not a wall on the left of frame,
@@ -317,6 +318,20 @@ by bare filename, deliberately, so they survive being opened on whatever machine
 ComfyUI runs on — which means the refs must be copied into `ComfyUI/input/` by
 hand or every loader comes up empty. `song_path` is left empty for the same
 reason and is filled in per set folder.
+
+**A set graph's loaders are named from `refs/`, not from the template.**
+`make_workflows.py` read a `_source/refs.json` that nothing has written for a
+long time, so it always came back empty: the loaders kept whatever filename the
+saved template carried, and which loader stood for sheet n was its position in
+that template. Retiring `04_style_board.png` shifted every sheet after it by
+one, and **nine of eleven graphs silently loaded the wrong picture** - the
+henhouse set pulled `06_loc_pond.png`, a file that does not even exist, so those
+scenes would have rendered against an empty loader or a pond. It now scans
+`refs/` for the `NN_kind_slug.png` schema, takes the first N loaders whichever
+they are, and writes the filename onto each one - into `widgets_values[0]` and
+into `widgets_values_named.image`, because newer saves carry it twice and
+ComfyUI reads the second. Check a regraft with the titles: every loader is
+`<Picture k> - <slug>  [sheet n]`.
 
 **The installed node has to be the kit's node.** The set graphs wire
 `HurricaneSongFolder`'s outputs by index, so an older copy in

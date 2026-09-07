@@ -1248,7 +1248,7 @@
           "links": []
         }
       ],
-      "title": "<Picture 1> -   [sheet 1]",
+      "title": "<Picture 1> - federphibium  [sheet 1]",
       "properties": {
         "Node name for S&R": "LoadImageFederphibium",
         "cnr_id": "comfy-core",
@@ -1260,6 +1260,130 @@
       ],
       "widgets_values_named": {
         "image": "01_char_federphibium.png",
+        "upload": "image"
+      }
+    },
+    {
+      "id": 139,
+      "type": "LoadImage",
+      "pos": [
+        -743.1386796188264,
+        5953.837331483024
+      ],
+      "size": [
+        290,
+        330
+      ],
+      "flags": {},
+      "order": 15,
+      "mode": 0,
+      "inputs": [
+        {
+          "localized_name": "image",
+          "name": "image",
+          "type": "COMBO",
+          "widget": {
+            "name": "image"
+          }
+        },
+        {
+          "localized_name": "choose file to upload",
+          "name": "upload",
+          "type": "IMAGEUPLOAD",
+          "widget": {
+            "name": "upload"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "localized_name": "IMAGE",
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            307
+          ]
+        },
+        {
+          "localized_name": "MASK",
+          "name": "MASK",
+          "type": "MASK",
+          "links": []
+        }
+      ],
+      "title": "<Picture 2> - der forscher  [sheet 4]",
+      "properties": {
+        "Node name for S&R": "LoadImage",
+        "cnr_id": "comfy-core",
+        "ver": "0.33.0"
+      },
+      "widgets_values": [
+        "04_char_der-forscher.png",
+        "image"
+      ],
+      "widgets_values_named": {
+        "image": "04_char_der-forscher.png",
+        "upload": "image"
+      }
+    },
+    {
+      "id": 148,
+      "type": "LoadImage",
+      "pos": [
+        -425.88813706665815,
+        5955.117539423736
+      ],
+      "size": [
+        282.798828125,
+        314
+      ],
+      "flags": {},
+      "order": 16,
+      "mode": 0,
+      "inputs": [
+        {
+          "localized_name": "image",
+          "name": "image",
+          "type": "COMBO",
+          "widget": {
+            "name": "image"
+          }
+        },
+        {
+          "localized_name": "choose file to upload",
+          "name": "upload",
+          "type": "IMAGEUPLOAD",
+          "widget": {
+            "name": "upload"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "localized_name": "IMAGE",
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            308
+          ]
+        },
+        {
+          "localized_name": "MASK",
+          "name": "MASK",
+          "type": "MASK",
+          "links": []
+        }
+      ],
+      "title": "<Picture 3> - pond  [sheet 5]",
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "05_loc_pond.png",
+        "image"
+      ],
+      "widgets_values_named": {
+        "image": "05_loc_pond.png",
         "upload": "image"
       }
     },
@@ -1548,128 +1672,6 @@
       }
     },
     {
-      "id": 150,
-      "type": "LoadImage",
-      "pos": [
-        -106.79883517997474,
-        5952.378554741781
-      ],
-      "size": [
-        282.798828125,
-        314
-      ],
-      "flags": {},
-      "order": 18,
-      "mode": 0,
-      "inputs": [
-        {
-          "localized_name": "image",
-          "name": "image",
-          "type": "COMBO",
-          "widget": {
-            "name": "image"
-          }
-        },
-        {
-          "localized_name": "choose file to upload",
-          "name": "upload",
-          "type": "IMAGEUPLOAD",
-          "widget": {
-            "name": "upload"
-          }
-        }
-      ],
-      "outputs": [
-        {
-          "localized_name": "IMAGE",
-          "name": "IMAGE",
-          "type": "IMAGE",
-          "links": [
-            308
-          ]
-        },
-        {
-          "localized_name": "MASK",
-          "name": "MASK",
-          "type": "MASK",
-          "links": []
-        }
-      ],
-      "title": "<Picture 3> -   [sheet 5]",
-      "properties": {
-        "Node name for S&R": "LoadImage"
-      },
-      "widgets_values": [
-        "05_char_der-forscher.png",
-        "image"
-      ],
-      "widgets_values_named": {
-        "image": "05_char_der-forscher.png",
-        "upload": "image"
-      }
-    },
-    {
-      "id": 149,
-      "type": "LoadImage",
-      "pos": [
-        -1049.6870555872697,
-        6350.213023663212
-      ],
-      "size": [
-        282.798828125,
-        314
-      ],
-      "flags": {},
-      "order": 17,
-      "mode": 0,
-      "inputs": [
-        {
-          "localized_name": "image",
-          "name": "image",
-          "type": "COMBO",
-          "widget": {
-            "name": "image"
-          }
-        },
-        {
-          "localized_name": "choose file to upload",
-          "name": "upload",
-          "type": "IMAGEUPLOAD",
-          "widget": {
-            "name": "upload"
-          }
-        }
-      ],
-      "outputs": [
-        {
-          "localized_name": "IMAGE",
-          "name": "IMAGE",
-          "type": "IMAGE",
-          "links": [
-            307
-          ]
-        },
-        {
-          "localized_name": "MASK",
-          "name": "MASK",
-          "type": "MASK",
-          "links": []
-        }
-      ],
-      "title": "<Picture 2> -   [sheet 4]",
-      "properties": {
-        "Node name for S&R": "LoadImage"
-      },
-      "widgets_values": [
-        "04_style_board.png",
-        "image"
-      ],
-      "widgets_values_named": {
-        "image": "04_style_board.png",
-        "upload": "image"
-      }
-    },
-    {
       "type": "HurricaneSongFolder",
       "flags": {},
       "order": 0,
@@ -1755,7 +1757,7 @@
         -1490,
         6520
       ],
-      "title": "WATCHING HURRICANES - set-10_1-4-5:  | 1 scene(s) | point song_path here"
+      "title": "WATCHING HURRICANES - set-10_1-4-5: federphibium, der forscher, pond | 1 scene(s) | point song_path here"
     }
   ],
   "links": [
@@ -2017,7 +2019,7 @@
     ],
     [
       307,
-      149,
+      139,
       0,
       136,
       4,
@@ -2025,7 +2027,7 @@
     ],
     [
       308,
-      150,
+      148,
       0,
       136,
       5,

@@ -49,7 +49,7 @@ text.
 
 The scene is <Subject 2>, the pond and the farmyard around it: flat pale green water, the cracked mud bank, the leaning chicken-wire fence and the coop with its ridged tin roof beyond it. Bright summer daylight from high and left.
 
-Screen geometry, the same in every shot at the pond: the water is on the right and the yard, the leaning fence and the coop on the left. The frog is out on the coop's own side of the water, and anything going toward the coop crosses the picture from right to left.
+Screen geometry, the same in every shot at the pond: seen from the side, the water is on the right and the yard, the leaning fence and the coop on the left. The frog is out on the coop's own side of the water, and anything going toward the coop crosses the picture from right to left.
 
 [Shot 1] A medium-wide shot. The camera holds a static shot behind his shoulder with the far coop beyond him. The frog turns himself back onto his belly and lets his head down onto both hands, tired. He keeps looking away across the yard, where the long coop stands beyond the leaning wire fence with the pale hedge line behind it.
 

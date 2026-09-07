@@ -1201,6 +1201,69 @@
       "bgcolor": "#533"
     },
     {
+      "id": 137,
+      "type": "LoadImage",
+      "pos": [
+        -1050,
+        5960
+      ],
+      "size": [
+        290,
+        330
+      ],
+      "flags": {},
+      "order": 14,
+      "mode": 0,
+      "inputs": [
+        {
+          "localized_name": "image",
+          "name": "image",
+          "type": "COMBO",
+          "widget": {
+            "name": "image"
+          }
+        },
+        {
+          "localized_name": "choose file to upload",
+          "name": "upload",
+          "type": "IMAGEUPLOAD",
+          "widget": {
+            "name": "upload"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "localized_name": "IMAGE",
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            306
+          ]
+        },
+        {
+          "localized_name": "MASK",
+          "name": "MASK",
+          "type": "MASK",
+          "links": []
+        }
+      ],
+      "title": "<Picture 1> - der frosch  [sheet 2]",
+      "properties": {
+        "Node name for S&R": "LoadImageFederphibium",
+        "cnr_id": "comfy-core",
+        "ver": "0.33.0"
+      },
+      "widgets_values": [
+        "02_char_der-frosch.png",
+        "image"
+      ],
+      "widgets_values_named": {
+        "image": "02_char_der-frosch.png",
+        "upload": "image"
+      }
+    },
+    {
       "id": 139,
       "type": "LoadImage",
       "pos": [
@@ -1238,7 +1301,7 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            306
+            307
           ]
         },
         {
@@ -1248,18 +1311,18 @@
           "links": []
         }
       ],
-      "title": "<Picture 1> -   [sheet 2]",
+      "title": "<Picture 2> - das huhn  [sheet 3]",
       "properties": {
         "Node name for S&R": "LoadImage",
         "cnr_id": "comfy-core",
         "ver": "0.33.0"
       },
       "widgets_values": [
-        "02_char_der-frosch.png",
+        "03_char_das-huhn.png",
         "image"
       ],
       "widgets_values_named": {
-        "image": "02_char_der-frosch.png",
+        "image": "03_char_das-huhn.png",
         "upload": "image"
       }
     },
@@ -1301,7 +1364,7 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            307
+            308
           ]
         },
         {
@@ -1311,16 +1374,16 @@
           "links": []
         }
       ],
-      "title": "<Picture 2> -   [sheet 3]",
+      "title": "<Picture 3> - der forscher  [sheet 4]",
       "properties": {
         "Node name for S&R": "LoadImage"
       },
       "widgets_values": [
-        "03_char_das-huhn.png",
+        "04_char_der-forscher.png",
         "image"
       ],
       "widgets_values_named": {
-        "image": "03_char_das-huhn.png",
+        "image": "04_char_der-forscher.png",
         "upload": "image"
       }
     },
@@ -1610,67 +1673,6 @@
       }
     },
     {
-      "id": 150,
-      "type": "LoadImage",
-      "pos": [
-        -106.79883517997474,
-        5952.378554741781
-      ],
-      "size": [
-        282.798828125,
-        314
-      ],
-      "flags": {},
-      "order": 18,
-      "mode": 0,
-      "inputs": [
-        {
-          "localized_name": "image",
-          "name": "image",
-          "type": "COMBO",
-          "widget": {
-            "name": "image"
-          }
-        },
-        {
-          "localized_name": "choose file to upload",
-          "name": "upload",
-          "type": "IMAGEUPLOAD",
-          "widget": {
-            "name": "upload"
-          }
-        }
-      ],
-      "outputs": [
-        {
-          "localized_name": "IMAGE",
-          "name": "IMAGE",
-          "type": "IMAGE",
-          "links": [
-            309
-          ]
-        },
-        {
-          "localized_name": "MASK",
-          "name": "MASK",
-          "type": "MASK",
-          "links": []
-        }
-      ],
-      "title": "<Picture 4> -   [sheet 5]",
-      "properties": {
-        "Node name for S&R": "LoadImage"
-      },
-      "widgets_values": [
-        "05_char_der-forscher.png",
-        "image"
-      ],
-      "widgets_values_named": {
-        "image": "05_char_der-forscher.png",
-        "upload": "image"
-      }
-    },
-    {
       "id": 149,
       "type": "LoadImage",
       "pos": [
@@ -1708,7 +1710,7 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            308
+            309
           ]
         },
         {
@@ -1718,16 +1720,16 @@
           "links": []
         }
       ],
-      "title": "<Picture 3> -   [sheet 4]",
+      "title": "<Picture 4> - pond  [sheet 5]",
       "properties": {
         "Node name for S&R": "LoadImage"
       },
       "widgets_values": [
-        "04_style_board.png",
+        "05_loc_pond.png",
         "image"
       ],
       "widgets_values_named": {
-        "image": "04_style_board.png",
+        "image": "05_loc_pond.png",
         "upload": "image"
       }
     },
@@ -1817,7 +1819,7 @@
         -1490,
         6520
       ],
-      "title": "WATCHING HURRICANES - set-08_2-3-4-5:  | 1 scene(s) | point song_path here"
+      "title": "WATCHING HURRICANES - set-08_2-3-4-5: der frosch, das huhn, der forscher, pond | 1 scene(s) | point song_path here"
     }
   ],
   "links": [
@@ -2071,7 +2073,7 @@
     ],
     [
       306,
-      139,
+      137,
       0,
       136,
       3,
@@ -2079,7 +2081,7 @@
     ],
     [
       307,
-      148,
+      139,
       0,
       136,
       4,
@@ -2087,7 +2089,7 @@
     ],
     [
       308,
-      149,
+      148,
       0,
       136,
       5,
@@ -2095,7 +2097,7 @@
     ],
     [
       309,
-      150,
+      149,
       0,
       136,
       6,

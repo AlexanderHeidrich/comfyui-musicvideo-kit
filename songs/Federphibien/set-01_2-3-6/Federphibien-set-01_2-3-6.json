@@ -1201,6 +1201,69 @@
       "bgcolor": "#533"
     },
     {
+      "id": 137,
+      "type": "LoadImage",
+      "pos": [
+        -1050,
+        5960
+      ],
+      "size": [
+        290,
+        330
+      ],
+      "flags": {},
+      "order": 14,
+      "mode": 0,
+      "inputs": [
+        {
+          "localized_name": "image",
+          "name": "image",
+          "type": "COMBO",
+          "widget": {
+            "name": "image"
+          }
+        },
+        {
+          "localized_name": "choose file to upload",
+          "name": "upload",
+          "type": "IMAGEUPLOAD",
+          "widget": {
+            "name": "upload"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "localized_name": "IMAGE",
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            306
+          ]
+        },
+        {
+          "localized_name": "MASK",
+          "name": "MASK",
+          "type": "MASK",
+          "links": []
+        }
+      ],
+      "title": "<Picture 1> - der frosch  [sheet 2]",
+      "properties": {
+        "Node name for S&R": "LoadImageFederphibium",
+        "cnr_id": "comfy-core",
+        "ver": "0.33.0"
+      },
+      "widgets_values": [
+        "02_char_der-frosch.png",
+        "image"
+      ],
+      "widgets_values_named": {
+        "image": "02_char_der-frosch.png",
+        "upload": "image"
+      }
+    },
+    {
       "id": 139,
       "type": "LoadImage",
       "pos": [
@@ -1238,7 +1301,7 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            306
+            307
           ]
         },
         {
@@ -1248,18 +1311,18 @@
           "links": []
         }
       ],
-      "title": "<Picture 1> -   [sheet 2]",
+      "title": "<Picture 2> - das huhn  [sheet 3]",
       "properties": {
         "Node name for S&R": "LoadImage",
         "cnr_id": "comfy-core",
         "ver": "0.33.0"
       },
       "widgets_values": [
-        "02_char_der-frosch.png",
+        "03_char_das-huhn.png",
         "image"
       ],
       "widgets_values_named": {
-        "image": "02_char_der-frosch.png",
+        "image": "03_char_das-huhn.png",
         "upload": "image"
       }
     },
@@ -1301,7 +1364,7 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            307
+            308
           ]
         },
         {
@@ -1311,16 +1374,16 @@
           "links": []
         }
       ],
-      "title": "<Picture 2> -   [sheet 3]",
+      "title": "<Picture 3> - henhouse interior  [sheet 6]",
       "properties": {
         "Node name for S&R": "LoadImage"
       },
       "widgets_values": [
-        "03_char_das-huhn.png",
+        "06_loc_henhouse-interior.png",
         "image"
       ],
       "widgets_values_named": {
-        "image": "03_char_das-huhn.png",
+        "image": "06_loc_henhouse-interior.png",
         "upload": "image"
       }
     },
@@ -1609,67 +1672,6 @@
       }
     },
     {
-      "id": 151,
-      "type": "LoadImage",
-      "pos": [
-        -716.2183192074568,
-        6348.158800824216
-      ],
-      "size": [
-        282.798828125,
-        314
-      ],
-      "flags": {},
-      "order": 20,
-      "mode": 0,
-      "inputs": [
-        {
-          "localized_name": "image",
-          "name": "image",
-          "type": "COMBO",
-          "widget": {
-            "name": "image"
-          }
-        },
-        {
-          "localized_name": "choose file to upload",
-          "name": "upload",
-          "type": "IMAGEUPLOAD",
-          "widget": {
-            "name": "upload"
-          }
-        }
-      ],
-      "outputs": [
-        {
-          "localized_name": "IMAGE",
-          "name": "IMAGE",
-          "type": "IMAGE",
-          "links": [
-            308
-          ]
-        },
-        {
-          "localized_name": "MASK",
-          "name": "MASK",
-          "type": "MASK",
-          "links": []
-        }
-      ],
-      "title": "<Picture 3> -   [sheet 6]",
-      "properties": {
-        "Node name for S&R": "LoadImage"
-      },
-      "widgets_values": [
-        "06_loc_pond.png",
-        "image"
-      ],
-      "widgets_values_named": {
-        "image": "06_loc_pond.png",
-        "upload": "image"
-      }
-    },
-    {
       "type": "HurricaneSongFolder",
       "flags": {},
       "order": 0,
@@ -1755,7 +1757,7 @@
         -1490,
         6520
       ],
-      "title": "WATCHING HURRICANES - set-01_2-3-6:  | 14 scene(s) | point song_path here"
+      "title": "WATCHING HURRICANES - set-01_2-3-6: der frosch, das huhn, henhouse interior | 14 scene(s) | point song_path here"
     }
   ],
   "links": [
@@ -2009,7 +2011,7 @@
     ],
     [
       306,
-      139,
+      137,
       0,
       136,
       3,
@@ -2017,7 +2019,7 @@
     ],
     [
       307,
-      148,
+      139,
       0,
       136,
       4,
@@ -2025,7 +2027,7 @@
     ],
     [
       308,
-      151,
+      148,
       0,
       136,
       5,

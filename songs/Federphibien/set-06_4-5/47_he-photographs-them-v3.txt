@@ -4,9 +4,9 @@ eighteen times the frog, four times the hen, who reaches just below his knee.
 Khaki-olive trousers, a pale shirt with the sleeves rolled to the elbow, a wide
 flat-brimmed straw hat, brown leather shoes, a small green notebook and pencil,
 and an old black folding plate camera at his chest on broad dark straps across
-both shoulders, reading as a dark block, not a bag. His face is never readable:
-either his back is to us, or the hat brim lies flat across it while he bends over
-the notebook. <Picture 1> also holds a side view in which his profile can be seen - that
+both shoulders, reading as a dark block, not a bag. His face is never readable: he keeps his head
+down over the notebook, so the flat brim lies across it and drops the face into
+shadow from any angle, his back turned or not. <Picture 1> also holds a side view in which his profile can be seen - that
 view is construction only and is never what a shot uses. He never reacts, never
 speaks, and the animals never notice him.
 
@@ -51,7 +51,7 @@ text.
 
 The scene is <Subject 2>, the pond and the farmyard around it: flat pale green water, the cracked mud bank, the leaning chicken-wire fence and the coop with its ridged tin roof beyond it. Bright summer daylight from high and left.
 
-Screen geometry, the same in every shot at the pond: the water is on the right and the yard, the leaning fence and the coop on the left. The man's folding chair stands on the coop's own bank, the same side of the water as everyone else in this film - he sits with the water in front of him and the coop behind him, and nothing in this film is ever across the water from him.
+Screen geometry, the same in every shot at the pond: seen from the side, the water is on the right and the yard, the leaning fence and the coop on the left. The man's folding chair stands on the coop's own bank, the same side of the water as everyone else in this film, and he sits with his back to the water and the yard in front of him - so a camera behind him is out over the water, and what he watches crosses the picture in front of him.
 
 [Shot 1] A close-up. The camera holds a static shot on his hands working the camera. The man brings the black folding plate camera up from his chest and works it fast, taking one exposure after another. His back stays to us throughout and the hat brim hides everything of his head.
 

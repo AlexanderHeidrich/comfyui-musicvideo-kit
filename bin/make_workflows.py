@@ -96,21 +96,21 @@ def find_abs_paths(graph):
 
 
 def read_refs(song):
-    """-> [(tag, label, abs path)] for the reference sheets, in slot order"""
-    rj = os.path.join(song, "_source", "refs.json")
-    if not os.path.isfile(rj):
-        return []
-    with open(rj, encoding="utf-8") as fh:
-        data = json.load(fh)
-    out = []
-    for i in data.get("images", []):
-        # refs.json's `file` is ALREADY relative to the song folder
-        # ("refs/01_....png"), so joining the refs dir again doubles it
-        rel = i.get("file", "")
-        out.append((i.get("tag", ""),
-                    "%s %s (%s)" % (i.get("tag", ""), i.get("slug", ""),
-                                    i.get("kind", "")),
-                    rel, os.path.basename(rel)))
+    """-> {sheet number: (filename, slug)} from refs/, pack_sets.py's own schema.
+
+    It used to read a _source/refs.json that nothing has written for a long
+    time, so it always came back empty and the loaders kept whatever filename
+    the saved template happened to carry. Retiring 04_style_board.png then
+    shifted every sheet after it by one, and nine of eleven graphs silently
+    loaded the wrong picture."""
+    d = os.path.join(song, "refs")
+    out = {}
+    if os.path.isdir(d):
+        for fn in sorted(os.listdir(d)):
+            m = re.match(r"^(\d+)_(char|style|loc|prop)_(.+)\.(png|jpg|jpeg|webp)$",
+                         fn, re.I)
+            if m:
+                out[int(m.group(1))] = (fn, m.group(3).replace("-", " "))
     return out
 
 
@@ -317,24 +317,36 @@ def wrap_ui(ui, song, a, sheets=None, label=""):
     if sheets is None:
         # every sheet on every scene, straight into H3: the wiring as it was
         for k, (slot, f) in enumerate(wired):
-            if k < len(refs):
-                nodes[f[1]]["title"] = refs[k][1]
+            n = sorted(refs)[k] if k < len(refs) else None
+            if n:
+                nodes[f[1]]["title"] = refs[n][0]
         kept, dropped = wired, []
     else:
-        if max(sheets) > len(wired):
-            sys.exit("this set needs sheet %d, but only %d of H3's ref_image slots "
+        if len(sheets) > len(wired):
+            sys.exit("this set needs %d sheets, but only %d of H3's ref_image slots "
                      "have an image connected in %s.\nConnect them all in ComfyUI, "
                      "save the workflow again, and re-run this."
-                     % (max(sheets), len(wired), os.path.basename(a.raw)))
-        kept = [wired[n - 1] for n in sheets]
-        dropped = [w for w in wired if w not in kept]
+                     % (len(sheets), len(wired), os.path.basename(a.raw)))
+        missing = [n for n in sheets if n not in refs]
+        if missing:
+            sys.exit("this set needs sheet(s) %s, and %s/refs holds no image with "
+                     "that number" % (missing, song))
+        # which loader carries which sheet is not the template's business: take
+        # the first len(sheets) of them and name the file on each one outright
+        kept = wired[:len(sheets)]
+        dropped = wired[len(sheets):]
         stale = {f[0] for slot, f in wired}
         for k, (slot, f) in enumerate(kept):
             wire(nodes[f[1]], f[2], h3, slots[k], "IMAGE")
-            what = (refs[sheets[k] - 1][1].split("> ", 1)[-1]
-                    if sheets[k] <= len(refs) else "")
-            nodes[f[1]]["title"] = ("<Picture %d> - %s  [sheet %d]"
-                                    % (k + 1, what, sheets[k]))
+            node = nodes[f[1]]
+            if node.get("widgets_values"):
+                node["widgets_values"][0] = refs[sheets[k]][0]
+            # newer saves carry the same value twice and ComfyUI reads this one
+            named = node.get("widgets_values_named")
+            if isinstance(named, dict) and "image" in named:
+                named["image"] = refs[sheets[k]][0]
+            node["title"] = ("<Picture %d> - %s  [sheet %d]"
+                             % (k + 1, refs[sheets[k]][1], sheets[k]))
         # every slot past this set stays empty, and the loaders behind them go:
         # a sheet H3 can see is a sheet H3 uses, whatever the prompt says
         for slot in slots[len(kept):]:
@@ -577,8 +589,7 @@ def main():
         for folder, sheets, scenes in sets:
             # what the set holds, in words: the graph says which pictures it
             # loads, this says whose they are and how many scenes use them
-            who = ", ".join(refs[n - 1][1].split("> ", 1)[-1].split(" (")[0]
-                            for n in sheets if n <= len(refs))
+            who = ", ".join(refs[n][1] for n in sheets if n in refs)
             label = ("%s: %s | %d scene(s) | point song_path here"
                      % (folder, who, scenes))
             ui, report = wrap_ui(json.loads(json.dumps(raw)), song, a, sheets,
