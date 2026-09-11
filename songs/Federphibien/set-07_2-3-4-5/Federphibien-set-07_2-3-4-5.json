@@ -2,7 +2,7 @@
   "id": "e3f2b845-8f2c-4b5a-9caf-eac1029d3e7e",
   "revision": 0,
   "last_node_id": 156,
-  "last_link_id": 308,
+  "last_link_id": 310,
   "nodes": [
     {
       "id": 115,
@@ -1311,18 +1311,79 @@
           "links": []
         }
       ],
-      "title": "<Picture 2> - pond  [sheet 5]",
+      "title": "<Picture 2> - das huhn  [sheet 3]",
       "properties": {
         "Node name for S&R": "LoadImage",
         "cnr_id": "comfy-core",
         "ver": "0.33.0"
       },
       "widgets_values": [
-        "05_loc_pond.png",
+        "03_char_das-huhn.png",
         "image"
       ],
       "widgets_values_named": {
-        "image": "05_loc_pond.png",
+        "image": "03_char_das-huhn.png",
+        "upload": "image"
+      }
+    },
+    {
+      "id": 148,
+      "type": "LoadImage",
+      "pos": [
+        -425.88813706665815,
+        5955.117539423736
+      ],
+      "size": [
+        282.798828125,
+        314
+      ],
+      "flags": {},
+      "order": 16,
+      "mode": 0,
+      "inputs": [
+        {
+          "localized_name": "image",
+          "name": "image",
+          "type": "COMBO",
+          "widget": {
+            "name": "image"
+          }
+        },
+        {
+          "localized_name": "choose file to upload",
+          "name": "upload",
+          "type": "IMAGEUPLOAD",
+          "widget": {
+            "name": "upload"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "localized_name": "IMAGE",
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            308
+          ]
+        },
+        {
+          "localized_name": "MASK",
+          "name": "MASK",
+          "type": "MASK",
+          "links": []
+        }
+      ],
+      "title": "<Picture 3> - der forscher  [sheet 4]",
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "04_char_der-forscher.png",
+        "image"
+      ],
+      "widgets_values_named": {
+        "image": "04_char_der-forscher.png",
         "upload": "image"
       }
     },
@@ -1380,14 +1441,16 @@
           "localized_name": "ref_images.ref_image_2",
           "name": "ref_images.ref_image_2",
           "shape": 7,
-          "type": "IMAGE"
+          "type": "IMAGE",
+          "link": 308
         },
         {
           "label": "ref_image_3",
           "localized_name": "ref_images.ref_image_3",
           "name": "ref_images.ref_image_3",
           "shape": 7,
-          "type": "IMAGE"
+          "type": "IMAGE",
+          "link": 309
         },
         {
           "label": "ref_image_4",
@@ -1610,6 +1673,67 @@
       }
     },
     {
+      "id": 149,
+      "type": "LoadImage",
+      "pos": [
+        -1049.6870555872697,
+        6350.213023663212
+      ],
+      "size": [
+        282.798828125,
+        314
+      ],
+      "flags": {},
+      "order": 17,
+      "mode": 0,
+      "inputs": [
+        {
+          "localized_name": "image",
+          "name": "image",
+          "type": "COMBO",
+          "widget": {
+            "name": "image"
+          }
+        },
+        {
+          "localized_name": "choose file to upload",
+          "name": "upload",
+          "type": "IMAGEUPLOAD",
+          "widget": {
+            "name": "upload"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "localized_name": "IMAGE",
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            309
+          ]
+        },
+        {
+          "localized_name": "MASK",
+          "name": "MASK",
+          "type": "MASK",
+          "links": []
+        }
+      ],
+      "title": "<Picture 4> - pond  [sheet 5]",
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "05_loc_pond.png",
+        "image"
+      ],
+      "widgets_values_named": {
+        "image": "05_loc_pond.png",
+        "upload": "image"
+      }
+    },
+    {
       "type": "HurricaneSongFolder",
       "flags": {},
       "order": 0,
@@ -1695,7 +1819,7 @@
         -1490,
         6520
       ],
-      "title": "WATCHING HURRICANES - set-02_2-5: der frosch, pond | 10 scene(s) | point song_path here"
+      "title": "WATCHING HURRICANES - set-07_2-3-4-5: der frosch, das huhn, der forscher, pond | 1 scene(s) | point song_path here"
     }
   ],
   "links": [
@@ -1961,6 +2085,22 @@
       0,
       136,
       4,
+      "IMAGE"
+    ],
+    [
+      308,
+      148,
+      0,
+      136,
+      5,
+      "IMAGE"
+    ],
+    [
+      309,
+      149,
+      0,
+      136,
+      6,
       "IMAGE"
     ]
   ],

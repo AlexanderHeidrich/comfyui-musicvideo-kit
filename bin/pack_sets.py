@@ -60,12 +60,12 @@ def timecode(frame):
 
 
 def write_timeline(song, rows):
-    """(scene, set, render, beat, frames, title) -> __TIMELINE.tsv.
+    """(scene, set, render, beat, frames, title, layer) -> __TIMELINE.tsv.
 
     Laid out off the Drehbuch's own frame numbers from the earliest beat, so the
     Vorspann's negative frames land at the head and the music starts where frame
-    0 does. A beat sitting inside a longer one is a layer, not a cut - the
-    daydreams play over the hopping loop plate - so it gets track V2.
+    0 does. A beat sitting inside a longer one is a layer, not a cut - and so is
+    anything in the daydream, which plays over the swim - so it gets track V2.
     """
     if any(len(r[3] or []) != 2 for r in rows):
         return None, ["  ! a scene has no beat [start, end] in scenes.json, so "
@@ -73,10 +73,10 @@ def write_timeline(song, rows):
     zero = min(r[3][0] for r in rows)
     warn, lines = [], ["\t".join(["scene", "tc", "start_s", "dur_s", "track",
                                   "set", "render", "title"])]
-    for n, folder, render, beat, frames, title in sorted(rows):
+    for n, folder, render, beat, frames, title, layer in sorted(rows):
         held = beat[1] - beat[0]
-        inside = any(o[0] != n and o[3][0] <= beat[0] and beat[1] <= o[3][1]
-                     and (o[3][1] - o[3][0]) > held for o in rows)
+        inside = layer or any(o[0] != n and o[3][0] <= beat[0] and beat[1] <= o[3][1]
+                              and (o[3][1] - o[3][0]) > held for o in rows)
         lines.append("\t".join([
             str(n), timecode(beat[0] - zero), "%.3f" % ((beat[0] - zero) / FPS),
             "%.3f" % (held / FPS), "V2" if inside else "V1", folder, render,
@@ -115,7 +115,7 @@ def check(scene, variant, text, refs_used):
         para = part.split("\n\n", 1)
         if len(para) > 1 and FRAMING.search(para[1]):
             warn.append("the action names a framing - it is reused verbatim "
-                        "across v1/v2/v3 and will contradict two of them")
+                        "across the variants and will contradict the others")
             break
     for word in refs_used:
         if word not in text:
@@ -187,7 +187,8 @@ def main():
             rows.append((n, folder, title, sc.get("location") or "", nums))
             tl.append((n, folder,
                        "%s/%s" % (folder, files[0][:-4]) if files else "",
-                       sc.get("beat") or [], int(sc.get("frames") or 243), title))
+                       sc.get("beat") or [], int(sc.get("frames") or 243), title,
+                       sc.get("location") == "daydream"))
         with open(os.path.join(path, "__SCENES.tsv"), "w", encoding="utf-8") as fh:
             fh.write("\n".join(lines) + "\n")
         index.append((folder, key, len(members)))
@@ -231,7 +232,7 @@ def readme(name, index, refs, total, music_tc):
                 "not a cut.", "",
                 "ComfyUI appends its own counter, so the render column names a",
                 "prefix: set-NN_x/07_slug-v1 lands as 07_slug-v1_00001_.mp4, and",
-                "-v2/-v3 are the same moment from another angle.", ""]
+                "-v2 is the same moment from another angle.", ""]
     out += [
            "BEFORE ANYTHING ELSE: copy every png in this song's refs/ folder into",
            "your ComfyUI/input/ directory. ComfyUI's LoadImage only ever reads",

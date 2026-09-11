@@ -375,7 +375,7 @@ def wrap_ui(ui, song, a, sheets=None, label=""):
     ui["last_node_id"] = max(nid, ui.get("last_node_id", 0))
     ui["last_link_id"] = max(lid, ui.get("last_link_id", 0))
 
-    # v1/v2/v3 are one moment from three cameras and differ only in the camera
+    # the variants are one moment from several cameras and differ only in the camera
     # sentence, so a fresh seed per run is the one variable we do not want moving.
     seeds = [n for n in ui["nodes"] if n["type"] in NOISE_CLASSES
              and len(n.get("widgets_values") or []) > 1

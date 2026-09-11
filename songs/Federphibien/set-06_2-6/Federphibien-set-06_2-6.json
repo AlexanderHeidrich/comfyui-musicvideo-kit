@@ -1311,18 +1311,18 @@
           "links": []
         }
       ],
-      "title": "<Picture 2> - pond  [sheet 5]",
+      "title": "<Picture 2> - henhouse interior  [sheet 6]",
       "properties": {
         "Node name for S&R": "LoadImage",
         "cnr_id": "comfy-core",
         "ver": "0.33.0"
       },
       "widgets_values": [
-        "05_loc_pond.png",
+        "06_loc_henhouse-interior.png",
         "image"
       ],
       "widgets_values_named": {
-        "image": "05_loc_pond.png",
+        "image": "06_loc_henhouse-interior.png",
         "upload": "image"
       }
     },
@@ -1695,7 +1695,7 @@
         -1490,
         6520
       ],
-      "title": "WATCHING HURRICANES - set-02_2-5: der frosch, pond | 10 scene(s) | point song_path here"
+      "title": "WATCHING HURRICANES - set-06_2-6: der frosch, henhouse interior | 2 scene(s) | point song_path here"
     }
   ],
   "links": [

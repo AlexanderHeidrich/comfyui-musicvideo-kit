@@ -39,8 +39,6 @@ songs/<name>/                DELIVERABLE
   __TIMELINE.tsv             the edit list: timecode, hold, track, render file
   set-NN_<sheets>/           one folder per set of reference sheets
     NN_title-v1.txt          a finished six-section H3 prompt, paste-ready
-    NN_title-v2.txt          same action, different camera
-    NN_title-v3.txt          same action, close/detail
     <name>-set-NN_*.json     the graph for that set
     __SCENES.tsv             what HurricaneSongFolder reads
   <name>-4x.json             the upscale pass
@@ -175,12 +173,12 @@ and a location sentence naming the set's `<Subject n>` is mandatory before
 `[Shot 1]`.
 
 **4. Neither the summary nor the action may name a framing.** Both are byte
-identical across v1/v2/v3 — only the camera sentence differs — so "close-up" in
-either contradicts two of the three. It also breaks the other way: an action
+identical across every variant of a scene — only the camera sentence differs —
+so "close-up" in either contradicts the other. It also breaks the other way: an action
 saying "the hen's head fills the space in front of him" describes what only a
 side view shows, and defeats a camera asking for the frog's back. The rule is
 about the contradiction, not the word: where all three variants are close —
-scene 12 — the summary names the framing on purpose, and adding a wide variant
+scene 10 — the summary names the framing on purpose, and adding a wide variant
 later means rewriting it.
 
 Related: **no reference sheet may look like a frame.** A character sheet is a
@@ -200,7 +198,7 @@ drift between them. Two separate renders share nothing but the sheets — which 
 why the sheets have to carry every angle. For a hard match between adjacent
 clips, feed the last frame of one as the first frame of the next and switch that
 prompt to `[keyframe completion]`. The set graphs pin `RandomNoise` to `fixed`
-so v1/v2/v3 of a moment at least start from the same noise.
+so re-rolls of one scene at least start from the same noise.
 
 `refs/__PROMPTS.txt` holds the generation prompts and the Midjourney v8
 parameters (`--raw`, not `--style raw`; `--cref` and `--q` do not exist in v8;
@@ -210,15 +208,23 @@ parameters (`--raw`, not `--style raw`; `--cref` and `--q` do not exist in v8;
 
 H3 picks a side per render, so two setups of one moment refuse to cut. Every
 prompt therefore carries a screen-geometry paragraph after the location
-sentence, byte-identical across v1/v2/v3 and naming only what that scene
+sentence, byte-identical across a scene's variants and naming only what it
 actually connects. The axis is written down once in `_source/brief.txt` under
-`[staging]`: at the pond, water right and coop left, both animals and the
-researcher's chair on the coop's own bank with no water between any of them,
-him facing the water with the pair's route between his chair and the water, so
-a camera behind him has them beyond him, travel to the coop right to left and
-away from it left to right; in the hen house,
-frog on the right in the down, hen on the left, doorway out of frame past the
-frog.
+`[staging]`: at the pond **the water lies between them** - the frog's own bank
+on the left, the water across the middle, the far bank with yard, fence and coop
+on the right, the hen over there by the coop, the researcher's chair on that
+same far bank facing the water with the pair's route between it and the water,
+so a camera behind him has them beyond him; travel to the coop crosses left to
+right and away from it right to left; in the hen house, frog on the right in the
+down, hen on the left, doorway out of frame past the frog.
+
+This reverses the film's earlier staging, which put both animals on the coop's
+own bank with no water between them. The renders already on disk show the frog
+surfacing mid-pond, swimming left to his bank and the hen over by the coop, and
+those renders are the pin - which also overrules the Drehbuch's "Frosch rechts,
+Blickrichtung links" at frames 1122-1190. It is why the frog has to cross the
+water to reach her at all, and what "Uns're Welten, weit auseinander" is
+about.
 
 No `[location]` block names a left or a right any more. An element board is not
 a viewpoint, so a wall it draws on the left is not a wall on the left of frame,
@@ -226,8 +232,37 @@ and the henhouse block's "left wall" plus "doorway to the right" contradicted
 the staging in every shot that used them.
 
 And the mirror image of mistake 2: **a character in the shot needs his sheet
-connected.** Scene 31 had the hen peck the ring out of nothing, because the frog
+connected.** Scene 24 had the hen peck the ring out of nothing, because the frog
 holding it was not wired; it now runs in the frog+hen+house set.
+
+**The hen house background is pinned, and nothing in it moves.** A changed
+camera used to mean a reinvented room, so the screen-geometry paragraph now
+carries the background too, byte-identical in all twelve interior scenes: the
+same green boarded wall with its rail and posts behind both of them, the straw
+shelf above, one dead unlit bulb hanging still, and then the exclusions - no
+other hens, no birds, no people, nothing entering or leaving, no straw, dust or
+feathers in the air, no swinging bulb, no moving light.
+
+**Distances are pinned with it.** A cut used to be free to restate how far
+anything was: the hen would take one step past the frog and then walk five
+metres to a door that the opening shot put an arm's length away. The room is
+4 m deep from the heap of down to the doorway, it says so in the `[location]`
+block and again in every geometry paragraph, and the actions are written to it -
+she walks "the few strides" to the doorway, she takes "the short open floor" at
+a run. The same discipline is why the pond is 3 m bank to bank in every prompt
+that holds both banks. If an action implies a distance, the distance has to be
+written down first, or the next cut invents a different one.
+
+The location sentence before `[Shot 1]` no longer re-lists what the room is made
+of - the `<Subject n>` block two paragraphs up already does, and the duplication
+was costing 230 characters a prompt against the 7,000 limit.
+
+Falling and drifting feathers came back frozen in place anyway - H3 renders them
+as static specks - so the loose feathers lie still on the floor and on the heap
+everywhere. Same reason the isolated falling-grain insert is gone, and the same
+reason the flies at the pond only ever SIT on the frog and nothing flies in any
+shot in the film: small fast fragments are the first thing that breaks. Drifting
+particles are a compositing job in the edit, not a generation job.
 
 ## Where this kit knowingly leaves the spec
 
@@ -241,7 +276,7 @@ correct either. Each is a real deviation with a reason.
 - **`detailed_description` runs ~260 words.** The spec says 350–500 for
   generation tasks; we are thin, not fat. The fix is more action and the
   `<Subject n>` labels used inside the shots, which the spec also asks for and
-  which only scene 12 does.
+  which only scene 10 does.
 - **`non_diegetic_music` spells out "no music, no song, no voice".** The spec
   says to write `N/A` when there is none. The long form is what stopped things
   singing (mistake 1), and `N/A` is untested here.
@@ -250,38 +285,56 @@ correct either. Each is a real deviation with a reason.
 
 ## The ending
 
-Scene 50 and 51 are the one place where the internal cuts are a sequence rather
-than coverage of one moment. 50 runs the pair away up the rise from the distance
-the researcher sits at, then cuts closer and still directly behind them; 51 holds
-the last jump through the ground glass of a folding plate camera, blows the frame
-out on the flash, and lands on a photographic print of exactly that held
-silhouette. The freeze frame the Drehbuch asks for is therefore the researcher's
-photograph, which closes the film on the thing he has been doing since scene 23.
+The Drehbuch's sunset run and its freeze frame are **cut**. There is no backlit
+run up the rise, no plate-camera ground glass, no flash and no photographic
+print any more, and no scene is shot against a low sun. The film now runs out on
+the pair still going: `he snatches a fly` is the last scene and its beat was
+opened to 3690-4000 to cover the tail, which is 12.9 s against a 10.125 s
+render, so the last frame gets held in the edit - `mvkit pack` says so on every
+run.
 
-The print has a wide white border and reads as a Polaroid, but it is a plate
-print: the researcher carries an old black folding plate camera, so an actual
-Polaroid would contradict his own sheet and scene 47.
-
-Scene 50's beat was widened to 3818–3990 to close a 100-frame hole the Drehbuch
-itself leaves between the sunset run and the freeze frame.
+The researcher still photographs them (scene 35). What is gone is only the
+photograph as the film's last image.
 
 ## Variants convention
 
-`NN_slug-v1/-v2/-v3.txt` are **coverage of one moment, not alternative scenes**:
-v1 wide master, v2 alternative angle, v3 close/detail. `summary` and the action
-are byte-identical across all three; only the CAMERA sentence differs, so they
-cut together inside one scene. If you regenerate them, preserve that.
+**One version per scene.** Every scene is a single `NN_slug-v1.txt`. The
+coverage lives in the scene's own internal cuts now, not in parallel variants: a
+second variant of a multi-cut scene was the same story from a slightly different
+size, and a clip costs six times what it used to. Where a v2 told it better —
+scenes 11, 12, 29, 31 — that framing became the one version and the other was
+dropped.
+
+If you ever add a variant back, the rule it has to keep is the old one: `summary`
+and the action byte-identical, only the size and camera sentences differ, so the
+two cut together inside one scene.
 
 A beat shorter than 5 s is not stretched — it gets a **second setup of the same
 moment** as an internal cut at 00:05.000 (a third at 00:07.000 under 2 s). The
 second setup is the same moment from another axis, never the next action.
 
+The exception is a **merged scene**, where the internal cuts ARE the next action
+because several short Drehbuch blocks of one continuous move were folded into
+one generation. There the cuts sit wherever the action wants them, the action
+text stays byte-identical across a scene's variants, and the size and camera of
+every shot — the internal cuts included — differ per variant. Identical internal
+cuts after a 5 s master is what made the variants indistinguishable, and why
+there is only one version per scene now.
+
 ## The screenplay spine
 
-`_source/drehbuch.txt` is the whole timing model: one scene per `Frame <a> bis
-<b>` block, one to one, each 243 frames. A block naming several distinct actions
-("Mehrere Cuts", two things happening) becomes two scenes. Quoted text in a block
-is a lyric and does **not** go into the prompt.
+`_source/drehbuch.txt` is the whole timing model, but no longer one scene per
+`Frame <a> bis <b>` block. Every scene renders 243 frames whatever its beat, so
+short adjacent blocks of one continuous action are **merged into one generation
+with internal cuts** rather than rendered twice — 40 scenes now cover 51 blocks.
+A block naming several distinct actions becomes two scenes. Quoted text in a
+block is a lyric and does **not** go into the prompt.
+
+The first refrain does not follow the screenplay at all: the Drehbuch's long
+hopping plate (1337–1620) is gone, and the frog goes into the water and swims
+across instead — one top-down scene for the jump in, one for the crossing. The
+daydreams lay over those two on V2, and `mvkit pack` now puts any
+`location: daydream` scene on V2 for exactly that reason.
 
 `mvkit drehbuch` extracts the pdf with the stdlib only (`bin/pdf_text.py`).
 Scanned pdfs have no text layer and come back empty.
@@ -359,8 +412,9 @@ fails the build rather than emit one.
 It also sets three sampling defaults on the grafted graph, so re-running
 `mvkit workflows` keeps them:
 
-- **`RandomNoise` goes to `fixed`.** v1/v2/v3 of a moment differ only in the
-  camera sentence, so a fresh seed is the one variable that should not move.
+- **`RandomNoise` goes to `fixed`.** Re-rolling a scene should change the
+  prompt, not the noise, so a fresh seed is the one variable that should not
+  move.
 - **`Boolean (Enable Lightning LoRA)` goes to `False`.** The 4-step turbo LoRA
   is wired in and stays off. Both distillation authors call 4 steps usable for
   static shots and slow pans only; micro-detail falls off below 6 steps, and

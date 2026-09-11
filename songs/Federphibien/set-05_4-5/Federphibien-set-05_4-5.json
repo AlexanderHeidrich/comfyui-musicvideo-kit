@@ -1248,18 +1248,18 @@
           "links": []
         }
       ],
-      "title": "<Picture 1> - der frosch  [sheet 2]",
+      "title": "<Picture 1> - der forscher  [sheet 4]",
       "properties": {
         "Node name for S&R": "LoadImageFederphibium",
         "cnr_id": "comfy-core",
         "ver": "0.33.0"
       },
       "widgets_values": [
-        "02_char_der-frosch.png",
+        "04_char_der-forscher.png",
         "image"
       ],
       "widgets_values_named": {
-        "image": "02_char_der-frosch.png",
+        "image": "04_char_der-forscher.png",
         "upload": "image"
       }
     },
@@ -1695,7 +1695,7 @@
         -1490,
         6520
       ],
-      "title": "WATCHING HURRICANES - set-02_2-5: der frosch, pond | 10 scene(s) | point song_path here"
+      "title": "WATCHING HURRICANES - set-05_4-5: der forscher, pond | 2 scene(s) | point song_path here"
     }
   ],
   "links": [

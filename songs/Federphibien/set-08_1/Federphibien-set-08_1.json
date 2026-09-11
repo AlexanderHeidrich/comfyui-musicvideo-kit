@@ -2,7 +2,7 @@
   "id": "e3f2b845-8f2c-4b5a-9caf-eac1029d3e7e",
   "revision": 0,
   "last_node_id": 156,
-  "last_link_id": 308,
+  "last_link_id": 307,
   "nodes": [
     {
       "id": 115,
@@ -1248,81 +1248,18 @@
           "links": []
         }
       ],
-      "title": "<Picture 1> - der frosch  [sheet 2]",
+      "title": "<Picture 1> - federphibium  [sheet 1]",
       "properties": {
         "Node name for S&R": "LoadImageFederphibium",
         "cnr_id": "comfy-core",
         "ver": "0.33.0"
       },
       "widgets_values": [
-        "02_char_der-frosch.png",
+        "01_char_federphibium.png",
         "image"
       ],
       "widgets_values_named": {
-        "image": "02_char_der-frosch.png",
-        "upload": "image"
-      }
-    },
-    {
-      "id": 139,
-      "type": "LoadImage",
-      "pos": [
-        -743.1386796188264,
-        5953.837331483024
-      ],
-      "size": [
-        290,
-        330
-      ],
-      "flags": {},
-      "order": 15,
-      "mode": 0,
-      "inputs": [
-        {
-          "localized_name": "image",
-          "name": "image",
-          "type": "COMBO",
-          "widget": {
-            "name": "image"
-          }
-        },
-        {
-          "localized_name": "choose file to upload",
-          "name": "upload",
-          "type": "IMAGEUPLOAD",
-          "widget": {
-            "name": "upload"
-          }
-        }
-      ],
-      "outputs": [
-        {
-          "localized_name": "IMAGE",
-          "name": "IMAGE",
-          "type": "IMAGE",
-          "links": [
-            307
-          ]
-        },
-        {
-          "localized_name": "MASK",
-          "name": "MASK",
-          "type": "MASK",
-          "links": []
-        }
-      ],
-      "title": "<Picture 2> - pond  [sheet 5]",
-      "properties": {
-        "Node name for S&R": "LoadImage",
-        "cnr_id": "comfy-core",
-        "ver": "0.33.0"
-      },
-      "widgets_values": [
-        "05_loc_pond.png",
-        "image"
-      ],
-      "widgets_values_named": {
-        "image": "05_loc_pond.png",
+        "image": "01_char_federphibium.png",
         "upload": "image"
       }
     },
@@ -1372,8 +1309,7 @@
           "localized_name": "ref_images.ref_image_1",
           "name": "ref_images.ref_image_1",
           "shape": 7,
-          "type": "IMAGE",
-          "link": 307
+          "type": "IMAGE"
         },
         {
           "label": "ref_image_2",
@@ -1695,7 +1631,7 @@
         -1490,
         6520
       ],
-      "title": "WATCHING HURRICANES - set-02_2-5: der frosch, pond | 10 scene(s) | point song_path here"
+      "title": "WATCHING HURRICANES - set-08_1: federphibium | 1 scene(s) | point song_path here"
     }
   ],
   "links": [
@@ -1953,14 +1889,6 @@
       0,
       136,
       3,
-      "IMAGE"
-    ],
-    [
-      307,
-      139,
-      0,
-      136,
-      4,
       "IMAGE"
     ]
   ],

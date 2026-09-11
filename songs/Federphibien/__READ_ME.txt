@@ -1,4 +1,4 @@
-Federphibien - 51 scenes in 11 reference sets
+Federphibien - 37 scenes in 10 reference sets
 ==========================================================================
 
 Every clip is 243 frames (10.125 s). Set the H3 node's length to 243
@@ -16,7 +16,7 @@ not a cut.
 
 ComfyUI appends its own counter, so the render column names a
 prefix: set-NN_x/07_slug-v1 lands as 07_slug-v1_00001_.mp4, and
--v2/-v3 are the same moment from another angle.
+-v2 is the same moment from another angle.
 
 BEFORE ANYTHING ELSE: copy every png in this song's refs/ folder into
 your ComfyUI/input/ directory. ComfyUI's LoadImage only ever reads
@@ -53,50 +53,45 @@ WIRE THE LOADERS IN THE ORDER LISTED. H3 numbers <Picture n> over the
 slots actually connected, so a gap shifts every tag after it and the
 prompts stop matching.
 
-set-01_2-3-6   (14 scenes)
+set-01_2-3-6   (10 scenes)
     ref_image_0   <Picture 1>  02_char_der-frosch.png
     ref_image_1   <Picture 2>  03_char_das-huhn.png
     ref_image_2   <Picture 3>  06_loc_henhouse-interior.png
 
-set-02_2-5   (14 scenes)
+set-02_2-5   (10 scenes)
     ref_image_0   <Picture 1>  02_char_der-frosch.png
     ref_image_1   <Picture 2>  05_loc_pond.png
 
-set-03_2-3-5   (10 scenes)
+set-03_2-3-5   (7 scenes)
     ref_image_0   <Picture 1>  02_char_der-frosch.png
     ref_image_1   <Picture 2>  03_char_das-huhn.png
     ref_image_2   <Picture 3>  05_loc_pond.png
 
-set-04_2-6   (3 scenes)
-    ref_image_0   <Picture 1>  02_char_der-frosch.png
-    ref_image_1   <Picture 2>  06_loc_henhouse-interior.png
-
-set-05_3-5   (2 scenes)
+set-04_3-5   (2 scenes)
     ref_image_0   <Picture 1>  03_char_das-huhn.png
     ref_image_1   <Picture 2>  05_loc_pond.png
 
-set-06_4-5   (2 scenes)
+set-05_4-5   (2 scenes)
     ref_image_0   <Picture 1>  04_char_der-forscher.png
     ref_image_1   <Picture 2>  05_loc_pond.png
 
-set-07_1   (2 scenes)
-    ref_image_0   <Picture 1>  01_char_federphibium.png
+set-06_2-6   (2 scenes)
+    ref_image_0   <Picture 1>  02_char_der-frosch.png
+    ref_image_1   <Picture 2>  06_loc_henhouse-interior.png
 
-set-08_2-3-4-5   (1 scene)
+set-07_2-3-4-5   (1 scene)
     ref_image_0   <Picture 1>  02_char_der-frosch.png
     ref_image_1   <Picture 2>  03_char_das-huhn.png
     ref_image_2   <Picture 3>  04_char_der-forscher.png
     ref_image_3   <Picture 4>  05_loc_pond.png
 
+set-08_1   (1 scene)
+    ref_image_0   <Picture 1>  01_char_federphibium.png
+
 set-09_1-3   (1 scene)
     ref_image_0   <Picture 1>  01_char_federphibium.png
     ref_image_1   <Picture 2>  03_char_das-huhn.png
 
-set-10_1-4-5   (1 scene)
-    ref_image_0   <Picture 1>  01_char_federphibium.png
-    ref_image_1   <Picture 2>  04_char_der-forscher.png
-    ref_image_2   <Picture 3>  05_loc_pond.png
-
-set-11_5   (1 scene)
+set-10_5   (1 scene)
     ref_image_0   <Picture 1>  05_loc_pond.png
 

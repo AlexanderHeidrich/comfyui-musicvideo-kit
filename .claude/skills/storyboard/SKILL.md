@@ -64,7 +64,7 @@ One entry per scene:
   "title": "the ring in the leaf box",
   "location": "henhouse interior",
   "sheets": ["der frosch", "board", "henhouse interior"],
-  "prompts": { "v1": "<full six-section text>", "v2": "...", "v3": "..." } }
+  "prompts": { "v1": "<full six-section text>" } }
 ```
 
 `sheets` is **declared, not guessed**. A connected reference turns up on screen
@@ -97,7 +97,7 @@ The prompt rules, all of them load-bearing:
   place lives in that place's `[location]` block. This is why proposals written
   for the hen house kept happening in a pond.
 - **Neither `summary` nor the action may name a framing.** Both are byte
-  identical across v1/v2/v3; only the camera sentence differs. "Close-up" in
+  identical across a scene's variants; only the camera sentence differs. "Close-up" in
   either contradicts two of the three variants.
 - Camera as motion type + amplitude + speed in plain English inside the shot -
   "The camera pushes in with small amplitude at slow speed." Never `[Push in]`.

@@ -105,10 +105,11 @@ brown seed heads; a bank of dry mud cracked into plates; a band of tall pale
 straw-coloured grass; a leaning square-mesh wire fence on rough leaning posts,
 worn under into a gap a frog can pass; beyond it the coop, a long
 grey-green weatherboard shed with a ridged roof; and on the horizon a low pale
-hedge line with nothing built beyond it. Palette here: leaf green over pale
+hedge line with nothing built beyond it. The yard, the fence and the coop stand
+on the far side of the water from the bank the frog hauls out on. Palette here: leaf green over pale
 green-white water, sage and olive land, dusty liver brown, straw, cream, and a
-high pale washed-out sky. The pond is 3 m across, the farmyard 40 m, and it is
-5 m from the bank to the hen house. The fence and the coop roof are in every shot
+high pale washed-out sky. The pond is 3 m across bank to bank, the farmyard
+40 m, and it is 5 m from the far bank to the hen house. The fence and the coop roof are in every shot
 that holds the far bank, at any distance, from any angle, including straight down.
 
 [location henhouse interior]
@@ -117,13 +118,14 @@ studies in {P} - a sheet of parts on bare paper, not a view of the
 place, so its layout is never reproduced: tall walls of green-painted vertical timber boarding framed by heavy
 warm-brown posts and beams, one horizontal rail across the wall at a third of its
 height, an ochre bare-earth floor, a big heap of grey-white down banked against
-one wall with loose feathers on the floor and drifting in the air, a straw
+one wall with loose feathers lying still on the floor and never airborne, a straw
 nesting shelf high under the roof with eggs on it, two black cables strung across
 with one bare bulb hanging off a sagging one, and a doorway in a
 brown timber frame filled with flat blown-out daylight. Palette here: green
 timber, warm brown, ochre earth, grey-white down. Never corrugated tin inside,
 never water, never a pond. 3.5 m to the ridge, so the wall runs far above the hen
-and the hen far above the frog.
+and the hen far above the frog, and 4 m of open earth floor from the heap of
+down to the doorway - that is the whole depth of the room.
 
 [location daydream]
 The daydream has no reference sheet, so it needs a background in words or the
@@ -143,24 +145,39 @@ The axis, so shots of one place cut together. It goes into every prompt as its
 own paragraph after the location sentence, byte-identical across v1/v2/v3, and
 it names only what is actually connected in that scene.
 
-At the pond: water right, yard and leaning fence and coop left. Both animals are
-on the coop's own bank, never with water between them - the Drehbuch has the hen
-look TOWARD the pond, not across it. The researcher's folding chair is on that
-same bank, facing the water with the yard behind him, and the pair's route runs
-along the bank between his chair and the water. A camera behind him therefore
-looks past him at the water with the pair beyond him, which is the Drehbuch's
-"Blick von hinten" for 46 and 47. Scene 22's drone comes in low over the pond and
-so arrives on his front, which is the one place that instruction is not kept -
-and it costs nothing, because his head is down over the notebook and the flat
-brim drops the whole face into shadow from any angle. Going to the coop crosses right to left,
-which is the Drehbuch's own pin for the frog ("Frosch rechts, Blickrichtung
-links", frames 1122-1190). Leaving it afterwards crosses left to right.
+At the pond the water lies BETWEEN the two of them. Seen from the side: the
+frog's own bank is on the left, the flat pale green water runs across the
+middle, and the far bank with the yard, the leaning fence and the coop stands on
+the right, the low hedge line on the horizon behind it. The frog surfaces in the
+middle of the pond, swims left, and hauls out on the left-hand bank onto dry
+cracked mud and straw grass - he is never afterwards on the open water and never
+in the middle of the pond. The hen keeps to the far bank by the coop. So he
+looks across the water at her, which is what "Uns're Welten, weit auseinander"
+is about, and it is why the hopping plate is as long as it is: he has to go the
+long way round. Going toward the coop therefore crosses the picture from LEFT TO
+RIGHT - he hops off along his own bank to the right - and leaving the coop
+afterwards crosses right to left.
 
-In the hen house: the frog came in through the door travelling right to left, so
+This reverses the film's earlier staging, which had both animals on the coop's
+own bank with no water between them and the frog crossing right to left. The
+renders already on disk show him surfacing mid-pond and swimming left to his
+bank, and the hen over by the coop; those renders are the pin now. It also
+overrules the Drehbuch's "Frosch rechts, Blickrichtung links" (frames
+1122-1190), which is the one place the screenplay disagrees.
+
+The researcher's folding chair stands on the coop's own bank, facing the water
+with the yard behind him, and the pair's route after the hen house runs along
+that bank between his chair and the water - so a camera behind him looks past
+him at the water and the pair pass beyond him, which is the Drehbuch's "Blick
+von hinten" for the photograph. Where a shot arrives on his front instead, it
+costs nothing: his head is down over the notebook and the flat brim drops the
+whole face into shadow from any angle.
+
+In the hen house: the frog came in through the door travelling left to right, so
 he sits on the right in the down with the doorway out of frame past him, and the
 hen stands over him on the left. Leaving for the door crosses left to right.
 From behind him she is centred beyond him; from in front of him the doorway is.
 
-Which is why no [location] block names a left or a right any more: an element
-board is not a viewpoint, so a wall it puts on the left is not a wall on the
-left of the frame.
+Which is why no [location] block names a left or a right: an element board is
+not a viewpoint, so a wall it puts on the left is not a wall on the left of the
+frame.
